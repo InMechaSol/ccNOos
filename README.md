@@ -1,2 +1,2 @@
 # ccNOos
-Cross-Platform c/c++ Modular Controller Development Tools
+Cross-Platform c/c++ Modular Embedded Controller Computing Tools
