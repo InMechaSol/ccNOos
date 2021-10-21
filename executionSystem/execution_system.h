@@ -86,6 +86,7 @@ struct executionSystemStruct CreateExecutionSystemStruct(
 // Platform Specific Configuration Functions
 int platformSetup();
 int platformStart();
+void platformDelay();
 // Application/Platform Configuration Function
 int applicationConfig();
 

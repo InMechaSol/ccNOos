@@ -71,6 +71,7 @@ int ExecuteMain(struct executionSystemStruct* exeStructIn)
     for(;;)
     {        
         MODULE_EXE_AREA    
+        platformDelay();
     }
     return RETURN_SUCCESS;
 }
