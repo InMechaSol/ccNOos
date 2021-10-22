@@ -56,7 +56,8 @@ struct SysTickExampleDevModStruct CreateSysTickExampleDevModStruct(
     int (*writeMinLED)(),
     int (*writeSecLED)(),
     int (*writeSerialTime)(),
-    struct executionSystemStruct* exeSysPtrIn
+    struct executionSystemStruct* exeSysPtrIn,
+    int lightOff
 );
 
 // Re-usable, portable, cross-platform (systick example setup() function)

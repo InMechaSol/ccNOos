@@ -35,7 +35,8 @@ struct SysTickExampleDevModStruct CreateSysTickExampleDevModStruct(
     int (*writeMinLED)(),
     int (*writeSecLED)(),
     int (*writeSerialTime)(),
-    struct executionSystemStruct* exeSysPtrIn
+    struct executionSystemStruct* exeSysPtrIn,
+    int lightOff
 )
 {
     struct SysTickExampleDevModStruct outStruct;
@@ -46,6 +47,8 @@ struct SysTickExampleDevModStruct CreateSysTickExampleDevModStruct(
     
     outStruct.devMod = CreateDevCompModStruct(exeSysPtrIn);
     
+    outStruct.Light_Off = lightOff;
+
     return outStruct;
 }
 
