@@ -31,11 +31,9 @@ A console menu has data access to the full execution system and all it contains.
 #ifndef __CONSOLE_MENU__
 #define __CONSOLE_MENU__
 
-#include "../apiCompModule/api_comp_mod.h"
+#include "../computeModule/compute_module.h"
+#include "../ioDevice/io_device.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif // !__cplusplus
 
 
 struct consoleMenuStruct // declaration of execution system data structure
@@ -49,10 +47,10 @@ struct consoleMenuStruct CreateConsoleMenuStruct();
 
 
 #ifdef __cplusplus
-}	// ! extern "C"
 
 
-class deviceCompModClass // declaration of console menu class
+
+class consoleMenuClass // declaration of console menu class
 {
 
 };

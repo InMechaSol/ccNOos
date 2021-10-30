@@ -28,17 +28,3 @@ to interface with any physical io device HW and utilize any serialization strate
 #include "io_device.h"
 #include "../executionSystem/execution_system.h"
 
-struct ioDeviceStruct createIODeviceStruct(
-    int (*open)(), 
-    int (*close)(),
-    int (*read)(),
-    int (*write)()
-    )
-{
-    struct ioDeviceStruct outStruct;
-    outStruct.open = open;
-    outStruct.close = close;
-    outStruct.read = read;
-    outStruct.write = write;
-    return outStruct;
-}

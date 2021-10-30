@@ -30,9 +30,12 @@ to interface with any physical io device HW and utilize any serialization strate
     
 #include "../executionSystem/version_config.h"
     
-#ifdef __cplusplus
-extern "C" {    
-#endif // !__cplusplus
+
+
+
+////////////////////////////////////////////////////////////////////////////////
+// C only, struct of function pointers
+#ifndef __cplusplus
 
 struct ioDeviceStruct
 {
@@ -42,15 +45,19 @@ struct ioDeviceStruct
     int (*write)();
 };
 
-struct ioDeviceStruct createIODeviceStruct(
-    int (*open)(), 
-    int (*close)(),
-    int (*read)(),
-    int (*write)()
-    );
 
+////////////////////////////////////////////////////////////////////////////////
+// C++, class of virtual methods
+#else
 
-#ifdef __cplusplus
-}    
+class ioDeviceClass
+{
+public:
+    virtual int open() = 0;
+    virtual int close() = 0;
+    virtual int read() = 0;
+    virtual int write() = 0;
+};
+
 #endif // !__cplusplus
 #endif // !__IO_DEVICE__

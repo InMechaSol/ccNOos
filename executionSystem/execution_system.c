@@ -27,55 +27,133 @@ specific functions for things like system time, execution time, platform details
     
 
 */
-#include "execution_system.h" // -> includes version_config.h
-#include "../consoleMenu/console_menu.h" // -> includes api_comp_mod.h -> compute_module.h -> version_config.h
-#include "../deviceCompModule/dev_comp_mod.h" // -> includes io_device.h -> version_config.h
+#include "execution_system.h"
+#include "../consoleMenu/console_menu.h"
 
 struct executionSystemStruct CreateExecutionSystemStruct(
-    struct linkedEntryPointStruct* setupListHeadIn,
-    struct linkedEntryPointStruct* loopListHeadIn,
-    struct linkedEntryPointStruct* sysTickListHeadIn,
     uint32_t uSperTick
     )
 {
     struct executionSystemStruct outStruct;
-    outStruct.setupListHead = setupListHeadIn;
-    outStruct.loopListHead = loopListHeadIn;
-    outStruct.sysTickListHead = sysTickListHeadIn;
+    outStruct.hourTicks = 0u;
+    outStruct.uSecTicks = 0u;
     outStruct.uSecPerSysTick = uSperTick;
     return outStruct;
 }
 
-// Application Entry Points
-int ExecuteMain(struct executionSystemStruct* exeStructIn)
+
+
+////////////////////////////////////////////////////////////////////////////////
+// C Application Entry Points (not built in cpp build)
+#ifndef __cplusplus
+
+void ModuleExeArea(
+            int ExcpIndex, 
+            struct linkedEntryPointStruct* exeListHeadIn
+            )
 {
-    if(!exeStructIn)
+    struct linkedEntryPointStruct* currentExeNode = exeListHeadIn;
+    int retVal;
+    if(currentExeNode!=nullptr)
+    {
+        if(currentExeNode->entryPoint != nullptr)
+        {   
+            do
+            {
+                if(currentExeNode->dataPtr->exceptionFlags==0u)
+                    retVal = currentExeNode->entryPoint(
+                                        currentExeNode->dataPtr   
+                                        );
+                else
+                    retVal = RETURN_SUCCESS;
+                            
+                if(retVal != RETURN_SUCCESS)
+                    currentExeNode->dataPtr->exceptionFlags |= (0x00000001 << ExcpIndex);
+                
+                if(currentExeNode->nextPtr != nullptr)
+                    currentExeNode = currentExeNode->nextPtr;
+                else 
+                    break;
+                    
+            }while(currentExeNode->entryPoint != nullptr);
+        } 
+    }    
+}
+
+void ModuleExceptionArea(
+            struct linkedEntryPointStruct* exeListHeadIn
+            )
+{
+    struct linkedEntryPointStruct* currentExeNode = exeListHeadIn;
+    int retVal;
+    if(currentExeNode!=nullptr)
+    {
+        if(currentExeNode->entryPoint != nullptr)
+        {   
+            do
+            {
+                if(currentExeNode->dataPtr->exceptionFlags!=0u)
+                    retVal = currentExeNode->entryPoint(
+                                        currentExeNode->dataPtr
+                                        );
+                else
+                    retVal = RETURN_SUCCESS;
+                            
+                if(retVal != RETURN_SUCCESS)
+                    currentExeNode->dataPtr->exceptionFlags |= (0x00000001 << EXP_HANDLER);
+                
+                if(currentExeNode->nextPtr != nullptr)
+                    currentExeNode = currentExeNode->nextPtr;
+                else 
+                    break;
+                    
+            }while(currentExeNode->entryPoint != nullptr);
+        } 
+    }    
+}
+    
+int ExecuteMain(
+        struct executionSystemStruct* exeStructIn, 
+        struct executionEntryStruct* exeEntryPtrsIn
+        )
+{
+    if(exeStructIn == nullptr || exeEntryPtrsIn == nullptr)
         return RETURN_ERROR;
-    
-    // cross platform exe system setup
-    exeStructIn->hourTicks = 0u;
-    exeStructIn->uSecTicks = 0u;
-    
+        
     // platform exe system setup
-    int retVal = platformSetup();
+    platformSetup();
     
     // module setup execution area
-    struct linkedEntryPointStruct* currentExeNode = exeStructIn->setupListHead;
-    MODULE_EXE_AREA
+    ModuleExeArea(
+        EXP_SETUP, 
+        exeEntryPtrsIn->setupListHead
+        );
     
     // platform exe system start
-    retVal = platformStart();
+    platformStart();
     
-    // module loop execution area
-    currentExeNode = exeStructIn->loopListHead;
+    // module exception and loop execution areas
     for(;;)
-    {        
-        MODULE_EXE_AREA    
+    {
+        ModuleExceptionArea(
+            exeEntryPtrsIn->exceptionListHead
+            );
+        
+        ModuleExeArea(
+            EXP_LOOP, 
+            exeEntryPtrsIn->loopListHead
+            );
+        
         platformLoopDelay();
     }
+    
     return RETURN_SUCCESS;
 }
-int ExecuteSysTick(struct executionSystemStruct* exeStructIn)
+
+void ExecuteSysTick(
+        struct executionSystemStruct* exeStructIn, 
+        struct executionEntryStruct* exeEntryPtrsIn
+        )
 {
     exeStructIn->uSecTicks += exeStructIn->uSecPerSysTick;
     if(exeStructIn->uSecTicks >= TIME_uS_PER_HR)
@@ -85,20 +163,11 @@ int ExecuteSysTick(struct executionSystemStruct* exeStructIn)
     }
     
     // module systick execution area
-    struct linkedEntryPointStruct* currentExeNode = exeStructIn->sysTickListHead;
+    ModuleExeArea(
+            EXP_SYSTICK, 
+            exeEntryPtrsIn->sysTickListHead
+            );        
     
-    MODULE_EXE_AREA
-    
-    
-    return RETURN_SUCCESS;
 }
+#endif
 
-// Module API Functions
-uint32_t getuSecTicks(struct executionSystemStruct* exeStructPtr)
-{
-    return exeStructPtr->uSecTicks;
-}
-uint32_t getHourTicks(struct executionSystemStruct* exeStructPtr)
-{
-    return exeStructPtr->hourTicks;
-}

@@ -26,48 +26,69 @@ application.
 #ifndef __CCNOOS_TESTS__
 #define __CCNOOS_TESTS__  
     
-#include "../executionSystem/execution_system.h"    // -> includes version_config.h
-#include "../consoleMenu/console_menu.h"            // -> includes api_comp_mod.h -> compute_module.h -> version_config.h
-#include "../deviceCompModule/dev_comp_mod.h"       // -> includes io_device.h -> version_config.h
+#include "../executionSystem/execution_system.h"    
+#include "../consoleMenu/console_menu.h"            
     
-#ifdef __cplusplus
-extern "C" {    
-#endif // !__cplusplus
-
 ///////////////////////////////////////////////////////////////////////
 // SysTick Example - Device Module Configuration
 ///////////////////////////////////////////////////////////////////////
+#define TIME_STR_LEN (16u)
 #define MIN_LED_INDEX (0u)
 #define SEC_LED_INDEX (1u)
 #define TIME_SERIAL_INDEX (2u)
-#define SYSTICK_EXAMPLE_DEVCOUNT (3u)
-struct SysTickExampleDevModStruct
-{
-    struct deviceCompModStruct devMod;
-    struct ioDeviceStruct devArray[SYSTICK_EXAMPLE_DEVCOUNT];
-    // Device Compute Module Data
-    uint32_t secCount_Last, secCount;
-    uint32_t minCount_Last, minCount, hrCount;
-    uint8_t MinLEDvalue, SecLEDvalue, Light_Off;    
-    char time[16u];
 
+struct SysTickStruct
+{
+    struct computeModuleStruct compMod;
+    uint32_t secCount_Last, secCount, minCount_Last, minCount, hrCount;
+    uint8_t MinLEDvalue, SecLEDvalue, Light_Off;    
+    char time[TIME_STR_LEN];    
 };
-struct SysTickExampleDevModStruct CreateSysTickExampleDevModStruct(
-    int (*writeMinLED)(),
-    int (*writeSecLED)(),
-    int (*writeSerialTime)(),
-    struct executionSystemStruct* exeSysPtrIn,
+
+struct SysTickStruct CreateSysTickStruct(
     int lightOff
 );
 
-// Re-usable, portable, cross-platform (systick example setup() function)
-int setup_systickExample(void *dataPtr);
+// platform and application specific time string serialization
+void SerializeTimeString(struct SysTickStruct* sysTickDataPtr);
+
+// platform and application specific io device functions
+void WriteMinLED(struct SysTickStruct* sysTickDataPtr);
+void WriteSecLED(struct SysTickStruct* sysTickDataPtr);
+void WriteTimeSerial(struct SysTickStruct* sysTickDataPtr);
 
 // Re-usable, portable, cross-platform (systick example setup() function)
-int loop_systickExample(void *dataPtr);
+int setup_systickExample(struct computeModuleStruct* compModPtr);
+
+// Re-usable, portable, cross-platform (systick example setup() function)
+int loop_systickExample(struct computeModuleStruct* compModPtr);
 
 
 #ifdef __cplusplus
-}    
+////////////////////////////////////////////////////////////////////////////////
+// C++ SysTick Example Class - built from computeModuleClass
+class SysTickExample_class : public computeModuleClass
+{
+private:
+    struct SysTickStruct SysTickData;
+public:
+    SysTickExample_class(
+        int lightOff
+        );
+    int mod_setup()
+    {
+        return setup_systickExample(
+                (struct computeModuleStruct*)(&SysTickData)
+                );
+    }
+    int mod_loop() 
+    {
+        return loop_systickExample(
+                (struct computeModuleStruct*)(&SysTickData)
+                );
+    }
+    void mod_systick() {;} // do nothing in systic module exe area
+};
+
 #endif // !__cplusplus
 #endif // !__CCNOOS_TESTS__

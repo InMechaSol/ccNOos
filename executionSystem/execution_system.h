@@ -32,10 +32,8 @@ specific functions for things like system time, execution time, platform details
 
 #include "version_config.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif // !__cplusplus
-
+////////////////////////////////////////////////////////////////////////////////
+// Time Constants
 #define TIME_us_PER_MIN (60000000u)
 #define TIME_uS_PER_HR (3600000000u)
 #define TIME_uS_PER_SEC (1000000u)
@@ -43,71 +41,179 @@ extern "C" {
 #define TIME_SEC_PER_MIN (60u)
 #define TIME_MIN_PER_HR (60u) 
 
-#define MODULE_EXE_AREA if(currentExeNode->entryPoint!=0u)\
-    {   do\
-        {\
-            int retVal = currentExeNode->entryPoint(currentExeNode->dataPtr);\
-            if(currentExeNode->nextPtr != 0u)\
-            {\
-                currentExeNode = currentExeNode->nextPtr;\
-            }\
-        }while(currentExeNode->nextPtr != 0u);\
-    }
+////////////////////////////////////////////////////////////////////////////////
+// Exception Flag Index
+#define EXP_SETUP (0u)
+#define EXP_LOOP (1u)
+#define EXP_SYSTICK (2u)
+#define EXP_PLATFORM (3u)
+#define EXP_HANDLER (4u)
 
-struct computeModuleStruct; // forward declaration of compute module data structure
-struct ioDeviceStruct; // forward declaration of io device data structure
+// Platform Specific Configuration Functions
+void platformSetup();
+void platformStart();
+void platformLoopDelay();
+// Application/Platform Configuration Function
+void applicationConfig();
 
-struct linkedEntryPointStruct
-{
-    struct linkedEntryPointStruct* nextPtr;
-    void *dataPtr;
-    int (*entryPoint)(void *dataPtr);
-};
-
-// Execution System Data Structure
+////////////////////////////////////////////////////////////////////////////////
+// Cross-Platform, Reusable, C/C++ Execution System Data Structure
 struct executionSystemStruct
-{
-	struct linkedEntryPointStruct* setupListHead;
-    struct linkedEntryPointStruct* loopListHead;
-    struct linkedEntryPointStruct* sysTickListHead;
+{	
     uint32_t uSecTicks;
     uint32_t hourTicks;
     uint32_t uSecPerSysTick;
 };
 
-// Execution System Data Structure Creation and Linking
+// Execution System Data Structure Creation
 struct executionSystemStruct CreateExecutionSystemStruct(
-    struct linkedEntryPointStruct* setupListHeadIn,
-    struct linkedEntryPointStruct* loopListHeadIn,
-    struct linkedEntryPointStruct* sysTickListHeadIn,
     uint32_t uSperTick
     );
 
-// Platform Specific Configuration Functions
-int platformSetup();
-int platformStart();
-void platformLoopDelay();
-// Application/Platform Configuration Function
-int applicationConfig();
 
+////////////////////////////////////////////////////////////////////////////////
+// Cross-Platform, Reusable, C/C++ Module API Functions
+uint32_t getuSecTicks();
+uint32_t getHourTicks();
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Platform and C++ specific execution area templates
+#ifdef __cplusplus
+
+#define MODULE_EXE_AREA(EXCPINDEX) {\
+    if(currentExeNode->entryPoint != nullptr)\
+    {   do\
+        {\
+            try{\
+                if(currentExeNode->dataPtr->exceptionFlags==0u)\
+                    retVal = currentExeNode->entryPoint(currentExeNode->dataPtr);\
+                else\
+                    retVal = RETURN_SUCCESS\
+                if(retVal != RETURN_SUCCESS)\
+                    throw RETURN_ERROR;\
+            }catch(...){\
+                currentExeNode->dataPtr->exceptionFlags |= (0x00000001 << EXCPINDEX);\
+            }finally{\
+                if(currentExeNode->nextPtr != nullptr)\
+                {\
+                    currentExeNode = currentExeNode->nextPtr;\
+                }\
+                else break;\
+            }\
+        }while(currentExeNode->entryPoint != nullptr);\
+    }\
+}
+    
+            
+#else // ifndef __cplusplus   
+////////////////////////////////////////////////////////////////////////////////
+// C Execution System Base Components - not compiled in C++ build
+   
+struct computeModuleStruct;
+struct ioDeviceStruct;
+
+struct linkedIODeviceStruct
+{
+    struct ioDeviceStruct* devPtr;
+    struct linkedIODeviceStruct* nextPtr;
+};
+
+struct linkedEntryPointStruct
+{
+    struct linkedEntryPointStruct* nextPtr;
+    struct computeModuleStruct *dataPtr;
+    int (*entryPoint)(
+                    struct computeModuleStruct *dataPtrIn
+                    );
+};
+
+struct executionEntryStruct
+{
+    struct linkedEntryPointStruct* setupListHead;
+    struct linkedEntryPointStruct* loopListHead;
+    struct linkedEntryPointStruct* sysTickListHead;
+    struct linkedEntryPointStruct* exceptionListHead;
+};
+
+void ModuleExeArea(
+            int ExcpIndex, 
+            struct linkedEntryPointStruct* exeListHeadIn
+            );
+
+void ModuleExceptionArea(
+            struct linkedEntryPointStruct* exeListHeadIn
+            );
 
 // Entry Points of the Execution System (module execution areas)
-int ExecuteMain(struct executionSystemStruct* exeStructIn);
-int ExecuteSysTick(struct executionSystemStruct* exeStructIn);
+int ExecuteMain(
+        struct executionSystemStruct* exeStructIn, 
+        struct executionEntryStruct* exeEntryPtrsIn
+        );
+void ExecuteSysTick(
+        struct executionSystemStruct* exeStructIn, 
+        struct executionEntryStruct* exeEntryPtrsIn
+        );
+
+#endif // !__cplusplus
 
 
-// Module API Functions
-uint32_t getuSecTicks(struct executionSystemStruct* exeStructPtr);
-uint32_t getHourTicks(struct executionSystemStruct* exeStructPtr);
+
+
 
 #ifdef __cplusplus
-}	// ! extern "C"
+////////////////////////////////////////////////////////////////////////////////
+// Cross-Platform, Reusable, C++ Only Execution System Classes
+class IODeviceClass; // forward declaration
+class computeModuleClass; // forward declaration
 
-class computeModuleClass;  // forward declaration of compute module class
+class linkedIODeviceClass
+{
+private:
+    IODeviceClass* devPtr = nullptr;
+    linkedIODeviceClass* nextPtr = nullptr;
+public:
+    linkedIODeviceClass(
+            IODeviceClass* devPtrIn,
+            linkedIODeviceClass* nextPtrIn
+            );
+    computeModuleClass* getComputeModule();
+    linkedIODeviceClass* getNextIOClassPtr();
+};
+
+class linkedEntryPointClass
+{
+private:
+    computeModuleClass* modulePtr = nullptr;
+    linkedEntryPointClass* nextPtr = nullptr;
+public:
+    linkedEntryPointClass(  
+                computeModuleClass* modulePtr,
+                linkedEntryPointClass* nextPtr
+                );
+    computeModuleClass* getComputeModule();
+    linkedEntryPointClass* getNextEPClassPtr();
+};
 
 class executionSystemClass // declaration of execution system class
 {
-
+private:
+    struct executionSystemStruct data;
+    linkedEntryPointClass* setupListHead = nullptr;
+    linkedEntryPointClass* loopListHead = nullptr;
+    linkedEntryPointClass* sysTickListHead = nullptr;
+    linkedEntryPointClass* exceptionListHead = nullptr;
+public:
+    executionSystemClass(
+                linkedEntryPointClass* setupListHeadIn,
+                linkedEntryPointClass* loopListHeadIn,
+                linkedEntryPointClass* sysTickListHeadIn,
+                linkedEntryPointClass* exceptionListHeadIn,
+                uint32_t uSperTick
+                );
+    int ExecuteMain();
+    void ExecuteSysTick();
+    struct executionSystemStruct* getExeDataPtr() {return &data;}
 };
 
 

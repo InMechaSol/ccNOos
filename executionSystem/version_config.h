@@ -32,16 +32,53 @@ have less support but again, most modern embedded processors have implementation
 */
 #ifndef __VERSIONCONFIG__
 #define __VERSIONCONFIG__
-
-
-#ifdef __cplusplus
-							// bool is a type in c++
-	#include <cstdint.h>	// standard int w/ fixed width integer since c99
+    
+////////////////////////////////////////////////////////////////////////////////
+// Compiler Configuration for stdint support
+#define USING_STDINT 
+#ifdef USING_STDINT
+    #ifdef __cplusplus
+        #include <cstdint>
+    #else
+        #include <stdint.h>
+    #endif // !__cplusplus
 #else
-	#include <stdbool.h>	// standard bool available since c99
-	#include <stdint.h>		// standard int w/ fixed width integer since c99
-#endif // !__cplusplus
+    typedef unsigned char uint8_t;
+    typedef char int8_t;
+    #if INTBYTES == 2
+        #warning 2 byte int
+        typedef unsigned int uint16_t;
+        typedef int int16_t;
+        typedef unsigned long int uint32_t;
+        typedef long int int32_t;
+    #elif INTBYTES == 4
+        #warning 4 byte int
+        typedef unsigned short int uint16_t;
+        typedef short int int16_t;
+        typedef unsigned int uint32_t;
+        typedef int int32_t;
+    #else
+        #error unsupportted int size!!!
+    #endif
+#endif // !USING_STDINT
 
+/////////////////////////////////////////////////////////////////////////////
+// Compiler Configuration for nullptr support
+//#define REDEFININGNULLPTR
+#ifdef REDEFININGNULLPTR
+    #define nullptr NULL
+#else
+    #ifndef __cplusplus
+        #define nullptr (0u)
+    #endif
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+// MACROS for Compile Time knowledge of int sizes
+#define INTBYTES sizeof(int)
+#define SHORTBYTES sizeof(short int)
+#define LONGBYTES sizeof(long int)
+#define LONGLONGBYTES sizeof(long long int)
 
 /** \def RETURN_SUCCESS
 * \brief Function Return Value for Success
@@ -52,13 +89,5 @@ have less support but again, most modern embedded processors have implementation
 * \brief Function Return Value for ERROR
 */
 #define RETURN_ERROR (-1)
-
-
-
-
-
-
-
-
 
 #endif // !__VERSIONCONFIG__

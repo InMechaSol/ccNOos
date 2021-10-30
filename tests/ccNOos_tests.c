@@ -19,7 +19,7 @@ Notes:
 
 This source demonstrates the usage of the ccNOos library and its dependence
 on other files in the library.  A platform specific main(.c,.cpp) file need
-only instantiate, configure, then execute the execuion system.  
+only instantiate, configure, then execute the execution system.  
 
 */
 #include "ccNOos_tests.h"
@@ -27,98 +27,92 @@ only instantiate, configure, then execute the execuion system.
 ///////////////////////////////////////////////////////////////////////
 // SysTick Example - Device Module Configuration
 ///////////////////////////////////////////////////////////////////////
-#include <stdio.h>
-#include <math.h>
+
 
 // Re-usable, portable, cross-platform (systick example create() function)
-struct SysTickExampleDevModStruct CreateSysTickExampleDevModStruct(
-    int (*writeMinLED)(),
-    int (*writeSecLED)(),
-    int (*writeSerialTime)(),
-    struct executionSystemStruct* exeSysPtrIn,
+struct SysTickStruct CreateSysTickStruct(
     int lightOff
 )
 {
-    struct SysTickExampleDevModStruct outStruct;
-    
-    outStruct.devArray[SEC_LED_INDEX] = createIODeviceStruct(0u, 0u, 0u, writeSecLED );
-    outStruct.devArray[MIN_LED_INDEX] = createIODeviceStruct(0u, 0u, 0u, writeMinLED );
-    outStruct.devArray[TIME_SERIAL_INDEX] = createIODeviceStruct(0u, 0u, 0u, writeSerialTime );
-    
-    outStruct.devMod = CreateDevCompModStruct(exeSysPtrIn);
-    
+    uint8_t i = 0;
+    struct SysTickStruct outStruct;
+    outStruct.compMod = CreateComputeModuleStruct();    
     outStruct.Light_Off = lightOff;
-
+    outStruct.MinLEDvalue = lightOff;
+    outStruct.SecLEDvalue = lightOff;
+    for(i=0; i < TIME_STR_LEN; i++)
+        outStruct.time[i] = 0x00;
+    outStruct.secCount = 0u;
+    outStruct.secCount_Last = 0u;
+    outStruct.minCount = 0u;
+    outStruct.minCount_Last = 0u;
+    outStruct.hrCount = 0u;
     return outStruct;
 }
 
+
+
 // Re-usable, portable, cross-platform (systick example setup() function)
-int setup_systickExample(void *dataPtr)
+int setup_systickExample(struct computeModuleStruct* compModPtr)
 {
-    struct SysTickExampleDevModStruct* sysTickData = ((struct SysTickExampleDevModStruct*)(dataPtr));
-    if(!sysTickData)
+    struct SysTickStruct* sysTickPtr = ((struct SysTickStruct*)(compModPtr));    
+    if(sysTickPtr==nullptr)
         return RETURN_ERROR;
     
-    sysTickData->secCount_Last = 0u;
-    sysTickData->secCount = 0u;
-    sysTickData->hrCount = 0u;
-    sysTickData->minCount_Last = 0u;
-    sysTickData->minCount = 0u;
-
-    /* Set initial state (off) for LED */
-    sysTickData->MinLEDvalue = sysTickData->Light_Off;
-    sysTickData->SecLEDvalue = sysTickData->Light_Off;
-    
-    if(sysTickData->devArray[MIN_LED_INDEX].write)
-      sysTickData->devArray[MIN_LED_INDEX].write();
-    if(sysTickData->devArray[SEC_LED_INDEX].write)
-        sysTickData->devArray[SEC_LED_INDEX].write(); 
-            
+    // Setup is running in the loop area to handle exceptions...
+    if(sysTickPtr->compMod.exceptionFlags!=0u)
+    {
+        sysTickPtr->compMod.exceptionFlags = 0u;  // do nothing, clear flags
+    }
+    // Setup is running in the setup area following power on
+    else
+    {
+        // Values are initialized at instantiation
+        // need to write to LEDs        
+        WriteMinLED(sysTickPtr);        
+        WriteSecLED(sysTickPtr);
+    }
     return RETURN_SUCCESS;
 }
 
 // Re-usable, portable, cross-platform (systick example loop() function)
-int loop_systickExample(void *dataPtr)
+int loop_systickExample(struct computeModuleStruct* compModPtr)
 {
-    struct SysTickExampleDevModStruct* sysTickData = ((struct SysTickExampleDevModStruct*)(dataPtr));
-    if(!sysTickData)
+    struct SysTickStruct* sysTickPtr = ((struct SysTickStruct*)(compModPtr));    
+    if(sysTickPtr==nullptr)
         return RETURN_ERROR;
     
-    sysTickData->secCount = getuSecTicks(sysTickData->devMod.compMod.exeSysPtr) / TIME_uS_PER_SEC;
-    sysTickData->hrCount = getHourTicks(sysTickData->devMod.compMod.exeSysPtr);
+    sysTickPtr->secCount = getuSecTicks() / TIME_uS_PER_SEC;
+    sysTickPtr->hrCount = getHourTicks();
     
-    if(sysTickData->secCount_Last != sysTickData->secCount)
+    if(sysTickPtr->secCount_Last != sysTickPtr->secCount)
     {
-        sysTickData->secCount_Last = sysTickData->secCount;
-        sysTickData->minCount = (sysTickData->secCount / TIME_SEC_PER_MIN) % TIME_MIN_PER_HR;
-        if(sysTickData->minCount != sysTickData->minCount_Last)
+        sysTickPtr->secCount_Last = sysTickPtr->secCount;
+        sysTickPtr->minCount = (sysTickPtr->secCount / TIME_SEC_PER_MIN);
+        
+        if(sysTickPtr->minCount != sysTickPtr->minCount_Last)
         {
-            sysTickData->minCount_Last = sysTickData->minCount;
+            sysTickPtr->minCount_Last = sysTickPtr->minCount;
             /* Toggle red LED. 1 time per minute*/
-            if(sysTickData->MinLEDvalue == sysTickData->Light_Off)
-                sysTickData->MinLEDvalue = !sysTickData->Light_Off;
+            if(sysTickPtr->MinLEDvalue == sysTickPtr->Light_Off)
+                sysTickPtr->MinLEDvalue = !sysTickPtr->Light_Off;
             else
-                sysTickData->MinLEDvalue = sysTickData->Light_Off;
-            if(sysTickData->devArray[MIN_LED_INDEX].write)
-                sysTickData->devArray[MIN_LED_INDEX].write();
+                sysTickPtr->MinLEDvalue = sysTickPtr->Light_Off;
+            
+            WriteMinLED(sysTickPtr); 
         }        
         
         /* Toggle blue LED. 1 time per second */
-        if(sysTickData->SecLEDvalue == sysTickData->Light_Off)
-            sysTickData->SecLEDvalue = !sysTickData->Light_Off;
+        if(sysTickPtr->SecLEDvalue == sysTickPtr->Light_Off)
+            sysTickPtr->SecLEDvalue = !sysTickPtr->Light_Off;
         else
-            sysTickData->SecLEDvalue = sysTickData->Light_Off;
-        if(sysTickData->devArray[SEC_LED_INDEX].write)
-            sysTickData->devArray[SEC_LED_INDEX].write();
+            sysTickPtr->SecLEDvalue = sysTickPtr->Light_Off;
+        WriteSecLED(sysTickPtr);
         
         /* Print system time to IO Device every second */
-        sprintf(sysTickData->time, "\r%02u:%02u:%02u", 
-                            (int)(sysTickData->hrCount % 100), 
-                            (int)sysTickData->minCount,
-                            (int)((sysTickData->secCount) % TIME_SEC_PER_MIN)
-                            );
-        if(sysTickData->devArray[TIME_SERIAL_INDEX].write)
-            sysTickData->devArray[TIME_SERIAL_INDEX].write();
+        SerializeTimeString(sysTickPtr);
+
+        WriteTimeSerial(sysTickPtr);
     }
     return RETURN_SUCCESS;
 }

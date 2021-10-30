@@ -30,3 +30,9 @@ A console menu has data access to the full execution system and all it contains.
 */
 #include "console_menu.h"
 #include "../executionSystem/execution_system.h"
+
+struct consoleMenuStruct CreateConsoleMenuStruct()
+{
+    struct consoleMenuStruct outStruct;
+    return outStruct;
+}

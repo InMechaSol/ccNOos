@@ -34,25 +34,29 @@ modules at particular execution levels.
     
 #include "../executionSystem/version_config.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif // !__cplusplus
-    
-struct executionSystemStruct;  // forward declaration of the execution system structure
-
 struct computeModuleStruct
 {
-    struct executionSystemStruct* exeSysPtr;
+    uint32_t exceptionFlags;    
 };
 
-struct computeModuleStruct CreateComputeModuleStruct(struct executionSystemStruct* exeSysPtrIn);
+struct computeModuleStruct CreateComputeModuleStruct();
 
 #ifdef __cplusplus
-}	// ! extern "C"
+class executionSystemClass; // forward declaration of execution system class
 
 class computeModuleClass // declaration of compute module class
 {
-    
+protected:
+    struct computeModuleStruct *compModDataPtr = nullptr;  
+    executionSystemClass* exeSysPtr = nullptr;
+public:
+    computeModuleClass(
+            struct computeModuleStruct *compModDataPtrIn,
+            executionSystemClass* exeSysPtrIn
+            );
+    virtual int mod_setup() = 0;
+    virtual int mod_loop() = 0;
+    virtual void mod_systick() = 0;
 };
 
 #endif // !__cplusplus
