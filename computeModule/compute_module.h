@@ -47,16 +47,16 @@ class executionSystemClass; // forward declaration of execution system class
 class computeModuleClass // declaration of compute module class
 {
 protected:
-    struct computeModuleStruct *compModDataPtr = nullptr;  
-    executionSystemClass* exeSysPtr = nullptr;
+    struct computeModuleStruct *compModDataPtr = nullptr;
 public:
     computeModuleClass(
-            struct computeModuleStruct *compModDataPtrIn,
-            executionSystemClass* exeSysPtrIn
+            struct computeModuleStruct *compModDataPtrIn
             );
     virtual int mod_setup() = 0;
     virtual int mod_loop() = 0;
     virtual void mod_systick() = 0;
+    virtual int mod_excphandler() = 0;
+    struct computeModuleStruct* getModuleDataPtr();
 };
 
 #endif // !__cplusplus

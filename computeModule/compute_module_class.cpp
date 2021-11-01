@@ -39,10 +39,14 @@ modules at particular execution levels.
 #include "compute_module.c"
 
 computeModuleClass::computeModuleClass(
-            struct computeModuleStruct *compModDataPtrIn,
-            class executionSystemClass* exeSysPtrIn
+            struct computeModuleStruct *compModDataPtrIn
             )
 {
-    
+    compModDataPtr = compModDataPtrIn;
+}
+
+struct computeModuleStruct* computeModuleClass::getModuleDataPtr()
+{
+    return compModDataPtr;
 }
  

@@ -32,40 +32,48 @@ have less support but again, most modern embedded processors have implementation
 */
 #ifndef __VERSIONCONFIG__
 #define __VERSIONCONFIG__
-    
+
 ////////////////////////////////////////////////////////////////////////////////
 // Compiler Configuration for stdint support
-#define USING_STDINT 
 #ifdef USING_STDINT
-    #ifdef __cplusplus
+#ifdef __cplusplus
+    #ifdef USING_CSTDINT
         #include <cstdint>
     #else
+        extern "C" {
         #include <stdint.h>
-    #endif // !__cplusplus
+                    }
+    #endif
 #else
-    typedef unsigned char uint8_t;
-    typedef char int8_t;
-    #if INTBYTES == 2
+    #include <stdint.h>
+#endif // !__cplusplus
+#else
+    #ifdef USING_NONSTDINT_SHORTER
+        #warning not using stdint/cstdint !!!
+        typedef unsigned char uint8_t;
+        typedef char int8_t;        
         #warning 2 byte int
         typedef unsigned int uint16_t;
         typedef int int16_t;
         typedef unsigned long int uint32_t;
         typedef long int int32_t;
-    #elif INTBYTES == 4
+    #endif
+    #ifdef USING_NONSTDINT_LONGER   
+        #warning not using stdint / cstdint !!!
+        typedef unsigned char uint8_t;
+        typedef char int8_t;
         #warning 4 byte int
         typedef unsigned short int uint16_t;
         typedef short int int16_t;
         typedef unsigned int uint32_t;
         typedef int int32_t;
-    #else
-        #error unsupportted int size!!!
     #endif
 #endif // !USING_STDINT
 
 /////////////////////////////////////////////////////////////////////////////
 // Compiler Configuration for nullptr support
-//#define REDEFININGNULLPTR
-#ifdef REDEFININGNULLPTR
+#ifdef REDEFINE_NULLPTR
+    #waring redifining nullptr !!! 
     #define nullptr NULL
 #else
     #ifndef __cplusplus

@@ -88,6 +88,12 @@ public:
                 );
     }
     void mod_systick() {;} // do nothing in systic module exe area
+    int mod_excphandler()
+    {
+        return setup_systickExample(
+                (struct computeModuleStruct*)(&SysTickData)
+                );
+    }
 };
 
 #endif // !__cplusplus

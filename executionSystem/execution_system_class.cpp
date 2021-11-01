@@ -39,16 +39,36 @@ linkedIODeviceClass::linkedIODeviceClass(
             linkedIODeviceClass* nextPtrIn
             )
 {
-    ;
+    devPtr = devPtrIn;
+    nextPtr = nextPtrIn;
+}
+IODeviceClass* linkedIODeviceClass::getDevPtr()
+{
+    return devPtr;
+}
+linkedIODeviceClass* linkedIODeviceClass::getNextIOClassPtr()
+{
+    return nextPtr;
 }
 
+
 linkedEntryPointClass::linkedEntryPointClass(  
-                computeModuleClass* modulePtr,
-                linkedEntryPointClass* nextPtr
+                computeModuleClass* modulePtrIn,
+                linkedEntryPointClass* nextPtrIn
                 )
 {
-    ;
+    modulePtr = modulePtrIn;
+    nextPtr = nextPtrIn;
 }
+computeModuleClass* linkedEntryPointClass::getComputeModule()
+{
+    return modulePtr;
+}
+linkedEntryPointClass* linkedEntryPointClass::getNextEPClassPtr()
+{
+    return nextPtr;
+}
+
 
 executionSystemClass::executionSystemClass(
     linkedEntryPointClass* setupListHeadIn,
@@ -68,12 +88,180 @@ executionSystemClass::executionSystemClass(
     exceptionListHead = exceptionListHeadIn;
 }
 
+void executionSystemClass::ExecuteSetup()
+{
+    // platform exe system setup
+#ifndef __NOEXCEPTIONS
+    try
+    {
+#endif
+        platformSetup();
+#ifndef __NOEXCEPTIONS
+    }
+    catch (...) {
+        ; // exe sys logging
+    }
+#endif
+
+    // module setup execution area
+    ModuleExeArea(EXP_SETUP);
+
+    // platform exe system start
+#ifndef __NOEXCEPTIONS
+    try
+    {
+#endif
+        platformStart();
+#ifndef __NOEXCEPTIONS
+    }
+    catch (...) {
+        ; // exe sys logging
+    }
+#endif
+}
+void executionSystemClass::ExecuteLoop()
+{
+    ModuleExceptionArea();
+
+    ModuleExeArea(EXP_LOOP);
+
+    platformLoopDelay();
+
+}
 int executionSystemClass::ExecuteMain()
 {
+    ExecuteSetup();    
+    
+    // module exception and loop execution areas
+    for(;;)
+    {
+        ExecuteLoop();        
+    }
     return RETURN_SUCCESS;
 }
 
 void executionSystemClass::ExecuteSysTick()
 {
+    data.uSecTicks += data.uSecPerSysTick;
+    if(data.uSecTicks >= TIME_uS_PER_HR)
+    {
+        data.uSecTicks = 0u;
+        data.hourTicks++;
+    }
     
+    // module systick execution area
+    ModuleExeArea(EXP_SYSTICK);     
+}
+
+void executionSystemClass::ModuleExeArea(int EXE_AREA_INDEX)
+{
+    if(exceptionListHead!=nullptr)
+    {
+        linkedEntryPointClass* currentExeNode;
+        switch(EXE_AREA_INDEX)
+        {
+            case EXP_SETUP: 
+                currentExeNode = setupListHead;
+                break;
+            case EXP_LOOP: 
+                currentExeNode = loopListHead;
+                break;
+            case EXP_SYSTICK: 
+                currentExeNode = sysTickListHead;
+                break;
+            default:
+                return;
+        }
+        
+        if(currentExeNode!=nullptr)
+        {
+            int retVal;
+            do
+            {
+
+#ifndef __NOEXCEPTIONS
+                try
+                {
+#endif
+                    if(currentExeNode->getComputeModule()->getModuleDataPtr()->exceptionFlags == 0u)
+                    {
+                        switch(EXE_AREA_INDEX)
+                        {
+                            case EXP_SETUP: 
+                                retVal = currentExeNode->getComputeModule()->mod_setup();
+                                break;
+                            case EXP_LOOP: 
+                                retVal = currentExeNode->getComputeModule()->mod_loop();
+                                break;
+                            case EXP_SYSTICK: 
+                                currentExeNode->getComputeModule()->mod_systick();
+                                retVal = RETURN_SUCCESS;
+                                break; 
+                        }
+                    }                        
+                    else
+                        retVal = RETURN_SUCCESS;
+
+                    if(retVal != RETURN_SUCCESS)
+#ifndef __NOEXCEPTIONS
+                        throw RETURN_ERROR;
+     
+                }
+                catch(...)
+                {
+#endif
+                    currentExeNode->getComputeModule()->getModuleDataPtr()->exceptionFlags |= (0x00000001 << EXE_AREA_INDEX);      
+#ifndef __NOEXCEPTIONS
+                }
+#endif                
+                if(currentExeNode->getNextEPClassPtr() != nullptr)
+                    currentExeNode = currentExeNode->getNextEPClassPtr();
+                else 
+                    break;
+                
+            }while(currentExeNode->getComputeModule() != nullptr);
+        }
+    }
+}
+void executionSystemClass::ModuleExceptionArea()
+{
+    if(exceptionListHead!=nullptr)
+    {
+        linkedEntryPointClass* currentExeNode = exceptionListHead;
+        if(currentExeNode!=nullptr)
+        {
+            int retVal;
+            do
+            {
+
+#ifndef __NOEXCEPTIONS
+                try
+                {
+#endif
+                    if(currentExeNode->getComputeModule()->getModuleDataPtr()->exceptionFlags != 0u)
+                        retVal = currentExeNode->getComputeModule()->mod_excphandler();
+                    else
+                        retVal = RETURN_SUCCESS;
+
+                    if(retVal != RETURN_SUCCESS)
+#ifndef __NOEXCEPTIONS
+                        throw RETURN_ERROR;
+                        
+                }
+                catch(...)
+                {
+#endif
+                    currentExeNode->getComputeModule()->getModuleDataPtr()->exceptionFlags |= (0x00000001 << EXP_HANDLER);
+#ifndef __NOEXCEPTIONS
+                }
+#endif
+                
+                if(currentExeNode->getNextEPClassPtr() != nullptr)
+                    currentExeNode = currentExeNode->getNextEPClassPtr();
+                else 
+                    break;
+                
+            }while(currentExeNode->getComputeModule() != nullptr);
+        }
+    }    
 }

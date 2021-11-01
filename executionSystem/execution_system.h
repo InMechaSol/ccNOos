@@ -53,8 +53,6 @@ specific functions for things like system time, execution time, platform details
 void platformSetup();
 void platformStart();
 void platformLoopDelay();
-// Application/Platform Configuration Function
-void applicationConfig();
 
 ////////////////////////////////////////////////////////////////////////////////
 // Cross-Platform, Reusable, C/C++ Execution System Data Structure
@@ -78,40 +76,11 @@ uint32_t getHourTicks();
 
 
 ////////////////////////////////////////////////////////////////////////////////
-// Platform and C++ specific execution area templates
-#ifdef __cplusplus
-
-#define MODULE_EXE_AREA(EXCPINDEX) {\
-    if(currentExeNode->entryPoint != nullptr)\
-    {   do\
-        {\
-            try{\
-                if(currentExeNode->dataPtr->exceptionFlags==0u)\
-                    retVal = currentExeNode->entryPoint(currentExeNode->dataPtr);\
-                else\
-                    retVal = RETURN_SUCCESS\
-                if(retVal != RETURN_SUCCESS)\
-                    throw RETURN_ERROR;\
-            }catch(...){\
-                currentExeNode->dataPtr->exceptionFlags |= (0x00000001 << EXCPINDEX);\
-            }finally{\
-                if(currentExeNode->nextPtr != nullptr)\
-                {\
-                    currentExeNode = currentExeNode->nextPtr;\
-                }\
-                else break;\
-            }\
-        }while(currentExeNode->entryPoint != nullptr);\
-    }\
-}
-    
-            
-#else // ifndef __cplusplus   
-////////////////////////////////////////////////////////////////////////////////
 // C Execution System Base Components - not compiled in C++ build
+#ifndef __cplusplus
    
-struct computeModuleStruct;
-struct ioDeviceStruct;
+struct computeModuleStruct;         // forward declaration
+struct ioDeviceStruct;              // forward declaration
 
 struct linkedIODeviceStruct
 {
@@ -155,6 +124,9 @@ void ExecuteSysTick(
         struct executionEntryStruct* exeEntryPtrsIn
         );
 
+// Application/Platform Configuration Function
+void applicationConfig();
+
 #endif // !__cplusplus
 
 
@@ -177,7 +149,7 @@ public:
             IODeviceClass* devPtrIn,
             linkedIODeviceClass* nextPtrIn
             );
-    computeModuleClass* getComputeModule();
+    IODeviceClass* getDevPtr();
     linkedIODeviceClass* getNextIOClassPtr();
 };
 
@@ -188,8 +160,8 @@ private:
     linkedEntryPointClass* nextPtr = nullptr;
 public:
     linkedEntryPointClass(  
-                computeModuleClass* modulePtr,
-                linkedEntryPointClass* nextPtr
+                computeModuleClass* modulePtrIn,
+                linkedEntryPointClass* nextPtrIn
                 );
     computeModuleClass* getComputeModule();
     linkedEntryPointClass* getNextEPClassPtr();
@@ -203,6 +175,8 @@ private:
     linkedEntryPointClass* loopListHead = nullptr;
     linkedEntryPointClass* sysTickListHead = nullptr;
     linkedEntryPointClass* exceptionListHead = nullptr;
+    void ModuleExeArea(int EXE_AREA_INDEX);
+    void ModuleExceptionArea();
 public:
     executionSystemClass(
                 linkedEntryPointClass* setupListHeadIn,
@@ -211,6 +185,8 @@ public:
                 linkedEntryPointClass* exceptionListHeadIn,
                 uint32_t uSperTick
                 );
+    void ExecuteSetup();
+    void ExecuteLoop();
     int ExecuteMain();
     void ExecuteSysTick();
     struct executionSystemStruct* getExeDataPtr() {return &data;}

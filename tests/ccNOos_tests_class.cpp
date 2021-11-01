@@ -32,25 +32,9 @@ only instantiate, configure, then execute the execution system.
 SysTickExample_class::SysTickExample_class
         (
         int lightOff
-        ):CompModClass(exeSysPtrIn)
+        ):computeModuleClass(&SysTickData.compMod)
 {
-    SysTickData = CreateSysTickExampleDevModStruct(
-            writeMinLED,
-            writeSecLED,
-            writeSerialTime,
-            exeSysPtrIn,
+    SysTickData = CreateSysTickStruct(
             lightOff
             );
-}
-
-int SysTickExample_class::setup()
-{
-    return setup_systickExample(
-            SysTickData->devMod->compMod,
-            );
-}
-
-int SysTickExample_class::loop()
-{
-    return loop_systickExample((struct computeModuleStruct*)SysTickData);
 }
