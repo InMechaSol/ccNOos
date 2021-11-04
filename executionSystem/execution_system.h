@@ -179,10 +179,6 @@ private:
     void ModuleExceptionArea();
 public:
     executionSystemClass(
-                linkedEntryPointClass* setupListHeadIn,
-                linkedEntryPointClass* loopListHeadIn,
-                linkedEntryPointClass* sysTickListHeadIn,
-                linkedEntryPointClass* exceptionListHeadIn,
                 uint32_t uSperTick
                 );
     void ExecuteSetup();
@@ -190,6 +186,12 @@ public:
     int ExecuteMain();
     void ExecuteSysTick();
     struct executionSystemStruct* getExeDataPtr() {return &data;}
+    void LinkTheListsHead(
+        linkedEntryPointClass* setupListHeadIn,
+        linkedEntryPointClass* loopListHeadIn,
+        linkedEntryPointClass* sysTickListHeadIn,
+        linkedEntryPointClass* exceptionListHeadIn
+        );
 };
 
 

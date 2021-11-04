@@ -71,17 +71,21 @@ linkedEntryPointClass* linkedEntryPointClass::getNextEPClassPtr()
 
 
 executionSystemClass::executionSystemClass(
-    linkedEntryPointClass* setupListHeadIn,
-    linkedEntryPointClass* loopListHeadIn,
-    linkedEntryPointClass* sysTickListHeadIn,
-    linkedEntryPointClass* exceptionListHeadIn,
     uint32_t uSperTick
     )
 {
     data = CreateExecutionSystemStruct(
             uSperTick
             );
-    
+}
+
+void executionSystemClass::LinkTheListsHead(
+    linkedEntryPointClass* setupListHeadIn,
+    linkedEntryPointClass* loopListHeadIn,
+    linkedEntryPointClass* sysTickListHeadIn,
+    linkedEntryPointClass* exceptionListHeadIn
+    )
+{
     setupListHead = setupListHeadIn;
     loopListHead = loopListHeadIn;
     sysTickListHead = sysTickListHeadIn;

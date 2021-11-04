@@ -27,74 +27,123 @@ application.
 #define __CCNOOS_TESTS__  
     
 #include "../executionSystem/execution_system.h"    
-#include "../consoleMenu/console_menu.h"            
-    
+#include "../consoleMenu/console_menu.h"   
+
 ///////////////////////////////////////////////////////////////////////
-// SysTick Example - Device Module Configuration
+// SysTickClock Example
 ///////////////////////////////////////////////////////////////////////
+#ifdef EXAMPLE_SYSTICK
+
+#ifdef MODULENAME
+    #error ccNOos_Tests: Multiple Examples Selected for Compilation, Not Permitted
+#else
+    #define MODULENAME SysTickClock
+#endif
+
 #define TIME_STR_LEN (16u)
 #define MIN_LED_INDEX (0u)
 #define SEC_LED_INDEX (1u)
 #define TIME_SERIAL_INDEX (2u)
 
-struct SysTickStruct
+//struct SysTickClockStruct
+MODSTRUCT(MODULENAME)
 {
-    struct computeModuleStruct compMod;
+    COMPMODFIRST;
     uint32_t secCount_Last, secCount, minCount_Last, minCount, hrCount;
-    uint8_t MinLEDvalue, SecLEDvalue, Light_Off;    
-    char time[TIME_STR_LEN];    
+    uint8_t MinLEDvalue, SecLEDvalue, Light_Off;
+    char time[TIME_STR_LEN];
 };
 
-struct SysTickStruct CreateSysTickStruct(
-    int lightOff
-);
+#define MODSTRUCTCREATEINS int lightOff
+#define MODSTRUCTCALLINS lightOff
+
+MODSTRUCT_CREATE_PROTO(MODULENAME);
 
 // platform and application specific time string serialization
-void SerializeTimeString(struct SysTickStruct* sysTickDataPtr);
+void SerializeTimeString( MODSTRUCTPTR_IN(MODULENAME));
 
 // platform and application specific io device functions
-void WriteMinLED(struct SysTickStruct* sysTickDataPtr);
-void WriteSecLED(struct SysTickStruct* sysTickDataPtr);
-void WriteTimeSerial(struct SysTickStruct* sysTickDataPtr);
+void WriteMinLED( MODSTRUCTPTR_IN(MODULENAME));
+void WriteSecLED( MODSTRUCTPTR_IN(MODULENAME));
+void WriteTimeSerial( MODSTRUCTPTR_IN(MODULENAME));
 
-// Re-usable, portable, cross-platform (systick example setup() function)
-int setup_systickExample(struct computeModuleStruct* compModPtr);
+// Re-usable, portable, cross-platform (SysTickClock example setup() function)
+MODULE_FUNC_PROTO_SETUP(MODULENAME);
 
-// Re-usable, portable, cross-platform (systick example setup() function)
-int loop_systickExample(struct computeModuleStruct* compModPtr);
+// Re-usable, portable, cross-platform (SysTickClock example  setup() function)
+MODULE_FUNC_PROTO_LOOP(MODULENAME);
 
+// Re-usable, portable, cross-platform (SysTickClock example  systick() function)
+MODULE_FUNC_PROTO_SYSTICK(MODULENAME);
 
 #ifdef __cplusplus
 ////////////////////////////////////////////////////////////////////////////////
-// C++ SysTick Example Class - built from computeModuleClass
-class SysTickExample_class : public computeModuleClass
-{
-private:
-    struct SysTickStruct SysTickData;
-public:
-    SysTickExample_class(
-        int lightOff
-        );
-    int mod_setup()
-    {
-        return setup_systickExample(
-                (struct computeModuleStruct*)(&SysTickData)
-                );
-    }
-    int mod_loop() 
-    {
-        return loop_systickExample(
-                (struct computeModuleStruct*)(&SysTickData)
-                );
-    }
-    void mod_systick() {;} // do nothing in systic module exe area
-    int mod_excphandler()
-    {
-        return setup_systickExample(
-                (struct computeModuleStruct*)(&SysTickData)
-                );
-    }
-};
+// C++ SysTickClock Example Class - built from computeModuleClass
+MODULE_CLASS_DECLARE(MODULENAME);
 
 #endif // !__cplusplus
+#endif // !systick example
+
+///////////////////////////////////////////////////////////////////////
+// Attenuators UI Example
+///////////////////////////////////////////////////////////////////////
+#ifdef EXAMPLE_ATTEN_UI
+
+#ifdef MODULENAME
+    #error ccNOos_Tests: Multiple Examples Selected for Compilation, Not Permitted
+#else
+    #define MODULENAME AttenUI
+#endif
+
+#define CONSOLE_LINE_LEN (80u)
+#define TIME_SERIAL_INDEX (2u)
+
+MODSTRUCT(MODULENAME)
+{
+    COMPMODFIRST;
+    char consoleLine[CONSOLE_LINE_LEN];
+};
+
+#define MODSTRUCTCREATEINS 
+#define MODSTRUCTCALLINS 
+
+MODSTRUCT_CREATE_PROTO(MODULENAME);
+
+// platform and application specific menu line serialization
+void SerializeMenuLine(MODSTRUCTPTR_IN(MODULENAME));
+void ParseAPIString(MODSTRUCTPTR_IN(MODULENAME));
+
+// platform and application specific io device functions
+void WriteAttenuators(MODSTRUCTPTR_IN(MODULENAME));
+void ReadUserInput(MODSTRUCTPTR_IN(MODULENAME));
+
+// Re-usable, portable, cross-platform (attenuator ui setup() function)
+MODULE_FUNC_PROTO_SETUP(MODULENAME);
+
+// Re-usable, portable, cross-platform (attenuator ui setup() function)
+MODULE_FUNC_PROTO_LOOP(MODULENAME);
+
+// Re-usable, portable, cross-platform (attenuator ui systick() function)
+MODULE_FUNC_PROTO_SYSTICK(MODULENAME);
+
+#ifdef __cplusplus
+////////////////////////////////////////////////////////////////////////////////
+// C++ Attenuator UI Class - built from computeModuleClass
+MODULE_CLASS_DECLARE(MODULENAME);
+
+#endif // !__cplusplus
+#endif // !EXAMPLE_ATTEN_UI
+
+////////////////////////////////
+// Compile Error if Examples not defining 
+#ifndef MODULENAME
+    #error MODULENAME must be defined - see examples
+#endif
+#ifndef MODSTRUCTCREATEINS
+    #error MODSTRUCTCREATEINS must be defined - see examples
+#endif
+#ifndef MODSTRUCTCALLINS
+    #error MODSTRUCTCALLINS must be defined - see examples
+#endif
+
 #endif // !__CCNOOS_TESTS__

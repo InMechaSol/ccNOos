@@ -29,12 +29,26 @@ only instantiate, configure, then execute the execution system.
 */
 #include "ccNOos_tests.c"
 
-SysTickExample_class::SysTickExample_class
-        (
-        int lightOff
-        ):computeModuleClass(&SysTickData.compMod)
+///////////////////////////////////////////////////////////////////////
+// SysTick Example
+///////////////////////////////////////////////////////////////////////
+#ifdef EXAMPLE_SYSTICK
+
+MODULE_CONSTRUCT_DEFINE(MODULENAME)
 {
-    SysTickData = CreateSysTickStruct(
-            lightOff
-            );
+    MODULE_CONSTRUCT_DATA_CREATE(MODULENAME);
 }
+
+#endif
+
+///////////////////////////////////////////////////////////////////////
+// Attenuators UI Example
+///////////////////////////////////////////////////////////////////////
+#ifdef EXAMPLE_ATTEN_UI
+
+MODULE_CONSTRUCT_DEFINE(MODULENAME)
+{
+    MODULE_CONSTRUCT_DATA_CREATE(MODULENAME);
+}
+
+#endif
