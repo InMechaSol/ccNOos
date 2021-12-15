@@ -1,5 +1,5 @@
-/** \file ccNOos_tests.h
-*   \brief Cross-Platform Portable ccNOos Tests Declarations
+/** \file SysTickExample.h
+*   \brief Cross-Platform Portable SysTickExample Declarations
 
    Copyright 2021 InMechaSol, Inc
 
@@ -23,49 +23,65 @@ only include this single header to implement a platform specific ccNOos_tests
 application.
 
 */
-#ifndef __CCNOOS_TESTS__
-#define __CCNOOS_TESTS__  
-
-#ifdef COMPILE_TESTS
 
 #include "../executionSystem/execution_system.h"    
-#include "../consoleMenu/console_menu.h"  
-
-// Test declarations
-// 1) Execution System Tests
-//   a. Test SN_PrintF and ATO_ functions
-//   b. Test Time API functions and Execution Time Accuracy
-//   c. Test error handling and recovery
-//   d. Test logging and configuration
+#include "../consoleMenu/console_menu.h"   
 
 
-#define MODULENAME ccNOosTests
+///////////////////////////////////////////////////////////////////////
+// SysTickClock Example
+///////////////////////////////////////////////////////////////////////
+#ifdef EXAMPLE_SYSTICK
 
+#ifdef MODULENAME
+#error ccNOos_Tests: Multiple Examples Selected for Compilation, Not Permitted
+#else
+#define MODULENAME SysTickClock
+#endif
+
+#define TIME_STR_LEN (16u)
+#define MIN_LED_INDEX (0u)
+#define SEC_LED_INDEX (1u)
+#define TIME_SERIAL_INDEX (2u)
+
+//struct SysTickClockStruct
 MODSTRUCT(MODULENAME)
 {
     COMPMODFIRST;
+    uint32_t secCount_Last, secCount, minCount_Last, minCount, hrCount;
+    uint8_t MinLEDvalue, SecLEDvalue, Light_Off;
+    char time[TIME_STR_LEN];
 };
 
-#define MODSTRUCTCREATEINS 
-#define MODSTRUCTCALLINS 
+#define MODSTRUCTCREATEINS int lightOff
+#define MODSTRUCTCALLINS lightOff
 
 MODSTRUCT_CREATE_PROTO(MODULENAME);
 
-// Re-usable, portable, cross-platform (attenuator ui setup() function)
+// platform and application specific time string serialization
+void SerializeTimeString(MODSTRUCTPTR_IN(MODULENAME));
+
+// platform and application specific io device functions
+void WriteMinLED(MODSTRUCTPTR_IN(MODULENAME));
+void WriteSecLED(MODSTRUCTPTR_IN(MODULENAME));
+void WriteTimeSerial(MODSTRUCTPTR_IN(MODULENAME));
+
+// Re-usable, portable, cross-platform (SysTickClock example setup() function)
 MODULE_FUNC_PROTO_SETUP(MODULENAME);
 
-// Re-usable, portable, cross-platform (attenuator ui loop() function)
+// Re-usable, portable, cross-platform (SysTickClock example  setup() function)
 MODULE_FUNC_PROTO_LOOP(MODULENAME);
 
-// Re-usable, portable, cross-platform (attenuator ui systick() function)
+// Re-usable, portable, cross-platform (SysTickClock example  systick() function)
 MODULE_FUNC_PROTO_SYSTICK(MODULENAME);
 
 #ifdef __cplusplus
 ////////////////////////////////////////////////////////////////////////////////
-// C++ Module Wrapper Class - built from computeModuleClass
+// C++ SysTickClock Example Class - built from computeModuleClass
 MODULE_CLASS_DECLARE(MODULENAME);
 
-#define __PLATFORM_APP_CLASS_ccNOosTests(PLATNAME,MODNAME) class PLATFORM_APP_NAME(PLATNAME){\
+
+#define __PLATFORM_APP_CLASS_SYSTICK(PLATNAME,MODNAME) class PLATFORM_APP_NAME(PLATNAME){\
     public:\
     linkedEntryPointClass setupListHead;\
     linkedEntryPointClass loopListHead;\
@@ -74,7 +90,7 @@ MODULE_CLASS_DECLARE(MODULENAME);
     MODCLASS_NAME(MODNAME) MODNAME##CompMod;\
     executionSystemClass* MODNAME##ExecutionSystemPtr;\
     PLATFORM_APP_NAME(PLATNAME)() :\
-        MODNAME##CompMod(),\
+        MODNAME##CompMod(LIGHT_OFF),\
         setupListHead(& MODNAME##CompMod, nullptr),\
         loopListHead(& MODNAME##CompMod, nullptr),\
         systickListHead(nullptr, nullptr),\
@@ -89,35 +105,8 @@ MODULE_CLASS_DECLARE(MODULENAME);
         );\
     }\
 }
-#define PLATFORM_APP_CLASS_ccNOosTests(PLATNAME,MODNAME) __PLATFORM_APP_CLASS_ccNOosTests(PLATNAME,MODNAME)
+#define PLATFORM_APP_CLASS_SYSTICK(PLATNAME,MODNAME) __PLATFORM_APP_CLASS_SYSTICK(PLATNAME,MODNAME)
+
 
 #endif // !__cplusplus
-
-#else
-///////////////////////////////////////////////////////////////////////
-// SysTickClock Example
-///////////////////////////////////////////////////////////////////////
-#ifdef EXAMPLE_SYSTICK
-#include "SysTickExample.h"
 #endif // !systick example
-
-///////////////////////////////////////////////////////////////////////
-// Attenuators UI Example
-///////////////////////////////////////////////////////////////////////
-#ifdef EXAMPLE_ATTEN_UI
-#include "AttensUIExample.h" 
-#endif // !EXAMPLE_ATTEN_UI
-
-////////////////////////////////
-// Compile Error if Examples not defining 
-#ifndef MODULENAME
-#error MODULENAME must be defined - see examples
-#endif
-#ifndef MODSTRUCTCREATEINS
-#error MODSTRUCTCREATEINS must be defined - see examples
-#endif
-#ifndef MODSTRUCTCALLINS
-#error MODSTRUCTCALLINS must be defined - see examples
-#endif
-#endif // !COMPILE_TESTS
-#endif // !__CCNOOS_TESTS__

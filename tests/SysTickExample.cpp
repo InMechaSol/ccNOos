@@ -1,0 +1,14 @@
+///////////////////////////////////////////////////////////////////////
+// SysTick Example
+///////////////////////////////////////////////////////////////////////
+#ifndef COMPILE_TESTS
+#ifdef EXAMPLE_SYSTICK
+
+#include "SysTickExample.c"
+
+MODULE_CONSTRUCT_DEFINE(MODULENAME)
+{
+    MODULE_CONSTRUCT_DATA_CREATE(MODULENAME);
+}
+#endif
+#endif

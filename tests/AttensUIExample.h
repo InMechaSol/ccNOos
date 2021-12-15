@@ -1,5 +1,5 @@
-/** \file ccNOos_tests.h
-*   \brief Cross-Platform Portable ccNOos Tests Declarations
+/** \file AttensUIExample.h
+*   \brief Cross-Platform Portable AttensUIExample Declarations
 
    Copyright 2021 InMechaSol, Inc
 
@@ -23,33 +23,50 @@ only include this single header to implement a platform specific ccNOos_tests
 application.
 
 */
-#ifndef __CCNOOS_TESTS__
-#define __CCNOOS_TESTS__  
-
-#ifdef COMPILE_TESTS
 
 #include "../executionSystem/execution_system.h"    
 #include "../consoleMenu/console_menu.h"  
 
-// Test declarations
-// 1) Execution System Tests
-//   a. Test SN_PrintF and ATO_ functions
-//   b. Test Time API functions and Execution Time Accuracy
-//   c. Test error handling and recovery
-//   d. Test logging and configuration
+///////////////////////////////////////////////////////////////////////
+// Attenuators UI Example
+///////////////////////////////////////////////////////////////////////
+#ifndef COMPILE_TESTS
+#ifdef EXAMPLE_ATTEN_UI
 
+#ifdef MODULENAME
+#error ccNOos_Tests: Multiple Examples Selected for Compilation, Not Permitted
+#else
+#define MODULENAME AttenUI
+#endif
 
-#define MODULENAME ccNOosTests
+#define CONSOLE_LINE_LEN (80u)
+#define MAX_NUM_ATTENUATORS (3u)
+#define MIN_ATTEN_VAL (0.0)
+#define MAX_ATTEN_VAL (31.75)
 
 MODSTRUCT(MODULENAME)
 {
     COMPMODFIRST;
+    float API_DATValue;
+    uint8_t CMD_AttenuatorBits, INDEX_Attenuator, chars2Write, charsRead;
+    float AttenuatorValues[MAX_NUM_ATTENUATORS];
+    bool AttenuatorNeedsWriting[MAX_NUM_ATTENUATORS];
+    char consoleLine[CONSOLE_LINE_LEN];
+    char apiLine[CONSOLE_LINE_LEN];
 };
 
 #define MODSTRUCTCREATEINS 
 #define MODSTRUCTCALLINS 
 
 MODSTRUCT_CREATE_PROTO(MODULENAME);
+
+// platform and application specific io device functions
+void WriteAttenuators(MODSTRUCTPTR_IN(MODULENAME));
+void ReadUserInput(MODSTRUCTPTR_IN(MODULENAME));
+void WriteMenuLine(MODSTRUCTPTR_IN(MODULENAME));
+
+// output factional part, write integral part to "intPartPtr"
+float ModuloFloat(float floatValue, float* intPartPtr);
 
 // Re-usable, portable, cross-platform (attenuator ui setup() function)
 MODULE_FUNC_PROTO_SETUP(MODULENAME);
@@ -62,10 +79,10 @@ MODULE_FUNC_PROTO_SYSTICK(MODULENAME);
 
 #ifdef __cplusplus
 ////////////////////////////////////////////////////////////////////////////////
-// C++ Module Wrapper Class - built from computeModuleClass
+// C++ Attenuator UI Class - built from computeModuleClass
 MODULE_CLASS_DECLARE(MODULENAME);
 
-#define __PLATFORM_APP_CLASS_ccNOosTests(PLATNAME,MODNAME) class PLATFORM_APP_NAME(PLATNAME){\
+#define __PLATFORM_APP_CLASS_ATTEN_UI(PLATNAME,MODNAME) class PLATFORM_APP_NAME(PLATNAME){\
     public:\
     linkedEntryPointClass setupListHead;\
     linkedEntryPointClass loopListHead;\
@@ -89,35 +106,8 @@ MODULE_CLASS_DECLARE(MODULENAME);
         );\
     }\
 }
-#define PLATFORM_APP_CLASS_ccNOosTests(PLATNAME,MODNAME) __PLATFORM_APP_CLASS_ccNOosTests(PLATNAME,MODNAME)
+#define PLATFORM_APP_CLASS_ATTEN_UI(PLATNAME,MODNAME) __PLATFORM_APP_CLASS_ATTEN_UI(PLATNAME,MODNAME)
 
 #endif // !__cplusplus
-
-#else
-///////////////////////////////////////////////////////////////////////
-// SysTickClock Example
-///////////////////////////////////////////////////////////////////////
-#ifdef EXAMPLE_SYSTICK
-#include "SysTickExample.h"
-#endif // !systick example
-
-///////////////////////////////////////////////////////////////////////
-// Attenuators UI Example
-///////////////////////////////////////////////////////////////////////
-#ifdef EXAMPLE_ATTEN_UI
-#include "AttensUIExample.h" 
 #endif // !EXAMPLE_ATTEN_UI
-
-////////////////////////////////
-// Compile Error if Examples not defining 
-#ifndef MODULENAME
-#error MODULENAME must be defined - see examples
 #endif
-#ifndef MODSTRUCTCREATEINS
-#error MODSTRUCTCREATEINS must be defined - see examples
-#endif
-#ifndef MODSTRUCTCALLINS
-#error MODSTRUCTCALLINS must be defined - see examples
-#endif
-#endif // !COMPILE_TESTS
-#endif // !__CCNOOS_TESTS__

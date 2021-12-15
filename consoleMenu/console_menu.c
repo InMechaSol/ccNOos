@@ -36,3 +36,5 @@ struct consoleMenuStruct CreateConsoleMenuStruct()
     struct consoleMenuStruct outStruct;
     return outStruct;
 }
+
+

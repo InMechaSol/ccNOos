@@ -139,6 +139,12 @@ have less support but again, most modern embedded processors have implementation
 
 #ifdef __cplusplus
 
+#define __PLATFORM_APP_NAME(PLATNAME) PLATNAME##_Application
+#define PLATFORM_APP_NAME(PLATNAME) __PLATFORM_APP_NAME(PLATNAME)
+
+#define __PLATFORM_EXESYS_NAME(PLATNAME) PLATNAME##exeSystem
+#define PLATFORM_EXESYS_NAME(PLATNAME) __PLATFORM_EXESYS_NAME(PLATNAME)
+
 #define __MODCLASS_NAME(MODNAME) MODNAME##_class
 #define MODCLASS_NAME(MODNAME) __MODCLASS_NAME(MODNAME)
 
@@ -174,6 +180,7 @@ public:\
 
 #define __MODULE_CONSTRUCT_DATA_CREATE(MODNAME) MODNAME##Data = MODNAME##_create( MODSTRUCTCALLINS )
 #define MODULE_CONSTRUCT_DATA_CREATE(MODNAME) __MODULE_CONSTRUCT_DATA_CREATE(MODNAME)
+
 
 #endif // !__cplusplus
 #endif // !__VERSIONCONFIG__
