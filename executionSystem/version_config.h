@@ -45,7 +45,10 @@ have less support but again, most modern embedded processors have implementation
                     }
     #endif
 #else
-    #include <stdint.h>
+    #include <stdint.h>    
+    typedef unsigned char bool;
+    #define false ((bool)0u)
+    #define true (~false)
 #endif // !__cplusplus
 #else
     #ifdef USING_NONSTDINT_SHORTER
@@ -100,87 +103,189 @@ have less support but again, most modern embedded processors have implementation
 
 //////////////////////////////////////////////////////////////////////////////
 // Template Macros to enforce Adherence to ccNOos concepts
+
+// Naming Conventions Driven by Unique Module Name
+//  formatted as an acceptable c language variable name
+
+// Name of Platform Specific executoin system Instance
+#define __PLATFORM_EXESYS_NAME(PLATNAME) PLATNAME##exeSystem
+#define PLATFORM_EXESYS_NAME(PLATNAME) __PLATFORM_EXESYS_NAME(PLATNAME)
+
+// Name of Module Structure Data Type
+#define __MODstructTYPEname(mNAME) mNAME##Struct
+#define MODstructTYPEname(mNAME) __MODstructTYPEname(mNAME)
+
+// Name of Module Instance Data Variable
+#define __MODdataINST(mNAME) mNAME##Data
+#define MODdataINST(mNAME) __MODdataINST(mNAME)
+
+// Name of Module Instance Data Pointer within Function Code
+#define __MODdataPTR(mNAME) mNAME##DataPtrIn
+#define MODdataPTR(mNAME) __MODdataPTR(mNAME)
+
+// Name of Module Setup Function
+#define __MODsetup(mNAME) setup_##mNAME
+#define MODsetup(mNAME) __MODsetup(mNAME)
+
+// Name of Module Loop Function
+#define __MODloop(mNAME) loop_##mNAME
+#define MODloop(mNAME) __MODloop(mNAME)
+
+// Name of Module Systick Function
+#define __MODsystick(mNAME) systick_##mNAME
+#define MODsystick(mNAME) __MODsystick(mNAME)
+
+// Name of Module Data Structure Initialization Function
+#define __MODstructCREATE(mNAME) Create##mNAME##Struct
+#define MODstructCREATE(mNAME) __MODstructCREATE(mNAME)
+
+
+// Declaration Code Snippets using Naming Convention
+//  formatted as an acceptable c
+
+
+// Declaration Code - Module Data Type - Structure Definition
+#define __MODdeclareSTRUCT(mNAME) struct __MODstructTYPEname(mNAME)
+#define MODdeclareSTRUCT(mNAME) __MODdeclareSTRUCT(mNAME)
+
+// Declaration Code - Module Data Structure 1st element - must be compute module
 #define COMPMODFIRST struct computeModuleStruct compMod
 
-#define __MODSTRUCT(MODNAME) struct MODNAME##Struct
-#define MODSTRUCT(MODNAME) __MODSTRUCT(MODNAME)
+// Declare Inputs List - Module Functions operating on Module Data Pointer
+#define __MODdeclarePTRIN(mNAME) struct __MODstructTYPEname(mNAME)* __MODdataPTR(mNAME)
+#define MODdeclarePTRIN(mNAME) __MODdeclarePTRIN(mNAME)
 
-#define __MODSTRUCT_CREATE_PROTO(MODNAME) MODSTRUCT(MODNAME) MODNAME##_create( MODSTRUCTCREATEINS )
-#define MODSTRUCT_CREATE_PROTO(MODNAME) __MODSTRUCT_CREATE_PROTO(MODNAME)
+// Declaration Code - Module Data Structure in C
+#define __MODdeclareDATA(mNAME) struct __MODstructTYPEname(mNAME) __MODdataINST(mNAME)
+#define MODdeclareDATA(mNAME) __MODdeclareDATA(mNAME)
 
-#define __MODSTRUCTPTR_IN(MODNAME) MODSTRUCT(MODNAME)* MODNAME##DataPtrIn
-#define MODSTRUCTPTR_IN(MODNAME) __MODSTRUCTPTR_IN(MODNAME)
+// Declaration Code - Module Create Function Prototype
+#define __MODdeclareCREATE(mNAME) __MODdeclareSTRUCT(mNAME) __MODstructCREATE(mNAME)
+#define MODdeclareCREATE(mNAME) __MODdeclareCREATE(mNAME)
 
-#define __MODSTRUCTDATA(MODNAME) MODSTRUCT(MODNAME) MODNAME##Data
-#define MODSTRUCTDATA(MODNAME) __MODSTRUCTDATA(MODNAME)
+// Declaration Code - Module Setup Function Prototype
+#define __MODdeclareSETUP(mNAME) int __MODsetup(mNAME) ( struct computeModuleStruct* compModPtrIn )
+#define MODdeclareSETUP(mNAME) __MODdeclareSETUP(mNAME)
 
-#define __MODDATAPTR_ERROR_RETURN(MODNAME, DATAPTRNAME) \
-        MODSTRUCT(MODNAME)  *DATAPTRNAME = (( MODSTRUCT( MODNAME ) *)(compModPtr));\
-        if (DATAPTRNAME == nullptr)\
+// Declaration Code - Module Loop Function Prototype
+#define __MODdeclareLOOP(mNAME) int __MODloop(mNAME) ( struct computeModuleStruct* compModPtrIn )
+#define MODdeclareLOOP(mNAME) __MODdeclareLOOP(mNAME)
+
+// Declaration Code - Module Systick Function Prototype
+#define __MODdeclareSYSTICK(mNAME) void __MODsystick(mNAME) ( struct computeModuleStruct* compModPtrIn )
+#define MODdeclareSYSTICK(mNAME) __MODdeclareSYSTICK(mNAME)
+
+// Declaration Code - Platform Specific executoin system Instance
+#define __PLATFORM_EXESYS_DECLARE(PLATNAME) struct executionSystemStruct __PLATFORM_EXESYS_NAME(PLATNAME)
+#define PLATFORM_EXESYS_DECLARE(PLATNAME) __PLATFORM_EXESYS_DECLARE(PLATNAME)
+
+// Code Snippets to Simplify Common Tasks
+//
+
+
+// Snippet Code - Create and Cast Pointer to Module Data and Ensure not null
+#define __MODDATAPTR_ERROR_RETURN(mNAME) \
+        __MODdeclarePTRIN(mNAME) = ( ( __MODdeclareSTRUCT(mNAME)* )(compModPtrIn));\
+        if (__MODdataPTR(mNAME) == nullptr)\
             return RETURN_ERROR;
-#define MODDATAPTR_ERROR_RETURN(MODNAME, DATAPTRNAME) __MODDATAPTR_ERROR_RETURN(MODNAME, DATAPTRNAME)
+#define MODDATAPTR_ERROR_RETURN(mNAME) __MODDATAPTR_ERROR_RETURN(mNAME)
 
-#define __IF_MODULE_ERROR(DATAPTRNAME) if(DATAPTRNAME->compMod.exceptionFlags != 0u)
-#define IF_MODULE_ERROR(DATAPTRNAME) __IF_MODULE_ERROR(DATAPTRNAME)
+// Snippet Code - Check for module errors
+#define __IF_MODULE_ERROR(mNAME) if(__MODdataPTR(mNAME)->compMod.exceptionFlags != 0u)
+#define IF_MODULE_ERROR( mNAME ) __IF_MODULE_ERROR( mNAME )
 
-#define __CLEAR_MODULE_ERRORS(DATAPTRNAME) DATAPTRNAME->compMod.exceptionFlags = 0u
-#define CLEAR_MODULE_ERRORS(DATAPTRNAME) __CLEAR_MODULE_ERRORS(DATAPTRNAME)
+// Snippet Code - Clear module errors from within Check for module errors conditional block
+#define __CLEAR_MODULE_ERRORS(mNAME) __MODdataPTR(mNAME)->compMod.exceptionFlags = 0u
+#define CLEAR_MODULE_ERRORS(mNAME) __CLEAR_MODULE_ERRORS(mNAME)
 
-#define __MODULE_FUNC_PROTO_SETUP(MODNAME) int MODNAME##_setup(struct computeModuleStruct* compModPtr)
-#define MODULE_FUNC_PROTO_SETUP(MODNAME) __MODULE_FUNC_PROTO_SETUP(MODNAME)
 
-#define __MODULE_FUNC_PROTO_LOOP(MODNAME) int MODNAME##_loop(struct computeModuleStruct* compModPtr)
-#define MODULE_FUNC_PROTO_LOOP(MODNAME) __MODULE_FUNC_PROTO_LOOP(MODNAME)
-
-#define __MODULE_FUNC_PROTO_SYSTICK(MODNAME) void MODNAME##_systick(struct computeModuleStruct* compModPtr)
-#define MODULE_FUNC_PROTO_SYSTICK(MODNAME) __MODULE_FUNC_PROTO_SYSTICK(MODNAME)
-
+// Main Function Template - CPP with an OS Linux or Windows or Similar non-real-time
+#define __C_OS_MAIN_TEMPLATE(PLATNAME) int main(int argc, char** argv)\
+{\
+    clock_t tlast = clock();\
+    clock_t tnow, tdelta;\
+    uint32_t* uSecTicksPtr = &PLATFORM_EXESYS_NAME(PLATNAME).uSecTicks;\
+    uint32_t* hourTicksPtr = &PLATFORM_EXESYS_NAME(PLATNAME).hourTicks;\
+    applicationConfig();\
+    ExecuteSetup(&PLATFORM_EXESYS_NAME(PLATFORM_NAME), &exeEntryPoints);\
+    for (;;)\
+    {\
+        tnow = clock();\
+        if (tnow >= tlast)\
+            tdelta = tnow - tlast;\
+        else\
+            tdelta = tnow + (LONG_MAX - tlast);\
+        tlast = tnow;\
+        (*uSecTicksPtr) += tdelta * uSEC_PER_CLOCK;\
+        if ((*uSecTicksPtr) >= TIME_uS_PER_HR)\
+        {\
+            (*uSecTicksPtr) = 0u;\
+            (*hourTicksPtr)++;\
+        }\
+        ExecuteLoop(&PLATFORM_EXESYS_NAME(PLATFORM_NAME), &exeEntryPoints);\
+    }\
+    return RETURN_ERROR;\
+}
+#define C_OS_MAIN_TEMPLATE(PLATNAME) __C_OS_MAIN_TEMPLATE(PLATNAME)
 
 
 #ifdef __cplusplus
 
+// Name of Platform Specific Application
 #define __PLATFORM_APP_NAME(PLATNAME) PLATNAME##_Application
 #define PLATFORM_APP_NAME(PLATNAME) __PLATFORM_APP_NAME(PLATNAME)
 
-#define __PLATFORM_EXESYS_NAME(PLATNAME) PLATNAME##exeSystem
-#define PLATFORM_EXESYS_NAME(PLATNAME) __PLATFORM_EXESYS_NAME(PLATNAME)
-
+// Name of Module Class Type
 #define __MODCLASS_NAME(MODNAME) MODNAME##_class
 #define MODCLASS_NAME(MODNAME) __MODCLASS_NAME(MODNAME)
 
-#define __MODCLASS_CONSTRUCTOR_PROTO(MODNAME) MODCLASS_NAME(MODNAME)(MODSTRUCTCREATEINS)
-#define MODCLASS_CONSTRUCTOR_PROTO(MODNAME) __MODCLASS_CONSTRUCTOR_PROTO(MODNAME)
+// Declaration Code - Module Setup Inline wrapper
+#define __MODCLASS_SETUP_INLINE(mNAME) int mod_setup(){return __MODsetup(mNAME)((struct computeModuleStruct*)(&__MODdataINST(mNAME)));}
+#define MODCLASS_SETUP_INLINE(mNAME) __MODCLASS_SETUP_INLINE(mNAME)
 
-#define __MODCLASS_SETUP_INLINE(MODNAME) int mod_setup(){return MODNAME##_setup((struct computeModuleStruct*)(&MODNAME##Data));}
-#define MODCLASS_SETUP_INLINE(MODNAME) __MODCLASS_SETUP_INLINE(MODNAME)
+// Declaration Code - Module Loop Inline wrapper
+#define __MODCLASS_LOOP_INLINE(mNAME) int mod_loop(){return __MODloop(mNAME)((struct computeModuleStruct*)(&__MODdataINST(mNAME)));}
+#define MODCLASS_LOOP_INLINE(mNAME) __MODCLASS_LOOP_INLINE(mNAME)
 
-#define __MODCLASS_LOOP_INLINE(MODNAME) int mod_loop(){return MODNAME##_loop((struct computeModuleStruct*)(&MODNAME##Data));}
-#define MODCLASS_LOOP_INLINE(MODNAME) __MODCLASS_LOOP_INLINE(MODNAME)
+// Declaration Code - Module SysTick Inline wrapper
+#define __MODCLASS_SYSTICK_INLINE(mNAME) void mod_systick(){return __MODsystick(mNAME)((struct computeModuleStruct*)(&__MODdataINST(mNAME)));}
+#define MODCLASS_SYSTICK_INLINE(mNAME) __MODCLASS_SYSTICK_INLINE(mNAME)
 
-#define __MODCLASS_SYSTICK_INLINE(MODNAME) void mod_systick(){return MODNAME##_systick((struct computeModuleStruct*)(&MODNAME##Data));}
-#define MODCLASS_SYSTICK_INLINE(MODNAME) __MODCLASS_SYSTICK_INLINE(MODNAME)
+// Declaration Code - Module Exception Handler Inline wrapper
+#define __MODCLASS_ExcpHndlr_INLINE(mNAME) int mod_excphandler(){return __MODsetup(mNAME)((struct computeModuleStruct*)(&__MODdataINST(mNAME)));}
+#define MODCLASS_ExcpHndlr_INLINE(mNAME) __MODCLASS_ExcpHndlr_INLINE(mNAME)
 
-#define __MODCLASS_ExcpHndlr_INLINE(MODNAME) int mod_excphandler(){return MODNAME##_setup((struct computeModuleStruct*)(&MODNAME##Data));}
-#define MODCLASS_ExcpHndlr_INLINE(MODNAME) __MODCLASS_ExcpHndlr_INLINE(MODNAME)
+// Declaration Code - Module Setup Inline wrapper
+#define __MODULE_CONSTRUCT_DEFINE(mNAME) MODCLASS_NAME(mNAME)::MODCLASS_CONSTRUCTOR_PROTO(mNAME): computeModuleClass( & __MODdataINST(mNAME).compMod)
+#define MODULE_CONSTRUCT_DEFINE(mNAME) __MODULE_CONSTRUCT_DEFINE(mNAME)
 
-#define __MODULE_CONSTRUCT_DEFINE(MODNAME) MODCLASS_NAME(MODNAME)::MODCLASS_CONSTRUCTOR_PROTO(MODNAME): computeModuleClass( & MODNAME##Data.compMod)
-#define MODULE_CONSTRUCT_DEFINE(MODNAME) __MODULE_CONSTRUCT_DEFINE(MODNAME)
-
-#define __MODULE_CLASS_DECLARE(MODNAME) class MODCLASS_NAME(MODNAME) : public computeModuleClass{\
-private:\
-    MODSTRUCTDATA(MODNAME);\
-public:\
-    MODCLASS_CONSTRUCTOR_PROTO(MODNAME);\
-    MODCLASS_SETUP_INLINE(MODNAME);\
-    MODCLASS_LOOP_INLINE(MODNAME);\
-    MODCLASS_SYSTICK_INLINE(MODNAME);\
-    MODCLASS_ExcpHndlr_INLINE(MODNAME);\
-} 
-#define MODULE_CLASS_DECLARE(MODNAME) __MODULE_CLASS_DECLARE(MODNAME)
-
-#define __MODULE_CONSTRUCT_DATA_CREATE(MODNAME) MODNAME##Data = MODNAME##_create( MODSTRUCTCALLINS )
-#define MODULE_CONSTRUCT_DATA_CREATE(MODNAME) __MODULE_CONSTRUCT_DATA_CREATE(MODNAME)
-
+// Main Function Template - CPP with an OS Linux or Windows or Similar non-real-time
+#define __CPP_OS_MAIN_TEMPLATE(PLATNAME) int main(int argc, char** argv)\
+{\
+    clock_t tlast = clock();\
+    clock_t tnow, tdelta;\
+    uint32_t* uSecTicksPtr = &PLATFORM_EXESYS_NAME(PLATNAME).getExeDataPtr()->uSecTicks;\
+    uint32_t* hourTicksPtr = &PLATFORM_EXESYS_NAME(PLATNAME).getExeDataPtr()->hourTicks;\
+    PLATFORM_EXESYS_NAME(PLATNAME).ExecuteSetup();\
+    for (;;)\
+    {\
+        tnow = clock();\
+        if (tnow >= tlast)\
+            tdelta = tnow - tlast;\
+        else\
+            tdelta = tnow + (LONG_MAX - tlast);\
+        tlast = tnow;\
+        (*uSecTicksPtr) += tdelta * uSEC_PER_CLOCK;\
+        if ((*uSecTicksPtr) >= TIME_uS_PER_HR)\
+        {\
+            (*uSecTicksPtr) = 0u;\
+            (*hourTicksPtr)++;\
+        }\
+        PLATFORM_EXESYS_NAME(PLATNAME).ExecuteLoop();\
+    }\
+    return RETURN_ERROR;\
+}
+#define CPP_OS_MAIN_TEMPLATE(PLATNAME) __CPP_OS_MAIN_TEMPLATE(PLATNAME)
 
 #endif // !__cplusplus
 #endif // !__VERSIONCONFIG__

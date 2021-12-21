@@ -33,10 +33,10 @@ application.
 ///////////////////////////////////////////////////////////////////////
 #ifdef EXAMPLE_SYSTICK
 
-#ifdef MODULENAME
+#ifdef Mn
 #error ccNOos_Tests: Multiple Examples Selected for Compilation, Not Permitted
 #else
-#define MODULENAME SysTickClock
+#define Mn SysTickClock
 #endif
 
 #define TIME_STR_LEN (16u)
@@ -44,8 +44,8 @@ application.
 #define SEC_LED_INDEX (1u)
 #define TIME_SERIAL_INDEX (2u)
 
-//struct SysTickClockStruct
-MODSTRUCT(MODULENAME)
+
+MODdeclareSTRUCT(Mn)
 {
     COMPMODFIRST;
     uint32_t secCount_Last, secCount, minCount_Last, minCount, hrCount;
@@ -53,35 +53,74 @@ MODSTRUCT(MODULENAME)
     char time[TIME_STR_LEN];
 };
 
-#define MODSTRUCTCREATEINS int lightOff
-#define MODSTRUCTCALLINS lightOff
+#define MODdeclareCREATEINS int lightOff
+#define MODcallCREATEINS lightOff
 
-MODSTRUCT_CREATE_PROTO(MODULENAME);
+MODdeclareCREATE(Mn)(MODdeclareCREATEINS);
 
 // platform and application specific time string serialization
-void SerializeTimeString(MODSTRUCTPTR_IN(MODULENAME));
+void SerializeTimeString(MODdeclarePTRIN(Mn));
 
 // platform and application specific io device functions
-void WriteMinLED(MODSTRUCTPTR_IN(MODULENAME));
-void WriteSecLED(MODSTRUCTPTR_IN(MODULENAME));
-void WriteTimeSerial(MODSTRUCTPTR_IN(MODULENAME));
+void WriteMinLED(MODdeclarePTRIN(Mn));
+void WriteSecLED(MODdeclarePTRIN(Mn));
+void WriteTimeSerial(MODdeclarePTRIN(Mn));
 
 // Re-usable, portable, cross-platform (SysTickClock example setup() function)
-MODULE_FUNC_PROTO_SETUP(MODULENAME);
+MODdeclareSETUP(Mn);
 
 // Re-usable, portable, cross-platform (SysTickClock example  setup() function)
-MODULE_FUNC_PROTO_LOOP(MODULENAME);
+MODdeclareLOOP(Mn);
 
 // Re-usable, portable, cross-platform (SysTickClock example  systick() function)
-MODULE_FUNC_PROTO_SYSTICK(MODULENAME);
+MODdeclareSYSTICK(Mn);
+
+////////////////////////////////////////////////////////////////////////////////
+// C SysTickClock Example Application - built from computeModuleClass and Execution System
+#define __PLATFORM_APP_CTEMPLATE(PLATNAME,MODNAME) \
+    struct linkedEntryPointStruct setupListHead = {\
+        nullptr,\
+        (struct computeModuleStruct*)&MODdataINST(Mn),\
+        MODsetup(Mn)\
+        };\
+    struct linkedEntryPointStruct loopListHead = {\
+        nullptr,\
+        (struct computeModuleStruct*)&MODdataINST(Mn),\
+        MODloop(Mn)\
+        };\
+    struct executionEntryStruct exeEntryPoints = {\
+        &setupListHead,\
+        &loopListHead,\
+        nullptr,\
+        &setupListHead\
+        };\
+    void applicationConfig()\
+    {\
+        PLATFORM_EXESYS_NAME(PLATFORM_NAME) = CreateExecutionSystemStruct(\
+                uSEC_PER_CLOCK);\
+        MODdataINST(Mn) = MODstructCREATE(Mn)(\
+                LIGHT_OFF\
+                );\
+    }
+#define PLATFORM_APP_CTEMPLATE(PLATNAME,MODNAME) __PLATFORM_APP_CTEMPLATE(PLATNAME,MODNAME)
 
 #ifdef __cplusplus
 ////////////////////////////////////////////////////////////////////////////////
 // C++ SysTickClock Example Class - built from computeModuleClass
-MODULE_CLASS_DECLARE(MODULENAME);
+class MODCLASS_NAME(Mn) : public computeModuleClass {
+private:
+    MODdeclareDATA(Mn);
+public:
+    MODCLASS_NAME(Mn)(MODdeclareCREATEINS);
+    MODCLASS_SETUP_INLINE(Mn);
+    MODCLASS_LOOP_INLINE(Mn);
+    MODCLASS_SYSTICK_INLINE(Mn);
+    MODCLASS_ExcpHndlr_INLINE(Mn);
+};
 
-
-#define __PLATFORM_APP_CLASS_SYSTICK(PLATNAME,MODNAME) class PLATFORM_APP_NAME(PLATNAME){\
+////////////////////////////////////////////////////////////////////////////////
+// C++ SysTickClock Example Application - built from computeModuleClass and Execution System
+#define __PLATFORM_APP_CLASS(PLATNAME,MODNAME) class PLATFORM_APP_NAME(PLATNAME){\
     public:\
     linkedEntryPointClass setupListHead;\
     linkedEntryPointClass loopListHead;\
@@ -105,7 +144,7 @@ MODULE_CLASS_DECLARE(MODULENAME);
         );\
     }\
 }
-#define PLATFORM_APP_CLASS_SYSTICK(PLATNAME,MODNAME) __PLATFORM_APP_CLASS_SYSTICK(PLATNAME,MODNAME)
+#define PLATFORM_APP_CLASS(PLATNAME,MODNAME) __PLATFORM_APP_CLASS(PLATNAME,MODNAME)
 
 
 #endif // !__cplusplus

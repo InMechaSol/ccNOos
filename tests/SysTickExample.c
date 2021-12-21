@@ -6,11 +6,13 @@
 #include "SysTickExample.h"
 
 // Re-usable, portable, cross-platform (systick example create() function)
-//struct SysTickStruct SysTick_create( MODSTRUCTCREATEINS )
-MODSTRUCT_CREATE_PROTO(MODULENAME)
+//struct SysTickClockStruct CreateSysTickClockStruct(int lightOff)
+//MODdeclareSTRUCT(Mn) MODstructCREATE(Mn)(MODdeclareCREATEINS)
+//MODdeclareCREATE(Mn)(MODdeclareCREATEINS);
+MODdeclareCREATE(Mn)(MODdeclareCREATEINS)
 {
     uint8_t i = 0;
-    MODSTRUCT(MODULENAME) outStruct;
+    struct SysTickClockStruct outStruct;
     outStruct.compMod = CreateComputeModuleStruct();
     outStruct.Light_Off = lightOff;
     outStruct.MinLEDvalue = lightOff;
@@ -26,68 +28,67 @@ MODSTRUCT_CREATE_PROTO(MODULENAME)
 }
 
 
-
 // Re-usable, portable, cross-platform (systick example setup() function)
-MODULE_FUNC_PROTO_SETUP(MODULENAME)
+MODdeclareSETUP(Mn)
 {
-    MODDATAPTR_ERROR_RETURN(MODULENAME, sysTickPtr);
+    MODDATAPTR_ERROR_RETURN(Mn);
 
     // Setup is running in the loop area to handle exceptions...
-    IF_MODULE_ERROR(sysTickPtr)
+    IF_MODULE_ERROR(Mn)
     {
-        CLEAR_MODULE_ERRORS(sysTickPtr);  // do nothing, clear flags
+        CLEAR_MODULE_ERRORS(Mn);  // do nothing, clear flags
     }
     // Setup is running in the setup area following power on
     else
     {
-    // Values are initialized at instantiation
-    // need to write to LEDs        
-    WriteMinLED(sysTickPtr);
-    WriteSecLED(sysTickPtr);
+        // Values are initialized at instantiation
+        // need to write to LEDs
+        WriteMinLED(MODdataPTR(Mn));
+        WriteSecLED(MODdataPTR(Mn));
     }
     return RETURN_SUCCESS;
 }
 
 // Re-usable, portable, cross-platform (systick example loop() function)
-MODULE_FUNC_PROTO_LOOP(MODULENAME)
+MODdeclareLOOP(Mn)
 {
-    MODDATAPTR_ERROR_RETURN(MODULENAME, sysTickPtr);
+    MODDATAPTR_ERROR_RETURN(Mn);
 
-    sysTickPtr->secCount = getuSecTicks() / TIME_uS_PER_SEC;
-    sysTickPtr->hrCount = getHourTicks();
+    MODdataPTR(Mn)->secCount = getuSecTicks() / TIME_uS_PER_SEC;
+    MODdataPTR(Mn)->hrCount = getHourTicks();
 
-    if (sysTickPtr->secCount_Last != sysTickPtr->secCount)
+    if (MODdataPTR(Mn)->secCount_Last != MODdataPTR(Mn)->secCount)
     {
-        sysTickPtr->secCount_Last = sysTickPtr->secCount;
-        sysTickPtr->minCount = (sysTickPtr->secCount / TIME_SEC_PER_MIN);
+        MODdataPTR(Mn)->secCount_Last = MODdataPTR(Mn)->secCount;
+        MODdataPTR(Mn)->minCount = (MODdataPTR(Mn)->secCount / TIME_SEC_PER_MIN);
 
-        if (sysTickPtr->minCount != sysTickPtr->minCount_Last)
+        if (MODdataPTR(Mn)->minCount != MODdataPTR(Mn)->minCount_Last)
         {
-            sysTickPtr->minCount_Last = sysTickPtr->minCount;
+            MODdataPTR(Mn)->minCount_Last = MODdataPTR(Mn)->minCount;
             /* Toggle red LED. 1 time per minute*/
-            if (sysTickPtr->MinLEDvalue == sysTickPtr->Light_Off)
-                sysTickPtr->MinLEDvalue = !sysTickPtr->Light_Off;
+            if (MODdataPTR(Mn)->MinLEDvalue == MODdataPTR(Mn)->Light_Off)
+                MODdataPTR(Mn)->MinLEDvalue = !MODdataPTR(Mn)->Light_Off;
             else
-                sysTickPtr->MinLEDvalue = sysTickPtr->Light_Off;
+                MODdataPTR(Mn)->MinLEDvalue = MODdataPTR(Mn)->Light_Off;
 
-            WriteMinLED(sysTickPtr);
+            WriteMinLED(MODdataPTR(Mn));
         }
 
         /* Toggle blue LED. 1 time per second */
-        if (sysTickPtr->SecLEDvalue == sysTickPtr->Light_Off)
-            sysTickPtr->SecLEDvalue = !sysTickPtr->Light_Off;
+        if (MODdataPTR(Mn)->SecLEDvalue == MODdataPTR(Mn)->Light_Off)
+            MODdataPTR(Mn)->SecLEDvalue = !MODdataPTR(Mn)->Light_Off;
         else
-            sysTickPtr->SecLEDvalue = sysTickPtr->Light_Off;
-        WriteSecLED(sysTickPtr);
+            MODdataPTR(Mn)->SecLEDvalue = MODdataPTR(Mn)->Light_Off;
+        WriteSecLED(MODdataPTR(Mn));
 
         /* Print system time to IO Device every second */
-        SerializeTimeString(sysTickPtr);
+        SerializeTimeString(MODdataPTR(Mn));
 
-        WriteTimeSerial(sysTickPtr);
+        WriteTimeSerial(MODdataPTR(Mn));
     }
     return RETURN_SUCCESS;
 }
 
-MODULE_FUNC_PROTO_SYSTICK(MODULENAME) { ; }  // do nothing in the systick area
+MODdeclareSYSTICK(Mn) { ; }  // do nothing in the systick area
 
 #endif //!EXAMPLE_SYSTICK

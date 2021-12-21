@@ -26,6 +26,7 @@ application.
 #ifndef __CCNOOS_TESTS__
 #define __CCNOOS_TESTS__  
 
+// The COMPILE_TESTS switch selects between automated tests and example applications
 #ifdef COMPILE_TESTS
 
 #include "../executionSystem/execution_system.h"    
@@ -39,9 +40,9 @@ application.
 //   d. Test logging and configuration
 
 
-#define MODULENAME ccNOosTests
+#define Mn ccNOosTests
 
-MODSTRUCT(MODULENAME)
+MODSTRUCT(Mn)
 {
     COMPMODFIRST;
 };
@@ -49,21 +50,21 @@ MODSTRUCT(MODULENAME)
 #define MODSTRUCTCREATEINS 
 #define MODSTRUCTCALLINS 
 
-MODSTRUCT_CREATE_PROTO(MODULENAME);
+MODSTRUCT_CREATE_PROTO(Mn);
 
 // Re-usable, portable, cross-platform (attenuator ui setup() function)
-MODULE_FUNC_PROTO_SETUP(MODULENAME);
+MODULE_FUNC_PROTO_SETUP(Mn);
 
 // Re-usable, portable, cross-platform (attenuator ui loop() function)
-MODULE_FUNC_PROTO_LOOP(MODULENAME);
+MODULE_FUNC_PROTO_LOOP(Mn);
 
 // Re-usable, portable, cross-platform (attenuator ui systick() function)
-MODULE_FUNC_PROTO_SYSTICK(MODULENAME);
+MODULE_FUNC_PROTO_SYSTICK(Mn);
 
 #ifdef __cplusplus
 ////////////////////////////////////////////////////////////////////////////////
 // C++ Module Wrapper Class - built from computeModuleClass
-MODULE_CLASS_DECLARE(MODULENAME);
+MODULE_CLASS_DECLARE(Mn);
 
 #define __PLATFORM_APP_CLASS_ccNOosTests(PLATNAME,MODNAME) class PLATFORM_APP_NAME(PLATNAME){\
     public:\
@@ -93,7 +94,7 @@ MODULE_CLASS_DECLARE(MODULENAME);
 
 #endif // !__cplusplus
 
-#else
+#else // If not compiling for automated tests, then compile for example applications
 ///////////////////////////////////////////////////////////////////////
 // SysTickClock Example
 ///////////////////////////////////////////////////////////////////////
@@ -108,16 +109,23 @@ MODULE_CLASS_DECLARE(MODULENAME);
 #include "AttensUIExample.h" 
 #endif // !EXAMPLE_ATTEN_UI
 
+///////////////////////////////////////////////////////////////////////
+// SatCom ACS Example
+///////////////////////////////////////////////////////////////////////
+#ifdef EXAMPLE_SATCOM_ACS
+#include "SatComACSExample.h" 
+#endif // !EXAMPLE_SATCOM_ACS
+
 ////////////////////////////////
 // Compile Error if Examples not defining 
-#ifndef MODULENAME
-#error MODULENAME must be defined - see examples
+#ifndef Mn
+#error Mn must be defined - see examples
 #endif
-#ifndef MODSTRUCTCREATEINS
-#error MODSTRUCTCREATEINS must be defined - see examples
+#ifndef MODdeclareCREATEINS
+#error MODdeclareCREATEINS must be defined - see examples
 #endif
-#ifndef MODSTRUCTCALLINS
-#error MODSTRUCTCALLINS must be defined - see examples
+#ifndef MODcallCREATEINS
+#error MODcallCREATEINS must be defined - see examples
 #endif
 #endif // !COMPILE_TESTS
 #endif // !__CCNOOS_TESTS__

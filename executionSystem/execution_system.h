@@ -120,6 +120,14 @@ int ExecuteMain(
         struct executionSystemStruct* exeStructIn, 
         struct executionEntryStruct* exeEntryPtrsIn
         );
+int ExecuteSetup(
+        struct executionSystemStruct* exeStructIn,
+        struct executionEntryStruct* exeEntryPtrsIn
+        );
+int ExecuteLoop(
+        struct executionSystemStruct* exeStructIn,
+        struct executionEntryStruct* exeEntryPtrsIn
+        );
 void ExecuteSysTick(
         struct executionSystemStruct* exeStructIn, 
         struct executionEntryStruct* exeEntryPtrsIn
@@ -194,6 +202,8 @@ public:
         linkedEntryPointClass* exceptionListHeadIn
         );
 };
+
+
 
 
 #endif // !__cplusplus

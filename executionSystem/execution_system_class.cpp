@@ -103,7 +103,7 @@ void executionSystemClass::ExecuteSetup()
 #ifndef __NOEXCEPTIONS
     }
     catch (...) {
-        ; // exe sys logging
+        WriteLogLine((char*)"Platform Setup Exception"); // exe sys logging
     }
 #endif
 
@@ -119,7 +119,7 @@ void executionSystemClass::ExecuteSetup()
 #ifndef __NOEXCEPTIONS
     }
     catch (...) {
-        ; // exe sys logging
+        WriteLogLine((char*)"Platform Start Exception"); // exe sys logging
     }
 #endif
 }

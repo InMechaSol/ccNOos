@@ -173,6 +173,46 @@ int ExecuteMain(
     return RETURN_SUCCESS;
 }
 
+int ExecuteSetup(
+        struct executionSystemStruct* exeStructIn,
+        struct executionEntryStruct* exeEntryPtrsIn
+        )
+{
+    if(exeStructIn == nullptr || exeEntryPtrsIn == nullptr)
+        return RETURN_ERROR;
+
+    // platform exe system setup
+    platformSetup();
+
+    // module setup execution area
+    ModuleExeArea(
+        EXP_SETUP,
+        exeEntryPtrsIn->setupListHead
+        );
+
+    // platform exe system start
+    platformStart();
+}
+int ExecuteLoop(
+        struct executionSystemStruct* exeStructIn,
+        struct executionEntryStruct* exeEntryPtrsIn
+        )
+{
+    // module exception and loop execution areas
+    ModuleExceptionArea(
+        exeEntryPtrsIn->exceptionListHead
+        );
+
+    ModuleExeArea(
+        EXP_LOOP,
+        exeEntryPtrsIn->loopListHead
+        );
+
+    platformLoopDelay();
+
+    return RETURN_SUCCESS;
+}
+
 void ExecuteSysTick(
         struct executionSystemStruct* exeStructIn, 
         struct executionEntryStruct* exeEntryPtrsIn

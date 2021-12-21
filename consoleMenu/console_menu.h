@@ -38,10 +38,17 @@ A console menu has data access to the full execution system and all it contains.
 
 struct consoleMenuStruct // declaration of execution system data structure
 {
-    
+    char* inputBufferPtr;
+    int inputBufferSize;
+    char* outputBufferPtr;
+    int outputBufferSize;
 };
 
-struct consoleMenuStruct CreateConsoleMenuStruct();
+struct consoleMenuStruct CreateConsoleMenuStruct(
+        char* inputBufferPtrIn,
+        int inputBufferSizeIn,
+        char* outputBufferPtrIn,
+        int outputBufferSizeIn);
 
 // String-ize macros
 #define _TOSTRING(s) #s
@@ -106,7 +113,11 @@ bool isIntegerString(char* inStringPtr);
 bool isUnsignedIntegerString(char* inStringPtr);
 bool stringMatchCaseSensitive(char* inStringPtr, const char* matchString);
 
+void WriteMenuLine(char* outStringPtr); // rely on 0x00 termination? safer with length parameter
+void GetMenuChars(char* inStringPtr);
 
+void WriteLogLine(char* outStringPtr);
+void ReadConfigLine(char* inStringPtr);
 
 #ifdef __cplusplus
 

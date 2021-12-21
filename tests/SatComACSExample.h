@@ -27,32 +27,23 @@ application.
 #include "../executionSystem/execution_system.h"    
 #include "../consoleMenu/console_menu.h"  
 
+
+
 ///////////////////////////////////////////////////////////////////////
-// Attenuators UI Example
+// SatCom Antenna Control System Example
 ///////////////////////////////////////////////////////////////////////
 #ifndef COMPILE_TESTS
-#ifdef EXAMPLE_ATTEN_UI
+#ifdef EXAMPLE_SATCOM_ACS
 
 #ifdef MODULENAME
 #error ccNOos_Tests: Multiple Examples Selected for Compilation, Not Permitted
 #else
-#define MODULENAME AttenUI
+#define MODULENAME SatCom_ACS
 #endif
-
-#define CONSOLE_LINE_LEN (80u)
-#define MAX_NUM_ATTENUATORS (3u)
-#define MIN_ATTEN_VAL (0.0)
-#define MAX_ATTEN_VAL (31.75)
 
 MODSTRUCT(MODULENAME)
 {
     COMPMODFIRST;
-    float API_DATValue;
-    uint8_t CMD_AttenuatorBits, INDEX_Attenuator, chars2Write, charsRead;
-    float AttenuatorValues[MAX_NUM_ATTENUATORS];
-    bool AttenuatorNeedsWriting[MAX_NUM_ATTENUATORS];
-    char consoleLine[CONSOLE_LINE_LEN];
-    char apiLine[CONSOLE_LINE_LEN];
 };
 
 #define MODSTRUCTCREATEINS 
@@ -60,29 +51,39 @@ MODSTRUCT(MODULENAME)
 
 MODSTRUCT_CREATE_PROTO(MODULENAME);
 
-// platform and application specific io device functions
-void WriteAttenuators(MODSTRUCTPTR_IN(MODULENAME));
-void ReadUserInput(MODSTRUCTPTR_IN(MODULENAME));
-//void WriteMenuLine(MODSTRUCTPTR_IN(MODULENAME));
+// this has sub modules
 
-// output factional part, write integral part to "intPartPtr"
-float ModuloFloat(float floatValue, float* intPartPtr);
-
-// Re-usable, portable, cross-platform (attenuator ui setup() function)
+// Re-usable, portable, cross-platform (SatCom_ACS setup() function)
 MODULE_FUNC_PROTO_SETUP(MODULENAME);
 
-// Re-usable, portable, cross-platform (attenuator ui loop() function)
+// Re-usable, portable, cross-platform (SatCom_ACS loop() function)
 MODULE_FUNC_PROTO_LOOP(MODULENAME);
 
-// Re-usable, portable, cross-platform (attenuator ui systick() function)
+// Re-usable, portable, cross-platform (SatCom_ACS systick() function)
 MODULE_FUNC_PROTO_SYSTICK(MODULENAME);
+
+//////////////
+// Sub - Modules
+MODSTRUCT(ConsoleUISrv)
+{
+    COMPMODFIRST;
+
+};
+// Re-usable, portable, cross-platform (ConsoleUISrv setup() function)
+MODULE_FUNC_PROTO_SETUP(ConsoleUISrv);
+// Re-usable, portable, cross-platform (ConsoleUISrv loop() function)
+MODULE_FUNC_PROTO_LOOP(ConsoleUISrv);
+// Re-usable, portable, cross-platform (ConsoleUISrv systick() function)
+MODULE_FUNC_PROTO_SYSTICK(ConsoleUISrv);
+
 
 #ifdef __cplusplus
 ////////////////////////////////////////////////////////////////////////////////
-// C++ Attenuator UI Class - built from computeModuleClass
+// C++ SatCom ACS Example Class - built from computeModuleClass
 MODULE_CLASS_DECLARE(MODULENAME);
+MODULE_CLASS_DECLARE(ConsoleUISrv);
 
-#define __PLATFORM_APP_CLASS_ATTEN_UI(PLATNAME,MODNAME) class PLATFORM_APP_NAME(PLATNAME){\
+#define __PLATFORM_APP_CLASS_SATCOM_ACS(PLATNAME,MODNAME) class PLATFORM_APP_NAME(PLATNAME){\
     public:\
     linkedEntryPointClass setupListHead;\
     linkedEntryPointClass loopListHead;\
@@ -106,11 +107,10 @@ MODULE_CLASS_DECLARE(MODULENAME);
         );\
     }\
 }
-#define PLATFORM_APP_CLASS_ATTEN_UI(PLATNAME,MODNAME) __PLATFORM_APP_CLASS_ATTEN_UI(PLATNAME,MODNAME)
+#define PLATFORM_APP_CLASS_SATCOM_ACS(PLATNAME,MODNAME) __PLATFORM_APP_CLASS_SATCOM_ACS(PLATNAME,MODNAME)
 
 #endif // !__cplusplus
-#endif // !EXAMPLE_ATTEN_UI
 
-
+#endif // !EXAMPLE_SATCOM_ACS
 
 #endif  // !COMPILE_TESTS

@@ -145,7 +145,7 @@ void PrintMenuText(MODSTRUCTPTR_IN(MODULENAME))
             linesPrinted++;
 
             if (lines2Print > 0)
-                WriteMenuLine(AttenUIDataPtrIn);
+                WriteMenuLine(&AttenUIDataPtrIn->consoleLine[0]);
         }
     }
 

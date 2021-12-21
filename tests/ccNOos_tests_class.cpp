@@ -28,7 +28,7 @@ only instantiate, configure, then execute the execution system.
 
 */
 #include "ccNOos_tests.c"
-
+;
 #ifdef COMPILE_TESTS
 
 MODULE_CONSTRUCT_DEFINE(MODULENAME)
@@ -37,5 +37,3 @@ MODULE_CONSTRUCT_DEFINE(MODULENAME)
 }
 
 #endif
-
-
