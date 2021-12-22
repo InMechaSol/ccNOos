@@ -102,7 +102,7 @@ MODdeclareSYSTICK(Mn);
                 LIGHT_OFF\
                 );\
     }
-#define PLATFORM_APP_CTEMPLATE(PLATNAME,MODNAME) __PLATFORM_APP_CTEMPLATE(PLATNAME,MODNAME)
+#define  PLATFORM_APP_CTEMPLATE(PLATNAME,MODNAME) __PLATFORM_APP_CTEMPLATE(PLATNAME,MODNAME)
 
 #ifdef __cplusplus
 ////////////////////////////////////////////////////////////////////////////////

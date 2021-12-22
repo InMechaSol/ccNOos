@@ -12,7 +12,7 @@
 MODdeclareCREATE(Mn)(MODdeclareCREATEINS)
 {
     uint8_t i = 0;
-    struct SysTickClockStruct outStruct;
+    MODdeclareSTRUCT(Mn) outStruct;
     outStruct.compMod = CreateComputeModuleStruct();
     outStruct.Light_Off = lightOff;
     outStruct.MinLEDvalue = lightOff;

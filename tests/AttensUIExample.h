@@ -33,10 +33,10 @@ application.
 #ifndef COMPILE_TESTS
 #ifdef EXAMPLE_ATTEN_UI
 
-#ifdef MODULENAME
+#ifdef Mn
 #error ccNOos_Tests: Multiple Examples Selected for Compilation, Not Permitted
 #else
-#define MODULENAME AttenUI
+#define Mn AttenUI
 #endif
 
 #define CONSOLE_LINE_LEN (80u)
@@ -44,7 +44,7 @@ application.
 #define MIN_ATTEN_VAL (0.0)
 #define MAX_ATTEN_VAL (31.75)
 
-MODSTRUCT(MODULENAME)
+MODdeclareSTRUCT(Mn)
 {
     COMPMODFIRST;
     float API_DATValue;
@@ -55,34 +55,70 @@ MODSTRUCT(MODULENAME)
     char apiLine[CONSOLE_LINE_LEN];
 };
 
-#define MODSTRUCTCREATEINS 
-#define MODSTRUCTCALLINS 
+#define MODdeclareCREATEINS
+#define MODcallCREATEINS
 
-MODSTRUCT_CREATE_PROTO(MODULENAME);
+MODdeclareCREATE(Mn)(MODdeclareCREATEINS);
 
 // platform and application specific io device functions
-void WriteAttenuators(MODSTRUCTPTR_IN(MODULENAME));
-void ReadUserInput(MODSTRUCTPTR_IN(MODULENAME));
-//void WriteMenuLine(MODSTRUCTPTR_IN(MODULENAME));
+void WriteAttenuators(MODdeclarePTRIN(Mn));
+void ReadUserInput(MODdeclarePTRIN(Mn));
+//void WriteMenuLine(MODdeclarePTRIN(Mn));
 
 // output factional part, write integral part to "intPartPtr"
 float ModuloFloat(float floatValue, float* intPartPtr);
 
-// Re-usable, portable, cross-platform (attenuator ui setup() function)
-MODULE_FUNC_PROTO_SETUP(MODULENAME);
+// Re-usable, portable, cross-platform (AttenUI example setup() function)
+MODdeclareSETUP(Mn);
 
-// Re-usable, portable, cross-platform (attenuator ui loop() function)
-MODULE_FUNC_PROTO_LOOP(MODULENAME);
+// Re-usable, portable, cross-platform (AttenUI example  setup() function)
+MODdeclareLOOP(Mn);
 
-// Re-usable, portable, cross-platform (attenuator ui systick() function)
-MODULE_FUNC_PROTO_SYSTICK(MODULENAME);
+// Re-usable, portable, cross-platform (AttenUI example  systick() function)
+MODdeclareSYSTICK(Mn);
+
+////////////////////////////////////////////////////////////////////////////////
+// C AttenUI Example Application - built from computeModuleClass and Execution System
+#define __PLATFORM_APP_CTEMPLATE(PLATNAME,MODNAME) \
+    struct linkedEntryPointStruct setupListHead = {\
+        nullptr,\
+        (struct computeModuleStruct*)&MODdataINST(Mn),\
+        MODsetup(Mn)\
+        };\
+    struct linkedEntryPointStruct loopListHead = {\
+        nullptr,\
+        (struct computeModuleStruct*)&MODdataINST(Mn),\
+        MODloop(Mn)\
+        };\
+    struct executionEntryStruct exeEntryPoints = {\
+        &setupListHead,\
+        &loopListHead,\
+        nullptr,\
+        &setupListHead\
+        };\
+    void applicationConfig()\
+    {\
+        PLATFORM_EXESYS_NAME(PLATFORM_NAME) = CreateExecutionSystemStruct(\
+                uSEC_PER_CLOCK);\
+        MODdataINST(Mn) = MODstructCREATE(Mn)( );\
+    }
+#define  PLATFORM_APP_CTEMPLATE(PLATNAME,MODNAME) __PLATFORM_APP_CTEMPLATE(PLATNAME,MODNAME)
 
 #ifdef __cplusplus
 ////////////////////////////////////////////////////////////////////////////////
 // C++ Attenuator UI Class - built from computeModuleClass
-MODULE_CLASS_DECLARE(MODULENAME);
+class MODCLASS_NAME(Mn) : public computeModuleClass {
+private:
+    MODdeclareDATA(Mn);
+public:
+    MODCLASS_NAME(Mn)(MODdeclareCREATEINS);
+    MODCLASS_SETUP_INLINE(Mn);
+    MODCLASS_LOOP_INLINE(Mn);
+    MODCLASS_SYSTICK_INLINE(Mn);
+    MODCLASS_ExcpHndlr_INLINE(Mn);
+};
 
-#define __PLATFORM_APP_CLASS_ATTEN_UI(PLATNAME,MODNAME) class PLATFORM_APP_NAME(PLATNAME){\
+#define __PLATFORM_APP_CLASS(PLATNAME,MODNAME) class PLATFORM_APP_NAME(PLATNAME){\
     public:\
     linkedEntryPointClass setupListHead;\
     linkedEntryPointClass loopListHead;\
@@ -106,7 +142,7 @@ MODULE_CLASS_DECLARE(MODULENAME);
         );\
     }\
 }
-#define PLATFORM_APP_CLASS_ATTEN_UI(PLATNAME,MODNAME) __PLATFORM_APP_CLASS_ATTEN_UI(PLATNAME,MODNAME)
+#define PLATFORM_APP_CLASS(PLATNAME,MODNAME) __PLATFORM_APP_CLASS(PLATNAME,MODNAME)
 
 #endif // !__cplusplus
 #endif // !EXAMPLE_ATTEN_UI

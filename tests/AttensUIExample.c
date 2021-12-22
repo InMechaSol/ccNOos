@@ -7,10 +7,10 @@
 #include "AttensUIExample.h"
 
 // Re-usable, portable, cross-platform (systick example create() function)
-MODSTRUCT_CREATE_PROTO(MODULENAME)
+MODdeclareCREATE(Mn)(MODdeclareCREATEINS)
 {
     int i;
-    MODSTRUCT(MODULENAME) outStruct;
+    MODdeclareSTRUCT(Mn) outStruct;
     outStruct.compMod = CreateComputeModuleStruct();
     outStruct.API_DATValue = 0;
     for (i = 0; i < MAX_NUM_ATTENUATORS; i++)
@@ -30,17 +30,15 @@ MODSTRUCT_CREATE_PROTO(MODULENAME)
     return outStruct;
 }
 
-
-
 // Re-usable, portable, cross-platform (systick example setup() function)
-MODULE_FUNC_PROTO_SETUP(MODULENAME)
+MODdeclareSETUP(Mn)
 {
-    MODDATAPTR_ERROR_RETURN(MODULENAME, AttenUIPtr);
+    MODDATAPTR_ERROR_RETURN(Mn);
 
     // Setup is running in the loop area to handle exceptions...
-    IF_MODULE_ERROR(AttenUIPtr)
+    IF_MODULE_ERROR(Mn)
     {
-        CLEAR_MODULE_ERRORS(AttenUIPtr);  // do nothing, clear flags
+        CLEAR_MODULE_ERRORS(Mn);  // do nothing, clear flags
     }
     // Setup is running in the setup area following power on
     else
@@ -72,13 +70,12 @@ void limitDATcmd(float* DATptr)
     *DATptr = intPart + fracPart;
 }
 
-
-void CalcAttenuationBits(MODSTRUCTPTR_IN(MODULENAME))
+void CalcAttenuationBits(MODdeclarePTRIN(Mn))
 {
     // cmd is limited in the static handler for MCU/DAT
 
-    uint8_t intPart = 0b00011111 & ((uint8_t)AttenUIDataPtrIn->AttenuatorValues[AttenUIDataPtrIn->INDEX_Attenuator]);
-    float fracPart = AttenUIDataPtrIn->AttenuatorValues[AttenUIDataPtrIn->INDEX_Attenuator] - intPart;
+    uint8_t intPart = 0b00011111 & ((uint8_t)MODdataPTR(Mn)->AttenuatorValues[MODdataPTR(Mn)->INDEX_Attenuator]);
+    float fracPart = MODdataPTR(Mn)->AttenuatorValues[MODdataPTR(Mn)->INDEX_Attenuator] - intPart;
 
     bool bit16 = (0b00010000 & intPart) >> 4;
     bool bit8 = (0b00001000 & intPart) >> 3;
@@ -92,28 +89,26 @@ void CalcAttenuationBits(MODSTRUCTPTR_IN(MODULENAME))
 
 
 
-    AttenUIDataPtrIn->CMD_AttenuatorBits = (bit16 & 0x01) << 7;
-    AttenUIDataPtrIn->CMD_AttenuatorBits |= (bit8 & 0x01) << 6;
-    AttenUIDataPtrIn->CMD_AttenuatorBits |= (bit4 & 0x01) << 5;
-    AttenUIDataPtrIn->CMD_AttenuatorBits |= (bit2 & 0x01) << 4;
-    AttenUIDataPtrIn->CMD_AttenuatorBits |= (bit1 & 0x01) << 3;
-    AttenUIDataPtrIn->CMD_AttenuatorBits |= (bit0_50 & 0x01) << 2;
-    AttenUIDataPtrIn->CMD_AttenuatorBits |= (bit0_25 & 0x01) << 1;
+    MODdataPTR(Mn)->CMD_AttenuatorBits = (bit16 & 0x01) << 7;
+    MODdataPTR(Mn)->CMD_AttenuatorBits |= (bit8 & 0x01) << 6;
+    MODdataPTR(Mn)->CMD_AttenuatorBits |= (bit4 & 0x01) << 5;
+    MODdataPTR(Mn)->CMD_AttenuatorBits |= (bit2 & 0x01) << 4;
+    MODdataPTR(Mn)->CMD_AttenuatorBits |= (bit1 & 0x01) << 3;
+    MODdataPTR(Mn)->CMD_AttenuatorBits |= (bit0_50 & 0x01) << 2;
+    MODdataPTR(Mn)->CMD_AttenuatorBits |= (bit0_25 & 0x01) << 1;
 
 }
 
-
-
-void PrintMenuText(MODSTRUCTPTR_IN(MODULENAME))
+void PrintMenuText(MODdeclarePTRIN(Mn))
 {
-    INIT_MENU_VARS(CONSOLE_LINE_LEN, AttenUIDataPtrIn->consoleLine);
+    INIT_MENU_VARS(CONSOLE_LINE_LEN, MODdataPTR(Mn)->consoleLine);
     // looping and printing
     // for looping...
     int lines2Print = 1;
     int linesPrinted = 0;
-    if (AttenUIDataPtrIn->charsRead > 0)
+    if (MODdataPTR(Mn)->charsRead > 0)
     {
-        AttenUIDataPtrIn->charsRead = 0;
+        MODdataPTR(Mn)->charsRead = 0;
         while (lines2Print > 0)
         {
             switch (linesPrinted)
@@ -121,11 +116,11 @@ void PrintMenuText(MODSTRUCTPTR_IN(MODULENAME))
             case 0:
                 PRINT_MENU_LN  "\033[2J\033[0;0H\n////////// Digital Attenuator UI"     END_MENU_LN;
             case 1:
-                PRINT_MENU_LN  "\nCurrent Attenuation Tx:\t%6.2f dB", AttenUIDataPtrIn->AttenuatorValues[0]      END_MENU_LN;
+                PRINT_MENU_LN  "\nCurrent Attenuation Tx:\t%6.2f dB", MODdataPTR(Mn)->AttenuatorValues[0]      END_MENU_LN;
             case 2:
-                PRINT_MENU_LN  "\nCurrent Attenuation Rx:\t%6.2f dB", AttenUIDataPtrIn->AttenuatorValues[1]      END_MENU_LN;
+                PRINT_MENU_LN  "\nCurrent Attenuation Rx:\t%6.2f dB", MODdataPTR(Mn)->AttenuatorValues[1]      END_MENU_LN;
             case 3:
-                PRINT_MENU_LN  "\nCurrent Attenuation Xx:\t%6.2f dB", AttenUIDataPtrIn->AttenuatorValues[2]      END_MENU_LN;
+                PRINT_MENU_LN  "\nCurrent Attenuation Xx:\t%6.2f dB", MODdataPTR(Mn)->AttenuatorValues[2]      END_MENU_LN;
             case 4:
                 PRINT_MENU_LN  "\n//////////////////////////////////"      END_MENU_LN;
             case 5:
@@ -141,23 +136,25 @@ void PrintMenuText(MODSTRUCTPTR_IN(MODULENAME))
                 break;
             }
 
-            AttenUIDataPtrIn->chars2Write = charsWritten;
+            MODdataPTR(Mn)->chars2Write = charsWritten;
             linesPrinted++;
 
             if (lines2Print > 0)
-                WriteMenuLine(&AttenUIDataPtrIn->consoleLine[0]);
+                WriteMenuLine(&MODdataPTR(Mn)->consoleLine[0]);
         }
     }
 
 }
 
-void ParseAPIString(MODSTRUCTPTR_IN(MODULENAME))
+void ParseAPIString(MODdeclarePTRIN(Mn))
 {
 
     // loop characters from user input
     int i = 0;
     int j = 0, k = 0, l = 0;
-#define thisC AttenUIDataPtrIn->apiLine[i]
+
+#define thisC MODdataPTR(Mn)->apiLine[i]
+
     while ((thisC != 0x00) && (i < CONSOLE_LINE_LEN))
     {
         // find delimeter or terminator
@@ -177,19 +174,19 @@ void ParseAPIString(MODSTRUCTPTR_IN(MODULENAME))
             // k index of second :
             // i index of terminator ;
 
-            AttenUIDataPtrIn->apiLine[j] = 0x00;
-            if (stringMatchCaseSensitive(&AttenUIDataPtrIn->apiLine[0], "Atten"))
+            MODdataPTR(Mn)->apiLine[j] = 0x00;
+            if (stringMatchCaseSensitive(&MODdataPTR(Mn)->apiLine[0], "Atten"))
             {
-                AttenUIDataPtrIn->apiLine[k] = 0x00;
-                if (stringMatchCaseSensitive(&AttenUIDataPtrIn->apiLine[j + 1], "Tx"))
+                MODdataPTR(Mn)->apiLine[k] = 0x00;
+                if (stringMatchCaseSensitive(&MODdataPTR(Mn)->apiLine[j + 1], "Tx"))
                 {
                     l = 0;
                 }
-                else if (stringMatchCaseSensitive(&AttenUIDataPtrIn->apiLine[j + 1], "Rx"))
+                else if (stringMatchCaseSensitive(&MODdataPTR(Mn)->apiLine[j + 1], "Rx"))
                 {
                     l = 1;
                 }
-                else if (stringMatchCaseSensitive(&AttenUIDataPtrIn->apiLine[j + 1], "Xx"))
+                else if (stringMatchCaseSensitive(&MODdataPTR(Mn)->apiLine[j + 1], "Xx"))
                 {
                     l = 2;
                 }
@@ -197,12 +194,12 @@ void ParseAPIString(MODSTRUCTPTR_IN(MODULENAME))
                     return;
 
                 thisC = 0x00;
-                if (ATO_F(&AttenUIDataPtrIn->apiLine[k + 1], &AttenUIDataPtrIn->AttenuatorValues[l]))
+                if (ATO_F(&MODdataPTR(Mn)->apiLine[k + 1], &MODdataPTR(Mn)->AttenuatorValues[l]))
                 {
                     // limit command within range
-                    limitDATcmd(&AttenUIDataPtrIn->AttenuatorValues[l]);
+                    limitDATcmd(&MODdataPTR(Mn)->AttenuatorValues[l]);
                     // set flag to update
-                    AttenUIDataPtrIn->AttenuatorNeedsWriting[l] = true;
+                    MODdataPTR(Mn)->AttenuatorNeedsWriting[l] = true;
                 }
 
             }
@@ -215,32 +212,32 @@ void ParseAPIString(MODSTRUCTPTR_IN(MODULENAME))
 }
 
 // Re-usable, portable, cross-platform (systick example loop() function)
-MODULE_FUNC_PROTO_LOOP(MODULENAME)
+MODdeclareLOOP(Mn)
 {
-    MODDATAPTR_ERROR_RETURN(MODULENAME, AttenUIPtr);
+    MODDATAPTR_ERROR_RETURN(Mn);
 
     int i;
     for (i = 0; i < MAX_NUM_ATTENUATORS; i++)
     {
-        if (AttenUIPtr->AttenuatorNeedsWriting[i])
+        if (MODdataPTR(Mn)->AttenuatorNeedsWriting[i])
         {
-            AttenUIPtr->INDEX_Attenuator = i;
-            CalcAttenuationBits(AttenUIPtr);
+            MODdataPTR(Mn)->INDEX_Attenuator = i;
+            CalcAttenuationBits(MODdataPTR(Mn));
 
-            WriteAttenuators(AttenUIPtr);
+            WriteAttenuators(MODdataPTR(Mn));
 
-            AttenUIPtr->AttenuatorNeedsWriting[i] = false;
+            MODdataPTR(Mn)->AttenuatorNeedsWriting[i] = false;
         }
     }
-    PrintMenuText(AttenUIPtr);
+    PrintMenuText(MODdataPTR(Mn));
     // to block or not to block?
-    ReadUserInput(AttenUIPtr);
+    ReadUserInput(MODdataPTR(Mn));
     // parse api string from console input
-    ParseAPIString(AttenUIPtr);
+    ParseAPIString(MODdataPTR(Mn));
     return RETURN_SUCCESS;
 }
 
-MODULE_FUNC_PROTO_SYSTICK(MODULENAME) { ; }  // do nothing in the systick area
+MODdeclareSYSTICK(Mn) { ; }  // do nothing in the systick area
 
 #endif //!Attenuators UI Example
 #endif

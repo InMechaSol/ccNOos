@@ -6,9 +6,10 @@
 
 #include "AttensUIExample.c"
 
-MODULE_CONSTRUCT_DEFINE(MODULENAME)
+MODCLASS_NAME(Mn)::MODCLASS_NAME(Mn)(MODdeclareCREATEINS) :
+    computeModuleClass(&MODdataINST(Mn).compMod)
 {
-    MODULE_CONSTRUCT_DATA_CREATE(MODULENAME);
+    MODdataINST(Mn) = MODstructCREATE(Mn)(MODcallCREATEINS);
 }
 #endif
 #endif
