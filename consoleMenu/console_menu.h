@@ -74,7 +74,6 @@ struct consoleMenuStruct CreateConsoleMenuStruct(
 #define __INIT_MENU_VARS(CHARS_PER_LINE, CHAR_PTR)  \
         char* linebuff = CHAR_PTR;\
         int charsWritten = 0;\
-        int startChar = 0;\
         int maxChars = CHARS_PER_LINE
 #define INIT_MENU_VARS(CHARS_PER_LINE, CHAR_PTR) __INIT_MENU_VARS(CHARS_PER_LINE, CHAR_PTR)
 
@@ -87,31 +86,31 @@ struct consoleMenuStruct CreateConsoleMenuStruct(
 
 // when possible, simply return snprintf() from std lib
 int SN_PrintF(char* str, unsigned int size, const char* format, ...);
-bool ATO_F(const char* str, float* val);
-bool ATO_D(const char* str, double* val);
-bool ATO_I8(const char* str, int8_t* val);
-bool ATO_I16(const char* str, int16_t* val);
-bool ATO_I32(const char* str, int32_t* val);
-bool ATO_I64(const char* str, int64_t* val);
-bool ATO_U8(const char* str, uint8_t* val);
-bool ATO_U16(const char* str, uint16_t* val);
-bool ATO_U32(const char* str, uint32_t* val);
-bool ATO_U64(const char* str, uint64_t* val);
+UI_8 ATO_F(const char* str, float* val);
+UI_8 ATO_D(const char* str, double* val);
+UI_8 ATO_I8(const char* str, I_8* val);
+UI_8 ATO_I16(const char* str, I_16* val);
+UI_8 ATO_I32(const char* str, I_32* val);
+UI_8 ATO_I64(const char* str, I_64* val);
+UI_8 ATO_U8(const char* str, UI_8* val);
+UI_8 ATO_U16(const char* str, UI_16* val);
+UI_8 ATO_U32(const char* str, UI_32* val);
+UI_8 ATO_U64(const char* str, UI_64* val);
 
 
-bool isASCIIchar(char inChar);
-bool isLetterchar(char inChar);
-bool isNumberchar(char inChar);
-bool isIntegerchar(char inChar);
-bool isUnsignedIntegerchar(char inChar);
-bool isDelimiterchar(char inChar);
-bool isTerminatorchar(char inChar);
-bool isASCIIString(char* inStringPtr);
-bool isLetterString(char* inStringPtr);
-bool isNumberString(char* inStringPtr);
-bool isIntegerString(char* inStringPtr);
-bool isUnsignedIntegerString(char* inStringPtr);
-bool stringMatchCaseSensitive(char* inStringPtr, const char* matchString);
+UI_8 isASCIIchar(char inChar);
+UI_8 isLetterchar(char inChar);
+UI_8 isNumberchar(char inChar);
+UI_8 isIntegerchar(char inChar);
+UI_8 isUnsignedIntegerchar(char inChar);
+UI_8 isDelimiterchar(char inChar);
+UI_8 isTerminatorchar(char inChar);
+UI_8 isASCIIString(char* inStringPtr);
+UI_8 isLetterString(char* inStringPtr);
+UI_8 isNumberString(char* inStringPtr);
+UI_8 isIntegerString(char* inStringPtr);
+UI_8 isUnsignedIntegerString(char* inStringPtr);
+UI_8 stringMatchCaseSensitive(char* inStringPtr, const char* matchString);
 
 void WriteMenuLine(char* outStringPtr); // rely on 0x00 termination? safer with length parameter
 void GetMenuChars(char* inStringPtr);

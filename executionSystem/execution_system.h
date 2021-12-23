@@ -58,21 +58,21 @@ void platformLoopDelay();
 // Cross-Platform, Reusable, C/C++ Execution System Data Structure
 struct executionSystemStruct
 {	
-    uint32_t uSecTicks;
-    uint32_t hourTicks;
-    uint32_t uSecPerSysTick;
+    UI_32 uSecTicks;
+    UI_32 hourTicks;
+    UI_32 uSecPerSysTick;
 };
 
 // Execution System Data Structure Creation
 struct executionSystemStruct CreateExecutionSystemStruct(
-    uint32_t uSperTick
+    UI_32 uSperTick
     );
 
 
 ////////////////////////////////////////////////////////////////////////////////
 // Cross-Platform, Reusable, C/C++ Module API Functions
-uint32_t getuSecTicks();
-uint32_t getHourTicks();
+UI_32 getuSecTicks();
+UI_32 getHourTicks();
 
 
 
@@ -107,7 +107,7 @@ struct executionEntryStruct
 };
 
 void ModuleExeArea(
-            int ExcpIndex, 
+            UI_32 ExcpIndex, 
             struct linkedEntryPointStruct* exeListHeadIn
             );
 
@@ -188,7 +188,7 @@ private:
     void ModuleExceptionArea();
 public:
     executionSystemClass(
-                uint32_t uSperTick
+                UI_32 uSperTick
                 );
     void ExecuteSetup();
     void ExecuteLoop();

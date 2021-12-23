@@ -15,7 +15,7 @@ MODdeclareCREATE(Mn)(MODdeclareCREATEINS)
     outStruct.API_DATValue = 0;
     for (i = 0; i < MAX_NUM_ATTENUATORS; i++)
     {
-        outStruct.AttenuatorNeedsWriting[i] = true;
+        outStruct.AttenuatorNeedsWriting[i] = ui8TRUE;
         outStruct.AttenuatorValues[i] = MAX_ATTEN_VAL;
     }
     outStruct.chars2Write = 0;
@@ -74,16 +74,16 @@ void CalcAttenuationBits(MODdeclarePTRIN(Mn))
 {
     // cmd is limited in the static handler for MCU/DAT
 
-    uint8_t intPart = 0b00011111 & ((uint8_t)MODdataPTR(Mn)->AttenuatorValues[MODdataPTR(Mn)->INDEX_Attenuator]);
+    UI_8 intPart = 0b00011111 & ((UI_8)MODdataPTR(Mn)->AttenuatorValues[MODdataPTR(Mn)->INDEX_Attenuator]);
     float fracPart = MODdataPTR(Mn)->AttenuatorValues[MODdataPTR(Mn)->INDEX_Attenuator] - intPart;
 
-    bool bit16 = (0b00010000 & intPart) >> 4;
-    bool bit8 = (0b00001000 & intPart) >> 3;
-    bool bit4 = (0b00000100 & intPart) >> 2;
-    bool bit2 = (0b00000010 & intPart) >> 1;
-    bool bit1 = (0b00000001 & intPart);
-    bool bit0_50 = (fracPart > 0.49);
-    bool bit0_25 = (fracPart > 0.74);
+    UI_8 bit16 = (0b00010000 & intPart) >> 4;
+    UI_8 bit8 = (0b00001000 & intPart) >> 3;
+    UI_8 bit4 = (0b00000100 & intPart) >> 2;
+    UI_8 bit2 = (0b00000010 & intPart) >> 1;
+    UI_8 bit1 = (0b00000001 & intPart);
+    UI_8 bit0_50 = (fracPart > 0.49);
+    UI_8 bit0_25 = (fracPart > 0.74);
     if (fracPart < 0.49 && fracPart > 0.0)
         bit0_25 = 1;
 
@@ -199,7 +199,7 @@ void ParseAPIString(MODdeclarePTRIN(Mn))
                     // limit command within range
                     limitDATcmd(&MODdataPTR(Mn)->AttenuatorValues[l]);
                     // set flag to update
-                    MODdataPTR(Mn)->AttenuatorNeedsWriting[l] = true;
+                    MODdataPTR(Mn)->AttenuatorNeedsWriting[l] = ui8TRUE;
                 }
 
             }
@@ -226,7 +226,7 @@ MODdeclareLOOP(Mn)
 
             WriteAttenuators(MODdataPTR(Mn));
 
-            MODdataPTR(Mn)->AttenuatorNeedsWriting[i] = false;
+            MODdataPTR(Mn)->AttenuatorNeedsWriting[i] = ui8FALSE;
         }
     }
     PrintMenuText(MODdataPTR(Mn));

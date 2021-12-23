@@ -30,8 +30,12 @@ specific functions for things like system time, execution time, platform details
 #include "execution_system.h"
 #include "../consoleMenu/console_menu.h"
 
+
+
+
+
 struct executionSystemStruct CreateExecutionSystemStruct(
-    uint32_t uSperTick
+    UI_32 uSperTick
     )
 {
     struct executionSystemStruct outStruct;
@@ -41,29 +45,19 @@ struct executionSystemStruct CreateExecutionSystemStruct(
     return outStruct;
 }
 
-bool isASCIIchar(char inChar) { return ((inChar >= ASCII_space && inChar <= ASCII_tilda) || inChar == ASCII_lf || inChar == ASCII_cr || inChar == ASCII_tab || inChar == 0x00); }
-bool isLetterchar(char inChar) { return ((inChar >= ASCII_A && inChar <= ASCII_Z) || (inChar >= ASCII_a && inChar <= ASCII_z)); }
-bool isNumberchar(char inChar) { return ((inChar >= ASCII_0 && inChar <= ASCII_9) || inChar == ASCII_plus || inChar == ASCII_minus || inChar == ASCII_dot); }
-bool isIntegerchar(char inChar) { return ((inChar >= ASCII_0 && inChar <= ASCII_9) || inChar == ASCII_plus || inChar == ASCII_minus); }
-bool isUnsignedIntegerchar(char inChar) { return ((inChar >= ASCII_0 && inChar <= ASCII_9)); }
-bool isDelimiterchar(char inChar) { return (inChar == ASCII_colon); }
-bool isTerminatorchar(char inChar) { return (inChar == ASCII_semicolon); }
-bool isASCIIString(char* inStringPtr) { int index = 0;  while (inStringPtr[index] != 0x00) if (!isASCIIchar(inStringPtr[index++])) return false; return true; }
-bool isLetterString(char* inStringPtr) { int index = 0;  while (inStringPtr[index] != 0x00) if (!isLetterchar(inStringPtr[index++])) return false; return true; }
-bool isNumberString(char* inStringPtr) { int index = 0;  while (inStringPtr[index] != 0x00) if (!isNumberchar(inStringPtr[index++])) return false; return true; }
-bool isIntegerString(char* inStringPtr) { int index = 0;  while (inStringPtr[index] != 0x00) if (!isIntegerchar(inStringPtr[index++])) return false; return true; }
-bool isUnsignedIntegerString(char* inStringPtr) { int index = 0;  while (inStringPtr[index] != 0x00) if (!isUnsignedIntegerchar(inStringPtr[index++])) return false; return true; }
-bool stringMatchCaseSensitive(char* inStringPtr, const char* matchString)
-{
-    int i = 0;
-    while (matchString[i] != 0x00)
-    {
-        if (inStringPtr[i] != matchString[i])
-            return false;
-        i++;
-    }
-    return true;
-}
+UI_8 isASCIIchar(char inChar) { return ((inChar >= ASCII_space && inChar <= ASCII_tilda) || inChar == ASCII_lf || inChar == ASCII_cr || inChar == ASCII_tab || inChar == 0x00); }
+UI_8 isLetterchar(char inChar) { return ((inChar >= ASCII_A && inChar <= ASCII_Z) || (inChar >= ASCII_a && inChar <= ASCII_z)); }
+UI_8 isNumberchar(char inChar) { return ((inChar >= ASCII_0 && inChar <= ASCII_9) || inChar == ASCII_plus || inChar == ASCII_minus || inChar == ASCII_dot); }
+UI_8 isIntegerchar(char inChar) { return ((inChar >= ASCII_0 && inChar <= ASCII_9) || inChar == ASCII_plus || inChar == ASCII_minus); }
+UI_8 isUnsignedIntegerchar(char inChar) { return ((inChar >= ASCII_0 && inChar <= ASCII_9)); }
+UI_8 isDelimiterchar(char inChar) { return (inChar == ASCII_colon); }
+UI_8 isTerminatorchar(char inChar) { return (inChar == ASCII_semicolon); }
+UI_8 isASCIIString(char* inStringPtr) { int index = 0;  while (inStringPtr[index] != 0x00) if (!isASCIIchar(inStringPtr[index++])) return ui8FALSE; return ui8TRUE; }
+UI_8 isLetterString(char* inStringPtr) { int index = 0;  while (inStringPtr[index] != 0x00) if (!isLetterchar(inStringPtr[index++])) return ui8FALSE; return ui8TRUE; }
+UI_8 isNumberString(char* inStringPtr) { int index = 0;  while (inStringPtr[index] != 0x00) if (!isNumberchar(inStringPtr[index++])) return ui8FALSE; return ui8TRUE; }
+UI_8 isIntegerString(char* inStringPtr) { int index = 0;  while (inStringPtr[index] != 0x00) if (!isIntegerchar(inStringPtr[index++])) return ui8FALSE; return ui8TRUE; }
+UI_8 isUnsignedIntegerString(char* inStringPtr) { int index = 0;  while (inStringPtr[index] != 0x00) if (!isUnsignedIntegerchar(inStringPtr[index++])) return ui8FALSE; return ui8TRUE; }
+UI_8 stringMatchCaseSensitive(char* inStringPtr, const char* matchString) { int i = 0; while (matchString[i] != 0x00) {if (inStringPtr[i] != matchString[i]) return ui8FALSE; i++; } return ui8TRUE; }
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -71,7 +65,7 @@ bool stringMatchCaseSensitive(char* inStringPtr, const char* matchString)
 #ifndef __cplusplus
 
 void ModuleExeArea(
-            int ExcpIndex, 
+            UI_32 ExcpIndex,
             struct linkedEntryPointStruct* exeListHeadIn
             )
 {
@@ -192,7 +186,10 @@ int ExecuteSetup(
 
     // platform exe system start
     platformStart();
+    
+    return RETURN_SUCCESS;
 }
+
 int ExecuteLoop(
         struct executionSystemStruct* exeStructIn,
         struct executionEntryStruct* exeEntryPtrsIn

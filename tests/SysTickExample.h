@@ -48,8 +48,8 @@ application.
 MODdeclareSTRUCT(Mn)
 {
     COMPMODFIRST;
-    uint32_t secCount_Last, secCount, minCount_Last, minCount, hrCount;
-    uint8_t MinLEDvalue, SecLEDvalue, Light_Off;
+    UI_32 secCount_Last, secCount, minCount_Last, minCount, hrCount;
+    UI_8 MinLEDvalue, SecLEDvalue, Light_Off;
     char time[TIME_STR_LEN];
 };
 

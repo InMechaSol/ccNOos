@@ -71,7 +71,7 @@ linkedEntryPointClass* linkedEntryPointClass::getNextEPClassPtr()
 
 
 executionSystemClass::executionSystemClass(
-    uint32_t uSperTick
+    UI_32 uSperTick
     )
 {
     data = CreateExecutionSystemStruct(

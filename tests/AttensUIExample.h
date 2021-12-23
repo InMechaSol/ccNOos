@@ -48,9 +48,9 @@ MODdeclareSTRUCT(Mn)
 {
     COMPMODFIRST;
     float API_DATValue;
-    uint8_t CMD_AttenuatorBits, INDEX_Attenuator, chars2Write, charsRead;
+    UI_8 CMD_AttenuatorBits, INDEX_Attenuator, chars2Write, charsRead;
     float AttenuatorValues[MAX_NUM_ATTENUATORS];
-    bool AttenuatorNeedsWriting[MAX_NUM_ATTENUATORS];
+    UI_8 AttenuatorNeedsWriting[MAX_NUM_ATTENUATORS];
     char consoleLine[CONSOLE_LINE_LEN];
     char apiLine[CONSOLE_LINE_LEN];
 };

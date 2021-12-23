@@ -6,12 +6,9 @@
 #include "SysTickExample.h"
 
 // Re-usable, portable, cross-platform (systick example create() function)
-//struct SysTickClockStruct CreateSysTickClockStruct(int lightOff)
-//MODdeclareSTRUCT(Mn) MODstructCREATE(Mn)(MODdeclareCREATEINS)
-//MODdeclareCREATE(Mn)(MODdeclareCREATEINS);
 MODdeclareCREATE(Mn)(MODdeclareCREATEINS)
 {
-    uint8_t i = 0;
+    UI_8 i = 0;
     MODdeclareSTRUCT(Mn) outStruct;
     outStruct.compMod = CreateComputeModuleStruct();
     outStruct.Light_Off = lightOff;

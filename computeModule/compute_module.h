@@ -36,7 +36,7 @@ modules at particular execution levels.
 
 struct computeModuleStruct
 {
-    uint32_t exceptionFlags;    
+    UI_32 exceptionFlags;    
 };
 
 struct computeModuleStruct CreateComputeModuleStruct();

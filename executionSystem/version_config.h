@@ -32,46 +32,92 @@ have less support but again, most modern embedded processors have implementation
 */
 #ifndef __VERSIONCONFIG__
 #define __VERSIONCONFIG__
+    
+////////////////////////////////////////////////////////////////////////////////
+// Compiler Static Assert Macro Stack 
+//    - Useful to enforce correct config at compile time  
+#define CTASTR2(pre,post) pre ## post
+#define CTASTR(pre,post) CTASTR2(pre,post)
+#define STATIC_ASSERT(cond,msg) \
+    typedef struct { int CTASTR(static_assertion_failed_,msg) : !!(cond); } \
+        CTASTR(static_assertion_failed_,__COUNTER__)
+    
+/////////////////////////////////////////////////////////////////////////////
+// Compiler Configuration for Platform Selection
+#ifdef PLATFORM_PSoC4
+    #define PLATFORM_NAME PSoC4
+    #define MAIN_C_NOos_Wsystick
+    #define INTSIZE32
+#endif
+#ifdef PLATFORM_QTCreatorC
+    #define PLATFORM_NAME QTCreatorC
+    #define MAIN_C_NOos_NOsystick
+    #define INTSIZE32
+#endif
+#ifdef PLATFORM_WIN32
+    #define PLATFORM_NAME Win32
+    #define MAIN_CPP_NOos_NOsystick
+    #define INTSIZE32
+#endif
+#ifdef PLATFORM_CUSTOM
+    #define PLATFORM_NAME Custom
+    #define PLATFORM_MAIN_CUSTOM
+#endif
+#ifndef PLATFORM_NAME
+    #error PLATFORM_NAME must be defined, see examples
+#endif
+    
+////////////////////////////////////////////////////////////////////////////////
+// Fixed Width Integer Data Types
+//    - enforce correct config at compile time 
+
+#ifdef INTSIZE8
+typedef unsigned int UI_8;
+typedef unsigned long UI_16;
+typedef unsigned long long UI_32;
+//typedef unsigned long long UI_64;
+#define INTSIZE_FIXED
+#endif
+#ifdef INTSIZE16
+typedef unsigned char UI_8;
+typedef unsigned int UI_16;
+typedef unsigned long UI_32;
+typedef unsigned long long UI_64;
+typedef char I_8;
+typedef int I_16;
+typedef long I_32;
+typedef long long I_64;
+#define INTSIZE_FIXED
+#endif
+#ifdef INTSIZE32
+typedef unsigned char UI_8;
+typedef unsigned short UI_16;
+typedef unsigned int UI_32;
+typedef unsigned long UI_64;  
+typedef char I_8;
+typedef short I_16;
+typedef int I_32;
+typedef long I_64; 
+#define INTSIZE_FIXED
+#endif
+#ifndef INTSIZE_FIXED
+    #error INTSIZEx must be defined as INTSIZE8, INTSIZE16, or INTSIZE32 bits in type
+#endif 
 
 ////////////////////////////////////////////////////////////////////////////////
-// Compiler Configuration for stdint support
-#ifdef USING_STDINT
-#ifdef __cplusplus
-    #ifdef USING_CSTDINT
-        #include <cstdint>
-    #else
-        extern "C" {
-        #include <stdint.h>
-                    }
-    #endif
-#else
-    #include <stdint.h>    
-    typedef unsigned char bool;
-    #define false ((bool)0u)
-    #define true (~false)
-#endif // !__cplusplus
-#else
-    #ifdef USING_NONSTDINT_SHORTER
-        #warning not using stdint/cstdint !!!
-        typedef unsigned char uint8_t;
-        typedef char int8_t;        
-        #warning 2 byte int
-        typedef unsigned int uint16_t;
-        typedef int int16_t;
-        typedef unsigned long int uint32_t;
-        typedef long int int32_t;
-    #endif
-    #ifdef USING_NONSTDINT_LONGER   
-        #warning not using stdint / cstdint !!!
-        typedef unsigned char uint8_t;
-        typedef char int8_t;
-        #warning 4 byte int
-        typedef unsigned short int uint16_t;
-        typedef short int int16_t;
-        typedef unsigned int uint32_t;
-        typedef int int32_t;
-    #endif
-#endif // !USING_STDINT
+// Static Assert Calls 
+//    - for Fixed Width Correctness
+STATIC_ASSERT(sizeof(UI_8)==1, UI_8_must_be_8_bits);  
+STATIC_ASSERT(sizeof(UI_16)==2, UI_16_must_be_16_bits); 
+STATIC_ASSERT(sizeof(UI_32)==4, UI_32_must_be_32_bits); 
+STATIC_ASSERT(sizeof(I_8)==1, I_8_must_be_8_bits);  
+STATIC_ASSERT(sizeof(I_16)==2, I_16_must_be_16_bits); 
+STATIC_ASSERT(sizeof(I_32)==4, I_32_must_be_32_bits);
+
+///////////////////////////////////////////////////////////////////////////////
+// True / False macros for UI_8 data type in boolean operatoins
+#define ui8FALSE (0u)
+#define ui8TRUE (!ui8FALSE)
 
 /////////////////////////////////////////////////////////////////////////////
 // Compiler Configuration for nullptr support
@@ -85,11 +131,25 @@ have less support but again, most modern embedded processors have implementation
 #endif
 
 /////////////////////////////////////////////////////////////////////////////
-// MACROS for Compile Time knowledge of int sizes
-#define INTBYTES sizeof(int)
-#define SHORTBYTES sizeof(short int)
-#define LONGBYTES sizeof(long int)
-#define LONGLONGBYTES sizeof(long long int)
+// Compiler Configuration for Execution System Calls and Main Entry Points
+#ifdef MAIN_C_NOos_Wsystick
+    #define PLATFORM_MAIN
+#endif
+#ifdef MAIN_CPP_NOos_NOsystick
+    #define PLATFORM_MAIN
+#endif
+#ifdef MAIN_C_NOos_NOsystick
+    #define PLATFORM_MAIN
+#endif
+#ifdef PLATFORM_MAIN_CUSTOM
+    #define PLATFORM_MAIN
+#endif
+#ifndef PLATFORM_MAIN
+    #error PLATFORM_MAIN must be defined, see examples
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+// MACROS 
 
 /** \def RETURN_SUCCESS
 * \brief Function Return Value for Success
@@ -100,6 +160,8 @@ have less support but again, most modern embedded processors have implementation
 * \brief Function Return Value for ERROR
 */
 #define RETURN_ERROR (-1)
+
+
 
 //////////////////////////////////////////////////////////////////////////////
 // Template Macros to enforce Adherence to ccNOos concepts
@@ -140,7 +202,7 @@ have less support but again, most modern embedded processors have implementation
 #define MODstructCREATE(mNAME) __MODstructCREATE(mNAME)
 
 
-// Declaration Code Snippets using Naming Convention
+// Declaration Code Snippets using Naming Conventions
 //  formatted as an acceptable c
 
 
@@ -198,16 +260,27 @@ have less support but again, most modern embedded processors have implementation
 #define __CLEAR_MODULE_ERRORS(mNAME) __MODdataPTR(mNAME)->compMod.exceptionFlags = 0u
 #define CLEAR_MODULE_ERRORS(mNAME) __CLEAR_MODULE_ERRORS(mNAME)
 
+// Main Function Template - C with an OS Linux or Windows or Similar non-real-time
+#define __C_NOos_MAINnSYSTICK_TEMPLATE(PLATNAME) int main()\
+{\
+    applicationConfig();\
+    return ExecuteMain(&PLATFORM_EXESYS_NAME(PLATNAME), &exeEntryPoints);\
+}\
+void SysTickISRCallback(void)\
+{\
+    ExecuteSysTick(&PLATFORM_EXESYS_NAME(PLATNAME), &exeEntryPoints);\
+}
+#define C_NOos_MAINnSYSTICK_TEMPLATE(PLATNAME) __C_NOos_MAINnSYSTICK_TEMPLATE(PLATNAME)
 
-// Main Function Template - CPP with an OS Linux or Windows or Similar non-real-time
+// Main Function Template - C with an OS Linux or Windows or Similar non-real-time
 #define __C_OS_MAIN_TEMPLATE(PLATNAME) int main(int argc, char** argv)\
 {\
     clock_t tlast = clock();\
     clock_t tnow, tdelta;\
-    uint32_t* uSecTicksPtr = &PLATFORM_EXESYS_NAME(PLATNAME).uSecTicks;\
-    uint32_t* hourTicksPtr = &PLATFORM_EXESYS_NAME(PLATNAME).hourTicks;\
+    UI_32* uSecTicksPtr = &PLATFORM_EXESYS_NAME(PLATNAME).uSecTicks;\
+    UI_32* hourTicksPtr = &PLATFORM_EXESYS_NAME(PLATNAME).hourTicks;\
     applicationConfig();\
-    ExecuteSetup(&PLATFORM_EXESYS_NAME(PLATFORM_NAME), &exeEntryPoints);\
+    ExecuteSetup(&PLATFORM_EXESYS_NAME(PLATNAME), &exeEntryPoints);\
     for (;;)\
     {\
         tnow = clock();\
@@ -222,13 +295,13 @@ have less support but again, most modern embedded processors have implementation
             (*uSecTicksPtr) = 0u;\
             (*hourTicksPtr)++;\
         }\
-        ExecuteLoop(&PLATFORM_EXESYS_NAME(PLATFORM_NAME), &exeEntryPoints);\
+        ExecuteLoop(&PLATFORM_EXESYS_NAME(PLATNAME), &exeEntryPoints);\
     }\
     return RETURN_ERROR;\
 }
 #define C_OS_MAIN_TEMPLATE(PLATNAME) __C_OS_MAIN_TEMPLATE(PLATNAME)
 
-
+// C++ specific macro code templates
 #ifdef __cplusplus
 
 // Name of Platform Specific Application
@@ -259,13 +332,17 @@ have less support but again, most modern embedded processors have implementation
 #define __MODULE_CONSTRUCT_DEFINE(mNAME) MODCLASS_NAME(mNAME)::MODCLASS_CONSTRUCTOR_PROTO(mNAME): computeModuleClass( & __MODdataINST(mNAME).compMod)
 #define MODULE_CONSTRUCT_DEFINE(mNAME) __MODULE_CONSTRUCT_DEFINE(mNAME)
 
+// Declaration Code - Application Instance Declaration
+#define __PLATFORM_APP_CPPTEMPLATE(PLATNAME) __PLATFORM_APP_NAME(PLATNAME) theApplicationExample;
+#define PLATFORM_APP_CPPTEMPLATE(PLATNAME) __PLATFORM_APP_CPPTEMPLATE(PLATNAME)
+
 // Main Function Template - CPP with an OS Linux or Windows or Similar non-real-time
 #define __CPP_OS_MAIN_TEMPLATE(PLATNAME) int main(int argc, char** argv)\
 {\
     clock_t tlast = clock();\
     clock_t tnow, tdelta;\
-    uint32_t* uSecTicksPtr = &PLATFORM_EXESYS_NAME(PLATNAME).getExeDataPtr()->uSecTicks;\
-    uint32_t* hourTicksPtr = &PLATFORM_EXESYS_NAME(PLATNAME).getExeDataPtr()->hourTicks;\
+    UI_32* uSecTicksPtr = &PLATFORM_EXESYS_NAME(PLATNAME).getExeDataPtr()->uSecTicks;\
+    UI_32* hourTicksPtr = &PLATFORM_EXESYS_NAME(PLATNAME).getExeDataPtr()->hourTicks;\
     PLATFORM_EXESYS_NAME(PLATNAME).ExecuteSetup();\
     for (;;)\
     {\
