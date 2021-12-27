@@ -31,10 +31,17 @@ A console menu has data access to the full execution system and all it contains.
 #ifndef __CONSOLE_MENU__
 #define __CONSOLE_MENU__
 
+
 #include "../computeModule/compute_module.h"
 #include "../ioDevice/io_device.h"
 
+#ifdef __USINGCONSOLEMENU
 
+struct menuNode
+{
+    int (*PrintMenuScreen)(struct computeModuleStruct* CompModPtrIn);
+    int (*ParseInputString)(struct computeModuleStruct* CompModPtrIn);
+};
 
 struct consoleMenuStruct // declaration of execution system data structure
 {
@@ -42,13 +49,17 @@ struct consoleMenuStruct // declaration of execution system data structure
     int inputBufferSize;
     char* outputBufferPtr;
     int outputBufferSize;
+    struct menuNode* rootNode;
+    struct menuNode* visibleNode;
 };
 
 struct consoleMenuStruct CreateConsoleMenuStruct(
         char* inputBufferPtrIn,
         int inputBufferSizeIn,
         char* outputBufferPtrIn,
-        int outputBufferSizeIn);
+        int outputBufferSizeIn,
+        struct menuNode* rootNodeIn
+        );
 
 // String-ize macros
 #define _TOSTRING(s) #s
@@ -111,7 +122,8 @@ UI_8 isNumberString(char* inStringPtr);
 UI_8 isIntegerString(char* inStringPtr);
 UI_8 isUnsignedIntegerString(char* inStringPtr);
 UI_8 stringMatchCaseSensitive(char* inStringPtr, const char* matchString);
-
+void stringInit(char* stringPtr, const char* initString);
+    
 void WriteMenuLine(char* outStringPtr); // rely on 0x00 termination? safer with length parameter
 void GetMenuChars(char* inStringPtr);
 
@@ -129,4 +141,5 @@ class consoleMenuClass // declaration of console menu class
 
 
 #endif // !__cplusplus
+#endif // !__USINGCONSOLEMENU
 #endif // ! __CONSOLE_MENU__

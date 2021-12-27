@@ -30,43 +30,115 @@ application.
 #ifdef COMPILE_TESTS
 
 #include "../executionSystem/execution_system.h"    
-#include "../consoleMenu/console_menu.h"  
-
-// Test declarations
-// 1) Execution System Tests
-//   a. Test SN_PrintF and ATO_ functions
-//   b. Test Time API functions and Execution Time Accuracy
-//   c. Test error handling and recovery
-//   d. Test logging and configuration
-
-
+#include "../consoleMenu/console_menu.h" 
+    
 #define Mn ccNOosTests
-
-MODSTRUCT(Mn)
+    
+#define charBuffMax 80
+    
+MODdeclareSTRUCT(Mn)
 {
     COMPMODFIRST;
+    float   float_0,    float_1;
+    double  double_0,   double_1;
+    UI_64   ui64_0,     ui64_1;
+    I_64    i64_0,      i64_1;
+    UI_32   ui32_0,     ui32_1;
+    I_32    i32_0,      i32_1;
+    UI_16   ui16_0,     ui16_1;
+    I_16    i16_0,      i16_1;
+    UI_8    ui8_0,      ui8_1;
+    I_8     i8_0,       i8_1;
+    UI_8    charsRead,  chars2Write;
+    char    charbuff_In[charBuffMax];
+    char    charbuff_Out[charBuffMax];
+    UI_16   SerializationTestReturn;
+    UI_16   TimedExecutionTestReturn;
+    UI_16   ExceptionsTestReturn;
+    UI_16   TestState;
 };
 
-#define MODSTRUCTCREATEINS 
-#define MODSTRUCTCALLINS 
+#define MODdeclareCREATEINS 
+#define MODcallCREATEINS 
 
-MODSTRUCT_CREATE_PROTO(Mn);
+MODdeclareCREATE(Mn)(MODdeclareCREATEINS);
 
-// Re-usable, portable, cross-platform (attenuator ui setup() function)
-MODULE_FUNC_PROTO_SETUP(Mn);
+// Re-usable, portable, cross-platform (ccNOosTests setup() function)
+MODdeclareSETUP(Mn);
+// Re-usable, portable, cross-platform (ccNOosTests loop() function)
+MODdeclareLOOP(Mn);
+// Re-usable, portable, cross-platform (ccNOosTests systick() function)
+MODdeclareSYSTICK(Mn);
+#ifdef __USINGCONSOLEMENU 
+MODdeclarePRINTm(Mn);
+MODdeclarePARSEi(Mn);
+#endif
+///////////////////////////////////////////////////////////////////////
+// Test Function Return Value Constants
+#define RETURN_TEST_PASSED (0x0000)
+#define RETURN_TEST_IN_PROGRESS (0x0001)
+#define RETURN_FAILED_TIMEDEXECUTION (0x0010)
+#define RETURN_FAILED_SERIALIZATION (0x0100)
+#define RETURN_FAILED_DESERIALIZATION (0x0110)
+#define RETURN_FAILED_COMPARISON (0x0120)
 
-// Re-usable, portable, cross-platform (attenuator ui loop() function)
-MODULE_FUNC_PROTO_LOOP(Mn);
+///////////////////////////////////////////////////////////////////////
+// Test Functions
+UI_16 TimedExecutionTest(MODdeclarePTRIN(Mn));
+UI_16 ExceptionsTest(MODdeclarePTRIN(Mn));
+#ifdef __USINGCONSOLEMENU
+UI_16 SerializationTest(MODdeclarePTRIN(Mn));
+const char* ResultsSerializationTests(MODdeclarePTRIN(Mn));
+const char* ResultsTimedExecutionTests(MODdeclarePTRIN(Mn));
+const char* StatusccNOosTests(MODdeclarePTRIN(Mn));
+#endif
 
-// Re-usable, portable, cross-platform (attenuator ui systick() function)
-MODULE_FUNC_PROTO_SYSTICK(Mn);
+////////////////////////////////////////////////////////////////////////////////
+// C ccNOosTests Example Application - built from computeModuleClass and Execution System
+#define __PLATFORM_APP_CTEMPLATE(PLATNAME,MODNAME) \
+    struct linkedEntryPointStruct setupListHead = {\
+        nullptr,\
+        (struct computeModuleStruct*)&MODdataINST(Mn),\
+        MODsetup(Mn)\
+        };\
+    struct linkedEntryPointStruct loopListHead = {\
+        nullptr,\
+        (struct computeModuleStruct*)&MODdataINST(Mn),\
+        MODloop(Mn)\
+        };\
+    struct executionEntryStruct exeEntryPoints = {\
+        &setupListHead,\
+        &loopListHead,\
+        nullptr,\
+        &setupListHead\
+        };\
+    void applicationConfig()\
+    {\
+        PLATFORM_EXESYS_NAME(PLATFORM_NAME) = CreateExecutionSystemStruct(\
+                uSEC_PER_CLOCK);\
+        MODdataINST(Mn) = MODstructCREATE(Mn)(\
+                LIGHT_OFF\
+                );\
+    }
+#define  PLATFORM_APP_CTEMPLATE(PLATNAME,MODNAME) __PLATFORM_APP_CTEMPLATE(PLATNAME,MODNAME)
 
 #ifdef __cplusplus
 ////////////////////////////////////////////////////////////////////////////////
-// C++ Module Wrapper Class - built from computeModuleClass
-MODULE_CLASS_DECLARE(Mn);
+// C++ ccNOosTests Example Class - built from computeModuleClass
+class MODCLASS_NAME(Mn) : public computeModuleClass {
+private:
+    MODdeclareDATA(Mn);
+public:
+    MODCLASS_NAME(Mn)(MODdeclareCREATEINS);
+    MODCLASS_SETUP_INLINE(Mn);
+    MODCLASS_LOOP_INLINE(Mn);
+    MODCLASS_SYSTICK_INLINE(Mn);
+    MODCLASS_ExcpHndlr_INLINE(Mn);
+};
 
-#define __PLATFORM_APP_CLASS_ccNOosTests(PLATNAME,MODNAME) class PLATFORM_APP_NAME(PLATNAME){\
+////////////////////////////////////////////////////////////////////////////////
+// C++ ccNOosTests Example Application - built from computeModuleClass and Execution System
+#define __PLATFORM_APP_CLASS(PLATNAME,MODNAME) class PLATFORM_APP_NAME(PLATNAME){\
     public:\
     linkedEntryPointClass setupListHead;\
     linkedEntryPointClass loopListHead;\
@@ -75,7 +147,7 @@ MODULE_CLASS_DECLARE(Mn);
     MODCLASS_NAME(MODNAME) MODNAME##CompMod;\
     executionSystemClass* MODNAME##ExecutionSystemPtr;\
     PLATFORM_APP_NAME(PLATNAME)() :\
-        MODNAME##CompMod(),\
+        MODNAME##CompMod(LIGHT_OFF),\
         setupListHead(& MODNAME##CompMod, nullptr),\
         loopListHead(& MODNAME##CompMod, nullptr),\
         systickListHead(nullptr, nullptr),\
@@ -90,7 +162,8 @@ MODULE_CLASS_DECLARE(Mn);
         );\
     }\
 }
-#define PLATFORM_APP_CLASS_ccNOosTests(PLATNAME,MODNAME) __PLATFORM_APP_CLASS_ccNOosTests(PLATNAME,MODNAME)
+#define PLATFORM_APP_CLASS(PLATNAME,MODNAME) __PLATFORM_APP_CLASS(PLATNAME,MODNAME)
+
 
 #endif // !__cplusplus
 
@@ -116,8 +189,10 @@ MODULE_CLASS_DECLARE(Mn);
 #include "SatComACSExample.h" 
 #endif // !EXAMPLE_SATCOM_ACS
 
+#endif // !COMPILE_TESTS
+
 ////////////////////////////////
-// Compile Error if Examples not defining 
+// Compile Error if Examples/Tests not defining 
 #ifndef Mn
 #error Mn must be defined - see examples
 #endif
@@ -127,5 +202,5 @@ MODULE_CLASS_DECLARE(Mn);
 #ifndef MODcallCREATEINS
 #error MODcallCREATEINS must be defined - see examples
 #endif
-#endif // !COMPILE_TESTS
+
 #endif // !__CCNOOS_TESTS__

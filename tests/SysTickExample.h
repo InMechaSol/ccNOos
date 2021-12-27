@@ -68,10 +68,8 @@ void WriteTimeSerial(MODdeclarePTRIN(Mn));
 
 // Re-usable, portable, cross-platform (SysTickClock example setup() function)
 MODdeclareSETUP(Mn);
-
 // Re-usable, portable, cross-platform (SysTickClock example  setup() function)
 MODdeclareLOOP(Mn);
-
 // Re-usable, portable, cross-platform (SysTickClock example  systick() function)
 MODdeclareSYSTICK(Mn);
 

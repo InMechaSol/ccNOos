@@ -73,7 +73,7 @@ struct executionSystemStruct CreateExecutionSystemStruct(
 // Cross-Platform, Reusable, C/C++ Module API Functions
 UI_32 getuSecTicks();
 UI_32 getHourTicks();
-
+UI_32 getuSecPerSysTick();
 
 
 ////////////////////////////////////////////////////////////////////////////////

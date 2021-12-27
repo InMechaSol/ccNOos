@@ -33,6 +33,19 @@ have less support but again, most modern embedded processors have implementation
 #ifndef __VERSIONCONFIG__
 #define __VERSIONCONFIG__
     
+/////////////////////////////////////////////////////////////////////////////
+// COMPILER CONSTANTS
+
+/** \def RETURN_SUCCESS
+* \brief Function Return Value for Success
+*/
+#define RETURN_SUCCESS (0)
+
+/** \def RETURN_ERROR
+* \brief Function Return Value for ERROR
+*/
+#define RETURN_ERROR (-1)
+    
 ////////////////////////////////////////////////////////////////////////////////
 // Compiler Static Assert Macro Stack 
 //    - Useful to enforce correct config at compile time  
@@ -40,7 +53,13 @@ have less support but again, most modern embedded processors have implementation
 #define CTASTR(pre,post) CTASTR2(pre,post)
 #define STATIC_ASSERT(cond,msg) \
     typedef struct { int CTASTR(static_assertion_failed_,msg) : !!(cond); } \
-        CTASTR(static_assertion_failed_,__COUNTER__)
+        CTASTR(static_assertion_failed_,__COUNTER__)    
+    
+//////////////////////////////////////////////////////////////////////////////
+// Compiler Stringize Macros
+//    - Convert macro name or macro value to string constant in code  
+#define xstr(s) str(s)
+#define str(s) #s
     
 /////////////////////////////////////////////////////////////////////////////
 // Compiler Configuration for Platform Selection
@@ -58,6 +77,11 @@ have less support but again, most modern embedded processors have implementation
     #define PLATFORM_NAME Win32
     #define MAIN_CPP_NOos_NOsystick
     #define INTSIZE32
+#endif
+#ifdef PLATFORM_ARDUINO
+    #define PLATFORM_NAME Arduino
+    #define MAIN_CPP_NOos_NOsystick_Arduino
+    #define INTSIZE16
 #endif
 #ifdef PLATFORM_CUSTOM
     #define PLATFORM_NAME Custom
@@ -138,6 +162,9 @@ STATIC_ASSERT(sizeof(I_32)==4, I_32_must_be_32_bits);
 #ifdef MAIN_CPP_NOos_NOsystick
     #define PLATFORM_MAIN
 #endif
+#ifdef MAIN_CPP_NOos_NOsystick_Arduino
+#define PLATFORM_MAIN
+#endif
 #ifdef MAIN_C_NOos_NOsystick
     #define PLATFORM_MAIN
 #endif
@@ -147,21 +174,6 @@ STATIC_ASSERT(sizeof(I_32)==4, I_32_must_be_32_bits);
 #ifndef PLATFORM_MAIN
     #error PLATFORM_MAIN must be defined, see examples
 #endif
-
-/////////////////////////////////////////////////////////////////////////////
-// MACROS 
-
-/** \def RETURN_SUCCESS
-* \brief Function Return Value for Success
-*/
-#define RETURN_SUCCESS (0)
-
-/** \def RETURN_ERROR
-* \brief Function Return Value for ERROR
-*/
-#define RETURN_ERROR (-1)
-
-
 
 //////////////////////////////////////////////////////////////////////////////
 // Template Macros to enforce Adherence to ccNOos concepts
@@ -196,6 +208,14 @@ STATIC_ASSERT(sizeof(I_32)==4, I_32_must_be_32_bits);
 // Name of Module Systick Function
 #define __MODsystick(mNAME) systick_##mNAME
 #define MODsystick(mNAME) __MODsystick(mNAME)
+
+// Name of Module Print Menu Function
+#define __MODprintMENU(mNAME) printM_##mNAME
+#define MODprintMENU(mNAME) __MODprintMENU(mNAME)
+
+// Name of Module Parse Input Function
+#define __MODparseINPUT(mNAME) parseI_##mNAME
+#define MODparseINPUT(mNAME) __MODparseINPUT(mNAME)
 
 // Name of Module Data Structure Initialization Function
 #define __MODstructCREATE(mNAME) Create##mNAME##Struct
@@ -233,6 +253,14 @@ STATIC_ASSERT(sizeof(I_32)==4, I_32_must_be_32_bits);
 #define __MODdeclareLOOP(mNAME) int __MODloop(mNAME) ( struct computeModuleStruct* compModPtrIn )
 #define MODdeclareLOOP(mNAME) __MODdeclareLOOP(mNAME)
 
+// Declaration Code - Module Print Menu Function Prototype
+#define __MODdeclarePRINTm(mNAME) int __MODprintMENU(mNAME) ( struct computeModuleStruct* compModPtrIn )
+#define MODdeclarePRINTm(mNAME) __MODdeclarePRINTm(mNAME)
+
+// Declaration Code - Module Parse Menu Function Prototype
+#define __MODdeclarePARSEi(mNAME) int __MODparseINPUT(mNAME) ( struct computeModuleStruct* compModPtrIn )
+#define MODdeclarePARSEi(mNAME) __MODdeclarePARSEi(mNAME)
+
 // Declaration Code - Module Systick Function Prototype
 #define __MODdeclareSYSTICK(mNAME) void __MODsystick(mNAME) ( struct computeModuleStruct* compModPtrIn )
 #define MODdeclareSYSTICK(mNAME) __MODdeclareSYSTICK(mNAME)
@@ -266,6 +294,7 @@ STATIC_ASSERT(sizeof(I_32)==4, I_32_must_be_32_bits);
     applicationConfig();\
     return ExecuteMain(&PLATFORM_EXESYS_NAME(PLATNAME), &exeEntryPoints);\
 }\
+void SysTickISRCallback(void);\
 void SysTickISRCallback(void)\
 {\
     ExecuteSysTick(&PLATFORM_EXESYS_NAME(PLATNAME), &exeEntryPoints);\
@@ -301,6 +330,7 @@ void SysTickISRCallback(void)\
 }
 #define C_OS_MAIN_TEMPLATE(PLATNAME) __C_OS_MAIN_TEMPLATE(PLATNAME)
 
+//
 // C++ specific macro code templates
 #ifdef __cplusplus
 
@@ -363,6 +393,41 @@ void SysTickISRCallback(void)\
     return RETURN_ERROR;\
 }
 #define CPP_OS_MAIN_TEMPLATE(PLATNAME) __CPP_OS_MAIN_TEMPLATE(PLATNAME)
+
+#define __CPP_MAIN_TEMPLATE_ARDUINO(PLATNAME) \
+unsigned long tlast;\
+unsigned long tnow, tdelta;\
+uint32_t* uSecTicksPtr;\
+uint32_t* hourTicksPtr;\
+void setup() {\
+    asm(".global _printf_float");\
+    tlast = millis();\
+    tnow, tdelta;\
+    uSecTicksPtr = &PLATFORM_EXESYS_NAME(PLATNAME).getExeDataPtr()->uSecTicks;\
+    hourTicksPtr = &PLATFORM_EXESYS_NAME(PLATNAME).getExeDataPtr()->hourTicks;\
+    PLATFORM_EXESYS_NAME(PLATNAME).ExecuteSetup();\
+}\
+\
+void loop()\
+{\
+    tnow = millis();\
+    if (tnow >= tlast)\
+        tdelta = tnow - tlast;\
+    else\
+        tdelta = tnow + (0xffffffff - tlast);\
+    tlast = tnow;\
+\
+    (*uSecTicksPtr) += tdelta * uSEC_PER_CLOCK;\
+    if ((*uSecTicksPtr) >= TIME_uS_PER_HR)\
+    {\
+        (*uSecTicksPtr) = 0u;\
+        (*hourTicksPtr)++;\
+    }\
+\
+    PLATFORM_EXESYS_NAME(PLATNAME).ExecuteLoop();\
+\
+}
+#define CPP_MAIN_TEMPLATE_ARDUINO(PLATNAME) __CPP_MAIN_TEMPLATE_ARDUINO(PLATNAME)
 
 #endif // !__cplusplus
 #endif // !__VERSIONCONFIG__

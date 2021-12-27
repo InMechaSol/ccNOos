@@ -31,9 +31,6 @@ specific functions for things like system time, execution time, platform details
 #include "../consoleMenu/console_menu.h"
 
 
-
-
-
 struct executionSystemStruct CreateExecutionSystemStruct(
     UI_32 uSperTick
     )
@@ -45,6 +42,7 @@ struct executionSystemStruct CreateExecutionSystemStruct(
     return outStruct;
 }
 
+#ifdef __USINGCONSOLEMENU
 UI_8 isASCIIchar(char inChar) { return ((inChar >= ASCII_space && inChar <= ASCII_tilda) || inChar == ASCII_lf || inChar == ASCII_cr || inChar == ASCII_tab || inChar == 0x00); }
 UI_8 isLetterchar(char inChar) { return ((inChar >= ASCII_A && inChar <= ASCII_Z) || (inChar >= ASCII_a && inChar <= ASCII_z)); }
 UI_8 isNumberchar(char inChar) { return ((inChar >= ASCII_0 && inChar <= ASCII_9) || inChar == ASCII_plus || inChar == ASCII_minus || inChar == ASCII_dot); }
@@ -58,8 +56,15 @@ UI_8 isNumberString(char* inStringPtr) { int index = 0;  while (inStringPtr[inde
 UI_8 isIntegerString(char* inStringPtr) { int index = 0;  while (inStringPtr[index] != 0x00) if (!isIntegerchar(inStringPtr[index++])) return ui8FALSE; return ui8TRUE; }
 UI_8 isUnsignedIntegerString(char* inStringPtr) { int index = 0;  while (inStringPtr[index] != 0x00) if (!isUnsignedIntegerchar(inStringPtr[index++])) return ui8FALSE; return ui8TRUE; }
 UI_8 stringMatchCaseSensitive(char* inStringPtr, const char* matchString) { int i = 0; while (matchString[i] != 0x00) {if (inStringPtr[i] != matchString[i]) return ui8FALSE; i++; } return ui8TRUE; }
-
-
+void stringInit(char* stringPtr, const char* initString)
+{
+    int idx = 0;
+    do{
+        stringPtr[idx] = initString[idx];
+        idx++;
+    }while(initString[idx]!=0x00);
+}
+#endif
 ////////////////////////////////////////////////////////////////////////////////
 // C Application Entry Points (not built in cpp build)
 #ifndef __cplusplus
