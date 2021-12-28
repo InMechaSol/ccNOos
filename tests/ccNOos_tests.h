@@ -147,7 +147,7 @@ public:
     MODCLASS_NAME(MODNAME) MODNAME##CompMod;\
     executionSystemClass* MODNAME##ExecutionSystemPtr;\
     PLATFORM_APP_NAME(PLATNAME)() :\
-        MODNAME##CompMod(LIGHT_OFF),\
+        MODNAME##CompMod(),\
         setupListHead(& MODNAME##CompMod, nullptr),\
         loopListHead(& MODNAME##CompMod, nullptr),\
         systickListHead(nullptr, nullptr),\

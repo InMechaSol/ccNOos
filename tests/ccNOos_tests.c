@@ -96,6 +96,9 @@ MODdeclareSETUP(Mn)
         #ifdef __USINGCONSOLEMENU            
             TestReturn = SerializationTest(MODdataPTR(Mn));            
             MODdataPTR(Mn)->SerializationTestReturn = TestReturn; 
+            MODdataPTR(Mn)->charbuff_In[0] = ';';
+            MODdataPTR(Mn)->ui16_0 = MODprintMENU(Mn)(compModPtrIn);
+            //MODdataPTR(Mn)->ui16_0 = MODparseINPUT(Mn)(compModPtrIn);
         #endif
         
         // initialize values for timedexecutiontest in loop
@@ -103,6 +106,8 @@ MODdeclareSETUP(Mn)
         MODdataPTR(Mn)->ui32_1 = 0;
         MODdataPTR(Mn)->ui16_0 = 0;
         MODdataPTR(Mn)->ui16_1 = 0;
+
+        
     }
     return RETURN_SUCCESS;
 }
@@ -135,9 +140,16 @@ MODdeclareLOOP(Mn)
             else
                 MODdataPTR(Mn)->TestState = 0xfffe;
             break;
+        case 0xfffe:// Done - Failed
+        case 0xffff:// Done - Passed
+#ifdef __USINGCONSOLEMENU            
+            MODdataPTR(Mn)->ui16_0 = MODprintMENU(Mn)(compModPtrIn);
+            MODdataPTR(Mn)->ui16_0 = MODparseINPUT(Mn)(compModPtrIn);
+#endif
+            break;
     }
     
-    MODprintMENU(Mn)(compModPtrIn);
+
 
     return RETURN_SUCCESS;
 }
@@ -155,7 +167,7 @@ MODdeclarePRINTm(Mn)
     // for looping...
     int lines2Print = 1;
     int linesPrinted = 0;
-    if (MODdataPTR(Mn)->charsRead > 0)
+    if (MODdataPTR(Mn)->charbuff_In[0] != 0x00 > 0)
     {
         MODdataPTR(Mn)->charsRead = 0;
         while (lines2Print > 0)
@@ -163,22 +175,18 @@ MODdeclarePRINTm(Mn)
             switch (linesPrinted)
             {
             case 0:
-                PRINT_MENU_LN  "\033[2J\033[0;0H\n////////// Console Menu - ccNOos Tests"     END_MENU_LN;
+                PRINT_MENU_LN  "\033[2J\033[0;0H\n///////// Console Menu - ccNOos Tests /////////"     END_MENU_LN;
             case 1:
-                PRINT_MENU_LN  "\nStatus - ccNOos Tests:\t%s", StatusccNOosTests(MODdataPTR(Mn))      END_MENU_LN;
+                PRINT_MENU_LN  "\nStatus-ccNOos Tests:\t\t%s", StatusccNOosTests(MODdataPTR(Mn))      END_MENU_LN;
             case 2:
-                PRINT_MENU_LN  "\nResults - Serialization Tests:\t%s", ResultsSerializationTests(MODdataPTR(Mn))      END_MENU_LN;
+                PRINT_MENU_LN  "\nResults-Serialization Tests:\t%s", ResultsSerializationTests(MODdataPTR(Mn))      END_MENU_LN;
             case 3:
-                PRINT_MENU_LN  "\nResults - Timed Execution Tests:\t%s", ResultsTimedExecutionTests(MODdataPTR(Mn))      END_MENU_LN;
+                PRINT_MENU_LN  "\nResults-Timed Execution Tests:\t%s", ResultsTimedExecutionTests(MODdataPTR(Mn))      END_MENU_LN;
             case 4:
-                PRINT_MENU_LN  "\n//////////////////////////////////"      END_MENU_LN;
+                PRINT_MENU_LN  "\n///////////////////////////////////////////////"      END_MENU_LN;
             case 5:
-                PRINT_MENU_LN  "\nType \"ccNOosTests:Tx:22.75;\" set Tx to 22.75"      END_MENU_LN;
+                PRINT_MENU_LN  "\nType \"ccNOosTests:Var:Val;\" set Var to Val"      END_MENU_LN;
             case 6:
-                PRINT_MENU_LN  "\nType \"ccNOosTests:Rx:21.00;\" set Rx to 21.00"      END_MENU_LN;
-            case 7:
-                PRINT_MENU_LN  "\nType \"ccNOosTests:Xx:19.25;\" set Xx to 19.25"      END_MENU_LN;
-            case 8:
                 PRINT_MENU_LN "\nInput>>" END_MENU_LN;
             default:
                 lines2Print = 0;
@@ -198,6 +206,73 @@ MODdeclarePRINTm(Mn)
 MODdeclarePARSEi(Mn)
 {
     MODDATAPTR_ERROR_RETURN(Mn);
+
+    // loop characters from user input
+    int i = 0;
+    int j = 0, k = 0, l = 0;
+
+    GetMenuChars(&MODdataPTR(Mn)->charbuff_In[0]);
+    if(MODdataPTR(Mn)->charbuff_In[0]!=0x00)
+     {
+        MODdataPTR(Mn)->charsRead++;
+#define thisC MODdataPTR(Mn)->charbuff_In[i]
+
+        while ((thisC != 0x00) && (i < charBuffMax))
+        {
+            // find delimeter or terminator
+            if (thisC == ASCII_colon)
+            {
+                if (j == 0)
+                    j = i;
+                else
+                    k = i;
+            }
+            else if (thisC == ASCII_semicolon)
+            {
+                if (j == 0 || k == 0 || j >= k)
+                    return 0u;
+
+                // j index of first :
+                // k index of second :
+                // i index of terminator ;
+
+                MODdataPTR(Mn)->charbuff_In[j] = 0x00;
+                if (stringMatchCaseSensitive(&MODdataPTR(Mn)->charbuff_In[0], "ccNOosTests"))
+                {
+                    MODdataPTR(Mn)->charbuff_In[k] = 0x00;
+                    if (stringMatchCaseSensitive(&MODdataPTR(Mn)->charbuff_In[j + 1], "Tx"))
+                    {
+                        l = 0;
+                    }
+                    else if (stringMatchCaseSensitive(&MODdataPTR(Mn)->charbuff_In[j + 1], "Rx"))
+                    {
+                        l = 1;
+                    }
+                    else if (stringMatchCaseSensitive(&MODdataPTR(Mn)->charbuff_In[j + 1], "Xx"))
+                    {
+                        l = 2;
+                    }
+                    else
+                        return 0u;
+
+                    thisC = 0x00;
+    //                if (ATO_F(&MODdataPTR(Mn)->charbuff_In[k + 1], &MODdataPTR(Mn)->AttenuatorValues[l]))
+    //                {
+    //                    // limit command within range
+    //                    limitDATcmd(&MODdataPTR(Mn)->AttenuatorValues[l]);
+    //                    // set flag to update
+    //                    MODdataPTR(Mn)->AttenuatorNeedsWriting[l] = ui8TRUE;
+    //                }
+
+                }
+                else
+                    return 0u;
+            }
+            i++;
+        }
+    }
+#undef thisC
+    return i;
 }
 const char* ResultsTimedExecutionTests(MODdeclarePTRIN(Mn))
 {
@@ -237,36 +312,44 @@ UI_16 SerializationTest(MODdeclarePTRIN(Mn))
     int bytesWritten = 0; 
     UI_8 parseResults = 0;
     
+    #define DeserializeOnlyPattern(VAR, VAL, FORMAT, LEN, FUNC) stringInit(MODdataPTR(Mn)->charbuff_In, xstr(VAL));\
+    parseResults = FUNC(MODdataPTR(Mn)->charbuff_In, &MODdataPTR(Mn)->VAR##1 );\
+    if(parseResults != ui8TRUE)\
+        return RETURN_FAILED_DESERIALIZATION
+    
     #define SerializeTestPattern(VAR, VAL, FORMAT, LEN, FUNC) MODdataPTR(Mn)->VAR##0 = VAL;\
     bytesWritten = SN_PrintF(MODdataPTR(Mn)->charbuff_Out,LEN,FORMAT,MODdataPTR(Mn)->VAR##0);\
     if( bytesWritten != LEN || \
         ui8TRUE!=stringMatchCaseSensitive(MODdataPTR(Mn)->charbuff_Out,xstr(VAL))\
         )\
         return RETURN_FAILED_SERIALIZATION;\
-    stringInit(MODdataPTR(Mn)->charbuff_In, xstr(VAL));\
-    parseResults = FUNC(MODdataPTR(Mn)->charbuff_In, &MODdataPTR(Mn)->VAR##1 );\
-    if(parseResults != ui8TRUE)\
-        return RETURN_FAILED_DESERIALIZATION;\
+    DeserializeOnlyPattern(VAR, VAL, FORMAT, LEN, FUNC);\
     if(MODdataPTR(Mn)->VAR##0 != MODdataPTR(Mn)->VAR##1)\
         return RETURN_FAILED_COMPARISON;
-    
-    SerializeTestPattern(double_, 3.1457, "%6.4f", 6, ATO_D);    
-    SerializeTestPattern(float_, -3.1457, "%6.4f", 7, ATO_F);
-    
-    SerializeTestPattern(ui64_, 101001987, "%d", 9, ATO_U64);
-    SerializeTestPattern(i64_, -101001987, "%d", 9, ATO_I64);
-
-    SerializeTestPattern(ui32_, 65409, "%u", 9, ATO_U32);
-    SerializeTestPattern(i32_, -65409, "%d", 10, ATO_I32);
-    
-    SerializeTestPattern(ui16_, 0x0bab, "0x%x", 6, ATO_U16);
+        
+    SerializeTestPattern(ui16_, 101, "%d", 3, ATO_U16);
     SerializeTestPattern(i16_, -2987, "%i", 5, ATO_I16);
     
-    SerializeTestPattern(ui8_, 0x0F, "0x%X", 4, ATO_U8);
-    SerializeTestPattern(i8_, -15, "%i", 3, ATO_I8);
+    SerializeTestPattern(ui8_, 5, "%u", 1, ATO_U8);
+    SerializeTestPattern(i8_, 115, "%i", 3, ATO_I8);
+        
+    SerializeTestPattern(ui32_, 15409, "%u", 5, ATO_U32);
+    SerializeTestPattern(i32_, -15409, "%d", 6, ATO_I32);
     
+    SerializeTestPattern(ui64_, 101001987, "%d", 9, ATO_U64);
+    SerializeTestPattern(i64_, -101001987, "%d", 10, ATO_I64);
+    
+#ifdef __USINGFLOATPRINTF
+    SerializeTestPattern(double_, 3.1457, "%6.4f", 6, ATO_D);    
+    SerializeTestPattern(float_, -3.1457, "%6.4f", 7, ATO_F);
+#else
+    DeserializeOnlyPattern(double_, 3.1457, "%6.4f", 6, ATO_D);    
+    DeserializeOnlyPattern(float_, -3.1457, "%6.4f", 7, ATO_F);   
+#endif
+
     return RETURN_TEST_PASSED;
     
+    #undef DeserializeOnlyPattern
     #undef SerializeTestPattern
 }
 #endif // !__USINGCONSOLEMENU
@@ -277,30 +360,22 @@ UI_16 TimedExecutionTest(MODdeclarePTRIN(Mn))
     #define LOOPCYCLES MODdataPTR(Mn)->ui16_0
 
     uSNOW = getuSecTicks();
-    if(LOOPCYCLES++ > 0 && uSNOW != uSTHEN)
-    {
-        if(LOOPCYCLES > 1 && (uSNOW-uSTHEN) >= getuSecPerSysTick())
-        {
-            return RETURN_TEST_PASSED;
-        }
-        else if(uSNOW>uSTHEN)
-        {
-            uSTHEN = uSNOW;
-            return RETURN_TEST_IN_PROGRESS;
-        }
-        else
-            return RETURN_FAILED_TIMEDEXECUTION;
-    }
-    else if(LOOPCYCLES > 1)
-    {
+    
+    if(++LOOPCYCLES == 0)
         return RETURN_FAILED_TIMEDEXECUTION;
+    else if(LOOPCYCLES == 1)
+        uSTHEN = getuSecTicks();
+        
+    if((uSNOW - uSTHEN) >= getuSecPerSysTick())
+    {
+        LOOPCYCLES = 0;
+        return RETURN_TEST_PASSED;
     }
-    else if(LOOPCYCLES == 0)
-        return RETURN_TEST_IN_PROGRESS;
-
-    // should never get here, only in place to prevent compiler warning
-    return RETURN_FAILED_TIMEDEXECUTION;
-
+    else  
+    {
+        return RETURN_TEST_IN_PROGRESS;        
+    }
+    
     #undef uSNOW
     #undef uSTHEN
     #undef LOOPCYCLES

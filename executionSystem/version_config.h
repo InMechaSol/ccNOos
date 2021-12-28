@@ -400,7 +400,6 @@ unsigned long tnow, tdelta;\
 uint32_t* uSecTicksPtr;\
 uint32_t* hourTicksPtr;\
 void setup() {\
-    asm(".global _printf_float");\
     tlast = millis();\
     tnow, tdelta;\
     uSecTicksPtr = &PLATFORM_EXESYS_NAME(PLATNAME).getExeDataPtr()->uSecTicks;\

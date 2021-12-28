@@ -99,6 +99,7 @@ struct consoleMenuStruct CreateConsoleMenuStruct(
 int SN_PrintF(char* str, unsigned int size, const char* format, ...);
 UI_8 ATO_F(const char* str, float* val);
 UI_8 ATO_D(const char* str, double* val);
+
 UI_8 ATO_I8(const char* str, I_8* val);
 UI_8 ATO_I16(const char* str, I_16* val);
 UI_8 ATO_I32(const char* str, I_32* val);

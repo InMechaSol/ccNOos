@@ -58,10 +58,10 @@ UI_8 isUnsignedIntegerString(char* inStringPtr) { int index = 0;  while (inStrin
 UI_8 stringMatchCaseSensitive(char* inStringPtr, const char* matchString) { int i = 0; while (matchString[i] != 0x00) {if (inStringPtr[i] != matchString[i]) return ui8FALSE; i++; } return ui8TRUE; }
 void stringInit(char* stringPtr, const char* initString)
 {
-    int idx = 0;
+    int idx = -1;
     do{
-        stringPtr[idx] = initString[idx];
         idx++;
+        stringPtr[idx] = initString[idx];        
     }while(initString[idx]!=0x00);
 }
 #endif

@@ -37,13 +37,15 @@ struct consoleMenuStruct CreateConsoleMenuStruct(
         char* inputBufferPtrIn,
         int inputBufferSizeIn,
         char* outputBufferPtrIn,
-        int outputBufferSizeIn)
+        int outputBufferSizeIn,
+        struct menuNode* rootNodeIn)
 {
     struct consoleMenuStruct outStruct;
     outStruct.inputBufferPtr = inputBufferPtrIn;
     outStruct.inputBufferSize = inputBufferSizeIn;
     outStruct.outputBufferPtr = outputBufferPtrIn;
-     outStruct.outputBufferSize = outputBufferSizeIn;
+    outStruct.outputBufferSize = outputBufferSizeIn;
+    outStruct.rootNode = rootNodeIn;
     return outStruct;
 }
 
