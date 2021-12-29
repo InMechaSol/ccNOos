@@ -58,9 +58,6 @@ MODdeclareSTRUCT(Mn)
 
 MODdeclareCREATE(Mn)(MODdeclareCREATEINS);
 
-// platform and application specific time string serialization
-void SerializeTimeString(MODdeclarePTRIN(Mn));
-
 // platform and application specific io device functions
 void WriteMinLED(MODdeclarePTRIN(Mn));
 void WriteSecLED(MODdeclarePTRIN(Mn));

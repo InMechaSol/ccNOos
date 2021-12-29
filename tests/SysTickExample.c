@@ -47,6 +47,16 @@ MODdeclareSETUP(Mn)
     return RETURN_SUCCESS;
 }
 
+void SerializeTimeString(MODdeclarePTRIN(Mn))
+{
+    int retval = SN_PrintF(MODdataPTR(Mn)->time, 9, "\r%02u:%02u:%02u",
+        (int)(MODdataPTR(Mn)->hrCount % 100),
+        (int)(MODdataPTR(Mn)->minCount % TIME_MIN_PER_HR),
+        (int)(MODdataPTR(Mn)->secCount % TIME_SEC_PER_MIN)
+    );
+    //MODdataPTR(Mn)->time[retval] = 0x00;
+}
+
 // Re-usable, portable, cross-platform (systick example loop() function)
 MODdeclareLOOP(Mn)
 {
@@ -88,6 +98,8 @@ MODdeclareLOOP(Mn)
 }
 
 MODdeclareSYSTICK(Mn) { ; }  // do nothing in the systick area
+
+
 
 #endif //!EXAMPLE_SYSTICK
 #endif

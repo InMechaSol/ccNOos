@@ -62,7 +62,6 @@ MODdeclareCREATE(Mn)(MODdeclareCREATEINS);
 
 // platform and application specific io device functions
 void WriteAttenuators(MODdeclarePTRIN(Mn));
-void ReadUserInput(MODdeclarePTRIN(Mn));
 //void WriteMenuLine(MODdeclarePTRIN(Mn));
 
 // output factional part, write integral part to "intPartPtr"

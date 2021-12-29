@@ -176,6 +176,7 @@ MODdeclarePRINTm(Mn)
             {
             case 0:
                 PRINT_MENU_LN  "\033[2J\033[0;0H\n///////// Console Menu - ccNOos Tests /////////"     END_MENU_LN;
+                //PRINT_MENU_LN  "\n///////// Console Menu - ccNOos Tests /////////"     END_MENU_LN;
             case 1:
                 PRINT_MENU_LN  "\nStatus-ccNOos Tests:\t\t%s", StatusccNOosTests(MODdataPTR(Mn))      END_MENU_LN;
             case 2:
@@ -321,23 +322,41 @@ UI_16 SerializationTest(MODdeclarePTRIN(Mn))
     bytesWritten = SN_PrintF(MODdataPTR(Mn)->charbuff_Out,LEN,FORMAT,MODdataPTR(Mn)->VAR##0);\
     if( bytesWritten != LEN || \
         ui8TRUE!=stringMatchCaseSensitive(MODdataPTR(Mn)->charbuff_Out,xstr(VAL))\
-        )\
-        return RETURN_FAILED_SERIALIZATION;\
+        ){\
+        return RETURN_FAILED_SERIALIZATION;}\
     DeserializeOnlyPattern(VAR, VAL, FORMAT, LEN, FUNC);\
     if(MODdataPTR(Mn)->VAR##0 != MODdataPTR(Mn)->VAR##1)\
         return RETURN_FAILED_COMPARISON;
+ 
+// These lines can be useful when setting up a new platform
+//     to determine which serialization operation is failing
+//     place this code within the failed_serialization conditional
+//     of the SerializeTestPattern Macro...
+    //WriteMenuLine((char*)"\n\nFailed "); \
+    //WriteMenuLine((char*)xstr(VAR)); \
+    //WriteMenuLine((char*)", "); \
+    //WriteMenuLine((char*)xstr(VAL)); \
+    //WriteMenuLine((char*)", "); \
+    //WriteMenuLine((char*)xstr(FORMAT)); \
+    //WriteMenuLine((char*)", "); \
+    //WriteMenuLine((char*)xstr(LEN)); \
+    //WriteMenuLine((char*)", "); \
+    //WriteMenuLine(MODdataPTR(Mn)->charbuff_Out); \
+    //WriteMenuLine((char*)"\n"); \
+
+
+
+    SerializeTestPattern(ui16_, 65535, "%u", 5, ATO_U16);
+    SerializeTestPattern(i16_, -32767, "%i", 6, ATO_I16);
+   
+    SerializeTestPattern(ui8_, 255, "%u", 3, ATO_U8);
+    SerializeTestPattern(i8_, 127, "%i", 3, ATO_I8);
         
-    SerializeTestPattern(ui16_, 101, "%d", 3, ATO_U16);
-    SerializeTestPattern(i16_, -2987, "%i", 5, ATO_I16);
+    SerializeTestPattern(ui32_, 65535, "%u", 5, ATO_U32);
+    SerializeTestPattern(i32_, -32767, "%d", 6, ATO_I32);
     
-    SerializeTestPattern(ui8_, 5, "%u", 1, ATO_U8);
-    SerializeTestPattern(i8_, 115, "%i", 3, ATO_I8);
-        
-    SerializeTestPattern(ui32_, 15409, "%u", 5, ATO_U32);
-    SerializeTestPattern(i32_, -15409, "%d", 6, ATO_I32);
-    
-    SerializeTestPattern(ui64_, 101001987, "%d", 9, ATO_U64);
-    SerializeTestPattern(i64_, -101001987, "%d", 10, ATO_I64);
+    SerializeTestPattern(ui64_, 65535, "%u", 5, ATO_U64);
+    SerializeTestPattern(i64_, -32767, "%d", 6, ATO_I64);
     
 #ifdef __USINGFLOATPRINTF
     SerializeTestPattern(double_, 3.1457, "%6.4f", 6, ATO_D);    

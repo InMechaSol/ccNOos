@@ -79,7 +79,21 @@ UI_32 getuSecPerSysTick();
 ////////////////////////////////////////////////////////////////////////////////
 // C Execution System Base Components - not compiled in C++ build
 #ifndef __cplusplus
-   
+#define __ExeSysAPIFuncsTemplate(pNAME) \
+UI_32 getuSecTicks()\
+{\
+    return PLATFORM_EXESYS_NAME(PLATFORM_NAME).uSecTicks;\
+}\
+UI_32 getHourTicks()\
+{\
+    return PLATFORM_EXESYS_NAME(PLATFORM_NAME).hourTicks;\
+}\
+UI_32 getuSecPerSysTick()\
+{\
+    return PLATFORM_EXESYS_NAME(PLATFORM_NAME).uSecPerSysTick;\
+}
+#define ExeSysAPIFuncsTemplate(pNAME) __ExeSysAPIFuncsTemplate(pNAME)
+
 struct computeModuleStruct;         // forward declaration
 struct ioDeviceStruct;              // forward declaration
 
@@ -143,6 +157,20 @@ void applicationConfig();
 
 
 #ifdef __cplusplus
+#define __ExeSysAPIFuncsTemplate(pNAME) \
+UI_32 getuSecTicks()\
+{\
+    return PLATFORM_EXESYS_NAME(pNAME).getExeDataPtr()->uSecTicks;\
+}\
+UI_32 getHourTicks()\
+{\
+    return PLATFORM_EXESYS_NAME(pNAME).getExeDataPtr()->hourTicks;\
+}\
+UI_32 getuSecPerSysTick()\
+{\
+    return PLATFORM_EXESYS_NAME(pNAME).getExeDataPtr()->uSecPerSysTick;\
+}
+#define ExeSysAPIFuncsTemplate(pNAME) __ExeSysAPIFuncsTemplate(pNAME)
 ////////////////////////////////////////////////////////////////////////////////
 // Cross-Platform, Reusable, C++ Only Execution System Classes
 class IODeviceClass; // forward declaration

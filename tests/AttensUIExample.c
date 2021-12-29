@@ -47,7 +47,12 @@ MODdeclareSETUP(Mn)
     }
     return RETURN_SUCCESS;
 }
-
+void ReadUserInput(MODdeclarePTRIN(Mn))
+{
+    GetMenuChars(&MODdataPTR(Mn)->apiLine[0]);
+    if (MODdataPTR(Mn)->apiLine[0] != 0x00)
+        MODdataPTR(Mn)->charsRead++;
+}
 void limitDATcmd(float* DATptr)
 {
     float fracPart, intPart;
@@ -211,6 +216,8 @@ void ParseAPIString(MODdeclarePTRIN(Mn))
 #undef thisC
 }
 
+
+
 // Re-usable, portable, cross-platform (systick example loop() function)
 MODdeclareLOOP(Mn)
 {
@@ -238,6 +245,7 @@ MODdeclareLOOP(Mn)
 }
 
 MODdeclareSYSTICK(Mn) { ; }  // do nothing in the systick area
+
 
 #endif //!Attenuators UI Example
 #endif

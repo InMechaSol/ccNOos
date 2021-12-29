@@ -116,9 +116,7 @@ const char* StatusccNOosTests(MODdeclarePTRIN(Mn));
     {\
         PLATFORM_EXESYS_NAME(PLATFORM_NAME) = CreateExecutionSystemStruct(\
                 uSEC_PER_CLOCK);\
-        MODdataINST(Mn) = MODstructCREATE(Mn)(\
-                LIGHT_OFF\
-                );\
+        MODdataINST(Mn) = MODstructCREATE(Mn)();\
     }
 #define  PLATFORM_APP_CTEMPLATE(PLATNAME,MODNAME) __PLATFORM_APP_CTEMPLATE(PLATNAME,MODNAME)
 
