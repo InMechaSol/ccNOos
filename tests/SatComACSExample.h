@@ -35,32 +35,32 @@ application.
 #ifndef COMPILE_TESTS
 #ifdef EXAMPLE_SATCOM_ACS
 
-#ifdef MODULENAME
+#ifdef Mn
 #error ccNOos_Tests: Multiple Examples Selected for Compilation, Not Permitted
 #else
-#define MODULENAME SatCom_ACS
+#define Mn SatCom_ACS
 #endif
 
-MODSTRUCT(MODULENAME)
+MODdeclareSTRUCT(Mn)
 {
     COMPMODFIRST;
 };
 
-#define MODSTRUCTCREATEINS 
-#define MODSTRUCTCALLINS 
+#define MODdeclareCREATEINS 
+#define MODcallCREATEINS 
 
-MODSTRUCT_CREATE_PROTO(MODULENAME);
+MODdeclareCREATE(Mn)(MODdeclareCREATEINS);
 
-// this has sub modules
-
-// Re-usable, portable, cross-platform (SatCom_ACS setup() function)
-MODULE_FUNC_PROTO_SETUP(MODULENAME);
-
-// Re-usable, portable, cross-platform (SatCom_ACS loop() function)
-MODULE_FUNC_PROTO_LOOP(MODULENAME);
-
-// Re-usable, portable, cross-platform (SatCom_ACS systick() function)
-MODULE_FUNC_PROTO_SYSTICK(MODULENAME);
+// Re-usable, portable, cross-platform (ccNOosTests setup() function)
+MODdeclareSETUP(Mn);
+// Re-usable, portable, cross-platform (ccNOosTests loop() function)
+MODdeclareLOOP(Mn);
+// Re-usable, portable, cross-platform (ccNOosTests systick() function)
+MODdeclareSYSTICK(Mn);
+#ifdef __USINGCONSOLEMENU 
+MODdeclarePRINTm(Mn);
+MODdeclarePARSEi(Mn);
+#endif
 
 //////////////
 // Sub - Modules
