@@ -32,19 +32,14 @@ have less support but again, most modern embedded processors have implementation
 */
 #ifndef __VERSIONCONFIG__
 #define __VERSIONCONFIG__
-    
-/////////////////////////////////////////////////////////////////////////////
-// COMPILER CONSTANTS
+ 
+#define ccNOos_MajorVer 0
+#define ccNOos_MinorVer 0
+#define ccNOos_BuildNumber 0
 
-/** \def RETURN_SUCCESS
-* \brief Function Return Value for Success
-*/
-#define RETURN_SUCCESS (0)
+#define ccNOos_DevString dev
+#define ccNOos_VerDate 08JAN2021
 
-/** \def RETURN_ERROR
-* \brief Function Return Value for ERROR
-*/
-#define RETURN_ERROR (-1)
     
 ////////////////////////////////////////////////////////////////////////////////
 // Compiler Static Assert Macro Stack 
@@ -60,7 +55,43 @@ have less support but again, most modern embedded processors have implementation
 //    - Convert macro name or macro value to string constant in code  
 #define xstr(s) str(s)
 #define str(s) #s
-    
+   
+////////////////////////////////////////////////////////////////////////////
+// Version Strings for Compile time and Run time
+//
+#ifdef ccNOos_ReleaseBuild
+#define ccNOos_VersionNumber ccNOos_MajorVer.ccNOos_MinorVer.ccNOos_BuildNumber
+#endif
+#ifndef ccNOos_ReleaseBuild
+#define ccNOos_VersionNumber ccNOos_MajorVer.ccNOos_MinorVer.ccNOos_BuildNumber-ccNOos_DevString
+#endif
+
+const char* ccNOosccNOos_VerString();
+const char* ccNOosccNOos_VerDateString();
+
+#define ccNOosVersionsTemplate \
+    const char* ccNOosccNOos_VerString()\
+    {\
+        return str(ccNOos_VersionNumber);\
+    }\
+    const char* ccNOosccNOos_VerDateString()\
+    {\
+        return str(ccNOos_VerDate);\
+    }
+
+/////////////////////////////////////////////////////////////////////////////
+// COMPILER CONSTANTS
+
+/** \def RETURN_SUCCESS
+* \brief Function Return Value for Success
+*/
+#define RETURN_SUCCESS (0)
+
+/** \def RETURN_ERROR
+* \brief Function Return Value for ERROR
+*/
+#define RETURN_ERROR (-1)
+
 /////////////////////////////////////////////////////////////////////////////
 // Compiler Configuration for Platform Selection
 #ifdef PLATFORM_PSoC4
@@ -289,7 +320,8 @@ STATIC_ASSERT(sizeof(I_32)==4, I_32_must_be_32_bits);
 #define CLEAR_MODULE_ERRORS(mNAME) __CLEAR_MODULE_ERRORS(mNAME)
 
 // Main Function Template - C with an OS Linux or Windows or Similar non-real-time
-#define __C_NOos_MAINnSYSTICK_TEMPLATE(PLATNAME) int main()\
+#define __C_NOos_MAINnSYSTICK_TEMPLATE(PLATNAME) ccNOosVersionsTemplate \
+int main()\
 {\
     applicationConfig();\
     return ExecuteMain(&PLATFORM_EXESYS_NAME(PLATNAME), &exeEntryPoints);\
@@ -302,7 +334,8 @@ void SysTickISRCallback(void)\
 #define C_NOos_MAINnSYSTICK_TEMPLATE(PLATNAME) __C_NOos_MAINnSYSTICK_TEMPLATE(PLATNAME)
 
 // Main Function Template - C with an OS Linux or Windows or Similar non-real-time
-#define __C_OS_MAIN_TEMPLATE(PLATNAME) int main(int argc, char** argv)\
+#define __C_OS_MAIN_TEMPLATE(PLATNAME) ccNOosVersionsTemplate \
+int main(int argc, char** argv)\
 {\
     clock_t tlast = clock();\
     clock_t tnow, tdelta;\
@@ -367,7 +400,8 @@ void SysTickISRCallback(void)\
 #define PLATFORM_APP_CPPTEMPLATE(PLATNAME) __PLATFORM_APP_CPPTEMPLATE(PLATNAME)
 
 // Main Function Template - CPP with an OS Linux or Windows or Similar non-real-time
-#define __CPP_OS_MAIN_TEMPLATE(PLATNAME) int main(int argc, char** argv)\
+#define __CPP_OS_MAIN_TEMPLATE(PLATNAME) ccNOosVersionsTemplate \
+int main(int argc, char** argv)\
 {\
     clock_t tlast = clock();\
     clock_t tnow, tdelta;\
@@ -394,7 +428,7 @@ void SysTickISRCallback(void)\
 }
 #define CPP_OS_MAIN_TEMPLATE(PLATNAME) __CPP_OS_MAIN_TEMPLATE(PLATNAME)
 
-#define __CPP_MAIN_TEMPLATE_ARDUINO(PLATNAME) \
+#define __CPP_MAIN_TEMPLATE_ARDUINO(PLATNAME) ccNOosVersionsTemplate \
 unsigned long tlast;\
 unsigned long tnow, tdelta;\
 uint32_t* uSecTicksPtr;\
