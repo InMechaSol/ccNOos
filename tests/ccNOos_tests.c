@@ -175,7 +175,7 @@ MODdeclarePRINTm(Mn)
             switch (linesPrinted)
             {
             case 0:
-                PRINT_MENU_LN  "\033[2J\033[0;0H\n// ccNOos Tests %s %s//", ccNOosccNOos_VerString(), ccNOosccNOos_VerDateString()     END_MENU_LN;
+                PRINT_MENU_LN  "\033[2J\033[0;0H\n// Version %s %s //", ccNOosccNOos_VerString(), ccNOosccNOos_VerDateString()     END_MENU_LN;
                 //PRINT_MENU_LN  "\n///////// Console Menu - ccNOos Tests /////////"     END_MENU_LN;
             case 1:
                 PRINT_MENU_LN  "\nStatus-ccNOos Tests:\t\t%s", StatusccNOosTests(MODdataPTR(Mn))      END_MENU_LN;

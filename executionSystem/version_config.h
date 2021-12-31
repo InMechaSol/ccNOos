@@ -72,11 +72,11 @@ const char* ccNOosccNOos_VerDateString();
 #define ccNOosVersionsTemplate \
     const char* ccNOosccNOos_VerString()\
     {\
-        return str(ccNOos_VersionNumber);\
+        return xstr(ccNOos_VersionNumber);\
     }\
     const char* ccNOosccNOos_VerDateString()\
     {\
-        return str(ccNOos_VerDate);\
+        return xstr(ccNOos_VerDate);\
     }
 
 /////////////////////////////////////////////////////////////////////////////
