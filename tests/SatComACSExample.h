@@ -35,6 +35,9 @@ application.
 #ifndef COMPILE_TESTS
 #ifdef EXAMPLE_SATCOM_ACS
 
+#include "../ccLibs/acs/satComControl.h"
+#include "../ccLibs/mcs/motionControl.h"
+
 #ifdef Mn
 #error ccNOos_Tests: Multiple Examples Selected for Compilation, Not Permitted
 #else
