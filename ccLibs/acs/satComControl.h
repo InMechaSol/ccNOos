@@ -51,7 +51,7 @@ enum antennaState
 	antState_Error
 };
 
-struct antennaStuct
+struct antennaStruct
 {
 	enum antennaState State;
 	struct geoLocationStruct GeoLocation;
@@ -62,9 +62,6 @@ struct antennaStuct
 
 /////////////////////////////////////////////////////////////////////////////////////
 // Functions
-UI_8 CalculateLookAngle(struct antennaStruct *antStructInPtr)
-{
-	return ui8FALSE;
-}
+UI_8 CalculateLookAngle(struct antennaStruct* antStructInPtr);
 
 #endif // !__SATCOMCONTROL

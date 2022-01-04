@@ -372,6 +372,7 @@ UI_16 SerializationTest(MODdeclarePTRIN(Mn))
     #undef SerializeTestPattern
 }
 #endif // !__USINGCONSOLEMENU
+
 UI_16 TimedExecutionTest(MODdeclarePTRIN(Mn))
 {
     #define uSNOW MODdataPTR(Mn)->ui32_0
