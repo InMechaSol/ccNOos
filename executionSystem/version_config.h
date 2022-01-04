@@ -177,7 +177,7 @@ STATIC_ASSERT(sizeof(I_32)==4, I_32_must_be_32_bits);
 /////////////////////////////////////////////////////////////////////////////
 // Compiler Configuration for nullptr support
 #ifdef REDEFINE_NULLPTR
-    #waring redifining nullptr !!! 
+    #warning redefining nullptr !!!
     #define nullptr NULL
 #else
     #ifndef __cplusplus
