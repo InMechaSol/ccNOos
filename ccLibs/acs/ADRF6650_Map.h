@@ -1,0 +1,463 @@
+#ifndef ADRF6660_MAP_H
+#define ADRF6660_MAP_H
+
+typedef enum {
+    ADI_SPI_CONFIG_ADDR           = 0x0000,
+    SPI_CONFIG_B_ADDR             = 0x0001,
+    DEVICE_CONFIG_ADDR            = 0x0002,
+    CHIP_TYPE_ADDR                = 0x0003,
+    PRODUCT_ID_1_ADDR             = 0x0004,
+    PRODUCT_ID_2_ADDR             = 0x0005,
+    SCRATCH_ADDR                  = 0x000A,
+    SPI_REVISON_ADDR              = 0x000B,
+    VENDOR_ID_L_ADDR              = 0x000C,
+    VENDOR_ID_H_ADDR              = 0x000D,
+    BLOCK_RESETS_A_ADDR           = 0x0021,
+    ATTEN_READBACK_CH1_ADDR       = 0x003C,
+    ATTEN_READBACK_CH2_ADDR       = 0x003D,
+    DVGA_TRIM_READBACK_CH1_ADDR   = 0x003E,
+    DVGA_TRIM_READBACK_CH2_ADDR   = 0x003F,
+    TDD_BYPASS_ADDR               = 0x0100,
+    CONFIG_ADDR                   = 0x0101,
+    EN_MASK_ADDR                  = 0x0102,
+    DVGA_MODE_ADDR                = 0x0103,
+    DVGA_GAIN1_ADDR               = 0x0104,
+    DVGA_GAIN2_ADDR               = 0x0105,
+    LPF_OVERRIDE_ADDR             = 0x0300,
+    IFMAIN_OVERRIDE_ADDR          = 0x0301,
+    IFLIN_OVERRIDE_ADDR           = 0x0302,
+    VGS_OVERRIDE_ADDR             = 0x0303,
+    DVGA_TRIM1_LP3V_OVERRIDE_ADDR = 0x0304,
+    DVGA_TRIM1_HP3V_OVERRIDE_ADDR = 0x0305,
+    DVGA_TRIM1_LP5V_OVERRIDE_ADDR = 0x0306,
+    DVGA_TRIM1_HP5V_OVERRIDE_ADDR = 0x0307,
+    DVGA_TRIM2_LP3V_OVERRIDE_ADDR = 0x0308,
+    DVGA_TRIM2_HP3V_OVERRIDE_ADDR = 0x0309,
+    DVGA_TRIM2_LP5V_OVERRIDE_ADDR = 0x030A,
+    DVGA_TRIM2_HP5V_OVERRIDE_ADDR = 0x030B,
+    OVERRIDE_SELECT_ADDR          = 0x0310,
+    BLOCK_RESETS_ADDR             = 0x1021,
+    GPO1_CONTROL_ADDR             = 0x1032,
+    GPO1_SELECT_ADDR              = 0x1033,
+    SIG_PATH_9_NORMAL_ADDR        = 0x1109,
+    INT_L_ADDR                    = 0x1200,
+    INT_H_ADDR                    = 0x1201,
+    FRAC1_L_ADDR                  = 0x1202,
+    FRAC1_M_ADDR                  = 0x1203,
+    FRAC1_H_ADDR                  = 0x1204,
+    SD_PHASE_L_0_ADDR             = 0x1205,
+    SD_PHASE_M_0_ADDR             = 0x1206,
+    SD_PHASE_H_0_ADDR             = 0x1207,
+    MOD_L_ADDR                    = 0x1208,
+    MOD_H_ADDR                    = 0x1209,
+    SYNTH_ADDR                    = 0x120B,
+    R_DIV_ADDR                    = 0x120C,
+    SYNTH_0_ADDR                  = 0x120E,
+    MULTI_FUNC_SYNTH_CTL_0214_ADDR= 0x1214,
+    SI_VCO_SEL_ADDR               = 0x1217,
+    VCO_FSM_ADDR                  = 0x121F,
+    SD_CTRL_ADDR                  = 0x122A,
+    MULTI_FUNC_SYNTH_CTL_022C_ADDR= 0x122C,
+    MULTI_FUNC_SYNTH_CTL_022D_ADDR= 0x122D,
+    CP_CURR_ADDR                  = 0x122E,
+    BICP_ADDR                     = 0x122F,
+    FRAC2_L_ADDR                  = 0x1233,
+    FRAC2_H_ADDR                  = 0x1234,
+    MULTI_FUNC_SYNTH_CTL_0235_ADDR= 0x1235,
+    VCO_LUT_CTRL_ADDR             = 0x1240,
+    LOCK_DETECT_ADDR              = 0x124D,
+    MULTI_FUNC_CTRL_ADDR          = 0x1401,
+    LO_CNTRL2_ADDR                = 0x140E,
+    LO_CNTRL8_ADDR                = 0x1414,
+    FRAC2_L_SLAVE_ADDR            = 0x1541,
+    FRAC2_H_SLAVE_ADDR            = 0x1542,
+    FRAC_L_SLAVE_ADDR             = 0x1543,
+    FRAC_M_SLAVE_ADDR             = 0x1544,
+    FRAC_H_SLAVE2_ADDR            = 0x1545,
+    PHASE_L_SLAVE_ADDR            = 0x1546,
+    PHASE_M_SLAVE_ADDR            = 0x1547,
+    PHASE_H_SLAVE_ADDR            = 0x1548,
+    INT_DIV_L_SLAVE_ADDR          = 0x1549,
+    INT_DIV_H_SLAVE_ADDR          = 0x154A,
+    R_DIV_SLAVE_ADDR              = 0x154B,
+    RDIV2_SEL_SLAVE_ADDR          = 0x154C,
+    DISABLE_CFG_ADDR              = 0x1583,
+} register_addr_t;
+
+// Register bit definitions
+//#define ADI_SPI_CONFIG_ADDR            0x0000 
+#define   MASK_SOFTRESET_                  0b10000000
+#define   MASK_LSB_FIRST_                  0b01000000
+#define   MASK_ENDIAN_                     0b00100000
+#define   MASK_SDOACTIVE_                  0b00010000
+#define   MASK_SDOACTIVE                   0b00001000
+#define   MASK_ENDIAN                      0b00000100
+#define   MASK_LSB_FIRST                   0b00000010
+#define   MASK_SOFTRESET                   0b00000001
+#define   SHIFT_SOFTRESET_                 7
+#define   SHIFT_LSB_FIRST_                 6
+#define   SHIFT_ENDIAN_                    5
+#define   SHIFT_SDOACTIVE_                 4
+#define   SHIFT_SDOACTIVE                  3
+#define   SHIFT_ENDIAN                     2
+#define   SHIFT_LSB_FIRST                  1
+#define   SHIFT_SOFTRESET                  0
+//#define SPI_CONFIG_B_ADDR              0x0001 
+#define   MASK_SINGLE_INSTRUCTION          0b10000000
+#define   MASK_CSB_STALL                   0b01000000
+#define   MASK_MASTER_SLAVE_RB             0b00100000
+#define   MASK_SOFTRESET_B                 0b00000110
+#define   MASK_MASTER_SLAVE_TRANSFER       0b00000001
+#define   SHIFT_SINGLE_INSTRUCTION         7
+#define   SHIFT_CSB_STALL                  6
+#define   SHIFT_MASTER_SLAVE_RB            5
+#define   SHIFT_SOFTRESET_B                1
+#define   SHIFT_MASTER_SLAVE_TRANSFER      0
+//#define DEVICE_CONFIG_ADDR             0x0002 
+#define   MASK_OPERATING_MODE              0b00001100
+#define   MASK_POWER_MODE                  0b00000011
+#define   SHIFT_OPERATING_MODE             2
+#define   SHIFT_POWER_MODE                 0
+//#define CHIP_TYPE_ADDR                 0x0003 
+#define   MASK_CHIPTYPE                    0b11111111
+#define   SHIFT_CHIPTYPE                   0
+//#define PRODUCT_ID_1_ADDR              0x0004 
+#define   MASK_PRODUCT_ID_1                0b11111111
+#define   SHIFT_PRODUCT_ID_1               0
+//#define PRODUCT_ID_2_ADDR              0x0005 
+#define   MASK_PRODUCT_ID_2                0b11111111
+#define   SHIFT_PRODUCT_ID_2               0
+//#define SCRATCH_ADDR                   0x000A 
+#define   MASK_SCRATCHPAD                  0b11111111
+#define   SHIFT_SCRATCHPAD                 0
+//#define SPI_REVISON_ADDR               0x000B 
+#define   MASK_SPI_VER                     0b11111111
+#define   SHIFT_SPI_VER                    0
+//#define VENDOR_ID_L_ADDR               0x000C 
+#define   MASK_VENDOR_ID7_0                0b11111111
+#define   SHIFT_VENDOR_ID7_0               0
+//#define VENDOR_ID_H_ADDR               0x000D 
+#define   MASK_VENDOR_ID15_8               0b11111111
+#define   SHIFT_VENDOR_ID15_8              0
+//#define BLOCK_RESETS_A_ADDR              0x0021 
+#define   MASK_DVGA_CH2_RSTB               0b00000010
+#define   MASK_DVGA_CH1_RSTB               0b00000001
+#define   SHIFT_DVGA_CH2_RSTB              1
+#define   SHIFT_DVGA_CH1_RSTB              0
+//#define ATTEN_READBACK_CH1_ADDR        0x003C 
+#define   MASK_ATTEN_READBACK_CH1          0b11111111
+#define   SHIFT_ATTEN_READBACK_CH1         0
+//#define ATTEN_READBACK_CH2_ADDR        0x003D 
+#define   MASK_ATTEN_READBACK_CH2          0b11111111
+#define   SHIFT_ATTEN_READBACK_CH2         0
+//#define DVGA_TRIM_READBACK_CH1_ADDR    0x003E 
+#define   MASK_DVGA_TRIM_READBACK_CH1      0b11111111
+#define   SHIFT_DVGA_TRIM_READBACK_CH1     0
+//#define DVGA_TRIM_READBACK_CH2_ADDR    0x003F 
+#define   MASK_DVGA_TRIM_READBACK_CH2      0b11111111
+#define   SHIFT_DVGA_TRIM_READBACK_CH2     0
+//#define TDD_BYPASS_ADDR                0x0100 
+#define   MASK_DVGA_ENB_CH2                0b10000000
+#define   MASK_DVGA_ENB_CH1                0b01000000
+#define   MASK_IF_ENB_CH2                  0b00100000
+#define   MASK_IF_ENB_CH1                  0b00010000
+#define   MASK_LO_STG23_ENB_CH2            0b00001000
+#define   MASK_LO_STG23_ENB_CH1            0b00000100
+#define   MASK_LO_STG1_ENB                 0b00000010
+#define   MASK_BYPASS_TDD                  0b00000001
+#define   SHIFT_DVGA_ENB_CH2               7
+#define   SHIFT_DVGA_ENB_CH1               6
+#define   SHIFT_IF_ENB_CH2                 5
+#define   SHIFT_IF_ENB_CH1                 4
+#define   SHIFT_LO_STG23_ENB_CH2           3
+#define   SHIFT_LO_STG23_ENB_CH1           2
+#define   SHIFT_LO_STG1_ENB                1
+#define   SHIFT_BYPASS_TDD                 0
+//#define CONFIG_ADDR                    0x0101 
+#define   MASK_IFLIN_BIAS_EN               0b00100000
+#define   MASK_IFMAIN_BIAS_EN              0b00010000
+#define   MASK_SPI_18_33_SEL               0b00000001
+#define   SHIFT_IFLIN_BIAS_EN              5
+#define   SHIFT_IFMAIN_BIAS_EN             4
+#define   SHIFT_SPI_18_33_SEL              0
+//#define EN_MASK_ADDR                   0x0102 
+#define   MASK_PLL_ENB_CH12_MASK           0b10000000
+#define   MASK_DVGA_ENB_CH2_MASK           0b01000000
+#define   MASK_DVGA_ENB_CH1_MASK           0b00100000
+#define   MASK_IF_ENB_CH2_MASK             0b00010000
+#define   MASK_IF_ENB_CH1_MASK             0b00001000
+#define   MASK_LO_STG23_ENB_CH2_MASK       0b00000100
+#define   MASK_LO_STG23_ENB_CH1_MASK       0b00000010
+#define   MASK_LO_STG1_ENB_MASK            0b00000001
+#define   SHIFT_PLL_ENB_CH12_MASK          7
+#define   SHIFT_DVGA_ENB_CH2_MASK          6
+#define   SHIFT_DVGA_ENB_CH1_MASK          5
+#define   SHIFT_IF_ENB_CH2_MASK            4
+#define   SHIFT_IF_ENB_CH1_MASK            3
+#define   SHIFT_LO_STG23_ENB_CH2_MASK      2
+#define   SHIFT_LO_STG23_ENB_CH1_MASK      1
+#define   SHIFT_LO_STG1_ENB_MASK           0
+//#define DVGA_MODE_ADDR                 0x0103 
+#define   MASK_DVGA_5V_SEL                 0b10000000
+#define   MASK_DVGA_FA_STEP                0b01100000
+#define   MASK_DVGA_UPDN_STEP              0b00011000
+#define   MASK_DVGA_GAIN_MODE              0b00000111
+#define   SHIFT_DVGA_5V_SEL                7
+#define   SHIFT_DVGA_FA_STEP               5
+#define   SHIFT_DVGA_UPDN_STEP             3
+#define   SHIFT_DVGA_GAIN_MODE             0
+//#define DVGA_GAIN1_ADDR                0x0104 
+#define   MASK_DVGA_HP_SEL                 0b01000000
+#define   MASK_DVGA_GAIN_CH1               0b00111111
+#define   SHIFT_DVGA_HP_SEL                6
+#define   SHIFT_DVGA_GAIN_CH1              0
+//#define DVGA_GAIN2_ADDR                0x0105 
+#define   MASK_DVGA_GAIN_CH2               0b00111111
+#define   SHIFT_DVGA_GAIN_CH2              0
+//#define LPF_OVERRIDE_ADDR              0x0300 
+#define   MASK_LPF2_OVERRIDE               0b01110000
+#define   MASK_LPF1_OVERRIDE               0b00001110
+#define   MASK_LPF_DPLX_EN_OVERRIDE        0b00000001
+#define   SHIFT_LPF2_OVERRIDE              4
+#define   SHIFT_LPF1_OVERRIDE              1
+#define   SHIFT_LPF_DPLX_EN_OVERRIDE       0
+//#define IFMAIN_OVERRIDE_ADDR           0x0301 
+#define   MASK_IFMAIN_BIAS_OVERRIDE        0b00001111
+#define   SHIFT_IFMAIN_BIAS_OVERRIDE       0
+//#define IFLIN_OVERRIDE_ADDR            0x0302 
+#define   MASK_IFLIN_BIAS_OVERRIDE         0b00001111
+#define   SHIFT_IFLIN_BIAS_OVERRIDE        0
+//#define VGS_OVERRIDE_ADDR              0x0303 
+#define   MASK_VGS_OVERRIDE                0b00001111
+#define   SHIFT_VGS_OVERRIDE               0
+//#define DVGA_TRIM1_LP3V_OVERRIDE_ADDR  0x0304 
+#define   MASK_DVGA_TRIM_LP_3V_CH1_OVERRIDE 0b00011111
+#define   SHIFTDVGA_TRIM_LP_3V_CH1_OVERRIDE 0
+//#define DVGA_TRIM1_HP3V_OVERRIDE_ADDR  0x0305 
+#define   MASK_DVGA_TRIM_HP_3V_CH1_OVERRIDE 0b00011111
+#define   SHIFTDVGA_TRIM_HP_3V_CH1_OVERRIDE 0
+//#define DVGA_TRIM1_LP5V_OVERRIDE_ADDR  0x0306 
+#define   MASK_DVGA_TRIM_LP_5V_CH1_OVERRIDE 0b00011111
+#define   SHIFTDVGA_TRIM_LP_5V_CH1_OVERRIDE 0
+//#define DVGA_TRIM1_HP5V_OVERRIDE_ADDR  0x0307 
+#define   MASK_DVGA_TRIM_HP_5V_CH1_OVERRIDE 0b00011111
+#define   SHIFTDVGA_TRIM_HP_5V_CH1_OVERRIDE 0
+//#define DVGA_TRIM2_LP3V_OVERRIDE_ADDR  0x0308 
+#define   MASK_DVGA_TRIM_LP_3V_CH2_OVERRIDE 0b00011111
+#define   SHIFTDVGA_TRIM_LP_3V_CH2_OVERRIDE 0
+//#define DVGA_TRIM2_HP3V_OVERRIDE_ADDR  0x0309 
+#define   MASK_DVGA_TRIM_HP_3V_CH2_OVERRIDE 0b00011111
+#define   SHIFTDVGA_TRIM_HP_3V_CH2_OVERRIDE 0
+//#define DVGA_TRIM2_LP5V_OVERRIDE_ADDR  0x030A 
+#define   MASK_DVGA_TRIM_LP_5V_CH2_OVERRIDE 0b00011111
+#define   SHIFTDVGA_TRIM_LP_5V_CH2_OVERRIDE 0
+//#define DVGA_TRIM2_HP5V_OVERRIDE_ADDR  0x030B 
+#define   MASK_DVGA_TRIM_HP_5V_CH2_OVERRIDE 0b00011111
+#define   SHIFTDVGA_TRIM_HP_5V_CH2_OVERRIDE 0
+//#define OVERRIDE_SELECT_ADDR           0x0310 
+#define   MASK_SPARE2_OVERRIDE_SEL         0b10000000
+#define   MASK_SPARE1_OVERRIDE_SEL         0b01000000
+#define   MASK_DVGA_TRIM_CH2_OVERRIDE_SEL  0b00100000
+#define   MASK_DVGA_TRIM_CH1_OVERRIDE_SEL  0b00010000
+#define   MASK_VGS_OVERRIDE_SEL            0b00001000
+#define   MASK_IFLIN_TRIM_OVERRIDE_SEL     0b00000100
+#define   MASK_IFMAIN_TRIM_OVERRIDE_SEL    0b00000010
+#define   MASK_LPF_TRIM_OVERRIDE_SEL       0b00000001
+#define   SHIFT_SPARE2_OVERRIDE_SEL        7
+#define   SHIFT_SPARE1_OVERRIDE_SEL        6
+#define   SHIFT_DVGA_TRIM_CH2_OVERRIDE_SEL 5
+#define   SHIFT_DVGA_TRIM_CH1_OVERRIDE_SEL 4
+#define   SHIFT_VGS_OVERRIDE_SEL           3
+#define   SHIFT_IFLIN_TRIM_OVERRIDE_SEL    2
+#define   SHIFT_IFMAIN_TRIM_OVERRIDE_SEL   1
+#define   SHIFT_LPF_TRIM_OVERRIDE_SEL      0
+//#define BLOCK_RESETS_ADDR              0x1021 
+#define   MASK_ARSTB_BLOCK_LKD             0b01000000
+#define   MASK_ARSTB_BLOCK_AUTOCAL         0b00100000
+#define   MASK_ARSTB_BLOCK_NDIV            0b00010000
+#define   MASK_ARSTB_BLOCK_RDIV            0b00001000
+#define   MASK_ARSTB_BLOCK_DSMOSTG         0b00000100
+#define   MASK_ARSTB_BLOCK_DSMCORE         0b00000010
+#define   MASK_ARSTB_BLOCK_DSMALL          0b00000001
+#define   SHIFT_ARSTB_BLOCK_LKD            6
+#define   SHIFT_ARSTB_BLOCK_AUTOCAL        5
+#define   SHIFT_ARSTB_BLOCK_NDIV           4
+#define   SHIFT_ARSTB_BLOCK_RDIV           3
+#define   SHIFT_ARSTB_BLOCK_DSMOSTG        2
+#define   SHIFT_ARSTB_BLOCK_DSMCORE        1
+#define   SHIFT_ARSTB_BLOCK_DSMALL         0
+//#define GPO1_CONTROL_ADDR              0x1032 
+#define   MASK_GPO1_BLK_SEL                0b01111000
+#define   MASK_GPO1_ENABLE                 0b00000001
+#define   SHIFT__GPO1_BLK_SEL              3
+#define   SHIFT__GPO1_ENABLE               0
+//#define GPO1_SELECT_ADDR               0x1033 
+#define   MASK_GPO1_SGNL_SEL               0b11111111
+#define   SHIFT_GPO1_SGNL_SEL              0
+//#define SIG_PATH_9_NORMAL_ADDR         0x1109 
+#define   MASK_TRM_MIXLODRV_DRV_POUT       0b00011000
+#define   MASK_TRM_XLODRV_DRV_POUT         0b00000110
+#define   SHIFT_TRM_MIXLODRV_DRV_POUT      3
+#define   SHIFT_TRM_XLODRV_DRV_POUT        1
+//#define INT_L_ADDR                     0x1200 
+#define   MASK_INT_DIV7_0                  0b11111111
+#define   SHIFT_INT_DIV7_0                 0
+//#define INT_H_ADDR                     0x1201 
+#define   MASK_INT_DIV15_8                 0b11111111
+#define   SHIFT_INT_DIV15_8                0
+//#define FRAC1_L_ADDR                   0x1202 
+#define   MASK_FRAC7_0                     0b11111111
+#define   SHIFT_FRAC7_0                    0
+//#define FRAC1_M_ADDR                   0x1203 
+#define   MASK_FRAC15_8                    0b11111111
+#define   SHIFT_FRAC15_8                   0
+//#define FRAC1_H_ADDR                   0x1204 
+#define   MASK_FRAC23_16                   0b11111111
+#define   SHIFT_FRAC23_16                  0
+//#define SD_PHASE_L_0_ADDR              0x1205 
+#define   MASK_PHASE7_0                    0b11111111
+#define   SHIFT_PHASE7_0                   0
+//#define SD_PHASE_M_0_ADDR              0x1206 
+#define   MASK_PHASE15_8                   0b11111111
+#define   SHIFT_PHASE15_8                  0
+//#define SD_PHASE_H_0_ADDR              0x1207 
+#define   MASK_PHASE23_16                  0b11111111
+#define   SHIFT_PHASE23_16                 0
+//#define MOD_L_ADDR                     0x1208 
+#define   MASK_MOD7_0                      0b11111111
+#define   SHIFT_MOD7_0                     0
+//#define MOD_H_ADDR                     0x1209 
+#define   MASK_MOD13_8                     0b00111111
+#define   SHIFT_MOD13_8                    0
+//#define SYNTH_ADDR                     0x120B 
+#define   MASK_PRE_SEL                     0b00000010
+#define   MASK_EN_FBDIV                    0b00000001
+#define   SHIFT_PRE_SEL                    1
+#define   SHIFT_EN_FBDIV                   0
+//#define R_DIV_ADDR                     0x120C 
+#define   MASK_R_DIV                       0b01111111
+#define   SHIFT_R_DIV                      0
+//#define SYNTH_0_ADDR                   0x120E 
+#define   MASK_DOUBLER_EN                  0b00001000
+#define   MASK_RDIV2_SEL                   0b00000001
+#define   SHIFT_DOUBLER_EN                 3
+#define   SHIFT_RDIV2_SEL                  0
+//#define MULTI_FUNC_SYNTH_CTL_0214_ADDR 0x1214 
+#define   MASK_LD_BIAS                     0b11000000
+#define   MASK_LDP                         0b00111000
+#define   SHIFT_LD_BIAS                    6
+#define   SHIFT_LDP                        3
+//#define SI_VCO_SEL_ADDR                0x1217 
+#define   MASK_SI_VCO_SEL                  0b00001111
+#define   SHIFT_SI_VCO_SEL                 0
+//#define VCO_FSM_ADDR                   0x121F 
+#define   MASK_DISABLE_CAL                 0b01000000
+#define   SHIFT_DISABLE_CAL                6
+//#define SD_CTRL_ADDR                   0x122A 
+#define   MASK_SD_EN_FRAC0                 0b00100000
+#define   MASK_SD_EN_OUT_OFF               0b00010000
+#define   MASK_SD_SM_2                     0b00000010
+#define   SHIFT_SD_EN_FRAC0                5
+#define   SHIFT_SD_EN_OUT_OFF              4
+#define   SHIFT_SD_SM_2                    0
+//#define MULTI_FUNC_SYNTH_CTL_022C_ADDR 0x122C 
+#define   MASK_CP_HIZ                      0b00000011
+#define   SHIFT_CP_HIZ                     0
+//#define MULTI_FUNC_SYNTH_CTL_022D_ADDR 0x122D 
+#define   MASK_EN_PFD_CP                   0b10000000
+#define   MASK_BLEED_POL                   0b01000000
+#define   MASK_INT_ABP                     0b00000100
+#define   MASK_BLEED_EN                    0b00000001
+#define   SHIFT_EN_PFD_CP                  7
+#define   SHIFT_BLEED_POL                  6
+#define   SHIFT_INT_ABP                    2
+#define   SHIFT_BLEED_EN_                  0
+//#define CP_CURR_ADDR                   0x122E 
+#define   MASK_CP_CURRENT                  0b00001111
+#define   SHIFT_CP_CURRENT                 0
+//#define BICP_ADDR                      0x122F 
+#define   MASK_BICP                        0b11111111
+#define   SHIFT_BICP                       0
+//#define FRAC2_L_ADDR                   0x1233 
+#define   MASK_FRAC27_0                    0b11111111
+#define   SHIFT_FRAC27_0                   0
+//#define FRAC2_H_ADDR                   0x1234 
+#define   MASK_FRAC213_8                   0b00111111
+#define   SHIFT_FRAC213_8                   0
+//#define MULTI_FUNC_SYNTH_CTL_0235_ADDR 0x1235 
+#define   MASK_PHASE_ADJ_EN                0b00000010
+#define   SHIFT_PHASE_ADJ_EN               1
+//#define VCO_LUT_CTRL_ADDR              0x1240 
+#define   MASK_SI_VCO_FORCE_CAPSVCOI       0b00010000
+#define   MASK_SI_VCO_FORCE_VCO            0b00000010
+#define   MASK_SI_VCO_FORCE_CAPS           0b00000001
+#define   SHIFT_SI_VCO_FORCE_CAPSVCOI      4
+#define   SHIFT_SI_VCO_FORCE_VCO           1
+#define   SHIFT_SI_VCO_FORCE_CAPS          0
+//#define LOCK_DETECT_ADDR               0x124D 
+#define   MASK_LOCK_DETECT                 0b00000001
+#define   SHIFT_LOCK_DETECT                0
+//#define MULTI_FUNC_CTRL_ADDR           0x1401 
+#define   MASK_SPI_1P8_3P3_CTRL            0b00010000
+#define   SHIFT_SPI_1P8_3P3_CTRL           4
+//#define LO_CNTRL2_ADDR                 0x140E 
+#define   MASK_EN_BIAS_R                   0b10000000
+#define   MASK_REFBUF_EN                   0b00100000
+#define   SHIFT_EN_BIAS_R                  7
+#define   SHIFT_REFBUF_EN                  5
+//#define LO_CNTRL8_ADDR                 0x1414 
+#define   MASK_MIX_OE                      0b10000000
+#define   MASK_LO_OE                       0b01000000
+#define   MASK_USEEXT_LOI                  0b00100000
+#define   MASK_OUT_DIVRATIO                0b00011111
+#define   SHIFT_MIX_OE                     7
+#define   SHIFT_LO_OE                      6
+#define   SHIFT_USEEXT_LOI                 5
+#define   SHIFT_OUT_DIVRATIO               0
+//#define FRAC2_L_SLAVE_ADDR             0x1541 
+#define   MASK_FRAC2_SLV7_0                0b11111111
+#define   SHIFT_FRAC2_SLV7_0               0
+//#define FRAC2_H_SLAVE_ADDR             0x1542 
+#define   MASK_FRAC2_SLV13_8              0b00111111
+#define   SHIFT_FRAC2_SLV13_8              0
+//#define FRAC_L_SLAVE_ADDR              0x1543 
+#define   MASK_FRAC_SLV7_0                0b11111111
+#define   SHIFT_FRAC_SLV7_0               0
+//#define FRAC_M_SLAVE_ADDR              0x1544 
+#define   MASK_FRAC_SLV15_8                0b11111111
+#define   SHIFT_FRAC_SLV15_8               0
+//#define FRAC_H_SLAVE2_ADDR             0x1545 
+#define   MASK_FRAC_SLV23_16               0b11111111
+#define   SHIFT_FRAC_SLV23_16              0
+//#define PHASE_L_SLAVE_ADDR             0x1546 
+#define   MASK_PHASE_SLV7_0                0b11111111
+#define   SHIFT_PHASE_SLV7_0               0
+//#define PHASE_M_SLAVE_ADDR             0x1547 
+#define   MASK_PHASE_SLV15_8               0b11111111
+#define   SHIFT_PHASE_SLV15_8              0
+//#define PHASE_H_SLAVE_ADDR             0x1548 
+#define   MASK_PHASE_SLV23_16              0b11111111
+#define   SHIFT_PHASE_SLV23_16             0
+//#define INT_DIV_L_SLAVE_ADDR           0x1549 
+#define   MASK_INT_DIV7_0                  0b11111111
+#define   SHIFT_INT_DIV7_0                 0
+//#define INT_DIV_H_SLAVE_ADDR           0x154A 
+#define   MASK_INT_DIV15_8                 0b11111111
+#define   SHIFT_INT_DIV15_8                0
+//#define R_DIV_SLAVE_ADDR               0x154B 
+#define   MASK_R_DIV_SLV                   0b01111111
+#define   SHIFT_R_DIV_SLV                  0
+//#define RDIV2_SEL_SLAVE_ADDR           0x154C 
+#define   MASK_RDIV2_SEL_SLV               0b00000001
+#define   SHIFT_RDIV2_SEL_SLV              0
+//#define DISABLE_CFG_ADDR               0x1583 
+#define   MASK_DSM_LAUNCH_DLY              0b00011000
+#define   MASK_DISABLE_FREQHOP             0b00000100
+#define   MASK_DISABLE_DBLBUFFERING        0b00000010
+#define   MASK_DISABLE_PHASEADJ            0b00000001
+#define   SHIFT_DSM_LAUNCH_DLY             3
+#define   SHIFT_DISABLE_FREQHOP            2
+#define   SHIFT_DISABLE_DBLBUFFERING       1
+#define   SHIFT_DISABLE_PHASEADJ           0
+
+#endif // !ADRF6660_MAP_H
