@@ -17,7 +17,7 @@
 #include <cstdio>
 #include <iostream>
 #include <fstream>
-#include "../ccNOos/tests/ccNOos_tests.h"
+#include "ccNOos_tests.h"
 #define LIGHT_OFF (0u)      // 1-PSoC4, 0-most others
 #define uSEC_PER_CLOCK (1000000/CLOCKS_PER_SEC)
 #define MAXLINELENGTH (80)
