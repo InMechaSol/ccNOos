@@ -212,10 +212,6 @@ STATIC_ASSERT(sizeof(I_32)==4, I_32_must_be_32_bits);
 // Naming Conventions Driven by Unique Module Name
 //  formatted as an acceptable c language variable name
 
-// Name of Platform Specific executoin system Instance
-#define __PLATFORM_EXESYS_NAME(PLATNAME) PLATNAME##exeSystem
-#define PLATFORM_EXESYS_NAME(PLATNAME) __PLATFORM_EXESYS_NAME(PLATNAME)
-
 // Name of Module Structure Data Type
 #define __MODstructTYPEname(mNAME) mNAME##Struct
 #define MODstructTYPEname(mNAME) __MODstructTYPEname(mNAME)
@@ -296,10 +292,6 @@ STATIC_ASSERT(sizeof(I_32)==4, I_32_must_be_32_bits);
 #define __MODdeclareSYSTICK(mNAME) void __MODsystick(mNAME) ( struct computeModuleStruct* compModPtrIn )
 #define MODdeclareSYSTICK(mNAME) __MODdeclareSYSTICK(mNAME)
 
-// Declaration Code - Platform Specific executoin system Instance
-#define __PLATFORM_EXESYS_DECLARE(PLATNAME) struct executionSystemStruct __PLATFORM_EXESYS_NAME(PLATNAME)
-#define PLATFORM_EXESYS_DECLARE(PLATNAME) __PLATFORM_EXESYS_DECLARE(PLATNAME)
-
 // Code Snippets to Simplify Common Tasks
 //
 
@@ -320,29 +312,29 @@ STATIC_ASSERT(sizeof(I_32)==4, I_32_must_be_32_bits);
 #define CLEAR_MODULE_ERRORS(mNAME) __CLEAR_MODULE_ERRORS(mNAME)
 
 // Main Function Template - C with an OS Linux or Windows or Similar non-real-time
-#define __C_NOos_MAINnSYSTICK_TEMPLATE(PLATNAME) ccNOosVersionsTemplate \
+#define __C_NOos_MAINnSYSTICK_TEMPLATE ccNOosVersionsTemplate \
 int main()\
 {\
     applicationConfig();\
-    return ExecuteMain(&PLATFORM_EXESYS_NAME(PLATNAME), &exeEntryPoints);\
+    return ExecuteMain(&exeSystem, &exeEntryPoints);\
 }\
 void SysTickISRCallback(void);\
 void SysTickISRCallback(void)\
 {\
-    ExecuteSysTick(&PLATFORM_EXESYS_NAME(PLATNAME), &exeEntryPoints);\
+    ExecuteSysTick(&exeSystem, &exeEntryPoints);\
 }
-#define C_NOos_MAINnSYSTICK_TEMPLATE(PLATNAME) __C_NOos_MAINnSYSTICK_TEMPLATE(PLATNAME)
+#define C_NOos_MAINnSYSTICK_TEMPLATE __C_NOos_MAINnSYSTICK_TEMPLATE
 
 // Main Function Template - C with an OS Linux or Windows or Similar non-real-time
-#define __C_OS_MAIN_TEMPLATE(PLATNAME) ccNOosVersionsTemplate \
+#define __C_OS_MAIN_TEMPLATE ccNOosVersionsTemplate \
 int main(int argc, char** argv)\
 {\
     clock_t tlast = clock();\
     clock_t tnow, tdelta;\
-    UI_32* uSecTicksPtr = &PLATFORM_EXESYS_NAME(PLATNAME).uSecTicks;\
-    UI_32* hourTicksPtr = &PLATFORM_EXESYS_NAME(PLATNAME).hourTicks;\
+    UI_32* uSecTicksPtr = &exeSystem.uSecTicks;\
+    UI_32* hourTicksPtr = &exeSystem.hourTicks;\
     applicationConfig();\
-    ExecuteSetup(&PLATFORM_EXESYS_NAME(PLATNAME), &exeEntryPoints);\
+    ExecuteSetup(&exeSystem, &exeEntryPoints);\
     for (;;)\
     {\
         tnow = clock();\
@@ -357,11 +349,11 @@ int main(int argc, char** argv)\
             (*uSecTicksPtr) = 0u;\
             (*hourTicksPtr)++;\
         }\
-        ExecuteLoop(&PLATFORM_EXESYS_NAME(PLATNAME), &exeEntryPoints);\
+        ExecuteLoop(&exeSystem, &exeEntryPoints);\
     }\
     return RETURN_ERROR;\
 }
-#define C_OS_MAIN_TEMPLATE(PLATNAME) __C_OS_MAIN_TEMPLATE(PLATNAME)
+#define C_OS_MAIN_TEMPLATE __C_OS_MAIN_TEMPLATE
 
 //
 // C++ specific macro code templates
@@ -400,14 +392,14 @@ int main(int argc, char** argv)\
 #define PLATFORM_APP_CPPTEMPLATE(PLATNAME) __PLATFORM_APP_CPPTEMPLATE(PLATNAME)
 
 // Main Function Template - CPP with an OS Linux or Windows or Similar non-real-time
-#define __CPP_OS_MAIN_TEMPLATE(PLATNAME) ccNOosVersionsTemplate \
+#define __CPP_OS_MAIN_TEMPLATE ccNOosVersionsTemplate \
 int main(int argc, char** argv)\
 {\
     clock_t tlast = clock();\
     clock_t tnow, tdelta;\
-    UI_32* uSecTicksPtr = &PLATFORM_EXESYS_NAME(PLATNAME).getExeDataPtr()->uSecTicks;\
-    UI_32* hourTicksPtr = &PLATFORM_EXESYS_NAME(PLATNAME).getExeDataPtr()->hourTicks;\
-    PLATFORM_EXESYS_NAME(PLATNAME).ExecuteSetup();\
+    UI_32* uSecTicksPtr = &exeSystem.getExeDataPtr()->uSecTicks;\
+    UI_32* hourTicksPtr = &exeSystem.getExeDataPtr()->hourTicks;\
+    exeSystem.ExecuteSetup();\
     for (;;)\
     {\
         tnow = clock();\
@@ -422,13 +414,13 @@ int main(int argc, char** argv)\
             (*uSecTicksPtr) = 0u;\
             (*hourTicksPtr)++;\
         }\
-        PLATFORM_EXESYS_NAME(PLATNAME).ExecuteLoop();\
+        exeSystem.ExecuteLoop();\
     }\
     return RETURN_ERROR;\
 }
-#define CPP_OS_MAIN_TEMPLATE(PLATNAME) __CPP_OS_MAIN_TEMPLATE(PLATNAME)
+#define CPP_OS_MAIN_TEMPLATE __CPP_OS_MAIN_TEMPLATE
 
-#define __CPP_MAIN_TEMPLATE_ARDUINO(PLATNAME) ccNOosVersionsTemplate \
+#define __CPP_MAIN_TEMPLATE_ARDUINO ccNOosVersionsTemplate \
 unsigned long tlast;\
 unsigned long tnow, tdelta;\
 uint32_t* uSecTicksPtr;\
@@ -436,9 +428,9 @@ uint32_t* hourTicksPtr;\
 void setup() {\
     tlast = millis();\
     tnow, tdelta;\
-    uSecTicksPtr = &PLATFORM_EXESYS_NAME(PLATNAME).getExeDataPtr()->uSecTicks;\
-    hourTicksPtr = &PLATFORM_EXESYS_NAME(PLATNAME).getExeDataPtr()->hourTicks;\
-    PLATFORM_EXESYS_NAME(PLATNAME).ExecuteSetup();\
+    uSecTicksPtr = &exeSystem.getExeDataPtr()->uSecTicks;\
+    hourTicksPtr = &exeSystem.getExeDataPtr()->hourTicks;\
+    exeSystem.ExecuteSetup();\
 }\
 \
 void loop()\
@@ -457,10 +449,10 @@ void loop()\
         (*hourTicksPtr)++;\
     }\
 \
-    PLATFORM_EXESYS_NAME(PLATNAME).ExecuteLoop();\
+    exeSystem.ExecuteLoop();\
 \
 }
-#define CPP_MAIN_TEMPLATE_ARDUINO(PLATNAME) __CPP_MAIN_TEMPLATE_ARDUINO(PLATNAME)
+#define CPP_MAIN_TEMPLATE_ARDUINO __CPP_MAIN_TEMPLATE_ARDUINO
 
 #endif // !__cplusplus
 #endif // !__VERSIONCONFIG__

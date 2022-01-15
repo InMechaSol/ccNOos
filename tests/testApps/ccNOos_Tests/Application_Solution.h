@@ -31,25 +31,25 @@ application.
 
 #include "../executionSystem/execution_system.h"    
 #include "../consoleMenu/console_menu.h" 
-    
+
 #define Mn ccNOosTests
-    
+
 #define charBuffMax 80
-    
+
 MODdeclareSTRUCT(Mn)
 {
     COMPMODFIRST;
-    float   float_0,    float_1;
-    double  double_0,   double_1;
-    UI_64   ui64_0,     ui64_1;
-    I_64    i64_0,      i64_1;
-    UI_32   ui32_0,     ui32_1;
-    I_32    i32_0,      i32_1;
-    UI_16   ui16_0,     ui16_1;
-    I_16    i16_0,      i16_1;
-    UI_8    ui8_0,      ui8_1;
-    I_8     i8_0,       i8_1;
-    UI_8    charsRead,  chars2Write;
+    float   float_0, float_1;
+    double  double_0, double_1;
+    UI_64   ui64_0, ui64_1;
+    I_64    i64_0, i64_1;
+    UI_32   ui32_0, ui32_1;
+    I_32    i32_0, i32_1;
+    UI_16   ui16_0, ui16_1;
+    I_16    i16_0, i16_1;
+    UI_8    ui8_0, ui8_1;
+    I_8     i8_0, i8_1;
+    UI_8    charsRead, chars2Write;
     char    charbuff_In[charBuffMax];
     char    charbuff_Out[charBuffMax];
     UI_16   SerializationTestReturn;
@@ -95,7 +95,7 @@ const char* StatusccNOosTests(MODdeclarePTRIN(Mn));
 
 ////////////////////////////////////////////////////////////////////////////////
 // C ccNOosTests Example Application - built from computeModuleClass and Execution System
-#define __PLATFORM_APP_CTEMPLATE(PLATNAME,MODNAME) \
+#define __PLATFORM_APP_CTEMPLATE(MODNAME) \
     struct linkedEntryPointStruct setupListHead = {\
         nullptr,\
         (struct computeModuleStruct*)&MODdataINST(Mn),\
@@ -114,11 +114,10 @@ const char* StatusccNOosTests(MODdeclarePTRIN(Mn));
         };\
     void applicationConfig()\
     {\
-        PLATFORM_EXESYS_NAME(PLATFORM_NAME) = CreateExecutionSystemStruct(\
-                uSEC_PER_CLOCK);\
+        exeSystem = CreateExecutionSystemStruct(uSEC_PER_CLOCK);\
         MODdataINST(Mn) = MODstructCREATE(Mn)();\
     }
-#define  PLATFORM_APP_CTEMPLATE(PLATNAME,MODNAME) __PLATFORM_APP_CTEMPLATE(PLATNAME,MODNAME)
+#define  PLATFORM_APP_CTEMPLATE(MODNAME) __PLATFORM_APP_CTEMPLATE(MODNAME)
 
 #ifdef __cplusplus
 ////////////////////////////////////////////////////////////////////////////////
@@ -136,23 +135,23 @@ public:
 
 ////////////////////////////////////////////////////////////////////////////////
 // C++ ccNOosTests Example Application - built from computeModuleClass and Execution System
-#define __PLATFORM_APP_CLASS(PLATNAME,MODNAME) class PLATFORM_APP_NAME(PLATNAME){\
+#define __PLATFORM_APP_CLASS(MODNAME) class theApplicationClass{\
     public:\
     linkedEntryPointClass setupListHead;\
     linkedEntryPointClass loopListHead;\
     linkedEntryPointClass systickListHead;\
     linkedEntryPointClass exceptionListHead;\
     MODCLASS_NAME(MODNAME) MODNAME##CompMod;\
-    executionSystemClass* MODNAME##ExecutionSystemPtr;\
-    PLATFORM_APP_NAME(PLATNAME)() :\
+    executionSystemClass* theExecutionSystemPtr;\
+    theApplicationClass() :\
         MODNAME##CompMod(),\
         setupListHead(& MODNAME##CompMod, nullptr),\
         loopListHead(& MODNAME##CompMod, nullptr),\
         systickListHead(nullptr, nullptr),\
         exceptionListHead(&MODNAME##CompMod, nullptr)\
     {\
-        MODNAME##ExecutionSystemPtr = & PLATFORM_EXESYS_NAME(PLATNAME);\
-        MODNAME##ExecutionSystemPtr->LinkTheListsHead(\
+        theExecutionSystemPtr = &exeSystem;\
+        theExecutionSystemPtr->LinkTheListsHead(\
             &setupListHead,\
             &loopListHead,\
             &systickListHead,\
@@ -160,66 +159,15 @@ public:
         );\
     }\
 }
-#define PLATFORM_APP_CLASS(PLATNAME,MODNAME) __PLATFORM_APP_CLASS(PLATNAME,MODNAME)
+#define PLATFORM_APP_CLASS(MODNAME) __PLATFORM_APP_CLASS(MODNAME)
 
 
 #endif // !__cplusplus
 
-#else // If not compiling for automated tests, then compile for example applications
-///////////////////////////////////////////////////////////////////////
-// SysTickClock Example
-///////////////////////////////////////////////////////////////////////
-#ifdef EXAMPLE_SYSTICK
-#include "SysTickExample.h"
-#endif // !systick example
 
-///////////////////////////////////////////////////////////////////////
-// Attenuators UI Example
-///////////////////////////////////////////////////////////////////////
-#ifdef EXAMPLE_ATTEN_UI
-#include "AttensUIExample.h" 
-#endif // !EXAMPLE_ATTEN_UI
-
-///////////////////////////////////////////////////////////////////////
-// SatCom ACS Example
-///////////////////////////////////////////////////////////////////////
-#ifdef EXAMPLE_SATCOM_ACS
-#include "SatComACSExample.h" 
-#endif // !EXAMPLE_SATCOM_ACS
-
-///////////////////////////////////////////////////////////////////////
-// SatCom Tunable Power Meter Example
-///////////////////////////////////////////////////////////////////////
-#ifdef EXAMPLE_POWER_METER
-#include "SatComPowerMeterExample.h" 
-#endif // !EXAMPLE_POWER_METER
-
-///////////////////////////////////////////////////////////////////////
-// SatCom Attitude Position Timing (APT) Example
-///////////////////////////////////////////////////////////////////////
-#ifdef EXAMPLE_APT
-#include "SatComAPTExample.h" 
-#endif // !EXAMPLE_APT
-
-///////////////////////////////////////////////////////////////////////
-// SatCom GX Modem Example
-///////////////////////////////////////////////////////////////////////
-#ifdef EXAMPLE_GX_MODEM
-#include "SatComGXModemExample.h" 
-#endif // !EXAMPLE_GX_MODEM
 
 #endif // !COMPILE_TESTS
 
-////////////////////////////////
-// Compile Error if Examples/Tests not defining 
-#ifndef Mn
-#error Mn must be defined - see examples
-#endif
-#ifndef MODdeclareCREATEINS
-#error MODdeclareCREATEINS must be defined - see examples
-#endif
-#ifndef MODcallCREATEINS
-#error MODcallCREATEINS must be defined - see examples
-#endif
+
 
 #endif // !__CCNOOS_TESTS__

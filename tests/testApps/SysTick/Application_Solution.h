@@ -73,7 +73,7 @@ MODdeclareSYSTICK(Mn);
 
 ////////////////////////////////////////////////////////////////////////////////
 // C SysTickClock Example Application - built from computeModuleClass and Execution System
-#define __PLATFORM_APP_CTEMPLATE(PLATNAME,MODNAME) \
+#define __PLATFORM_APP_CTEMPLATE(MODNAME) \
     struct linkedEntryPointStruct setupListHead = {\
         nullptr,\
         (struct computeModuleStruct*)&MODdataINST(Mn),\
@@ -92,13 +92,13 @@ MODdeclareSYSTICK(Mn);
         };\
     void applicationConfig()\
     {\
-        PLATFORM_EXESYS_NAME(PLATFORM_NAME) = CreateExecutionSystemStruct(\
+        exeSystem = CreateExecutionSystemStruct(\
                 uSEC_PER_CLOCK);\
         MODdataINST(Mn) = MODstructCREATE(Mn)(\
                 LIGHT_OFF\
                 );\
     }
-#define  PLATFORM_APP_CTEMPLATE(PLATNAME,MODNAME) __PLATFORM_APP_CTEMPLATE(PLATNAME,MODNAME)
+#define  PLATFORM_APP_CTEMPLATE(MODNAME) __PLATFORM_APP_CTEMPLATE(MODNAME)
 
 #ifdef __cplusplus
 ////////////////////////////////////////////////////////////////////////////////
@@ -116,23 +116,23 @@ public:
 
 ////////////////////////////////////////////////////////////////////////////////
 // C++ SysTickClock Example Application - built from computeModuleClass and Execution System
-#define __PLATFORM_APP_CLASS(PLATNAME,MODNAME) class PLATFORM_APP_NAME(PLATNAME){\
+#define __PLATFORM_APP_CLASS(MODNAME) class theApplicationClass{\
     public:\
     linkedEntryPointClass setupListHead;\
     linkedEntryPointClass loopListHead;\
     linkedEntryPointClass systickListHead;\
     linkedEntryPointClass exceptionListHead;\
     MODCLASS_NAME(MODNAME) MODNAME##CompMod;\
-    executionSystemClass* MODNAME##ExecutionSystemPtr;\
-    PLATFORM_APP_NAME(PLATNAME)() :\
+    executionSystemClass* theExecutionSystemPtr;\
+    theApplicationClass() :\
         MODNAME##CompMod(LIGHT_OFF),\
         setupListHead(& MODNAME##CompMod, nullptr),\
         loopListHead(& MODNAME##CompMod, nullptr),\
         systickListHead(nullptr, nullptr),\
         exceptionListHead(&MODNAME##CompMod, nullptr)\
     {\
-        MODNAME##ExecutionSystemPtr = & PLATFORM_EXESYS_NAME(PLATNAME);\
-        MODNAME##ExecutionSystemPtr->LinkTheListsHead(\
+        theExecutionSystemPtr = &exeSystem;\
+        theExecutionSystemPtr->LinkTheListsHead(\
             &setupListHead,\
             &loopListHead,\
             &systickListHead,\
@@ -140,7 +140,7 @@ public:
         );\
     }\
 }
-#define PLATFORM_APP_CLASS(PLATNAME,MODNAME) __PLATFORM_APP_CLASS(PLATNAME,MODNAME)
+#define PLATFORM_APP_CLASS(MODNAME) __PLATFORM_APP_CLASS(MODNAME)
 
 
 #endif // !__cplusplus

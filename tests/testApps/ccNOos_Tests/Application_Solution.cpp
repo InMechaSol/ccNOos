@@ -17,17 +17,17 @@
 
 Notes:
 
-Be certain to compile only one compilation unit in cpp, 
- - not 1 in c and another in cpp 
- - all three files (.h .c and .cpp) 
- -- used to create single cpp compilation unit 
+Be certain to compile only one compilation unit in cpp,
+ - not 1 in c and another in cpp
+ - all three files (.h .c and .cpp)
+ -- used to create single cpp compilation unit
 
 This source demonstrates the usage of the ccNOos library and its dependence
 on other files in the library.  A platform specific main(.c,.cpp) file need
-only instantiate, configure, then execute the execution system.  
+only instantiate, configure, then execute the execution system.
 
 */
-#include "ccNOos_tests.c"
+#include "Application_Solution.c"
 ;
 #ifdef COMPILE_TESTS
 

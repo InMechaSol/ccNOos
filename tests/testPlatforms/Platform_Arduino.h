@@ -13,10 +13,13 @@
 
 #include <Arduino.h>
 #include <Adafruit_MCP23017.h>
-#include <tests/ccNOos_tests.h>
+#include "executionSystem/execution_system.h"    
+#include "consoleMenu/console_menu.h" 
 #define LIGHT_OFF (0u)      // 1-PSoC4, 0-most others
 #define uSEC_PER_CLOCK (1000u)
 #define MAXLINELENGTH (80)
+
+ 
 
 // 0) (Optional) Platform Config and Log Files/Devices
 // 1) Platform Setup Function
@@ -105,6 +108,6 @@ void ReadConfigLine(char* inStringPtr)
 PlatformAPIFuncsTemplate(size + 1);
 #endif
 // 9) Global Execution System Instance
-executionSystemClass PLATFORM_EXESYS_NAME(PLATFORM_NAME)(uSEC_PER_CLOCK);
+//executionSystemClass PLATFORM_EXESYS_NAME(PLATFORM_NAME)(uSEC_PER_CLOCK);
 // 10) ExeSys API Functions (From Template?)
-ExeSysAPIFuncsTemplate(PLATFORM_NAME)
+ExeSysAPIFuncsTemplate

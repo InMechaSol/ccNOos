@@ -4,7 +4,7 @@
 #ifndef COMPILE_TESTS
 #ifdef EXAMPLE_SYSTICK
 
-#include "SysTickExample.h"
+#include "Application_Solution.h"
 
 // Re-usable, portable, cross-platform (systick example create() function)
 MODdeclareCREATE(Mn)(MODdeclareCREATEINS)
@@ -39,10 +39,10 @@ MODdeclareSETUP(Mn)
     // Setup is running in the setup area following power on
     else
     {
-        // Values are initialized at instantiation
-        // need to write to LEDs
-        WriteMinLED(MODdataPTR(Mn));
-        WriteSecLED(MODdataPTR(Mn));
+    // Values are initialized at instantiation
+    // need to write to LEDs
+    WriteMinLED(MODdataPTR(Mn));
+    WriteSecLED(MODdataPTR(Mn));
     }
     return RETURN_SUCCESS;
 }
