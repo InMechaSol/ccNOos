@@ -38,8 +38,5 @@ var searchData=
   ['ctastr_90',['CTASTR',['../version__config_8h.html#a8dcc70900e14b0a9cbf95a7511fbd0ca',1,'version_config.h']]],
   ['ctastr2_91',['CTASTR2',['../version__config_8h.html#a75f0afbcbfb26edba8f1e962cbbd6d49',1,'version_config.h']]],
   ['current_5fvalue_92',['current_value',['../struct_l_t_c2360_data_struct.html#ab2e839c5502b38c2de9f60b8e42027b8',1,'LTC2360DataStruct']]],
-  ['ccnoos_20_2d_20build_20portable_20microcontroller_20applications_21_93',['ccNOos - Build Portable Microcontroller Applications!',['../index.html',1,'']]],
-  ['cclibs_20_2d_20straight_20c_20data_20structures_20and_20functions_94',['ccLibs - Straight C Data Structures and Functions',['../md_cc_libs__r_e_a_d_m_e.html',1,'']]],
-  ['computemodule_20_2d_20cross_2dplatform_20application_20building_20block_95',['computeModule - Cross-Platform Application Building Block',['../md_compute_module__r_e_a_d_m_e.html',1,'']]],
-  ['consolemenu_20_2d_20abstract_20access_20to_20string_2c_20serialization_2c_20and_20menu_20trees_96',['consoleMenu - Abstract Access to String, Serialization, and Menu Trees',['../md_console_menu__r_e_a_d_m_e.html',1,'']]]
+  ['cclibs_20_2d_20straight_20c_20data_20structures_20and_20functions_93',['ccLibs - Straight C Data Structures and Functions',['../index.html',1,'']]]
 ];
