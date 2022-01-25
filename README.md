@@ -24,6 +24,6 @@
 - [Common, compiler configured, Platform Specific Main file](https://github.com/InMechaSol/ccNOos/tree/main/tests/testMainTemplates)
   - shared accross all platforms for a particular application
 ## ccNOos Application Structure
-![appStructure](/docs/pngs/Application_Structure.png)
+![appStructure](https://github.com/InMechaSol/ccNOos/blob/main/docs/pngs/Application_Structure.png)
 
 
