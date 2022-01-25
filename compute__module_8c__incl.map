@@ -1,6 +1,0 @@
-<map id="computeModule/compute_module.c" name="computeModule/compute_module.c">
-<area shape="rect" id="node1" title="ccNOos Compute Module Definitions" alt="" coords="67,5,235,47"/>
-<area shape="rect" id="node2" href="$compute__module_8h.html" title="ccNOos Compute Module Declarations" alt="" coords="5,102,137,129"/>
-<area shape="rect" id="node4" href="$execution__system_8h.html" title="ccNOos Module Execution System Declarations" alt="" coords="161,95,304,136"/>
-<area shape="rect" id="node3" href="$version__config_8h.html" title="ccNOos Source Code Version and Configuration Declarations" alt="" coords="84,184,219,225"/>
-</map>

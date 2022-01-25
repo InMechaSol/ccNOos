@@ -1,8 +1,0 @@
-<map id="executionSystem/execution_system.c" name="executionSystem/execution_system.c">
-<area shape="rect" id="node1" title="ccNOos Module Execution System Definitions" alt="" coords="70,5,253,47"/>
-<area shape="rect" id="node2" href="$execution__system_8h.html" title="ccNOos Module Execution System Declarations" alt="" coords="5,102,144,129"/>
-<area shape="rect" id="node4" href="$console__menu_8h.html" title="ccNOos Console Menu Definitions" alt="" coords="168,95,328,136"/>
-<area shape="rect" id="node3" href="$version__config_8h.html" title="ccNOos Source Code Version and Configuration Declarations" alt="" coords="145,273,260,300"/>
-<area shape="rect" id="node5" href="$compute__module_8h.html" title="ccNOos Compute Module Declarations" alt="" coords="113,184,293,225"/>
-<area shape="rect" id="node6" href="$io__device_8h.html" title="Cross&#45;Platform Portable Input/Output Device Declarations." alt="" coords="317,191,467,218"/>
-</map>

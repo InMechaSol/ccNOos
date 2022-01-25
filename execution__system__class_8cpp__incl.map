@@ -1,9 +1,0 @@
-<map id="executionSystem/execution_system_class.cpp" name="executionSystem/execution_system_class.cpp">
-<area shape="rect" id="node1" title="ccNOos Module Execution System Class Wrappers" alt="" coords="70,5,253,47"/>
-<area shape="rect" id="node2" href="$execution__system_8c.html" title="ccNOos Module Execution System Definitions" alt="" coords="92,95,231,121"/>
-<area shape="rect" id="node3" href="$execution__system_8h.html" title="ccNOos Module Execution System Declarations" alt="" coords="5,177,144,203"/>
-<area shape="rect" id="node5" href="$console__menu_8h.html" title="ccNOos Console Menu Definitions" alt="" coords="168,169,328,211"/>
-<area shape="rect" id="node4" href="$version__config_8h.html" title="ccNOos Source Code Version and Configuration Declarations" alt="" coords="145,348,260,375"/>
-<area shape="rect" id="node6" href="$compute__module_8h.html" title="ccNOos Compute Module Declarations" alt="" coords="113,259,293,300"/>
-<area shape="rect" id="node7" href="$io__device_8h.html" title="Cross&#45;Platform Portable Input/Output Device Declarations." alt="" coords="317,266,467,293"/>
-</map>

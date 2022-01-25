@@ -1,6 +1,0 @@
-<map id="antennaStruct" name="antennaStruct">
-<area shape="rect" id="node1" title=" " alt="" coords="171,109,273,136"/>
-<area shape="rect" id="node2" href="$structantenna_axis_struct.html" title=" " alt="" coords="5,5,135,32"/>
-<area shape="rect" id="node3" href="$structgeo_location_struct.html" title=" " alt="" coords="159,5,285,32"/>
-<area shape="rect" id="node4" href="$structantenna_attitude_struct.html" title=" " alt="" coords="309,5,457,32"/>
-</map>
