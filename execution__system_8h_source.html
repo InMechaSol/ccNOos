@@ -71,21 +71,51 @@ $(function() {
 <div class="title">execution_system.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="execution__system_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160; </div>
+<a href="execution__system_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/** \file execution_system.h</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">    \brief ccNOos Module Execution System Declarations </span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">Copyright 2021 InMechaSol, Inc</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">you may not use this file except in compliance with the License.</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">You may obtain a copy of the License at</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment"> http://www.apache.org/licenses/LICENSE-2.0</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">Unless required by applicable law or agreed to in writing, software</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">See the License for the specific language governing permissions and</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">limitations under the License.</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">Notes:</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">The module execution system is aware of all compute modules and io devices</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">available to the controller application.  Its purpose is to execute compute</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">modules according to configurable execution policies and to link modules</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">with their corresponding platform io devices.  The execution system is</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">also an API to each of the modules and io devices, capable of providing platform</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">specific functions for things like system time, execution time, platform details, etc</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">    </span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">*/</span></div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#ifndef __EXECUTION_SYSTEM__</span></div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#define __EXECUTION_SYSTEM__</span></div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="version__config_8h.html">version_config.h</a>&quot;</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">// Time Constants</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">////////////////////////////////////////////////////////////////////////////////</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment"></span><span class="comment">// Time Constants</span></div>
 <div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="execution__system_8h.html#a3c6cfb936888efd379fa3e0b32053d35">   37</a></span>&#160;<span class="preprocessor">#define TIME_us_PER_MIN (60000000u)</span></div>
 <div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="execution__system_8h.html#aad915f1d12d6f9b1f1a34bedae348a94">   38</a></span>&#160;<span class="preprocessor">#define TIME_uS_PER_HR (3600000000u)</span></div>
 <div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="execution__system_8h.html#a12f5f08bb42fde5aef295f46b3fc7eaa">   39</a></span>&#160;<span class="preprocessor">#define TIME_uS_PER_SEC (1000000u)</span></div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
 <div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="execution__system_8h.html#aa061cf26f4350031a77a835e626df7e4">   41</a></span>&#160;<span class="preprocessor">#define TIME_SEC_PER_MIN (60u)</span></div>
 <div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="execution__system_8h.html#acd19476249d7737a99325918dc954973">   42</a></span>&#160;<span class="preprocessor">#define TIME_MIN_PER_HR (60u) </span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment">// Exception Flag Index</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment">////////////////////////////////////////////////////////////////////////////////</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment"></span><span class="comment">// Exception Flag Index</span></div>
 <div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="execution__system_8h.html#ad5af21cdc118cf8e4b5375d88188e5a4">   46</a></span>&#160;<span class="preprocessor">#define EXP_SETUP (0u)</span></div>
 <div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="execution__system_8h.html#a3676bc5cac724c7fdce2a4603617bb65">   47</a></span>&#160;<span class="preprocessor">#define EXP_LOOP (1u)</span></div>
 <div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="execution__system_8h.html#aa2068e4ecdea57eb22c052a651ff2b17">   48</a></span>&#160;<span class="preprocessor">#define EXP_SYSTICK (2u)</span></div>
@@ -96,8 +126,9 @@ $(function() {
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="keywordtype">void</span> <a class="code" href="execution__system_8h.html#a1a5667631fb6b165e20e1b005fbf5902">platformSetup</a>();</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="keywordtype">void</span> <a class="code" href="execution__system_8h.html#a4968fd7c5aa1e4c1f873c1b62f82bab9">platformStart</a>();</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="keywordtype">void</span> <a class="code" href="execution__system_8h.html#acd96223fc08c356fb130ea95e23bcbd2">platformLoopDelay</a>();</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="comment">// Cross-Platform, Reusable, C/C++ Execution System Data Structure</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="comment">////////////////////////////////////////////////////////////////////////////////</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="comment"></span><span class="comment">// Cross-Platform, Reusable, C/C++ Execution System Data Structure</span></div>
 <div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="structexecution_system_struct.html">   59</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structexecution_system_struct.html">executionSystemStruct</a></div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;{   </div>
 <div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="structexecution_system_struct.html#ab9b669ef6b91ae803c6183ed93027d16">   61</a></span>&#160;    UI_32 <a class="code" href="structexecution_system_struct.html#ab9b669ef6b91ae803c6183ed93027d16">uSecTicks</a>;</div>
@@ -110,8 +141,9 @@ $(function() {
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    UI_32 uSperTick</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    );</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="comment">// Cross-Platform, Reusable, C/C++ Module API Functions</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="comment">////////////////////////////////////////////////////////////////////////////////</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="comment"></span><span class="comment">// Cross-Platform, Reusable, C/C++ Module API Functions</span></div>
 <div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="execution__system_8h.html#a037228a21255a1f8d057b702e7e4e8de">   74</a></span>&#160;UI_32 <a class="code" href="execution__system_8h.html#a037228a21255a1f8d057b702e7e4e8de">getuSecTicks</a>();</div>
 <div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="execution__system_8h.html#ab900a1ad35589d18b9275965afc1f80c">   75</a></span>&#160;UI_32 <a class="code" href="execution__system_8h.html#ab900a1ad35589d18b9275965afc1f80c">getHourTicks</a>();</div>
 <div class="line"><a name="l00076"></a><span class="lineno"><a class="line" href="execution__system_8h.html#a6fb6336263be40a35048267704aa0305">   76</a></span>&#160;UI_32 <a class="code" href="execution__system_8h.html#a6fb6336263be40a35048267704aa0305">getuSecPerSysTick</a>();</div>
@@ -140,8 +172,9 @@ $(function() {
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="preprocessor">}</span></div>
 <div class="line"><a name="l00100"></a><span class="lineno"><a class="line" href="execution__system_8h.html#a71404724261576537ce8d3fe83689277">  100</a></span>&#160;<span class="preprocessor">#define ExeSysAPIFuncsTemplate __ExeSysAPIFuncsTemplate</span></div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="comment">// C Execution System Base Components - not compiled in C++ build</span></div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="comment">////////////////////////////////////////////////////////////////////////////////</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="comment"></span><span class="comment">// C Execution System Base Components - not compiled in C++ build</span></div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="preprocessor">#ifndef __cplusplus</span></div>
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
@@ -208,8 +241,9 @@ $(function() {
 <div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160; </div>
 <div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160; </div>
 <div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160; </div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;<span class="comment">// Cross-Platform, Reusable, C++ Only Execution System Classes</span></div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;<span class="comment">////////////////////////////////////////////////////////////////////////////////</span></div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;<span class="comment"></span><span class="comment">// Cross-Platform, Reusable, C++ Only Execution System Classes</span></div>
 <div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;<span class="keyword">class </span>IODeviceClass; <span class="comment">// forward declaration</span></div>
 <div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;<span class="keyword">class </span>computeModuleClass; <span class="comment">// forward declaration</span></div>
 <div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160; </div>

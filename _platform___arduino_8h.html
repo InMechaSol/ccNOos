@@ -82,7 +82,7 @@ $(function() {
 Include dependency graph for Platform_Arduino.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="_platform___arduino_8h__incl.png" border="0" usemap="#atests_2test_platforms_2_platform___arduino_8h" alt=""/></div>
-<map name="tests_2test_platforms_2_platform___arduino_8h" id="atests_2test_platforms_2_platform___arduino_8h">
+<map name="tests_2test_platforms_2_platform___arduino_8h" id="tests_2test_platforms_2_platform___arduino_8h">
 <area shape="rect" title=" " alt="" coords="169,5,305,47"/>
 <area shape="rect" title=" " alt="" coords="5,102,83,129"/>
 <area shape="rect" title=" " alt="" coords="107,102,255,129"/>
@@ -180,7 +180,12 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="_platform___arduino_8h_source.html#l00049">49</a> of file <a class="el" href="_platform___arduino_8h_source.html">Platform_Arduino.h</a>.</p>
-
+<div class="fragment"><div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;{</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="comment">//&lt;platformLoopDelay&gt;</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    ;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="comment">//&lt;/platformLoopDelay&gt;</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="a1a5667631fb6b165e20e1b005fbf5902"></a>
@@ -199,7 +204,22 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="_platform___arduino_8h_source.html#l00026">26</a> of file <a class="el" href="_platform___arduino_8h_source.html">Platform_Arduino.h</a>.</p>
-
+<div class="fragment"><div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;{</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="comment">//&lt;platformSetup&gt;</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#ifdef __USINGCONSOLEMENU</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#ifdef __USINGFLOATPRINTF</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="keyword">asm</span>(<span class="stringliteral">&quot;.global _printf_float&quot;</span>);</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    Serial.begin(115200);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    Wire.begin();</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordflow">while</span> (!Serial) {</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        ; <span class="comment">// wait for serial port to connect. Needed for native USB port only</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    }</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="comment">//&lt;/platformSetup&gt;</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="a4968fd7c5aa1e4c1f873c1b62f82bab9"></a>
@@ -218,7 +238,11 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="_platform___arduino_8h_source.html#l00043">43</a> of file <a class="el" href="_platform___arduino_8h_source.html">Platform_Arduino.h</a>.</p>
-
+<div class="fragment"><div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;{</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="comment">//&lt;platformStart&gt;</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="comment">//&lt;/platformStart&gt;</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;}</div>
+</div><!-- fragment -->
 </div>
 </div>
 </div><!-- contents -->

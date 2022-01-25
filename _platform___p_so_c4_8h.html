@@ -85,7 +85,7 @@ $(function() {
 Include dependency graph for Platform_PSoC4.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="_platform___p_so_c4_8h__incl.png" border="0" usemap="#atests_2test_platforms_2_platform___p_so_c4_8h" alt=""/></div>
-<map name="tests_2test_platforms_2_platform___p_so_c4_8h" id="atests_2test_platforms_2_platform___p_so_c4_8h">
+<map name="tests_2test_platforms_2_platform___p_so_c4_8h" id="tests_2test_platforms_2_platform___p_so_c4_8h">
 <area shape="rect" title=" " alt="" coords="237,5,371,47"/>
 <area shape="rect" title=" " alt="" coords="5,102,77,129"/>
 <area shape="rect" title=" " alt="" coords="101,102,163,129"/>
@@ -205,7 +205,13 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="_platform___p_so_c4_8h_source.html#l00066">66</a> of file <a class="el" href="_platform___p_so_c4_8h_source.html">Platform_PSoC4.h</a>.</p>
-
+<div class="fragment"><div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;{    </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="comment">//&lt;platformLoopDelay&gt;</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="comment">//CyDelay(1);   // on PSoc, only if desired</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    ;               <span class="comment">// let it run full throttle, its a machine after all...</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="comment">//&lt;/platformLoopDelay&gt;</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="a1a5667631fb6b165e20e1b005fbf5902"></a>
@@ -224,7 +230,18 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="_platform___p_so_c4_8h_source.html#l00029">29</a> of file <a class="el" href="_platform___p_so_c4_8h_source.html">Platform_PSoC4.h</a>.</p>
-
+<div class="fragment"><div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;{      </div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="comment">//&lt;platformSetup&gt;</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#ifdef __USINGCONSOLEMENU</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#ifdef __USINGFLOATPRINTF</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keyword">asm</span>(<span class="stringliteral">&quot;.global _printf_float&quot;</span>);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="comment">/* Enable global interrupts. */</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    CyGlobalIntEnable;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="comment">//&lt;/platformSetup&gt;</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="a4968fd7c5aa1e4c1f873c1b62f82bab9"></a>
@@ -243,7 +260,29 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="_platform___p_so_c4_8h_source.html#l00042">42</a> of file <a class="el" href="_platform___p_so_c4_8h_source.html">Platform_PSoC4.h</a>.</p>
-
+<div class="fragment"><div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;{</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="comment">//&lt;platformStart&gt;</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="comment">/* Configure the SysTick timer to generate interrupt every 1 ms</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment">    * and start its operation. Call the function before assigning the</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment">    * callbacks as it calls CySysTickInit() during first run that </span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">    * re-initializes the callback addresses to the NULL pointers.</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment">    */</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    CySysTickStart();</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="comment">/* Find unused callback slot and assign the callback. */</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0u; i &lt; (int)CY_SYS_SYST_NUM_OF_CALLBACKS; ++i)</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    {</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="keywordflow">if</span> (CySysTickGetCallback(i) == NULL)</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        {</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            <span class="comment">/* Set callback */</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            CySysTickSetCallback(i, <a class="code" href="_platform___p_so_c4_8h.html#aac6d842d278835eac45df4c5b1fd445c">SysTickISRCallback</a>);</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        }</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    }</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    UART_Start();</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="comment">//&lt;/platformStart&gt;</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="aac6d842d278835eac45df4c5b1fd445c"></a>
@@ -264,6 +303,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 </div><!-- contents -->
+<div class="ttc" id="a_platform___p_so_c4_8h_html_aac6d842d278835eac45df4c5b1fd445c"><div class="ttname"><a href="_platform___p_so_c4_8h.html#aac6d842d278835eac45df4c5b1fd445c">SysTickISRCallback</a></div><div class="ttdeci">void SysTickISRCallback()</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by&#160;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.20
