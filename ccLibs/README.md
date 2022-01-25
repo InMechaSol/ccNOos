@@ -1,4 +1,4 @@
-# ccLibs - ReUsable, Portable, Serializable, Straight C Data Structures and Functions
+# ccLibs - Straight C Data Structures and Functions
 - acs
   - antenna control system library
 - mcs
