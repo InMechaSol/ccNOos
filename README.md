@@ -7,8 +7,11 @@
 - Cross-Platform Applications with compile-time selectable
   - serialization and 
   - platform specification
-- Reusable Platform Specification 
-- Tested, Verified, Gauranteed performance across platforms
+- Tested, Verified, Gauranteed Performance Across Platforms
+- Reusable Platform Specification
+  - shared acrros all applications of a particular platform  
+- Common, compiler configured, Platform Specific Main file
+  - shared accross all platforms for a particular application
 ## ccNOos Application Structure
 ![appStructure](/docs/pngs/Application_Structure.png)
 
