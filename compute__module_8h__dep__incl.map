@@ -1,0 +1,12 @@
+<map id="computeModule/compute_module.h" name="computeModule/compute_module.h">
+<area shape="rect" id="node1" title="ccNOos Compute Module Declarations" alt="" coords="197,5,365,47"/>
+<area shape="rect" id="node2" href="$compute__module_8c.html" title="ccNOos Compute Module Definitions" alt="" coords="107,95,275,136"/>
+<area shape="rect" id="node4" href="$console__menu_8h.html" title="ccNOos Console Menu Definitions" alt="" coords="307,95,455,136"/>
+<area shape="rect" id="node3" href="$compute__module__class_8cpp.html" title="ccNOos Compute Module Class Wrappers" alt="" coords="5,184,173,225"/>
+<area shape="rect" id="node5" href="$execution__system_8c.html" title="ccNOos Module Execution System Definitions" alt="" coords="198,184,381,225"/>
+<area shape="rect" id="node7" href="$_platform___arduino_8h.html" title=" " alt="" coords="405,184,541,225"/>
+<area shape="rect" id="node8" href="$_platform___win32_8h.html" title=" " alt="" coords="566,184,698,225"/>
+<area shape="rect" id="node6" href="$execution__system__class_8cpp.html" title="ccNOos Module Execution System Class Wrappers" alt="" coords="198,281,381,322"/>
+<area shape="rect" id="node9" href="$_application___platform___main_8c.html" title=" " alt="" coords="549,273,715,329"/>
+<area shape="rect" id="node10" href="$_application___platform___main_8cpp.html" title=" " alt="" coords="549,377,715,433"/>
+</map>

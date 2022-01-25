@@ -1,0 +1,10 @@
+<map id="tests/testPlatforms/Platform_Arduino.h" name="tests/testPlatforms/Platform_Arduino.h">
+<area shape="rect" id="node1" title=" " alt="" coords="169,5,305,47"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,102,83,129"/>
+<area shape="rect" id="node3" title=" " alt="" coords="107,102,255,129"/>
+<area shape="rect" id="node4" href="$execution__system_8h.html" title="ccNOos Module Execution System Declarations" alt="" coords="155,184,338,225"/>
+<area shape="rect" id="node6" href="$console__menu_8h.html" title="ccNOos Console Menu Definitions" alt="" coords="378,95,526,136"/>
+<area shape="rect" id="node5" href="$version__config_8h.html" title="ccNOos Source Code Version and Configuration Declarations" alt="" coords="395,273,509,300"/>
+<area shape="rect" id="node7" href="$compute__module_8h.html" title="ccNOos Compute Module Declarations" alt="" coords="362,184,542,225"/>
+<area shape="rect" id="node8" href="$io__device_8h.html" title="Cross&#45;Platform Portable Input/Output Device Declarations." alt="" coords="566,191,717,218"/>
+</map>

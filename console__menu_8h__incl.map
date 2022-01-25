@@ -1,0 +1,6 @@
+<map id="consoleMenu/console_menu.h" name="consoleMenu/console_menu.h">
+<area shape="rect" id="node1" title="ccNOos Console Menu Definitions" alt="" coords="116,5,264,47"/>
+<area shape="rect" id="node2" href="$compute__module_8h.html" title="ccNOos Compute Module Declarations" alt="" coords="5,95,185,136"/>
+<area shape="rect" id="node4" href="$io__device_8h.html" title="Cross&#45;Platform Portable Input/Output Device Declarations." alt="" coords="209,102,360,129"/>
+<area shape="rect" id="node3" href="$version__config_8h.html" title="ccNOos Source Code Version and Configuration Declarations" alt="" coords="123,184,257,225"/>
+</map>
