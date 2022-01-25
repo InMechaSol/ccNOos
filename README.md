@@ -5,16 +5,22 @@
 - [Straight C Libraries reuasable anywhere](https://github.com/InMechaSol/ccNOos/tree/main/ccLibs)
 - Building Blocks for Application Development
   - [Execution System](https://github.com/InMechaSol/ccNOos/tree/main/executionSystem)
-    - API to both [Platform Specific Main](https://github.com/InMechaSol/ccNOos/tree/main/tests/testMainTemplates) and [Portable Application Compute Modules](https://github.com/InMechaSol/ccNOos/tree/main/tests/testApps)  
+    - API to both [Platform Specific Main](https://github.com/InMechaSol/ccNOos/tree/main/tests/testMainTemplates) and [Portable Application Compute Modules](https://github.com/InMechaSol/ccNOos/tree/main/tests/testApps)
+  - [Compute Module](https://github.com/InMechaSol/ccNOos/tree/main/computeModule)
+    - Modular Application Building Block with API Access and Under Control of the Execution System     
+  - [IO Device](https://github.com/InMechaSol/ccNOos/tree/main/ioDevice)
+    - Provides Execution System and Modules with Abstract Access to Real and External Devices  
+  - [Console Menu](https://github.com/InMechaSol/ccNOos/tree/main/consoleMenu)
+    - Provides Execution System and Modules with Abstract String, Menu, and Serialization Features  
 - C/C++ [Tests](https://github.com/InMechaSol/ccNOos/tree/main/tests/testApps/ccNOos_Tests)
 - C/C++ [Example Applications](https://github.com/InMechaSol/ccNOos/tree/main/tests/testApps/SysTick)
-### ccNOos Application Features
-- [Cross-Platform Applications with compile-time selectable](https://github.com/InMechaSol/ccNOos/tree/main/tests/testApps)
+## ccNOos Application Features
+- [Cross-Platform Applications](https://github.com/InMechaSol/ccNOos/tree/main/tests/testApps) with compile-time selectable
   - serialization and 
   - platform specification
 - [Tested, Verified, Gauranteed Performance Across Platforms](https://github.com/InMechaSol/ccNOos_Tests)
 - [Reusable Platform Specification](https://github.com/InMechaSol/ccNOos/tree/main/tests/testPlatforms)
-  - shared acrros all applications of a particular platform  
+  - shared acrros all applications on a particular platform  
 - [Common, compiler configured, Platform Specific Main file](https://github.com/InMechaSol/ccNOos/tree/main/tests/testMainTemplates)
   - shared accross all platforms for a particular application
 ## ccNOos Application Structure
