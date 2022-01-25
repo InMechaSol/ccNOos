@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['nextptr_366',['nextPtr',['../d2/d35/structlinked_i_o_device_struct.html#a97ec4ede854ee8c877e8970062aea4c6',1,'linkedIODeviceStruct::nextPtr()'],['../d4/d67/structlinked_entry_point_struct.html#aa41c7d034d2b7405ccd568e3a8174202',1,'linkedEntryPointStruct::nextPtr()']]],
-  ['nullptr_367',['nullptr',['../d5/d97/version__config_8h.html#ab979d9d4b4923f7c54d6caa6e1a61936',1,'version_config.h']]]
+  ['nextptr_370',['nextPtr',['../a00156.html#a97ec4ede854ee8c877e8970062aea4c6',1,'linkedIODeviceStruct::nextPtr()'],['../a00160.html#aa41c7d034d2b7405ccd568e3a8174202',1,'linkedEntryPointStruct::nextPtr()']]],
+  ['nullptr_371',['nullptr',['../a00065.html#ab979d9d4b4923f7c54d6caa6e1a61936',1,'version_config.h']]]
 ];

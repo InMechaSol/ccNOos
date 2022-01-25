@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['dvga_5fmax_5fatten_910',['DVGA_MAX_ATTEN',['../d6/d6c/_a_d_r_f6650_8h.html#aaf45e852a9c559dcbcfa2ef21a6283b2',1,'ADRF6650.h']]]
+  ['dvga_5fmax_5fatten_914',['DVGA_MAX_ATTEN',['../a00005.html#aaf45e852a9c559dcbcfa2ef21a6283b2',1,'ADRF6650.h']]]
 ];

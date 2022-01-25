@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['geolocationstruct_629',['geoLocationStruct',['../d7/dad/structgeo_location_struct.html',1,'']]]
+  ['geolocationstruct_633',['geoLocationStruct',['../a00136.html',1,'']]]
 ];
