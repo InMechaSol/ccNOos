@@ -12,6 +12,8 @@ struct ADRF6650DataStruct
 
 #define DVGA_MAX_ATTEN 43
 
+#define FILE_DESC int
+
 typedef enum {
     DVGA_SPI_MODE,
     DVGA_UP_DOWN_MODE
