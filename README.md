@@ -25,5 +25,4 @@
   - shared accross all platforms for a particular application
 ## ccNOos Application Structure
 ![appStructure](/docs/pngs/Application_Structure.png)
-adf
 
