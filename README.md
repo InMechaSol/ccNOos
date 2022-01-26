@@ -14,6 +14,9 @@
     - Provides Execution System and Modules with Abstract String, Menu, and Serialization Features  
 - C/C++ [Tests](https://github.com/InMechaSol/ccNOos/tree/main/tests/testApps/ccNOos_Tests)
 - C/C++ [Example Applications](https://github.com/InMechaSol/ccNOos/tree/main/tests/testApps/SysTick)
+- [Auto-Generated API Documentation](https://inmechasol.com/ccNOos/files.html)
+  - [based on doxygen](https://www.doxygen.nl/index.html)
+  - [using graphviz](https://www.graphviz.org/) [DOT](https://graphviz.org/doc/info/command.html)
 ## ccNOos Application Features
 - [Cross-Platform Applications](https://github.com/InMechaSol/ccNOos/tree/main/tests/testApps) with compile-time selectable
   - serialization and 
