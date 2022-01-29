@@ -55,8 +55,10 @@ Notes:
 #endif
 
 ////////////////////////////////
-// Compile Error if Examples/Tests not defining 
-#if PLATFORM_NAME==Win32
+// Compile Error if Examples/Tests not defining
+#if PLATFORM_NAME==PSoC4
+#include <Platform_PSoC4.h>
+#elif PLATFORM_NAME==Win32
 #include "Platform_Win32.h"
 #elif PLATFORM_NAME==QTCreatorC
 #include <Platform_QTCreatorC.h>
@@ -77,12 +79,41 @@ Notes:
 #endif
 
 
+
+
+
+
+
+
+
 #ifndef COMPILE_TESTS
 ///////////////////////////////////////////////////////////////////////
 // SysTick Example
 ///////////////////////////////////////////////////////////////////////
 #ifdef EXAMPLE_SYSTICK
-#if PLATFORM_NAME==Win32
+#if PLATFORM_NAME==PSoC4
+    // 1) Minute LED Device Write
+    void WriteMinLED(MODdeclarePTRIN(Mn))
+    {
+        //<writeMinLEDdevice>
+        LED_Min_Write(MODdataPTR(Mn)->MinLEDvalue); 
+        //</writeMinLEDdevice>
+    }
+    // 2) Second LED Device Write
+    void WriteSecLED(MODdeclarePTRIN(Mn))
+    {
+        //<writeSecLEDdevice>
+        LED_Sec_Write(MODdataPTR(Mn)->SecLEDvalue);
+        //</writeSecLEDdevice>
+    }
+    // 3) Serial Device Write
+    void WriteTimeSerial(MODdeclarePTRIN(Mn))
+    {
+        //<writeSerialdevice>
+        UART_PutString(MODdataPTR(Mn)->time); 
+        //</writeSerialdevice>
+    }
+#elif PLATFORM_NAME==Win32
     // 1) Minute LED Device Write
     void WriteMinLED(MODdeclarePTRIN(Mn)){ ; }
     // 2) Second LED Device Write
@@ -388,6 +419,14 @@ void WriteChipSelect(MODdeclarePTRIN(Mn))
 #endif
 #endif //!EXAMPLE_SATCOM_ACS
 #endif // !COMPILE_TESTS
+
+
+
+
+
+
+
+
 
 ///////////////////////////////////////////////////////////////////////
 // Application Data Instances are Created here (Platform Specific)
