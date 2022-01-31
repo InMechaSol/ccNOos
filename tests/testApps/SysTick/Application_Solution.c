@@ -1,8 +1,6 @@
 ///////////////////////////////////////////////////////////////////////
 // SysTick Example
 ///////////////////////////////////////////////////////////////////////
-#ifndef COMPILE_TESTS
-#ifdef EXAMPLE_SYSTICK
 
 #include "Application_Solution.h"
 
@@ -99,7 +97,3 @@ MODdeclareLOOP(Mn)
 
 MODdeclareSYSTICK(Mn) { ; }  // do nothing in the systick area
 
-
-
-#endif //!EXAMPLE_SYSTICK
-#endif
