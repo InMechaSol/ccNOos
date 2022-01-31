@@ -26,11 +26,8 @@ application.
 #ifndef __CCNOOS_TESTS__
 #define __CCNOOS_TESTS__  
 
-// The COMPILE_TESTS switch selects between automated tests and example applications
-#ifdef COMPILE_TESTS
-
-#include "../executionSystem/execution_system.h"    
-#include "../consoleMenu/console_menu.h" 
+#include "../../../executionSystem/execution_system.h"
+#include "../../../consoleMenu/console_menu.h"
 
 #define Mn ccNOosTests
 
@@ -163,11 +160,5 @@ public:
 
 
 #endif // !__cplusplus
-
-
-
-#endif // !COMPILE_TESTS
-
-
 
 #endif // !__CCNOOS_TESTS__
