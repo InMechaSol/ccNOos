@@ -29,7 +29,7 @@ only instantiate, configure, then execute the execution system.
 */
 #include "Application_Solution.c"
 ;
-#ifdef COMPILE_TESTS
+
 
 MODCLASS_NAME(Mn)::MODCLASS_NAME(Mn)(MODdeclareCREATEINS) :
     computeModuleClass(&MODdataINST(Mn).compMod)
@@ -37,4 +37,3 @@ MODCLASS_NAME(Mn)::MODCLASS_NAME(Mn)(MODdeclareCREATEINS) :
     MODdataINST(Mn) = MODstructCREATE(Mn)(MODcallCREATEINS);
 }
 
-#endif

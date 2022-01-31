@@ -21,7 +21,7 @@ Notes:
 
 // Include all things ccNOos_tests, which is an application of ccNOos
 // ccNOos_tests is the application solution
-#include "..\testApps\SysTick\PlatformApp_Serialization.h"
+#include "..\..\..\testApps\SysTick\PlatformApp_Serialization.h"
 
 
 ////////////////////////////////
@@ -47,8 +47,8 @@ Notes:
 
 ////////////////////////////////
 // Compile Error if Examples/Tests not defining
-#if PLATFORM_NAME==PSoC4
-#include <Platform_PSoC4.h>
+#if PLATFORM_NAME==Win32
+#include <Platform_Win32.h>
 #else
 #error "No Platform Selected for Compile!"
 #endif
@@ -70,64 +70,15 @@ Notes:
 ///////////////////////////////////////////////////////////////////////
 // SysTick Example
 ///////////////////////////////////////////////////////////////////////
-#if PLATFORM_NAME==Win32
-    // 1) Minute LED Device Write
-    void WriteMinLED(MODdeclarePTRIN(Mn)){ ; }
-    // 2) Second LED Device Write
-    void WriteSecLED(MODdeclarePTRIN(Mn)) { ; }
-    // 3) Serial Device Write
-    void WriteTimeSerial(MODdeclarePTRIN(Mn))
-    {
-        std::cout << MODdataPTR(Mn)->time;
-    }
-#elif PLATFORM_NAME==PSoC4
-    // 1) Minute LED Device Write
-    void WriteMinLED(MODdeclarePTRIN(Mn))
-    {
-        //<writeMinLEDdevice>
-        LED_Min_Write(MODdataPTR(Mn)->MinLEDvalue); 
-        //</writeMinLEDdevice>
-    }
-    // 2) Second LED Device Write
-    void WriteSecLED(MODdeclarePTRIN(Mn))
-    {
-        //<writeSecLEDdevice>
-        LED_Sec_Write(MODdataPTR(Mn)->SecLEDvalue);
-        //</writeSecLEDdevice>
-    }
-    // 3) Serial Device Write
-    void WriteTimeSerial(MODdeclarePTRIN(Mn))
-    {
-        //<writeSerialdevice>
-        UART_PutString(MODdataPTR(Mn)->time); 
-        //</writeSerialdevice>
-    }
-#elif PLATFORM_NAME==QTCreatorC
-    // 1) Minute LED Device Write
-    void WriteMinLED(MODdeclarePTRIN(Mn)) { ; }
-    // 2) Second LED Device Write
-    void WriteSecLED(MODdeclarePTRIN(Mn)) { ; }
-    // 3) Serial Device Write
-    void WriteTimeSerial(MODdeclarePTRIN(Mn))
-    {
-        printf("%s", MODdataPTR(Mn)->time);
-        fflush(stdout);
-    }
-#elif PLATFORM_NAME==Arduino
-    // 1) Minute LED Device Write
-    void WriteMinLED(MODdeclarePTRIN(Mn)) { ; }
-    // 2) Second LED Device Write
-    void WriteSecLED(MODdeclarePTRIN(Mn)) { ; }
-    // 3) Serial Device Write
-    void WriteTimeSerial(MODdeclarePTRIN(Mn))
-    {
-        Serial.write("\r");
-        Serial.write(MODdataPTR(Mn)->time);
-        Serial.write("\n");
-    }
-#else
-#error "No Platform Selected for EXAMPLE!"
-#endif
+// 1) Minute LED Device Write
+void WriteMinLED(MODdeclarePTRIN(Mn)) { ; }
+// 2) Second LED Device Write
+void WriteSecLED(MODdeclarePTRIN(Mn)) { ; }
+// 3) Serial Device Write
+void WriteTimeSerial(MODdeclarePTRIN(Mn))
+{
+    std::cout << MODdataPTR(Mn)->time;
+}
 
 
 

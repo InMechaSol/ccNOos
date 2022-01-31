@@ -20,7 +20,7 @@ Notes:
 */
 //////////////////////////////////
 // Include Application and cNOos
-#include "..\testApps\ccNOos_Tests\PlatformApp_Serialization.h"
+#include "..\..\..\testApps\ccNOos_Tests\PlatformApp_Serialization.h"
 
 ////////////////////////////////
 // Compile Error if Examples/Tests not defining 
@@ -45,8 +45,8 @@ Notes:
 
 ////////////////////////////////
 // Compile Error if Examples/Tests not defining
-#if PLATFORM_NAME==PSoC4
-#include <Platform_PSoC4.h>
+#if PLATFORM_NAME==Win32
+#include "Platform_Win32.h"
 #else
 #error "No Platform Selected for Compile!"
 #endif

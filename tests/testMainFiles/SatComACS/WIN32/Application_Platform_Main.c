@@ -18,41 +18,38 @@
 Notes:
 
 */
-
-// Include all things ccNOos_tests, which is an application of ccNOos
-// ccNOos_tests is the application solution
-#include "..\testApps\SysTick\PlatformApp_Serialization.h"
-
+//////////////////////////////////
+// Include Application and cNOos
+#include "..\..\..\testApps\SatComACS\PlatformApp_Serialization.h"
 
 ////////////////////////////////
 // Compile Error if Examples/Tests not defining 
 #ifndef Mn
-    #error Mn must be defined - see examples
+#error Mn must be defined - see examples
 #endif
 #ifndef MODdeclareCREATEINS
-    #error MODdeclareCREATEINS must be defined - see examples
+#error MODdeclareCREATEINS must be defined - see examples
 #endif
 #ifndef MODcallCREATEINS
-    #error MODcallCREATEINS must be defined - see examples
+#error MODcallCREATEINS must be defined - see examples
 #endif
 #ifdef __cplusplus
-    #ifndef PLATFORM_APP_CLASS
-        #error PLATFORM_APP_CLASS macro must be defined in application code
-    #endif
+#ifndef PLATFORM_APP_CLASS
+#error PLATFORM_APP_CLASS macro must be defined in application code
+#endif
 #else
-    #ifndef MODdeclareDATA
-        #error MODdeclareDATA macro must be defined in application code
-    #endif
+#ifndef MODdeclareDATA
+#error MODdeclareDATA macro must be defined in application code
+#endif
 #endif
 
 ////////////////////////////////
 // Compile Error if Examples/Tests not defining
-#if PLATFORM_NAME==PSoC4
-#include <Platform_PSoC4.h>
+#if PLATFORM_NAME==Win32
+#include "Platform_Win32.h"
 #else
 #error "No Platform Selected for Compile!"
 #endif
-
 
 ///////////////////////////////////////////////////////////////////////
 // Module Data Structure or Module Data Class 
@@ -60,82 +57,13 @@ Notes:
 //   -Macro Template is Defined in the Application Solution Header
 ///////////////////////////////////////////////////////////////////////
 #ifdef __cplusplus
-    PLATFORM_APP_CLASS(Mn);
+PLATFORM_APP_CLASS(Mn);
 #else
-    MODdeclareDATA(Mn);
+MODdeclareDATA(Mn);
 #endif
 
-
-
 ///////////////////////////////////////////////////////////////////////
-// SysTick Example
-///////////////////////////////////////////////////////////////////////
-#if PLATFORM_NAME==Win32
-    // 1) Minute LED Device Write
-    void WriteMinLED(MODdeclarePTRIN(Mn)){ ; }
-    // 2) Second LED Device Write
-    void WriteSecLED(MODdeclarePTRIN(Mn)) { ; }
-    // 3) Serial Device Write
-    void WriteTimeSerial(MODdeclarePTRIN(Mn))
-    {
-        std::cout << MODdataPTR(Mn)->time;
-    }
-#elif PLATFORM_NAME==PSoC4
-    // 1) Minute LED Device Write
-    void WriteMinLED(MODdeclarePTRIN(Mn))
-    {
-        //<writeMinLEDdevice>
-        LED_Min_Write(MODdataPTR(Mn)->MinLEDvalue); 
-        //</writeMinLEDdevice>
-    }
-    // 2) Second LED Device Write
-    void WriteSecLED(MODdeclarePTRIN(Mn))
-    {
-        //<writeSecLEDdevice>
-        LED_Sec_Write(MODdataPTR(Mn)->SecLEDvalue);
-        //</writeSecLEDdevice>
-    }
-    // 3) Serial Device Write
-    void WriteTimeSerial(MODdeclarePTRIN(Mn))
-    {
-        //<writeSerialdevice>
-        UART_PutString(MODdataPTR(Mn)->time); 
-        //</writeSerialdevice>
-    }
-#elif PLATFORM_NAME==QTCreatorC
-    // 1) Minute LED Device Write
-    void WriteMinLED(MODdeclarePTRIN(Mn)) { ; }
-    // 2) Second LED Device Write
-    void WriteSecLED(MODdeclarePTRIN(Mn)) { ; }
-    // 3) Serial Device Write
-    void WriteTimeSerial(MODdeclarePTRIN(Mn))
-    {
-        printf("%s", MODdataPTR(Mn)->time);
-        fflush(stdout);
-    }
-#elif PLATFORM_NAME==Arduino
-    // 1) Minute LED Device Write
-    void WriteMinLED(MODdeclarePTRIN(Mn)) { ; }
-    // 2) Second LED Device Write
-    void WriteSecLED(MODdeclarePTRIN(Mn)) { ; }
-    // 3) Serial Device Write
-    void WriteTimeSerial(MODdeclarePTRIN(Mn))
-    {
-        Serial.write("\r");
-        Serial.write(MODdataPTR(Mn)->time);
-        Serial.write("\n");
-    }
-#else
-#error "No Platform Selected for EXAMPLE!"
-#endif
-
-
-
-
-
-
-
-
+// Platform and Application Specific IO Device Functions
 
 ///////////////////////////////////////////////////////////////////////
 // Application Data Instances are Created here (Platform Specific)
