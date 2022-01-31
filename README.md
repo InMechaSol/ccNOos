@@ -24,8 +24,7 @@
 - [Tested, Verified, Gauranteed Performance Across Platforms](https://github.com/InMechaSol/ccNOos_Tests)
 - [Reusable Platform Specification](https://github.com/InMechaSol/ccNOos/tree/main/tests/testPlatforms)
   - shared acrros all applications on a particular platform  
-- [Common, compiler configured, Platform Specific Main file](https://github.com/InMechaSol/ccNOos/tree/main/tests/testMainTemplates)
-  - shared accross all platforms for a particular application
+- [Common template, Platform Specific Main files](https://github.com/InMechaSol/ccNOos/tree/main/tests/testMainFiles)
 ## ccNOos Application Structure
 ![appStructure](https://github.com/InMechaSol/ccNOos/blob/main/docs/pngs/Application_Structure.png)
 
