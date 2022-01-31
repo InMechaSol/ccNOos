@@ -31,8 +31,7 @@ application.
 ///////////////////////////////////////////////////////////////////////
 // SysTickClock Example
 ///////////////////////////////////////////////////////////////////////
-#ifndef COMPILE_TESTS
-#ifdef EXAMPLE_SYSTICK
+
 
 #ifdef Mn
 #error ccNOos_Tests: Multiple Examples Selected for Compilation, Not Permitted
@@ -144,5 +143,4 @@ public:
 
 
 #endif // !__cplusplus
-#endif // !systick example
-#endif // COMPILE_TESTS
+
