@@ -2,7 +2,7 @@
 #define ADRF6660_H
 
 #include "ADRF6650_Map.h"
-#include "version_config.h"
+#include "../../executionSystem/version_config.h"
 
 
 struct ADRF6650DataStruct

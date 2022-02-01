@@ -31,50 +31,103 @@ MODdeclareCREATE(Mn)(MODdeclareCREATEINS)
     MODdeclareSTRUCT(Mn) outStruct;
     outStruct.compMod = CreateComputeModuleStruct();
 
-    outStruct.float_0 = 0.0;
-    outStruct.float_1 = outStruct.float_0;
-    outStruct.double_0 = 0.0;
-    outStruct.double_1 = outStruct.double_0;
+    outStruct.Terminal = createantennaStruct();
+    outStruct.APT = createaptStruct();
+    outStruct.TPM = createtpmStruct();
+    outStruct.TxRx = createtxRxStruct();
+    outStruct.WMM = createwmmStruct();
 
-    outStruct.ui64_0 = 0.0;
-    outStruct.ui64_1 = outStruct.ui64_0;
-    outStruct.i64_0 = 0.0;
-    outStruct.i64_1 = outStruct.i64_0;
-
-    outStruct.ui32_0 = 0.0;
-    outStruct.ui32_1 = outStruct.ui32_0;
-    outStruct.i32_0 = 0.0;
-    outStruct.i32_1 = outStruct.i32_0;
-
-    outStruct.ui16_0 = 0.0;
-    outStruct.ui16_1 = outStruct.ui16_0;
-    outStruct.i16_0 = 0.0;
-    outStruct.i16_1 = outStruct.i16_0;
-
-    outStruct.ui8_0 = 0.0;
-    outStruct.ui8_1 = outStruct.ui8_0;
-    outStruct.i8_0 = 0.0;
-    outStruct.i8_1 = outStruct.i8_0;
-
-    outStruct.charsRead = 1u;
-    outStruct.chars2Write = 0u;
-
-#ifdef __USINGCONSOLEMENU
-    UI_8 i = 0;
+    int i;
     for (i = 0; i < charBuffMax; i++)
-        outStruct.charbuff_In[i] = 0x00;
-    for (i = 0; i < charBuffMax; i++)
-        outStruct.charbuff_Out[i] = 0x00;
-
-#endif
-
-    outStruct.SerializationTestReturn = RETURN_TEST_PASSED;
-    outStruct.TestState = 0x0000;
+    {
+        outStruct.LCDKeyPad.charbuff_In[i] = 0x00;
+        outStruct.LCDKeyPad.charbuff_Out[i] = 0x00;
+    }
+    outStruct.LCDKeyPad.chars2Write = 0;
+    outStruct.LCDKeyPad.charsRead = 0;
 
     return outStruct;
 }
+struct txRxStruct createtxRxStruct()
+{
+    struct txRxStruct outStruct;
+    int i;
+    for (i = 0; i < MAX_NUM_ATTENUATORS; i++)
+    {
+        outStruct.AttenuatorNeedsWriting[i] = ui8FALSE;
+    }    
+    outStruct.INDEX_Attenuator = 0;
+    outStruct.CMD_AttenuatorBits = 0x00;
+    return outStruct;
+}
+struct gpsStruct creategpsStruct()
+{
+    struct gpsStruct outStruct;
+    outStruct.altitude = 0;
+    outStruct.day = 0;
+    outStruct.lattitude = 0;
+    outStruct.longitude = 0;
+    outStruct.month = 0;
+    outStruct.newGPSData = ui8FALSE;
+    outStruct.utctime = 0;
+    outStruct.year = 0;
+    return outStruct;
+}
+struct eCompStruct createeCompStruct()
+{
+    struct eCompStruct outStruct;
+    outStruct.neweCompassData = ui8FALSE;
+    outStruct.pitch = 0;
+    outStruct.roll = 0;
+    outStruct.yaw = 0;
+    return outStruct;
+}
+struct aptStruct createaptStruct()
+{
+    struct aptStruct outStruct;
+    outStruct.eCompass = createeCompStruct();
+    outStruct.GPS = creategpsStruct();
+    return outStruct;
+}
+struct freqConvStruct createfreqConvStruct()
+{
+    struct freqConvStruct outStruct;
 
+    outStruct.DesiredCenterFreqMHz = 0;
+    outStruct.LockedOnDesiredFrequency = ui8FALSE;
+    outStruct.newLockedValue = ui8FALSE;
+    outStruct.RequiredLOFreqMHz = 0;
 
+    return outStruct;
+}
+struct powerMeterStruct createPowerMeterStruct()
+{
+    struct powerMeterStruct outStruct;
+    outStruct.BandwidthMHz = 0;
+    outStruct.newPowerMeterValue = ui8FALSE;
+    outStruct.PowerMeasuredinBanddB = 0;
+    outStruct.PowerMeterValue = 0;
+    return outStruct;
+}
+struct tpmStruct createtpmStruct()
+{
+    struct tpmStruct outStruct;
+    outStruct.freqConverter = createfreqConvStruct();
+    outStruct.powerMeter = createPowerMeterStruct();
+    return outStruct;
+}
+struct wmmStruct createwmmStruct()
+{
+    struct wmmStruct outStruct;
+    outStruct.magdeclination = 0;
+    outStruct.lastGoodThreshold = 0;
+    outStruct.lastGoodMultiplier = 0;
+    outStruct.lastGoodmagdeclination = 0;
+    outStruct.lastGoodlongitude = 0;
+    outStruct.lastGoodlatitude = 0;
+    outStruct.lastGoodaltitude = 0;
+    return outStruct;
+}
 // Re-usable, portable, cross-platform (ccNOosTests setup() function)
 MODdeclareSETUP(Mn)
 {
@@ -84,109 +137,74 @@ MODdeclareSETUP(Mn)
     IF_MODULE_ERROR(Mn)
     {
         CLEAR_MODULE_ERRORS(Mn);  // do nothing, clear flags
+        MODdataPTR(Mn)->Terminal.State = antState_Error;
     }
     // Setup is running in the setup area following power on
     else
     {
-    UI_16 TestReturn = 0;
-    TestReturn = ExceptionsTest(MODdataPTR(Mn));
-    MODdataPTR(Mn)->ExceptionsTestReturn = TestReturn;
-
-    // Basic Platfrom Serialization / Deserialization if Included        
-#ifdef __USINGCONSOLEMENU            
-    TestReturn = SerializationTest(MODdataPTR(Mn));
-    MODdataPTR(Mn)->SerializationTestReturn = TestReturn;
-    MODdataPTR(Mn)->charbuff_In[0] = ';';
-    MODdataPTR(Mn)->ui16_0 = MODprintMENU(Mn)(compModPtrIn);
-    //MODdataPTR(Mn)->ui16_0 = MODparseINPUT(Mn)(compModPtrIn);
-#endif
-
-// initialize values for timedexecutiontest in loop
-    MODdataPTR(Mn)->ui32_0 = 0;
-    MODdataPTR(Mn)->ui32_1 = 0;
-    MODdataPTR(Mn)->ui16_0 = 0;
-    MODdataPTR(Mn)->ui16_1 = 0;
-
 
     }
     return RETURN_SUCCESS;
 }
 
 // Re-usable, portable, cross-platform (ccNOosTests loop() function)
+void ErrorInitState(MODdeclarePTRIN(Mn));
+void NotAcquiredState(MODdeclarePTRIN(Mn));
+void AcquiringState(MODdeclarePTRIN(Mn));
+void AcquiredState(MODdeclarePTRIN(Mn));
 MODdeclareLOOP(Mn)
 {
     MODDATAPTR_ERROR_RETURN(Mn);
 
-    UI_16 TestReturn = 0;
-    switch (MODdataPTR(Mn)->TestState)
+    // read devices    
+    MODdataPTR(Mn)->parsed = MODparseINPUT(Mn)(compModPtrIn);
+    tryReadAPTData(&MODdataPTR(Mn)->APT);
+    tryReadTPMData(&MODdataPTR(Mn)->TPM);
+
+    // process satcomACS
+    switch (MODdataPTR(Mn)->Terminal.State)
     {
-    case 0x0000:// Timed Execution Loop Test
-        TestReturn = TimedExecutionTest(MODdataPTR(Mn));
-        MODdataPTR(Mn)->TimedExecutionTestReturn = TestReturn;
-        if (TestReturn != RETURN_TEST_IN_PROGRESS)
-            MODdataPTR(Mn)->TestState++;
-        break;
-    case 0x0001:// Exception Loop Test
-        TestReturn = ExceptionsTest(MODdataPTR(Mn));
-        MODdataPTR(Mn)->ExceptionsTestReturn = TestReturn;
-        if (TestReturn != RETURN_TEST_IN_PROGRESS)
-            MODdataPTR(Mn)->TestState++;
-        break;
-    default:// Done!!!
-        if (MODdataPTR(Mn)->SerializationTestReturn == RETURN_TEST_PASSED
-            && MODdataPTR(Mn)->TimedExecutionTestReturn == RETURN_TEST_PASSED
-            && MODdataPTR(Mn)->ExceptionsTestReturn == RETURN_TEST_PASSED)
-            MODdataPTR(Mn)->TestState = 0xffff;
-        else
-            MODdataPTR(Mn)->TestState = 0xfffe;
-        break;
-    case 0xfffe:// Done - Failed
-    case 0xffff:// Done - Passed
-#ifdef __USINGCONSOLEMENU            
-        MODdataPTR(Mn)->ui16_0 = MODprintMENU(Mn)(compModPtrIn);
-        MODdataPTR(Mn)->ui16_0 = MODparseINPUT(Mn)(compModPtrIn);
-#endif
-        break;
+    case antState_NotAcquired: NotAcquiredState(MODdataPTR(Mn)); break;
+    case antState_Acquiring: AcquiringState(MODdataPTR(Mn)); break;
+    case antState_Acquired: AcquiredState(MODdataPTR(Mn)); break;
+    case antState_Error: ErrorInitState(MODdataPTR(Mn)); break;
+    default: ErrorInitState(MODdataPTR(Mn)); break;
     }
 
-
+    // write devices
+    tryWriteTPMData(&MODdataPTR(Mn)->TPM);
+    writeAttenuatorValues(&MODdataPTR(Mn)->TxRx);
+    MODdataPTR(Mn)->printed = MODprintMENU(Mn)(compModPtrIn);
 
     return RETURN_SUCCESS;
 }
 
 MODdeclareSYSTICK(Mn) { ; }  // do nothing in the systick area
 
-#ifdef __USINGCONSOLEMENU
+
 
 MODdeclarePRINTm(Mn)
 {
     MODDATAPTR_ERROR_RETURN(Mn);
 
-    INIT_MENU_VARS(charBuffMax, MODdataPTR(Mn)->charbuff_Out);
+    INIT_MENU_VARS(charBuffMax, MODdataPTR(Mn)->LCDKeyPad.charbuff_Out);
     // looping and printing
     // for looping...
     int lines2Print = 1;
     int linesPrinted = 0;
-    if (MODdataPTR(Mn)->charbuff_In[0] != 0x00 > 0)
+    if (MODdataPTR(Mn)->LCDKeyPad.charbuff_In[0] != 0x00 > 0)
     {
-        MODdataPTR(Mn)->charsRead = 0;
+        MODdataPTR(Mn)->LCDKeyPad.charsRead = 0;
         while (lines2Print > 0)
         {
             switch (linesPrinted)
             {
             case 0:
                 PRINT_MENU_LN  "\033[2J\033[0;0H\n// Version %s %s //", ccNOosccNOos_VerString(), ccNOosccNOos_VerDateString()     END_MENU_LN;
-                //PRINT_MENU_LN  "\n///////// Console Menu - ccNOos Tests /////////"     END_MENU_LN;
-            case 1:
-                PRINT_MENU_LN  "\nStatus-ccNOos Tests:\t\t%s", StatusccNOosTests(MODdataPTR(Mn))      END_MENU_LN;
-            case 2:
-                PRINT_MENU_LN  "\nResults-Serialization Tests:\t%s", ResultsSerializationTests(MODdataPTR(Mn))      END_MENU_LN;
-            case 3:
-                PRINT_MENU_LN  "\nResults-Timed Execution Tests:\t%s", ResultsTimedExecutionTests(MODdataPTR(Mn))      END_MENU_LN;
             case 4:
                 PRINT_MENU_LN  "\n///////////////////////////////////////////////"      END_MENU_LN;
             case 5:
-                PRINT_MENU_LN  "\nType \"ccNOosTests:Var:Val;\" set Var to Val"      END_MENU_LN;
+                PRINT_MENU_LN  "\nType \"satComACS:Var:Val;\" set Var to Val"      END_MENU_LN;
             case 6:
                 PRINT_MENU_LN "\nInput>>" END_MENU_LN;
             default:
@@ -194,11 +212,11 @@ MODdeclarePRINTm(Mn)
                 break;
             }
 
-            MODdataPTR(Mn)->chars2Write = charsWritten;
+            MODdataPTR(Mn)->LCDKeyPad.chars2Write = charsWritten;
             linesPrinted++;
 
             if (lines2Print > 0)
-                WriteMenuLine(&MODdataPTR(Mn)->charbuff_Out[0]);
+                WriteMenuLine(&MODdataPTR(Mn)->LCDKeyPad.charbuff_Out[0]);
         }
     }
     return charsWritten;
@@ -212,11 +230,11 @@ MODdeclarePARSEi(Mn)
     int i = 0;
     int j = 0, k = 0, l = 0;
 
-    GetMenuChars(&MODdataPTR(Mn)->charbuff_In[0]);
-    if (MODdataPTR(Mn)->charbuff_In[0] != 0x00)
+    GetMenuChars(&MODdataPTR(Mn)->LCDKeyPad.charbuff_In[0]);
+    if (MODdataPTR(Mn)->LCDKeyPad.charbuff_In[0] != 0x00)
     {
-        MODdataPTR(Mn)->charsRead++;
-#define thisC MODdataPTR(Mn)->charbuff_In[i]
+        MODdataPTR(Mn)->LCDKeyPad.charsRead++;
+#define thisC MODdataPTR(Mn)->LCDKeyPad.charbuff_In[i]
 
         while ((thisC != 0x00) && (i < charBuffMax))
         {
@@ -237,19 +255,19 @@ MODdeclarePARSEi(Mn)
                 // k index of second :
                 // i index of terminator ;
 
-                MODdataPTR(Mn)->charbuff_In[j] = 0x00;
-                if (stringMatchCaseSensitive(&MODdataPTR(Mn)->charbuff_In[0], "ccNOosTests"))
+                MODdataPTR(Mn)->LCDKeyPad.charbuff_In[j] = 0x00;
+                if (stringMatchCaseSensitive(&MODdataPTR(Mn)->LCDKeyPad.charbuff_In[0], "satComACS"))
                 {
-                    MODdataPTR(Mn)->charbuff_In[k] = 0x00;
-                    if (stringMatchCaseSensitive(&MODdataPTR(Mn)->charbuff_In[j + 1], "Tx"))
+                    MODdataPTR(Mn)->LCDKeyPad.charbuff_In[k] = 0x00;
+                    if (stringMatchCaseSensitive(&MODdataPTR(Mn)->LCDKeyPad.charbuff_In[j + 1], "Tx"))
                     {
                         l = 0;
                     }
-                    else if (stringMatchCaseSensitive(&MODdataPTR(Mn)->charbuff_In[j + 1], "Rx"))
+                    else if (stringMatchCaseSensitive(&MODdataPTR(Mn)->LCDKeyPad.charbuff_In[j + 1], "Rx"))
                     {
                         l = 1;
                     }
-                    else if (stringMatchCaseSensitive(&MODdataPTR(Mn)->charbuff_In[j + 1], "Xx"))
+                    else if (stringMatchCaseSensitive(&MODdataPTR(Mn)->LCDKeyPad.charbuff_In[j + 1], "Xx"))
                     {
                         l = 2;
                     }
@@ -275,134 +293,56 @@ MODdeclarePARSEi(Mn)
 #undef thisC
     return i;
 }
-const char* ResultsTimedExecutionTests(MODdeclarePTRIN(Mn))
+
+void ErrorInitState(MODdeclarePTRIN(Mn))
 {
-    if (MODdataPTR(Mn)->TimedExecutionTestReturn == RETURN_TEST_PASSED)
-        return "Passed!";
-    else if (MODdataPTR(Mn)->TimedExecutionTestReturn == RETURN_TEST_IN_PROGRESS)
-        return "Running...";
-    else
-        return "Failed";
+    // if anything at all is wrong, for whatever reason
+    //  it must be resolved cyclically here
+
+    // only if everything is clear should we transition state
+
 }
-const char* StatusccNOosTests(MODdeclarePTRIN(Mn))
+void NotAcquiredState(MODdeclarePTRIN(Mn))
 {
-    if (MODdataPTR(Mn)->TestState == 0x0000)
-        return "Not Running";
-    else if (MODdataPTR(Mn)->TestState == 0xffff)
-        return "Passed!";
-    else if (MODdataPTR(Mn)->TestState == 0xfffe)
-        return "Failed - :(";
-    else
-        return "Running...";
+    // nothing at all is wrong, completely ready to acquire
+    //  wating for command to do so
+
+    // only transition on error or command to acquire
+
 }
-const char* ResultsSerializationTests(MODdeclarePTRIN(Mn))
+void AcquiringState(MODdeclarePTRIN(Mn))
 {
-    if (MODdataPTR(Mn)->SerializationTestReturn == RETURN_TEST_PASSED)
-        return "Passed!";
-    else if (MODdataPTR(Mn)->SerializationTestReturn == RETURN_FAILED_SERIALIZATION)
-        return "Failed - Serialization";
-    else if (MODdataPTR(Mn)->SerializationTestReturn == RETURN_FAILED_DESERIALIZATION)
-        return "Failed - Deserialization";
-    else if (MODdataPTR(Mn)->SerializationTestReturn == RETURN_FAILED_COMPARISON)
-        return "Failed - Comparison";
-    else
-        return "Status - Unknown";
+    // nothing at all is wrong, 
+    //  acquisition is in progress
+
+    // only transition on error or acquisition
+
 }
-UI_16 SerializationTest(MODdeclarePTRIN(Mn))
+void AcquiredState(MODdeclarePTRIN(Mn))
 {
-    int bytesWritten = 0;
-    UI_8 parseResults = 0;
+    // nothing at all is wrong,
+    //  just monitoring and responding to commands
 
-#define DeserializeOnlyPattern(VAR, VAL, FORMAT, LEN, FUNC) stringInit(MODdataPTR(Mn)->charbuff_In, xstr(VAL));\
-    parseResults = FUNC(MODdataPTR(Mn)->charbuff_In, &MODdataPTR(Mn)->VAR##1 );\
-    if(parseResults != ui8TRUE)\
-        return RETURN_FAILED_DESERIALIZATION
+    // only transition on error or commands to reacquire
 
-#define SerializeTestPattern(VAR, VAL, FORMAT, LEN, FUNC) MODdataPTR(Mn)->VAR##0 = VAL;\
-    bytesWritten = SN_PrintF(MODdataPTR(Mn)->charbuff_Out,LEN,FORMAT,MODdataPTR(Mn)->VAR##0);\
-    if( bytesWritten != LEN || \
-        ui8TRUE!=stringMatchCaseSensitive(MODdataPTR(Mn)->charbuff_Out,xstr(VAL))\
-        ){\
-        return RETURN_FAILED_SERIALIZATION;}\
-    DeserializeOnlyPattern(VAR, VAL, FORMAT, LEN, FUNC);\
-    if(MODdataPTR(Mn)->VAR##0 != MODdataPTR(Mn)->VAR##1)\
-        return RETURN_FAILED_COMPARISON;
-
-    // These lines can be useful when setting up a new platform
-    //     to determine which serialization operation is failing
-    //     place this code within the failed_serialization conditional
-    //     of the SerializeTestPattern Macro...
-        //WriteMenuLine((char*)"\n\nFailed "); \
-        //WriteMenuLine((char*)xstr(VAR)); \
-        //WriteMenuLine((char*)", "); \
-        //WriteMenuLine((char*)xstr(VAL)); \
-        //WriteMenuLine((char*)", "); \
-        //WriteMenuLine((char*)xstr(FORMAT)); \
-        //WriteMenuLine((char*)", "); \
-        //WriteMenuLine((char*)xstr(LEN)); \
-        //WriteMenuLine((char*)", "); \
-        //WriteMenuLine(MODdataPTR(Mn)->charbuff_Out); \
-        //WriteMenuLine((char*)"\n"); \
-
-
-
-    SerializeTestPattern(ui16_, 65535, "%u", 5, ATO_U16);
-    SerializeTestPattern(i16_, -32767, "%i", 6, ATO_I16);
-
-    SerializeTestPattern(ui8_, 255, "%u", 3, ATO_U8);
-    SerializeTestPattern(i8_, 127, "%i", 3, ATO_I8);
-
-    SerializeTestPattern(ui32_, 65535, "%u", 5, ATO_U32);
-    SerializeTestPattern(i32_, -32767, "%d", 6, ATO_I32);
-
-    SerializeTestPattern(ui64_, 65535, "%u", 5, ATO_U64);
-    SerializeTestPattern(i64_, -32767, "%d", 6, ATO_I64);
-
-#ifdef __USINGFLOATPRINTF
-    SerializeTestPattern(double_, 3.1457, "%6.4f", 6, ATO_D);
-    SerializeTestPattern(float_, -3.1457, "%6.4f", 7, ATO_F);
-#else
-    DeserializeOnlyPattern(double_, 3.1457, "%6.4f", 6, ATO_D);
-    DeserializeOnlyPattern(float_, -3.1457, "%6.4f", 7, ATO_F);
-#endif
-
-    return RETURN_TEST_PASSED;
-
-#undef DeserializeOnlyPattern
-#undef SerializeTestPattern
-}
-#endif // !__USINGCONSOLEMENU
-
-UI_16 TimedExecutionTest(MODdeclarePTRIN(Mn))
-{
-#define uSNOW MODdataPTR(Mn)->ui32_0
-#define uSTHEN MODdataPTR(Mn)->ui32_1
-#define LOOPCYCLES MODdataPTR(Mn)->ui16_0
-
-    uSNOW = getuSecTicks();
-
-    if (++LOOPCYCLES == 0)
-        return RETURN_FAILED_TIMEDEXECUTION;
-    else if (LOOPCYCLES == 1)
-        uSTHEN = getuSecTicks();
-
-    if ((uSNOW - uSTHEN) >= getuSecPerSysTick())
-    {
-        LOOPCYCLES = 0;
-        return RETURN_TEST_PASSED;
-    }
-    else
-    {
-        return RETURN_TEST_IN_PROGRESS;
-    }
-
-#undef uSNOW
-#undef uSTHEN
-#undef LOOPCYCLES
-}
-UI_16 ExceptionsTest(MODdeclarePTRIN(Mn))
-{
-
-    return RETURN_TEST_PASSED;
 }
 
+
+
+void tryReadAPTData(struct aptStruct* aptStructPtrIn)
+{
+    readGPS(&aptStructPtrIn->GPS);
+    readEcompass(&aptStructPtrIn->eCompass);
+}
+
+void tryReadTPMData(struct tpmStruct* tpmStructPtrIn)
+{
+    readFreqConv(&tpmStructPtrIn->freqConverter);
+    readPowerMeter(&tpmStructPtrIn->powerMeter);
+}
+
+void tryWriteTPMData(struct tpmStruct* tpmStructPtrIn)
+{
+    writeFreqConv(&tpmStructPtrIn->freqConverter);
+    writePowerMeter(&tpmStructPtrIn->powerMeter);
+}

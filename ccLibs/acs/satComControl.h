@@ -15,12 +15,16 @@ struct satelliteStruct
 	float SSP_Longitude;
 	float SSP_Altitude;
 };
+struct satelliteStruct createSatelliteStruct();
+
 
 struct commsParameters
 {
 	float Rx_LO_MHz;
 	float Tx_LO_MHz;
 };
+struct commsParameters createcommsParameters();
+
 
 struct geoLocationStruct
 {
@@ -28,6 +32,8 @@ struct geoLocationStruct
 	float longitude;
 	float altitude;
 };
+struct geoLocationStruct creategeoLocationStruct();
+
 
 struct antennaAttitudeStruct
 {
@@ -35,11 +41,17 @@ struct antennaAttitudeStruct
 	float pitch;
 	float yaw;
 };
+struct antennaAttitudeStruct createantennaAttitudeStruct();
+
+
 struct antennaAxis
 {
 	struct axisStruct World;
 	struct axisStruct Pedestal;
 };
+struct antennaAxis createantennaAxis();
+
+
 enum antennaState
 {
 	antState_init,
@@ -48,6 +60,7 @@ enum antennaState
 	antState_Acquired,
 	antState_Error
 };
+
 
 struct antennaStruct
 {
@@ -58,11 +71,13 @@ struct antennaStruct
 	struct antennaAttitudeStruct ReflectorAttitude;
 	struct antennaAttitudeStruct BaseAttitude;
 };
+struct antennaStruct createantennaStruct();
+
 
 /////////////////////////////////////////////////////////////////////////////////////
 // Functions
-struct antennaStruct CreateAntennaStruct();
 UI_8 CalculateLookAngle(struct antennaStruct* antStructInPtr);
 UI_8 CalculatePedestalCoords(struct antennaStruct* antStructInPtr);
+UI_8 CalculateWorldCoords(struct antennaStruct* antStructInPtr);
 
 #endif // !__SATCOMCONTROL

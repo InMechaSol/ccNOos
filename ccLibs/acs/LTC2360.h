@@ -1,7 +1,7 @@
 #ifndef LTC2360_H__
 #define LTC2360_H__
 
-#include "version_config.h"
+#include "../../executionSystem/version_config.h"
 
 
 struct LTC2360DataStruct

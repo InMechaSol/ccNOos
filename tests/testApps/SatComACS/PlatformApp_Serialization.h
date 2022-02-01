@@ -1,5 +1,5 @@
 
-#ifndef __CCNOOSTESTSSER__
-#define __CCNOOSTESTSSER__
+#ifndef __SATCOMACSSER__
+#define __SATCOMACSSER__
 #include "Application_Solution.h"
-#endif // __CCNOOSTESTSSER__
+#endif // __SATCOMACSSER__

@@ -62,8 +62,19 @@ PLATFORM_APP_CLASS(Mn);
 MODdeclareDATA(Mn);
 #endif
 
+
+
+
 ///////////////////////////////////////////////////////////////////////
 // Platform and Application Specific IO Device Functions
+void writeAttenuatorValues(struct txRxStruct* txRxStructPtrIn) { ; }
+void readGPS(struct gpsStruct* gpsStructPtrIn) { ; }
+void readEcompass(struct eCompStruct* eCompStructPtrIn) { ; }
+void readFreqConv(struct freqConvStruct* freqConvStructPtrIn) { ; }
+void writeFreqConv(struct freqConvStruct* freqConvStructPtrIn) { ; }
+void readPowerMeter(struct powerMeterStruct* powerMeterStructPtrIn) { ; }
+void writePowerMeter(struct powerMeterStruct* powerMeterStructPtrIn) { ; }
+
 
 ///////////////////////////////////////////////////////////////////////
 // Application Data Instances are Created here (Platform Specific)

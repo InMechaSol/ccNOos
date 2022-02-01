@@ -28,23 +28,28 @@ application.
 // Base ccNOos includes
 #include "../../../executionSystem/execution_system.h"
 #include "../../../consoleMenu/console_menu.h"
-// SatComACS includes
+// SatComACS includes (straight c linking) 
+#ifdef __cplusplus
+extern "C" {
+#endif
 #include "../../../ccLibs/acs/satComControl.h"
+#ifdef __cplusplus
+}
+#endif
 
 // The main SatComACS module
 #define Mn SatComACS
 
-#define charBuffMax 80
-
 // Console UI Data Structure
+#ifndef charBuffMax
+#define charBuffMax 80
+#endif
 struct uiStruct
 {
     UI_8    charsRead, chars2Write;
     char    charbuff_In[charBuffMax];
     char    charbuff_Out[charBuffMax];
 };
-void readUIchars(struct uiStruct* uiStructPtrIn);
-void writeUIchars(struct uiStruct* uiStructPtrIn);
 
 // Tx/Rx Module Data Structure
 #define MAX_NUM_ATTENUATORS (3u)
@@ -56,6 +61,7 @@ struct txRxStruct
     float AttenuatorValues[MAX_NUM_ATTENUATORS];
     UI_8 AttenuatorNeedsWriting[MAX_NUM_ATTENUATORS];
 };
+struct txRxStruct createtxRxStruct();
 void writeAttenuatorValues(struct txRxStruct* txRxStructPtrIn);
 
 // APT Module Data Structure
@@ -65,18 +71,21 @@ struct gpsStruct
     int day, month, year;
     UI_8 newGPSData;
 };
-void readGPS(struct gpsStruct);
+struct gpsStruct creategpsStruct();
+void readGPS(struct gpsStruct* gpsStructPtrIn);
 struct eCompStruct
 {
     float yaw, pitch, roll;
     UI_8 neweCompassData;
 };
+struct eCompStruct createeCompStruct();
 void readEcompass(struct eCompStruct* eCompStructPtrIn);
 struct aptStruct
 {
     struct gpsStruct GPS;
     struct eCompStruct eCompass;    
 };
+struct aptStruct createaptStruct();
 void tryReadAPTData(struct aptStruct* aptStructPtrIn);
 
 // TPM Module Data Structure
@@ -87,6 +96,7 @@ struct freqConvStruct
     UI_8 LockedOnDesiredFrequency;
     UI_8 newLockedValue;
 };
+struct freqConvStruct createfreqConvStruct();
 void readFreqConv(struct freqConvStruct* freqConvStructPtrIn);
 void writeFreqConv(struct freqConvStruct* freqConvStructPtrIn);
 struct powerMeterStruct
@@ -96,6 +106,7 @@ struct powerMeterStruct
     UI_32 PowerMeterValue;
     UI_8 newPowerMeterValue;
 };
+struct powerMeterStruct createPowerMeterStruct();
 void readPowerMeter(struct powerMeterStruct* powerMeterStructPtrIn);
 void writePowerMeter(struct powerMeterStruct* powerMeterStructPtrIn);
 struct tpmStruct
@@ -103,6 +114,7 @@ struct tpmStruct
     struct freqConvStruct freqConverter;
     struct powerMeterStruct powerMeter;    
 };
+struct tpmStruct createtpmStruct();
 void tryReadTPMData(struct tpmStruct* tpmStructPtrIn);
 void tryWriteTPMData(struct tpmStruct* tpmStructPtrIn);
 
@@ -118,17 +130,24 @@ struct wmmStruct
     float lastGoodaltitude;
     float lastGoodmagdeclination;
 };
+struct wmmStruct createwmmStruct();
 
 // Main SatComACS Data Structure
 MODdeclareSTRUCT(Mn)
 {
     COMPMODFIRST;
+    // satComACS Terminal Module
     struct antennaStruct Terminal;
+    // satComACS Device Modules
     struct aptStruct APT;
-    struct tpmStruct TPM;
-    struct uiStruct LCDKeyPad;
+    struct tpmStruct TPM;    
     struct txRxStruct TxRx;
     struct wmmStruct WMM;
+    // satComACS API Device Module
+    struct uiStruct LCDKeyPad;
+    // 
+    UI_8 configured;
+    UI_16 printed, parsed;
 };
 
 #define MODdeclareCREATEINS 
@@ -142,9 +161,29 @@ MODdeclareSETUP(Mn);
 MODdeclareLOOP(Mn);
 // Re-usable, portable, cross-platform (ccNOosTests systick() function)
 MODdeclareSYSTICK(Mn);
+
 #ifdef __USINGCONSOLEMENU 
+
+// Module Console Menu Print and Parse
 MODdeclarePRINTm(Mn);
 MODdeclarePARSEi(Mn);
+
+//// Module "JSON" serialization/deserialization for satComControl.h and motionControl.h data structures
+//struct satelliteStruct createSatelliteStructJSON(char* JSONptrIn);
+//void createJSONSatelliteStruct(struct satelliteStruct* satelliteStructPtrIn);
+//struct commsParameters createcommsParametersJSON(char* JSONptrIn);
+//void createJSONcommsParameters(struct commsParameters* commsParametersPtrIn);
+//struct geoLocationStruct creategeoLocationStructJSON(char* JSONptrIn);
+//void createJSONgeoLocationStruct(struct geoLocationStruct* geoLocationStructPtrIn);
+//struct antennaAttitudeStruct createantennaAttitudeStructJSON(char* JSONptrIn);
+//void createJSONantennaAttitudeStruct(struct antennaAttitudeStruct* antennaAttitudeStructPtrIn);
+//struct antennaAxis createantennaAxisJSON(char* JSONptrIn);
+//void createJSONantennaAxis(struct antennaAxis* antennaAxisPtrIn);
+//struct antennaStruct createantennaStructJSON(char* JSONptrIn);
+//void createJSONantennaStruct(struct antennaStruct* antennaStructPtrIn);
+//struct axisStruct createaxisStructJSON(char* JSONptrIn);
+//void createJSONaxisStruct(struct axisStruct* axisStructPtrIn);
+
 #else
 #error Console Required for SatComACS Module
 #endif
@@ -220,5 +259,4 @@ public:
 
 
 #endif // !__cplusplus
-
 #endif // !__CCNOOS_SATCOMACS__
