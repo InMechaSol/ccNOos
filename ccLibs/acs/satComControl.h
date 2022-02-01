@@ -2,7 +2,7 @@
 #define __SATCOMCONTROL
 
 
-#include "../../executionSystem/version_config.h"
+#include "../mcs/motionControl.h"
 
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -18,14 +18,8 @@ struct satelliteStruct
 
 struct commsParameters
 {
-	float Rx_LO;
-};
-
-struct antennaAxisStruct
-{
-	float CommandPosition;
-	float FeedbackPosition;
-	float PositionError;
+	float Rx_LO_MHz;
+	float Tx_LO_MHz;
 };
 
 struct geoLocationStruct
@@ -41,7 +35,11 @@ struct antennaAttitudeStruct
 	float pitch;
 	float yaw;
 };
-
+struct antennaAxis
+{
+	struct axisStruct World;
+	struct axisStruct Pedestal;
+};
 enum antennaState
 {
 	antState_init,
@@ -55,13 +53,16 @@ struct antennaStruct
 {
 	enum antennaState State;
 	struct geoLocationStruct GeoLocation;
-	struct antennaAxisStruct AzimuthAxis;
-	struct antennaAxisStruct ElevationAxis;
+	struct antennaAxis AzimuthAxis;
+	struct antennaAxis ElevationAxis;
+	struct antennaAttitudeStruct ReflectorAttitude;
 	struct antennaAttitudeStruct BaseAttitude;
 };
 
 /////////////////////////////////////////////////////////////////////////////////////
 // Functions
+struct antennaStruct CreateAntennaStruct();
 UI_8 CalculateLookAngle(struct antennaStruct* antStructInPtr);
+UI_8 CalculatePedestalCoords(struct antennaStruct* antStructInPtr);
 
 #endif // !__SATCOMCONTROL

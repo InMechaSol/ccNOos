@@ -1,5 +1,5 @@
-/** \file ccNOos_tests.h
-*   \brief Cross-Platform Portable ccNOos Tests Declarations
+/** \file Application_Solution.h
+*   \brief Cross-Platform Portable ccNOos SatComACS Example Declarations
 
    Copyright 2021 InMechaSol, Inc
 
@@ -19,40 +19,116 @@ Notes:
 
 This header demonstrates the usage of the ccNOos library and its dependence
 on other files in the library.  A platform specific main(.c,.cpp) file need
-only include this single header to implement a platform specific ccNOos_tests
+only include this single header to implement a platform specific ccNOos SatComACS
 application.
 
 */
-#ifndef __CCNOOS_TESTS__
-#define __CCNOOS_TESTS__  
-
+#ifndef __CCNOOS_SATCOMACS__
+#define __CCNOOS_SATCOMACS__  
+// Base ccNOos includes
 #include "../../../executionSystem/execution_system.h"
 #include "../../../consoleMenu/console_menu.h"
+// SatComACS includes
+#include "../../../ccLibs/acs/satComControl.h"
 
+// The main SatComACS module
 #define Mn SatComACS
 
 #define charBuffMax 80
 
-MODdeclareSTRUCT(Mn)
+// Console UI Data Structure
+struct uiStruct
 {
-    COMPMODFIRST;
-    float   float_0, float_1;
-    double  double_0, double_1;
-    UI_64   ui64_0, ui64_1;
-    I_64    i64_0, i64_1;
-    UI_32   ui32_0, ui32_1;
-    I_32    i32_0, i32_1;
-    UI_16   ui16_0, ui16_1;
-    I_16    i16_0, i16_1;
-    UI_8    ui8_0, ui8_1;
-    I_8     i8_0, i8_1;
     UI_8    charsRead, chars2Write;
     char    charbuff_In[charBuffMax];
     char    charbuff_Out[charBuffMax];
-    UI_16   SerializationTestReturn;
-    UI_16   TimedExecutionTestReturn;
-    UI_16   ExceptionsTestReturn;
-    UI_16   TestState;
+};
+void readUIchars(struct uiStruct* uiStructPtrIn);
+void writeUIchars(struct uiStruct* uiStructPtrIn);
+
+// Tx/Rx Module Data Structure
+#define MAX_NUM_ATTENUATORS (3u)
+#define MIN_ATTEN_VAL (0.0)
+#define MAX_ATTEN_VAL (31.75)
+struct txRxStruct
+{
+    UI_8 CMD_AttenuatorBits, INDEX_Attenuator;
+    float AttenuatorValues[MAX_NUM_ATTENUATORS];
+    UI_8 AttenuatorNeedsWriting[MAX_NUM_ATTENUATORS];
+};
+void writeAttenuatorValues(struct txRxStruct* txRxStructPtrIn);
+
+// APT Module Data Structure
+struct gpsStruct
+{
+    float lattitude, longitude, altitude, utctime;
+    int day, month, year;
+    UI_8 newGPSData;
+};
+void readGPS(struct gpsStruct);
+struct eCompStruct
+{
+    float yaw, pitch, roll;
+    UI_8 neweCompassData;
+};
+void readEcompass(struct eCompStruct* eCompStructPtrIn);
+struct aptStruct
+{
+    struct gpsStruct GPS;
+    struct eCompStruct eCompass;    
+};
+void tryReadAPTData(struct aptStruct* aptStructPtrIn);
+
+// TPM Module Data Structure
+struct freqConvStruct
+{
+    float DesiredCenterFreqMHz;
+    float RequiredLOFreqMHz;
+    UI_8 LockedOnDesiredFrequency;
+    UI_8 newLockedValue;
+};
+void readFreqConv(struct freqConvStruct* freqConvStructPtrIn);
+void writeFreqConv(struct freqConvStruct* freqConvStructPtrIn);
+struct powerMeterStruct
+{
+    float BandwidthMHz;
+    float PowerMeasuredinBanddB;
+    UI_32 PowerMeterValue;
+    UI_8 newPowerMeterValue;
+};
+void readPowerMeter(struct powerMeterStruct* powerMeterStructPtrIn);
+void writePowerMeter(struct powerMeterStruct* powerMeterStructPtrIn);
+struct tpmStruct
+{
+    struct freqConvStruct freqConverter;
+    struct powerMeterStruct powerMeter;    
+};
+void tryReadTPMData(struct tpmStruct* tpmStructPtrIn);
+void tryWriteTPMData(struct tpmStruct* tpmStructPtrIn);
+
+// WMM Data Structure
+struct wmmStruct
+{
+    float magdeclination;
+    // save non-volatile...
+    float lastGoodThreshold; // meters
+    float lastGoodMultiplier; // deg per meter
+    float lastGoodlatitude;
+    float lastGoodlongitude;
+    float lastGoodaltitude;
+    float lastGoodmagdeclination;
+};
+
+// Main SatComACS Data Structure
+MODdeclareSTRUCT(Mn)
+{
+    COMPMODFIRST;
+    struct antennaStruct Terminal;
+    struct aptStruct APT;
+    struct tpmStruct TPM;
+    struct uiStruct LCDKeyPad;
+    struct txRxStruct TxRx;
+    struct wmmStruct WMM;
 };
 
 #define MODdeclareCREATEINS 
@@ -69,26 +145,10 @@ MODdeclareSYSTICK(Mn);
 #ifdef __USINGCONSOLEMENU 
 MODdeclarePRINTm(Mn);
 MODdeclarePARSEi(Mn);
+#else
+#error Console Required for SatComACS Module
 #endif
-///////////////////////////////////////////////////////////////////////
-// Test Function Return Value Constants
-#define RETURN_TEST_PASSED (0x0000)
-#define RETURN_TEST_IN_PROGRESS (0x0001)
-#define RETURN_FAILED_TIMEDEXECUTION (0x0010)
-#define RETURN_FAILED_SERIALIZATION (0x0100)
-#define RETURN_FAILED_DESERIALIZATION (0x0110)
-#define RETURN_FAILED_COMPARISON (0x0120)
 
-///////////////////////////////////////////////////////////////////////
-// Test Functions
-UI_16 TimedExecutionTest(MODdeclarePTRIN(Mn));
-UI_16 ExceptionsTest(MODdeclarePTRIN(Mn));
-#ifdef __USINGCONSOLEMENU
-UI_16 SerializationTest(MODdeclarePTRIN(Mn));
-const char* ResultsSerializationTests(MODdeclarePTRIN(Mn));
-const char* ResultsTimedExecutionTests(MODdeclarePTRIN(Mn));
-const char* StatusccNOosTests(MODdeclarePTRIN(Mn));
-#endif
 
 ////////////////////////////////////////////////////////////////////////////////
 // C ccNOosTests Example Application - built from computeModuleClass and Execution System
@@ -161,4 +221,4 @@ public:
 
 #endif // !__cplusplus
 
-#endif // !__CCNOOS_TESTS__
+#endif // !__CCNOOS_SATCOMACS__
