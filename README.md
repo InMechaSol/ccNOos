@@ -25,10 +25,7 @@
 - [Reusable Platform Specification](https://github.com/InMechaSol/ccNOos/tree/main/tests/testPlatforms)
   - shared acrros all applications on a particular platform  
 - [Common template, Platform Specific Main files](https://github.com/InMechaSol/ccNOos/tree/main/tests/testMainFiles)
-## Modular Portable Control Systems
-![ModularPortableSystems](https://github.com/InMechaSol/ccNOos/blob/main/docs/pngs/Modular_Portable_System.png)
-## Architecture Assemblies
-![Architecture_Assemblies](https://github.com/InMechaSol/ccNOos/blob/main/docs/pngs/Architecture_Assemblies.png)
+
 ## ccNOos Application Structure
 ![appStructure](https://github.com/InMechaSol/ccNOos/blob/main/docs/pngs/Application_Structure.png)
 
