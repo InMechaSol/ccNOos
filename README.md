@@ -27,7 +27,10 @@
 - [Reusable Platform Specification](https://github.com/InMechaSol/ccNOos/tree/main/tests/testPlatforms)
   - shared acrros all applications on a particular platform  
 - [Common template, Platform Specific Main files](https://github.com/InMechaSol/ccNOos/tree/main/tests/testMainFiles)
-
+## Modular Controller Applications
+![ModularControllerApps](https://github.com/InMechaSol/ccNOos/blob/main/docs/pngs/Modular_System_ccNOos_Example.PNG)
+## Modular Application Components
+![ModularControllerApps](https://github.com/InMechaSol/ccNOos/blob/main/docs/pngs/Modular_Portable_ccNOos_System.PNG)
 ## ccNOos Application Structure
 ![appStructure](https://github.com/InMechaSol/ccNOos/blob/main/docs/pngs/Application_Structure.png)
 
