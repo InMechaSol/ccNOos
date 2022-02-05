@@ -114,6 +114,10 @@ const char* ccNOosccNOos_VerDateString();
     #define MAIN_CPP_NOos_NOsystick_Arduino
     #define INTSIZE16
 #endif
+#ifdef PLATFORM_ccOS
+    #define PLATFORM_NAME ccOS
+    #define INTSIZE_STD
+#endif
 #ifdef PLATFORM_CUSTOM
     #define PLATFORM_NAME Custom
     #define PLATFORM_MAIN_CUSTOM
@@ -125,7 +129,18 @@ const char* ccNOosccNOos_VerDateString();
 ////////////////////////////////////////////////////////////////////////////////
 // Fixed Width Integer Data Types
 //    - enforce correct config at compile time 
-
+#ifdef INTSIZE_STD
+#include <cstdint>
+typedef uint8_t UI_8;
+typedef uint16_t UI_16;
+typedef uint32_t UI_32;
+typedef uint64_t UI_64;
+typedef int8_t I_8;
+typedef int16_t I_16;
+typedef int32_t I_32;
+typedef int64_t I_64;
+#define INTSIZE_FIXED
+#endif
 #ifdef INTSIZE8
 typedef unsigned int UI_8;
 typedef unsigned long UI_16;
