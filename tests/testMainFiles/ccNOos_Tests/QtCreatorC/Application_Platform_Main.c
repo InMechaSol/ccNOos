@@ -46,7 +46,7 @@ Notes:
 ////////////////////////////////
 // Compile Error if Examples/Tests not defining
 #if PLATFORM_NAME==QTCreatorC
-#include "../../ccOS_Tests/ccOS/tests/testPlatforms/Platform_QTCreatorC.h"
+#include "../../../testPlatforms/Platform_QTCreatorC.h"
 #else
 #error "No Platform Selected for Compile!"
 #endif
