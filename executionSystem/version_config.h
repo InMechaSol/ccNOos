@@ -129,7 +129,7 @@ const char* ccNOosccNOos_VerDateString();
 ////////////////////////////////////////////////////////////////////////////////
 // Fixed Width Integer Data Types
 //    - enforce correct config at compile time 
-#ifdef INTSIZE_STD
+#ifdef INTSIZE_STD  // only used if compiling for ccOS layer
 #include <cstdint>
 typedef uint8_t UI_8;
 typedef uint16_t UI_16;
@@ -139,6 +139,7 @@ typedef int8_t I_8;
 typedef int16_t I_16;
 typedef int32_t I_32;
 typedef int64_t I_64;
+#define INTSIZE_FIXED
 #define INTSIZE_FIXED
 #endif
 #ifdef INTSIZE8
@@ -212,6 +213,9 @@ STATIC_ASSERT(sizeof(I_32)==4, I_32_must_be_32_bits);
 #define PLATFORM_MAIN
 #endif
 #ifdef MAIN_C_NOos_NOsystick
+    #define PLATFORM_MAIN
+#endif
+#ifdef PLATFORM_ccOS
     #define PLATFORM_MAIN
 #endif
 #ifdef PLATFORM_MAIN_CUSTOM

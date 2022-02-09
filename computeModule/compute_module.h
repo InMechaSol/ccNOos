@@ -42,7 +42,7 @@ struct computeModuleStruct
 struct computeModuleStruct CreateComputeModuleStruct();
 
 #ifdef __cplusplus
-class executionSystemClass; // forward declaration of execution system class
+//class executionSystemClass; // forward declaration of execution system class
 
 class computeModuleClass // declaration of compute module class
 {

@@ -26,13 +26,13 @@ application.
 #ifndef __CCNOOS_SATCOMACS__
 #define __CCNOOS_SATCOMACS__  
 // Base ccNOos includes
-#include "../../../executionSystem/execution_system.h"
-#include "../../../consoleMenu/console_menu.h"
+#include "execution_system.h"
+#include "console_menu.h"
 // SatComACS includes (straight c linking) 
 #ifdef __cplusplus
 extern "C" {
 #endif
-#include "../../../ccLibs/acs/satComControl.h"
+#include "satComControl.h"
 #ifdef __cplusplus
 }
 #endif
