@@ -30,7 +30,36 @@ to interface with any physical io device HW and utilize any serialization strate
     
 #include "../executionSystem/version_config.h"
     
-
+/** \enum devicestateenum
+*	\brief enumerates states of the io device
+*/
+enum devicestateenum
+{
+	devstate_init = 0,
+	devstate_opening = 1,
+	devstate_open = 2,
+	devstate_reading = 3,
+	devstate_readdone = 4,
+	devstate_writing = 5,
+	devstate_writedone = 6
+};
+/** \union devicebufferunion
+*	\brief char/byte ambiguous container for io data
+*/
+union devicebufferunion
+{
+	char* charbuff;
+	unsigned char* bytebuff;
+};
+/** \struct devicedatastruct
+*	\brief the common data struct of the io device
+*/
+struct devicedatastruct
+{
+	union devicebufferunion inbuff;
+	union devicebufferunion outbuff;
+	enum devicestateenum devstate = devstate_init;
+};
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -50,13 +79,23 @@ struct ioDeviceStruct
 // C++, class of virtual methods
 #else
 
-class ioDeviceClass
+class iodevice_class
 {
+private:
+	struct devicedatastruct* devdataptr = nullptr;
+protected:
+	virtual int opendevice() = 0;
+	virtual int closedevice() = 0;
+	virtual int readdevice() = 0;
+	virtual int writedevice() = 0;
+	virtual UI_8 isdeviceopen() = 0;
 public:
-    virtual int open() = 0;
-    virtual int close() = 0;
-    virtual int read() = 0;
-    virtual int write() = 0;
+	iodevice_class(struct devicedatastruct* devdataptrin);
+	int OpenDev();
+	int CloseDev();
+	int ReadDev();
+	int WriteDev();
+	bool IsDevOpen();
 };
 
 #endif // !__cplusplus
