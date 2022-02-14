@@ -204,7 +204,7 @@ public:
 
 class executionSystemClass // declaration of execution system class
 {
-private:
+protected:
     struct executionSystemStruct data;
     linkedEntryPointClass* setupListHead = nullptr;
     linkedEntryPointClass* loopListHead = nullptr;
@@ -216,10 +216,10 @@ public:
     executionSystemClass(
                 UI_32 uSperTick
                 );
-    void ExecuteSetup();
-    void ExecuteLoop();
+    virtual void ExecuteSetup();
+    virtual void ExecuteLoop();
     int ExecuteMain();
-    void ExecuteSysTick();
+    virtual void ExecuteSysTick();
     struct executionSystemStruct* getExeDataPtr() {return &data;}
     void LinkTheListsHead(
         linkedEntryPointClass* setupListHeadIn,

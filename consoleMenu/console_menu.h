@@ -37,6 +37,17 @@ A console menu has data access to the full execution system and all it contains.
 
 #ifdef __USINGCONSOLEMENU
 
+// Console UI Data Structure
+#ifndef charBuffMax
+#define charBuffMax 80
+#endif
+struct uiStruct
+{
+    UI_8    charsRead, chars2Write;
+    char    charbuff_In[charBuffMax];
+    char    charbuff_Out[charBuffMax];
+};
+
 struct menuNode
 {
     int (*PrintMenuScreen)(struct computeModuleStruct* CompModPtrIn);

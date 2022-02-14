@@ -31,3 +31,51 @@ to interface with any physical io device HW and utilize any serialization strate
 
 */
 #include "io_device.c"
+
+void IODeviceClass::ClearNewDataReadInFlag()
+{
+	devdataptr->newDataReadIn = ui8FALSE;
+}
+bool IODeviceClass::ReadTriggerWriteOperationFlag()
+{
+	return devdataptr->triggerWriteOperation;
+}
+void IODeviceClass::TriggerWriteOperation()
+{
+	devdataptr->triggerWriteOperation = ui8TRUE;
+}
+bool IODeviceClass::NewDataReadIn()
+{
+	return devdataptr->newDataReadIn;
+}
+
+IODeviceClass::IODeviceClass(struct devicedatastruct* devdataptrin)
+{
+	devdataptr = devdataptrin;
+}
+int IODeviceClass::OpenDev()
+{
+	return opendevice();
+}
+int IODeviceClass::CloseDev()
+{
+	return closedevice();
+}
+int IODeviceClass::ReadDev()
+{
+	return readdevice();
+}
+int IODeviceClass::WriteDev()
+{
+	return writedevice();
+}
+bool IODeviceClass::IsDevOpen()
+{
+	return isdeviceopen();
+}
+
+
+
+SPI_DeviceClass::SPI_DeviceClass(struct SPIDeviceStruct* spidevdataptrin) :IODeviceClass(&spidevdataptrin->devdata) { spidevptr = spidevdataptrin; }
+
+Serial_DeviceClass::Serial_DeviceClass(struct SerialDeviceStruct* serialdevdataptrin) : IODeviceClass(&serialdevdataptrin->devdata) { serialdevptr = serialdevdataptrin; }

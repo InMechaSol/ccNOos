@@ -40,17 +40,6 @@ extern "C" {
 // The main SatComACS module
 #define Mn SatComACS
 
-// Console UI Data Structure
-#ifndef charBuffMax
-#define charBuffMax 80
-#endif
-struct uiStruct
-{
-    UI_8    charsRead, chars2Write;
-    char    charbuff_In[charBuffMax];
-    char    charbuff_Out[charBuffMax];
-};
-
 // Tx/Rx Module Data Structure
 #define MAX_NUM_ATTENUATORS (3u)
 #define MIN_ATTEN_VAL (0.0)

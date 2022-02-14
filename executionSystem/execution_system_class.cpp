@@ -92,6 +92,7 @@ void executionSystemClass::LinkTheListsHead(
     exceptionListHead = exceptionListHeadIn;
 }
 
+// Variants of the "main" entry points 
 void executionSystemClass::ExecuteSetup()
 {
     // platform exe system setup
@@ -144,6 +145,7 @@ int executionSystemClass::ExecuteMain()
     return RETURN_SUCCESS;
 }
 
+// The "systick" entry point
 void executionSystemClass::ExecuteSysTick()
 {
     data.uSecTicks += data.uSecPerSysTick;

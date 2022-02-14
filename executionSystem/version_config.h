@@ -140,7 +140,8 @@ typedef int16_t I_16;
 typedef int32_t I_32;
 typedef int64_t I_64;
 #define INTSIZE_FIXED
-#define INTSIZE_FIXED
+#define __USINGCONSOLEMENU
+#define __USINGFLOATPRINTF
 #endif
 #ifdef INTSIZE8
 typedef unsigned int UI_8;
