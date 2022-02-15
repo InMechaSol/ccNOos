@@ -1,32 +1,13 @@
 #include "ADRF6650.h"
 
-// private scoped function prototypes
-UI_8 ConnectSerial(struct ADRF6650DataStruct* ADRF6650DataPtrIn);
-void InitSPI(struct ADRF6650DataStruct* ADRF6650DataPtrIn);
-UI_8 spi_in(register_addr_t addr, struct ADRF6650DataStruct* ADRF6650DataPtrIn);
-void spi_out(register_addr_t addr, UI_8 data, struct ADRF6650DataStruct* ADRF6650DataPtrIn);
-void reset_chip(struct ADRF6650DataStruct* ADRF6650DataPtrIn);
-void config_ADRF6650(struct ADRF6650DataStruct* ADRF6650DataPtrIn);
-void config_TDD(struct ADRF6650DataStruct* ADRF6650DataPtrIn);
-void set_D(I_16 value, struct ADRF6650DataStruct* ADRF6650DataPtrIn);
-void set_R(I_16 value, struct ADRF6650DataStruct* ADRF6650DataPtrIn);
-void set_T(I_16 value, struct ADRF6650DataStruct* ADRF6650DataPtrIn);
-void set_frac1(I_16 data, struct ADRF6650DataStruct* ADRF6650DataPtrIn);
-void set_frac2(I_16 data, struct ADRF6650DataStruct* ADRF6650DataPtrIn);
-void set_mod(I_16 data, struct ADRF6650DataStruct* ADRF6650DataPtrIn);
-void set_int(I_16 data, struct ADRF6650DataStruct* ADRF6650DataPtrIn);
-void set_phase(I_16 data, struct ADRF6650DataStruct* ADRF6650DataPtrIn);
-void set_bleed_en(UI_8 enable, struct ADRF6650DataStruct* ADRF6650DataPtrIn);
-void set_bicp(I_16 data, struct ADRF6650DataStruct* ADRF6650DataPtrIn);
-void set_cp_current(I_16 data, struct ADRF6650DataStruct* ADRF6650DataPtrIn);
-void set_vco_freq(double frequency, struct ADRF6650DataStruct* ADRF6650DataPtrIn);
-void set_ref_input(struct ADRF6650DataStruct* ADRF6650DataPtrIn);
-void set_lo_freq(double frequency, struct ADRF6650DataStruct* ADRF6650DataPtrIn);
-void set_mixer_en(UI_8 enable, struct ADRF6650DataStruct* ADRF6650DataPtrIn);
-void set_lo_out_en(UI_8 enable, struct ADRF6650DataStruct* ADRF6650DataPtrIn);
-void set_dvga_mode(dvga_mode_t mode, struct ADRF6650DataStruct* ADRF6650DataPtrIn);
-void set_dvga1_atten(I_16 data, struct ADRF6650DataStruct* ADRF6650DataPtrIn);
-void set_dvga2_atten(I_16 data, struct ADRF6650DataStruct* ADRF6650DataPtrIn);
+struct ADRF6650DataStruct CreateADRF6650Data()
+{
+	struct ADRF6650DataStruct outStruct;
+	outStruct.DesiredCenterFreqMHz = 0;
+	outStruct.LockedOnRequiredLOFreq = ui8FALSE;
+	outStruct.RequiredLOFreqMHz = 0;
+	return outStruct;
+}
 
 
 

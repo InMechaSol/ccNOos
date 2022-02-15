@@ -32,7 +32,7 @@ modules at particular execution levels.
 #ifndef __COMPUTE_MODULE__
 #define __COMPUTE_MODULE__
     
-#include "../executionSystem/version_config.h"
+#include "version_config.h"
 
 struct computeModuleStruct
 {

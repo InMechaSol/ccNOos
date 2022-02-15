@@ -2,7 +2,7 @@
 #define __SATCOMCONTROL
 
 
-#include "../mcs/motionControl.h"
+#include "motionControl.h"
 
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -13,7 +13,7 @@ struct satelliteStruct
 	float DownLinkFreq_kHz;
 	float SSP_Lattitude;
 	float SSP_Longitude;
-	float SSP_Altitude;
+	float SSP_Altitude;	
 };
 struct satelliteStruct createSatelliteStruct();
 
@@ -22,6 +22,7 @@ struct commsParameters
 {
 	float Rx_LO_MHz;
 	float Tx_LO_MHz;
+	float RxSignalStrengthMetric;
 };
 struct commsParameters createcommsParameters();
 
@@ -52,6 +53,7 @@ struct antennaAxis
 struct antennaAxis createantennaAxis();
 
 
+
 enum antennaState
 {
 	antState_init,
@@ -70,6 +72,8 @@ struct antennaStruct
 	struct antennaAxis ElevationAxis;
 	struct antennaAttitudeStruct ReflectorAttitude;
 	struct antennaAttitudeStruct BaseAttitude;
+	struct satelliteStruct TargetSatellite;
+	struct commsParameters CommSystem;
 };
 struct antennaStruct createantennaStruct();
 

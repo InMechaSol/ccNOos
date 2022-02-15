@@ -49,6 +49,11 @@ bool IODeviceClass::NewDataReadIn()
 	return devdataptr->newDataReadIn;
 }
 
+struct devicedatastruct* IODeviceClass::GetDevPtr()
+{
+	return devdataptr;
+}
+
 IODeviceClass::IODeviceClass(struct devicedatastruct* devdataptrin)
 {
 	devdataptr = devdataptrin;

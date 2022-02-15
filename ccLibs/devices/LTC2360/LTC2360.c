@@ -5,26 +5,12 @@
 struct LTC2360DataStruct CreateLTC2360Data()
 {
 	struct LTC2360DataStruct outStruct;
+	outStruct.BandwidthMHz = 0;
+	outStruct.PowerMeasuredinBanddB = 0;
 	outStruct.current_value = 0;
 	outStruct.value_good = ui8FALSE;
 	return outStruct;
 }
-
-void Setup(struct LTC2360DataStruct* LTC2360DataPtrIn)
-{
-	// MARK TODO: setup ltc
-}
-void InitSPI(struct LTC2360DataStruct* LTC2360DataPtrIn)
-{
-	// MARK TODO: initSPI? maybe should be abstract??
-}
-UI_16 ReadValue(int num_of_averages, struct LTC2360DataStruct* LTC2360DataPtrIn)
-{
-	UI_16 outval = 0;
-	// MARK TODO: read values: should be abstract
-	return outval;
-}
-
 
 //
 ////#include "spi_class.h"

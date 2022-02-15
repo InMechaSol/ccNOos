@@ -25,6 +25,7 @@ only instantiate, configure, then execute the execution system.
 #include "Application_Solution.h"
 
 
+
 // Re-usable, portable, cross-platform (ccNOosTests create() function)
 MODdeclareCREATE(Mn)(MODdeclareCREATEINS)
 {
@@ -63,23 +64,16 @@ struct txRxStruct createtxRxStruct()
 struct gpsStruct creategpsStruct()
 {
     struct gpsStruct outStruct;
-    outStruct.altitude = 0;
-    outStruct.day = 0;
-    outStruct.lattitude = 0;
-    outStruct.longitude = 0;
-    outStruct.month = 0;
-    outStruct.newGPSData = ui8FALSE;
-    outStruct.utctime = 0;
-    outStruct.year = 0;
+    outStruct.devptr = nullptr;
+    outStruct.data = createGPSDataStruct();
     return outStruct;
 }
 struct eCompStruct createeCompStruct()
 {
     struct eCompStruct outStruct;
+    outStruct.devptr = nullptr;
     outStruct.neweCompassData = ui8FALSE;
-    outStruct.pitch = 0;
-    outStruct.roll = 0;
-    outStruct.yaw = 0;
+    outStruct.data = createEcompDataStruct();
     return outStruct;
 }
 struct aptStruct createaptStruct()
@@ -92,12 +86,8 @@ struct aptStruct createaptStruct()
 struct freqConvStruct createfreqConvStruct()
 {
     struct freqConvStruct outStruct;
-
-    outStruct.DesiredCenterFreqMHz = 0;
-    outStruct.LockedOnDesiredFrequency = ui8FALSE;
-    outStruct.newLockedValue = ui8FALSE;
-    outStruct.RequiredLOFreqMHz = 0;
-
+    outStruct.data = CreateADRF6650Data();    
+    outStruct.newFreqConvData = ui8FALSE;   
     return outStruct;
 }
 struct powerMeterStruct createPowerMeterStruct()
@@ -294,6 +284,50 @@ MODdeclarePARSEi(Mn)
     return i;
 }
 
+void UpdateTerminalState(MODdeclarePTRIN(Mn))
+{
+    // check for new data from devices
+    if (MODdataPTR(Mn)->APT.GPS.newGPSData)
+    {
+        // latch into terminal object
+        MODdataPTR(Mn)->Terminal.GeoLocation.latitude = MODdataPTR(Mn)->APT.GPS.data.lattitude;
+        MODdataPTR(Mn)->Terminal.GeoLocation.longitude = MODdataPTR(Mn)->APT.GPS.data.longitude;
+        MODdataPTR(Mn)->Terminal.GeoLocation.altitude = MODdataPTR(Mn)->APT.GPS.data.altitude;
+        // clear flag
+        MODdataPTR(Mn)->APT.GPS.newGPSData = ui8FALSE;
+    }
+    // check for new data from eCompass
+    if ((MODdataPTR(Mn)->APT.eCompass.neweCompassData))
+    {
+        // latch into terminal object
+        MODdataPTR(Mn)->Terminal.ReflectorAttitude.roll = MODdataPTR(Mn)->APT.eCompass.data.roll;
+        MODdataPTR(Mn)->Terminal.ReflectorAttitude.pitch = MODdataPTR(Mn)->APT.eCompass.data.pitch;
+        MODdataPTR(Mn)->Terminal.ReflectorAttitude.yaw = MODdataPTR(Mn)->APT.eCompass.data.yaw;
+        // clear flag
+        MODdataPTR(Mn)->APT.eCompass.neweCompassData = ui8FALSE;
+    }
+    // check for new data from down converter
+    if (MODdataPTR(Mn)->TPM.freqConverter.newFreqConvData)
+    {
+        if (MODdataPTR(Mn)->TPM.freqConverter.data.LockedOnRequiredLOFreq)
+        {
+            // latch into terminal object
+        }    
+        // clear flag
+        MODdataPTR(Mn)->TPM.freqConverter.newFreqConvData = ui8FALSE;
+    }
+    // check for new data from power meter
+    if (MODdataPTR(Mn)->TPM.powerMeter.newPowerMeterValue)
+    {
+        if (MODdataPTR(Mn)->TPM.freqConverter.data.LockedOnRequiredLOFreq)
+        {
+            // latch into terminal object
+            MODdataPTR(Mn)->Terminal.CommSystem.RxSignalStrengthMetric = MODdataPTR(Mn)->TPM.powerMeter.data.PowerMeasuredinBanddB;
+        }
+        // clear flag
+        MODdataPTR(Mn)->TPM.powerMeter.newPowerMeterValue = ui8FALSE;
+    }
+}
 void ErrorInitState(MODdeclarePTRIN(Mn))
 {
     // if anything at all is wrong, for whatever reason
@@ -327,12 +361,36 @@ void AcquiredState(MODdeclarePTRIN(Mn))
 
 }
 
-
-
 void tryReadAPTData(struct aptStruct* aptStructPtrIn)
 {
-    readGPS(&aptStructPtrIn->GPS);
-    readEcompass(&aptStructPtrIn->eCompass);
+    // try read gps, if got string(s)
+    if (readGPS(&aptStructPtrIn->GPS))
+    {
+        // try parse strings
+        if (aptStructPtrIn->GPS.devptr != nullptr)
+        {
+            if (tryParseGPSData(&aptStructPtrIn->GPS.devptr->inbuff.charbuff[0], &aptStructPtrIn->GPS.data))
+            {
+                aptStructPtrIn->GPS.newGPSData = true; // this signals to state machine that new gps data is available from gps device
+            }
+            aptStructPtrIn->GPS.devptr->newDataReadIn = false;
+            aptStructPtrIn->GPS.devptr = nullptr;
+        }
+    }
+    // try read eCompass, if got string(s)
+    if (readEcompass(&aptStructPtrIn->eCompass))
+    {
+        // try parse strings
+        if (aptStructPtrIn->eCompass.devptr != nullptr)
+        {
+            if (tryParseEcompData(&aptStructPtrIn->eCompass.devptr->inbuff.charbuff[0], &aptStructPtrIn->eCompass.data))
+            {
+                aptStructPtrIn->eCompass.neweCompassData = true; // this signals to state machine that new ecomp data is available from ecomp device
+            }
+            aptStructPtrIn->eCompass.devptr->newDataReadIn = false;
+            aptStructPtrIn->eCompass.devptr = nullptr;
+        }
+    }
 }
 
 void tryReadTPMData(struct tpmStruct* tpmStructPtrIn)

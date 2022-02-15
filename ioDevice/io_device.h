@@ -103,6 +103,7 @@ public:
 	bool NewDataReadIn();
 	void ClearNewDataReadInFlag();
 	bool ReadTriggerWriteOperationFlag();
+	struct devicedatastruct* GetDevPtr();
 };
 
 
@@ -122,7 +123,7 @@ struct SPIDeviceStruct
 };
 
 // Abstract SPI IO Device
-class SPI_DeviceClass : IODeviceClass
+class SPI_DeviceClass : public IODeviceClass
 {
 protected:
 	SPIDeviceStruct* spidevptr;
@@ -164,7 +165,7 @@ struct SerialDeviceStruct
 };
 
 // Abstract Serial IO Device
-class Serial_DeviceClass : IODeviceClass
+class Serial_DeviceClass : public IODeviceClass
 {
 protected:
 	SerialDeviceStruct* serialdevptr;

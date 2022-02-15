@@ -79,6 +79,11 @@ const char* ccNOosccNOos_VerDateString();
         return xstr(ccNOos_VerDate);\
     }
 
+// an eco system wide restriction on maximum buffer size...
+#ifndef charBuffMax
+#define charBuffMax 80
+#endif
+
 /////////////////////////////////////////////////////////////////////////////
 // COMPILER CONSTANTS
 
@@ -130,7 +135,7 @@ const char* ccNOosccNOos_VerDateString();
 // Fixed Width Integer Data Types
 //    - enforce correct config at compile time 
 #ifdef INTSIZE_STD  // only used if compiling for ccOS layer
-#include <cstdint>
+#include <stdint.h>
 typedef uint8_t UI_8;
 typedef uint16_t UI_16;
 typedef uint32_t UI_32;

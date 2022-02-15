@@ -32,15 +32,12 @@ A console menu has data access to the full execution system and all it contains.
 #define __CONSOLE_MENU__
 
 
-#include "../computeModule/compute_module.h"
-#include "../ioDevice/io_device.h"
+#include "compute_module.h"
+#include "io_device.h"
 
 #ifdef __USINGCONSOLEMENU
 
 // Console UI Data Structure
-#ifndef charBuffMax
-#define charBuffMax 80
-#endif
 struct uiStruct
 {
     UI_8    charsRead, chars2Write;

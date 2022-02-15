@@ -25,14 +25,20 @@ application.
 */
 #ifndef __CCNOOS_SATCOMACS__
 #define __CCNOOS_SATCOMACS__  
+
 // Base ccNOos includes
 #include "execution_system.h"
 #include "console_menu.h"
-// SatComACS includes (straight c linking) 
+
+// SatComACS and Device includes (straight c linking) 
 #ifdef __cplusplus
 extern "C" {
 #endif
 #include "satComControl.h"
+#include "NEO_LEA_M8T.h"
+#include "HMR3300.h"
+#include "ADRF6650.h"
+#include "LTC2360.h"
 #ifdef __cplusplus
 }
 #endif
@@ -56,19 +62,22 @@ void writeAttenuatorValues(struct txRxStruct* txRxStructPtrIn);
 // APT Module Data Structure
 struct gpsStruct
 {
-    float lattitude, longitude, altitude, utctime;
-    int day, month, year;
+    struct devicedatastruct* devptr;
+    struct gpsData data;
     UI_8 newGPSData;
 };
 struct gpsStruct creategpsStruct();
-void readGPS(struct gpsStruct* gpsStructPtrIn);
+UI_8 readGPS(struct gpsStruct* gpsStructPtrIn);
+
 struct eCompStruct
 {
-    float yaw, pitch, roll;
+    struct devicedatastruct* devptr;
+    struct eCompDataStruct data;
     UI_8 neweCompassData;
 };
 struct eCompStruct createeCompStruct();
-void readEcompass(struct eCompStruct* eCompStructPtrIn);
+UI_8 readEcompass(struct eCompStruct* eCompStructPtrIn);
+
 struct aptStruct
 {
     struct gpsStruct GPS;
@@ -76,36 +85,6 @@ struct aptStruct
 };
 struct aptStruct createaptStruct();
 void tryReadAPTData(struct aptStruct* aptStructPtrIn);
-
-// TPM Module Data Structure
-struct freqConvStruct
-{
-    float DesiredCenterFreqMHz;
-    float RequiredLOFreqMHz;
-    UI_8 LockedOnDesiredFrequency;
-    UI_8 newLockedValue;
-};
-struct freqConvStruct createfreqConvStruct();
-void readFreqConv(struct freqConvStruct* freqConvStructPtrIn);
-void writeFreqConv(struct freqConvStruct* freqConvStructPtrIn);
-struct powerMeterStruct
-{
-    float BandwidthMHz;
-    float PowerMeasuredinBanddB;
-    UI_32 PowerMeterValue;
-    UI_8 newPowerMeterValue;
-};
-struct powerMeterStruct createPowerMeterStruct();
-void readPowerMeter(struct powerMeterStruct* powerMeterStructPtrIn);
-void writePowerMeter(struct powerMeterStruct* powerMeterStructPtrIn);
-struct tpmStruct
-{
-    struct freqConvStruct freqConverter;
-    struct powerMeterStruct powerMeter;    
-};
-struct tpmStruct createtpmStruct();
-void tryReadTPMData(struct tpmStruct* tpmStructPtrIn);
-void tryWriteTPMData(struct tpmStruct* tpmStructPtrIn);
 
 // WMM Data Structure
 struct wmmStruct
@@ -121,6 +100,38 @@ struct wmmStruct
 };
 struct wmmStruct createwmmStruct();
 
+// TPM Module Data Structure
+struct freqConvStruct
+{
+    struct devicedatastruct* devptr;
+    struct ADRF6650DataStruct data;
+    UI_8 newFreqConvData;    
+};
+struct freqConvStruct createfreqConvStruct();
+void readFreqConv(struct freqConvStruct* freqConvStructPtrIn);
+void writeFreqConv(struct freqConvStruct* freqConvStructPtrIn);
+
+struct powerMeterStruct
+{
+    struct devicedatastruct* devptr;    
+    struct LTC2360DataStruct data;
+    UI_8 newPowerMeterValue;
+};
+struct powerMeterStruct createPowerMeterStruct();
+void readPowerMeter(struct powerMeterStruct* powerMeterStructPtrIn);
+void writePowerMeter(struct powerMeterStruct* powerMeterStructPtrIn);
+
+struct tpmStruct
+{
+    struct freqConvStruct freqConverter;
+    struct powerMeterStruct powerMeter;    
+};
+struct tpmStruct createtpmStruct();
+void tryReadTPMData(struct tpmStruct* tpmStructPtrIn);
+void tryWriteTPMData(struct tpmStruct* tpmStructPtrIn);
+
+
+
 // Main SatComACS Data Structure
 MODdeclareSTRUCT(Mn)
 {
@@ -129,9 +140,9 @@ MODdeclareSTRUCT(Mn)
     struct antennaStruct Terminal;
     // satComACS Device Modules
     struct aptStruct APT;
-    struct tpmStruct TPM;    
-    struct txRxStruct TxRx;
     struct wmmStruct WMM;
+    struct tpmStruct TPM;    
+    struct txRxStruct TxRx;    
     // satComACS API Device Module
     struct uiStruct LCDKeyPad;
     // 
