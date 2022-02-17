@@ -220,7 +220,7 @@ MODdeclarePARSEi(Mn);
 ////////////////////////////////////////////////////////////////////////////////
 // C++ ccNOosTests Example Class - built from computeModuleClass
 class MODCLASS_NAME(Mn) : public computeModuleClass {
-private:
+protected:
     MODdeclareDATA(Mn);
 public:
     MODCLASS_NAME(Mn)(MODdeclareCREATEINS);

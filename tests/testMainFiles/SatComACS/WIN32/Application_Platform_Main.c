@@ -20,7 +20,7 @@ Notes:
 */
 //////////////////////////////////
 // Include Application and cNOos
-#include "..\..\..\testApps\SatComACS\PlatformApp_Serialization.h"
+#include "PlatformApp_Serialization.h"
 
 ////////////////////////////////
 // Compile Error if Examples/Tests not defining 

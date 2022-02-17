@@ -70,8 +70,8 @@ Notes:
 ///////////////////////////////////////////////////////////////////////
 // Platform and Application Specific IO Device Functions
 void writeAttenuatorValues(struct txRxStruct* txRxStructPtrIn) { ; }
-void readGPS(struct gpsStruct* gpsStructPtrIn) { ; }
-void readEcompass(struct eCompStruct* eCompStructPtrIn) { ; }
+UI_8 readGPS(struct gpsStruct* gpsStructPtrIn) { return ui8FALSE; }
+UI_8 readEcompass(struct eCompStruct* eCompStructPtrIn) { return ui8FALSE; }
 void readFreqConv(struct freqConvStruct* freqConvStructPtrIn) { ; }
 void writeFreqConv(struct freqConvStruct* freqConvStructPtrIn) { ; }
 void readPowerMeter(struct powerMeterStruct* powerMeterStructPtrIn) { ; }

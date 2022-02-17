@@ -179,7 +179,8 @@ void executionSystemClass::ModuleExeArea(int EXE_AREA_INDEX)
                 return;
         }
         
-        if(currentExeNode!=nullptr)
+		if(currentExeNode != nullptr){
+        if(currentExeNode->getComputeModule() != nullptr)
         {
             int retVal;
             do
@@ -226,7 +227,7 @@ void executionSystemClass::ModuleExeArea(int EXE_AREA_INDEX)
                     break;
                 
             }while(currentExeNode->getComputeModule() != nullptr);
-        }
+        }}
     }
 }
 void executionSystemClass::ModuleExceptionArea()

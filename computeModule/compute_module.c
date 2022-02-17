@@ -30,7 +30,7 @@ modules at particular execution levels.
 */
 
 #include "compute_module.h"
-#include "../executionSystem/execution_system.h"
+#include "execution_system.h"
 
 struct computeModuleStruct CreateComputeModuleStruct()
 {

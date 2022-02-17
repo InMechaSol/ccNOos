@@ -372,9 +372,9 @@ void tryReadAPTData(struct aptStruct* aptStructPtrIn)
         {
             if (tryParseGPSData(&aptStructPtrIn->GPS.devptr->inbuff.charbuff[0], &aptStructPtrIn->GPS.data))
             {
-                aptStructPtrIn->GPS.newGPSData = true; // this signals to state machine that new gps data is available from gps device
+                aptStructPtrIn->GPS.newGPSData = ui8TRUE; // this signals to state machine that new gps data is available from gps device
             }
-            aptStructPtrIn->GPS.devptr->newDataReadIn = false;
+            aptStructPtrIn->GPS.devptr->newDataReadIn = ui8FALSE;
             aptStructPtrIn->GPS.devptr = nullptr;
         }
     }
@@ -386,9 +386,9 @@ void tryReadAPTData(struct aptStruct* aptStructPtrIn)
         {
             if (tryParseEcompData(&aptStructPtrIn->eCompass.devptr->inbuff.charbuff[0], &aptStructPtrIn->eCompass.data))
             {
-                aptStructPtrIn->eCompass.neweCompassData = true; // this signals to state machine that new ecomp data is available from ecomp device
+                aptStructPtrIn->eCompass.neweCompassData = ui8TRUE; // this signals to state machine that new ecomp data is available from ecomp device
             }
-            aptStructPtrIn->eCompass.devptr->newDataReadIn = false;
+            aptStructPtrIn->eCompass.devptr->newDataReadIn = ui8FALSE;
             aptStructPtrIn->eCompass.devptr = nullptr;
         }
     }
