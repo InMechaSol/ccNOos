@@ -104,19 +104,24 @@ struct consoleMenuStruct CreateConsoleMenuStruct(
 
 
 // when possible, simply return snprintf() from std lib
-int SN_PrintF(char* str, unsigned int size, const char* format, ...);
-UI_8 ATO_F(const char* str, float* val);
-UI_8 ATO_D(const char* str, double* val);
+#ifdef __cplusplus
+extern "C" {
+#endif
+    int SN_PrintF(char* str, unsigned int size, const char* format, ...);
+    UI_8 ATO_F(const char* str, float* val);
+    UI_8 ATO_D(const char* str, double* val);
 
-UI_8 ATO_I8(const char* str, I_8* val);
-UI_8 ATO_I16(const char* str, I_16* val);
-UI_8 ATO_I32(const char* str, I_32* val);
-UI_8 ATO_I64(const char* str, I_64* val);
-UI_8 ATO_U8(const char* str, UI_8* val);
-UI_8 ATO_U16(const char* str, UI_16* val);
-UI_8 ATO_U32(const char* str, UI_32* val);
-UI_8 ATO_U64(const char* str, UI_64* val);
-
+    UI_8 ATO_I8(const char* str, I_8* val);
+    UI_8 ATO_I16(const char* str, I_16* val);
+    UI_8 ATO_I32(const char* str, I_32* val);
+    UI_8 ATO_I64(const char* str, I_64* val);
+    UI_8 ATO_U8(const char* str, UI_8* val);
+    UI_8 ATO_U16(const char* str, UI_16* val);
+    UI_8 ATO_U32(const char* str, UI_32* val);
+    UI_8 ATO_U64(const char* str, UI_64* val);
+#ifdef __cplusplus
+}
+#endif
 
 UI_8 isASCIIchar(char inChar);
 UI_8 isLetterchar(char inChar);

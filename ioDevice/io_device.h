@@ -28,7 +28,7 @@ to interface with any physical io device HW and utilize any serialization strate
 #ifndef __IO_DEVICE__
 #define __IO_DEVICE__  
     
-#include "../executionSystem/version_config.h"
+#include "version_config.h"
     
 /** \enum devicestateenum
 *	\brief enumerates states of the io device
@@ -58,7 +58,7 @@ struct devicedatastruct
 {
 	union devicebufferunion inbuff;
 	union devicebufferunion outbuff;
-	enum devicestateenum devstate = devstate_init;
+	enum devicestateenum devstate;
 	UI_8 newDataReadIn;
 	UI_8 triggerWriteOperation;
 };

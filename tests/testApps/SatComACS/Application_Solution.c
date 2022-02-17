@@ -93,10 +93,11 @@ struct freqConvStruct createfreqConvStruct()
 struct powerMeterStruct createPowerMeterStruct()
 {
     struct powerMeterStruct outStruct;
-    outStruct.BandwidthMHz = 0;
+    outStruct.data.BandwidthMHz = 0;
     outStruct.newPowerMeterValue = ui8FALSE;
-    outStruct.PowerMeasuredinBanddB = 0;
-    outStruct.PowerMeterValue = 0;
+    outStruct.data.PowerMeasuredinBanddB = 0;
+    outStruct.data.current_value = 0;
+    outStruct.data.value_good = ui8FALSE;
     return outStruct;
 }
 struct tpmStruct createtpmStruct()

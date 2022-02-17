@@ -1,7 +1,7 @@
 #ifndef NEOLEAM8T_H__
 #define NEOLEAM8T_H__
 
-#include "version_config.h"
+#include "console_menu.h"
 
 
 struct gpsData
@@ -13,5 +13,6 @@ struct gpsData
 struct gpsData createGPSDataStruct();
 
 UI_8 tryParseGPSData(char* gpsStringin, struct gpsData* gpsDataPtr);
+
 
 #endif  // NEOLEAM8T_H__

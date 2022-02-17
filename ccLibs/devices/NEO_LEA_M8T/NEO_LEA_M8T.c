@@ -13,11 +13,7 @@ struct gpsData createGPSDataStruct()
     return outStruct;
 }
 
-// when possible, simply return snprintf() from std lib
-// if using in ccNOos and/or ccOS framework, no work to be done
-//  - these functions are defined by the platfrom specification
-extern UI_8 ATO_F(const char* str, float* val);
-extern UI_8 ATO_I16(const char* str, I_16* val);
+
 
 UI_8 tryParseZDAString(char* gpsStringin, struct gpsData* gpsDataPtr, int iZDA, int commaCount)
 {
@@ -112,7 +108,7 @@ UI_8 tryParseCGAString(char* gpsStringin, struct gpsData* gpsDataPtr, int iCGA, 
                             {
                                 if (ATO_F(&gpsStringin[I_dot + 1], &minutes))
                                 {
-                                    gpsDataPtr->lattitude += minutes / 60.0;
+                                    gpsDataPtr->lattitude += minutes / 60.0f;
                                 }
                                 else
                                 {
@@ -150,7 +146,7 @@ UI_8 tryParseCGAString(char* gpsStringin, struct gpsData* gpsDataPtr, int iCGA, 
                             {
                                 if (ATO_F(&gpsStringin[I_dot + 1], &minutes))
                                 {
-                                    gpsDataPtr->longitude += minutes / 60.0;
+                                    gpsDataPtr->longitude += minutes / 60.0f;
                                     return ui8TRUE;
                                 }
                                 else
