@@ -81,7 +81,7 @@ const char* ccNOosccNOos_VerDateString();
 
 // an eco system wide restriction on maximum buffer size...
 #ifndef charBuffMax
-#define charBuffMax 80
+#define charBuffMax 128
 #endif
 
 /////////////////////////////////////////////////////////////////////////////

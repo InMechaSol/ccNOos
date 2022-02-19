@@ -14,10 +14,9 @@ struct gpsData createGPSDataStruct()
 }
 
 
-
 UI_8 tryParseZDAString(char* gpsStringin, struct gpsData* gpsDataPtr, int iZDA, int commaCount)
 {
-    if (commaCount > 3)
+    if (commaCount > 4)
     {
         commaCount = 0;
         int lastCommaIndex = 0;
@@ -34,21 +33,21 @@ UI_8 tryParseZDAString(char* gpsStringin, struct gpsData* gpsDataPtr, int iZDA, 
 
                     switch (commaCount)
                     {
-                    case 2: // day
+                    case 3: // day
                         if (!ATO_I16(&gpsStringin[lastCommaIndex + 1], &gpsDataPtr->day))
                         {
                             gpsStringin[i] = ',';
                             return ui8FALSE;
                         }
                         break;
-                    case 3: // month                        
+                    case 4: // month
                         if (!ATO_I16(&gpsStringin[lastCommaIndex + 1], &gpsDataPtr->month))
                         {
                             gpsStringin[i] = ',';
                             return ui8FALSE;
                         }
                         break;
-                    case 4: // year
+                    case 5: // year
                         if (!ATO_I16(&gpsStringin[lastCommaIndex + 1], &gpsDataPtr->year))
                         {
                             gpsStringin[i] = ',';
@@ -67,17 +66,18 @@ UI_8 tryParseZDAString(char* gpsStringin, struct gpsData* gpsDataPtr, int iZDA, 
     return ui8TRUE;
 }
 
-UI_8 tryParseCGAString(char* gpsStringin, struct gpsData* gpsDataPtr, int iCGA, int commaCount)
+UI_8 tryParseGGAString(char* gpsStringin, struct gpsData* gpsDataPtr, int iGGA, int commaCount)
 {
-    if (commaCount > 8)
+    if (commaCount > 9)
     {
         commaCount = 0;
         int lastCommaIndex = 0;
         int I_dot = 0;
         float minutes = 0;
+        char tempChar = 0x00;
 
 
-        for (int i = iCGA; i < charBuffMax; i++)
+        for (int i = iGGA; i < charBuffMax; i++)
         {
             if (gpsStringin[i] == ',')
             {
@@ -89,24 +89,26 @@ UI_8 tryParseCGAString(char* gpsStringin, struct gpsData* gpsDataPtr, int iCGA, 
 
                     switch (commaCount)
                     {
-                    case 1: // utc time
+                    case 2: // utc time
                         if (!ATO_F(&gpsStringin[lastCommaIndex + 1], &gpsDataPtr->utctime))
                         {
                             gpsStringin[i] = ',';
                             return ui8FALSE;
                         }
                         break;
-                    case 2: // latitude                              
+                    case 3: // latitude
                         I_dot = lastCommaIndex;
                         while (gpsStringin[++I_dot] != '.') { if (I_dot > charBuffMax - 2) break; }
 
                         if (I_dot < i)
                         {
-                            gpsStringin[I_dot] = '\0';
+                            tempChar = gpsStringin[I_dot-2];
+                            gpsStringin[I_dot-2] = '\0';
 
                             if (ATO_F(&gpsStringin[lastCommaIndex + 1], &gpsDataPtr->lattitude))
                             {
-                                if (ATO_F(&gpsStringin[I_dot + 1], &minutes))
+                                gpsStringin[I_dot-2] = tempChar;
+                                if (ATO_F(&gpsStringin[I_dot-2], &minutes))
                                 {
                                     gpsDataPtr->lattitude += minutes / 60.0f;
                                 }
@@ -130,24 +132,28 @@ UI_8 tryParseCGAString(char* gpsStringin, struct gpsData* gpsDataPtr, int iCGA, 
                             return ui8FALSE;
                         }
                         break;
-                    case 3: // latitude direction
+                    case 4: // latitude direction
                         if (gpsStringin[lastCommaIndex + 1] == 'S')
                             gpsDataPtr->lattitude = -gpsDataPtr->lattitude;
                         break;
-                    case 4: // longitude
+                    case 5: // longitude
                         I_dot = lastCommaIndex;
                         while (gpsStringin[++I_dot] != '.') { if (I_dot > charBuffMax - 2) break; }
 
+
+
                         if (I_dot < i)
                         {
-                            gpsStringin[I_dot] = '\0';
+                            tempChar = gpsStringin[I_dot-2];
+                            gpsStringin[I_dot-2] = '\0';
 
                             if (ATO_F(&gpsStringin[lastCommaIndex + 1], &gpsDataPtr->longitude))
                             {
-                                if (ATO_F(&gpsStringin[I_dot + 1], &minutes))
+                                gpsStringin[I_dot-2] = tempChar;
+
+                                if (ATO_F(&gpsStringin[I_dot-2], &minutes))
                                 {
                                     gpsDataPtr->longitude += minutes / 60.0f;
-                                    return ui8TRUE;
                                 }
                                 else
                                 {
@@ -170,11 +176,11 @@ UI_8 tryParseCGAString(char* gpsStringin, struct gpsData* gpsDataPtr, int iCGA, 
                             return ui8FALSE;
                         }
                         break;
-                    case 5: // longitude direction
+                    case 6: // longitude direction
                         if (gpsStringin[lastCommaIndex + 1] == 'W')
                             gpsDataPtr->longitude = -gpsDataPtr->longitude;
                         break;
-                    case 9: // altitude
+                    case 10: // altitude
                         if (!ATO_F(&gpsStringin[lastCommaIndex + 1], &gpsDataPtr->altitude))
                         {
                             gpsStringin[i] = ',';
@@ -195,33 +201,45 @@ UI_8 tryParseCGAString(char* gpsStringin, struct gpsData* gpsDataPtr, int iCGA, 
 UI_8 tryParseGPSData(char* gpsStringin, struct gpsData* gpsDataPtr)
 {
     // check string begins with $
-    if (gpsStringin[0] == '$')
-    {
-        int Istar = 0;
+//    if (gpsStringin[0] == '$')
+//    {
         int CommaCount = 0;
-        int I_CGA = 0;
+        int I_GGA = 0;
         int I_ZDA = 0;
+        int I_GNS = 0;
+        UI_8 retVal = ui8FALSE;
 
         // scan message for valid tokens
-        for (int i = 2; i < charBuffMax; i++)
+        for (int i = 5; i < charBuffMax; i++)
         {
-            // find ZDA and/or CGA token(s)
+            // find ZDA or GGA token
             if(gpsStringin[i]=='A')
             { 
                 // ZDA
                 if (gpsStringin[i - 1] == 'D')
                 {
-                    if (gpsStringin[i - 2] == 'Z')
+                    if (gpsStringin[i - 2] == 'Z' && gpsStringin[i - 5] == '$')
                     {
                         I_ZDA = i - 2;
                     }
                 }
-                // CGA
+                // GGA
                 else if (gpsStringin[i - 1] == 'G')
                 {
-                    if (gpsStringin[i - 2] == 'C')
+                    if (gpsStringin[i - 2] == 'G' && gpsStringin[i - 5] == '$')
                     {
-                        I_CGA = i - 2;
+                        I_GGA = i - 2;
+                    }
+                }
+            }
+            else if(gpsStringin[i]=='S')
+            {
+                // GNS
+                if (gpsStringin[i - 1] == 'N')
+                {
+                    if (gpsStringin[i - 2] == 'G' && gpsStringin[i - 5] == '$')
+                    {
+                        I_GNS = i - 2;
                     }
                 }
             }
@@ -232,27 +250,36 @@ UI_8 tryParseGPSData(char* gpsStringin, struct gpsData* gpsDataPtr)
 
             // find star
             if (gpsStringin[i] == '*')
-            {
-                Istar = i;
-                break;
+            {                
+                // try parse GGA string
+                if (I_GGA > 0)
+                {
+                    if(tryParseGGAString(gpsStringin, gpsDataPtr, I_GGA, CommaCount)==ui8TRUE)
+                        retVal |= ui8TRUE ;
+                    I_GGA = 0;
+                }
+                // try parse ZDA string
+                else if (I_ZDA > 0)
+                {
+                    if(tryParseZDAString(gpsStringin, gpsDataPtr, I_ZDA, CommaCount)==ui8TRUE)
+                        retVal |= ui8TRUE;
+                    I_ZDA = 0;
+
+                }
+                // try parse GNS
+                else if (I_GNS > 0)
+                {
+                    if(tryParseGGAString(gpsStringin, gpsDataPtr, I_GNS, CommaCount)==ui8TRUE)
+                        retVal |= ui8TRUE;
+                    I_GNS = 0;
+                }
+                CommaCount = 0;
+
             }
         }
 
-        // check message is valid
-        if (Istar > (2+CommaCount))
-        {
-            // try parse CGA string
-            if (I_CGA > 1)
-            {
-                return tryParseCGAString(gpsStringin, gpsDataPtr, I_CGA, CommaCount);
-            }
-            // try parse ZDA string
-            if (I_ZDA > 1)
-            {
-                return tryParseZDAString(gpsStringin, gpsDataPtr, I_ZDA, CommaCount);
-            }
-        }
-    }
-    return ui8FALSE;
+
+//    }
+    return retVal;
 }
 

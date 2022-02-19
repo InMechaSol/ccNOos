@@ -29,7 +29,12 @@ to interface with any physical io device HW and utilize any serialization strate
 #define __IO_DEVICE__  
     
 #include "version_config.h"
-    
+
+
+////////////////////////////////////////////////////////////////////////
+/// Generic IO Device
+////////////////////////////////////////////////////////////////////////
+
 /** \enum devicestateenum
 *	\brief enumerates states of the io device
 */
@@ -48,11 +53,11 @@ enum devicestateenum
 */
 union devicebufferunion
 {
-	char* charbuff;
-	unsigned char* bytebuff;
+    char charbuff[charBuffMax];
+    unsigned char bytebuff[charBuffMax];
 };
 /** \struct devicedatastruct
-*	\brief the common data struct of the io device
+*	\brief the common data struct of io devices
 */
 struct devicedatastruct
 {
@@ -62,10 +67,66 @@ struct devicedatastruct
 	UI_8 newDataReadIn;
 	UI_8 triggerWriteOperation;
 };
+struct devicedatastruct createDeviceStruct();
+
+////////////////////////////////////////////////////////////////////////
+/// SPI IO Device
+////////////////////////////////////////////////////////////////////////
+enum SPITypes
+{
+    SPIType_one,
+    SPIType_two,
+    SPIType_three,
+    SPIType_four
+};
+struct SPIDeviceStruct
+{
+    enum SPITypes spitype;
+    struct devicedatastruct devdata;
+    UI_8 chipSelectEnabled;
+
+};
+
+////////////////////////////////////////////////////////////////////////
+/// Serial UART IO Device
+////////////////////////////////////////////////////////////////////////
+enum portStopBitsEnum
+{
+    stop_none = 0,
+    stop_one = 1,
+    stop_two = 2,
+    stop_onepointfive = 3
+};
+enum portParityEnum
+{
+    parity_none = 0,
+    parity_even = 1,
+    parity_odd = 2,
+    parity_mark = 3,
+    parity_space = 4
+};
+enum portHandshakeEnum
+{
+    handshake_none = 0,
+    handshake_requesttosend = 1,
+    handshake_requesttosendxonxoff = 2,
+    handshake_xonxoff = 3
+};
+
+struct SerialDeviceStruct
+{
+    int baudRate;
+    int dataBits;
+    enum portStopBitsEnum stopBits;
+    enum portParityEnum parity;
+    enum portHandshakeEnum handshake;
+    struct devicedatastruct devdata;
+};
 
 
 ////////////////////////////////////////////////////////////////////////////////
 // C only, struct of function pointers
+// - not yet using this, may not use it, creates complications switch from c to c++
 #ifndef __cplusplus
 
 struct ioDeviceStruct
@@ -107,20 +168,7 @@ public:
 };
 
 
-enum SPITypes
-{
-	SPIType_one,
-	SPIType_two,
-	SPIType_three,
-	SPIType_four
-};
-struct SPIDeviceStruct
-{
-	enum SPITypes spitype;
-	struct devicedatastruct devdata;
-	UI_8 chipSelectEnabled;
 
-};
 
 // Abstract SPI IO Device
 class SPI_DeviceClass : public IODeviceClass
@@ -131,38 +179,7 @@ public:
 	SPI_DeviceClass(struct SPIDeviceStruct* spidevdataptrin);
 };
 
-enum portStopBitsEnum
-{
-	stop_none = 0,
-	stop_one = 1,
-	stop_two = 2,
-	stop_onepointfive = 3
-};
-enum portParityEnum
-{
-	parity_none = 0,
-	parity_even = 1,
-	parity_odd = 2,
-	parity_mark = 3,
-	parity_space = 4
-};
-enum portHandshakeEnum
-{
-	handshake_none = 0,
-	handshake_requesttosend = 1,
-	handshake_requesttosendxonxoff = 2,
-	handshake_xonxoff = 3
-};
 
-struct SerialDeviceStruct
-{
-	int baudRate = 9600;
-	int dataBits = 8;
-	enum portStopBitsEnum stopBits = stop_one;
-	enum portParityEnum parity = parity_none;
-	enum portHandshakeEnum handshake = handshake_none;
-	struct devicedatastruct devdata;
-};
 
 // Abstract Serial IO Device
 class Serial_DeviceClass : public IODeviceClass

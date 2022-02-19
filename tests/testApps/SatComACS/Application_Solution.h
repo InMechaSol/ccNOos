@@ -63,18 +63,20 @@ void writeAttenuatorValues(struct txRxStruct* txRxStructPtrIn);
 // APT Module Data Structure
 struct gpsStruct
 {
-    struct devicedatastruct* devptr;
+    struct SerialDeviceStruct* devptr;
     struct gpsData data;
     UI_8 newGPSData;
+    UI_8 Connected;
 };
 struct gpsStruct creategpsStruct();
 UI_8 readGPS(struct gpsStruct* gpsStructPtrIn);
 
 struct eCompStruct
 {
-    struct devicedatastruct* devptr;
+    struct SerialDeviceStruct* devptr;
     struct eCompDataStruct data;
     UI_8 neweCompassData;
+    UI_8 Connected;
 };
 struct eCompStruct createeCompStruct();
 UI_8 readEcompass(struct eCompStruct* eCompStructPtrIn);

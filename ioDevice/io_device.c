@@ -26,5 +26,16 @@ to interface with any physical io device HW and utilize any serialization strate
 
 */
 #include "io_device.h"
-#include "../executionSystem/execution_system.h"
+#include "execution_system.h"
+
+
+struct devicedatastruct createDeviceStruct()
+{
+    struct devicedatastruct outstruct;
+    outstruct.devstate = devstate_init;
+    outstruct.newDataReadIn = ui8FALSE;
+    outstruct.triggerWriteOperation = ui8FALSE;
+    outstruct.inbuff.charbuff[0] = 0x00;
+    return outstruct;
+}
 

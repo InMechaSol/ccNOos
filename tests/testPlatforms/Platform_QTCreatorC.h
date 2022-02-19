@@ -25,11 +25,27 @@
 #define uSEC_PER_CLOCK (1000000/CLOCKS_PER_SEC)
 #define MAXLINELENGTH (80)
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// QTCreator_C is a special platfrom, it's a ccNOos test platform but, can link-in os features at the main file
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#include "serial_comms.h"
+#include "adafruit_ft232h.h"
+
+struct portParametersStruct GPSPortParams;
 
 // 0) (Optional) Platform Config and Log Files/Devices
 // 1) Platform Setup Function
 void platformSetup()
 {
+
+#ifdef _WIN32
+    GPSPortParams = buildportParametersStruct("\\\\.\\COM25",9600);
+#else
+    GPSPortParams = buildportParametersStruct("/dev/tty1",9600);
+#endif
+
+    openComPort(&GPSPortParams);
+
     //<platformSetup>
     //
     // open config device
@@ -62,16 +78,16 @@ void GetMenuChars(char* inStringPtr)
 {
     int ch = 0;
     int retVal = 1;
-    while(ch < MAXLINELENGTH)
-    {
-        retVal = read(STDIN_FILENO, &inStringPtr[ch], 1);
-        ch++;
-        if  (
-            inStringPtr[ch-1] == '\n' ||
-            retVal < 1
-            )
-            break;
-    }
+//    while(ch < MAXLINELENGTH)
+//    {
+//        retVal = read(STDIN_FILENO, &inStringPtr[ch], 1);
+//        ch++;
+//        if  (
+//            inStringPtr[ch-1] == '\n' ||
+//            retVal < 1
+//            )
+//            break;
+//    }
     inStringPtr[ch] = 0x00;
 }
 // 5) Basic ability for user console output

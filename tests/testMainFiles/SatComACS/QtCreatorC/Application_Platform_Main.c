@@ -48,7 +48,7 @@ Notes:
 ////////////////////////////////
 // Compile Error if Examples/Tests not defining
 #if PLATFORM_NAME==QTCreatorC
-#include "../../../testPlatforms/Platform_QTCreatorC.h"
+#include "Platform_QTCreatorC.h"
 #else
 #error "No Platform Selected for Compile!"
 #endif
@@ -67,11 +67,32 @@ Notes:
 
 
 
+
 ///////////////////////////////////////////////////////////////////////
 // Platform and Application Specific IO Device Functions
 void writeAttenuatorValues(struct txRxStruct* txRxStructPtrIn) { ; }
-UI_8 readGPS(struct gpsStruct* gpsStructPtrIn) { return ui8FALSE; }
-UI_8 readEcompass(struct eCompStruct* eCompStructPtrIn) { return ui8FALSE; }
+
+
+UI_8 readGPS(struct gpsStruct* gpsStructPtrIn)
+{
+    if(readComLine(&GPSPortParams) > 0)
+    {
+        gpsStructPtrIn->devptr = &GPSPortParams.serialdev;
+        return ui8TRUE;
+    }
+    else
+        return ui8FALSE;
+}
+
+
+UI_8 readEcompass(struct eCompStruct* eCompStructPtrIn)
+{
+    return ui8FALSE;
+}
+
+
+
+
 void readFreqConv(struct freqConvStruct* freqConvStructPtrIn) { ; }
 void writeFreqConv(struct freqConvStruct* freqConvStructPtrIn) { ; }
 void readPowerMeter(struct powerMeterStruct* powerMeterStructPtrIn) { ; }
