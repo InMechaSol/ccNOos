@@ -17,8 +17,8 @@
 #include <unistd.h>
 #include <stdarg.h>
 
-#include "../../ccNOos/executionSystem/execution_system.h"
-#include "../../ccNOos/consoleMenu/console_menu.h"
+#include "execution_system.h"
+#include "console_menu.h"
 
 //void SysTickISRCallback(void); // not using on QTCreatorC
 #define LIGHT_OFF (1u)      // 1-PSoC4, 0-most others
@@ -32,6 +32,7 @@
 #include "adafruit_ft232h.h"
 
 struct portParametersStruct GPSPortParams;
+struct portParametersStruct eCompPortParams;
 
 // 0) (Optional) Platform Config and Log Files/Devices
 // 1) Platform Setup Function
@@ -40,11 +41,14 @@ void platformSetup()
 
 #ifdef _WIN32
     GPSPortParams = buildportParametersStruct("\\\\.\\COM25",9600);
+    eCompPortParams = buildportParametersStruct("\\\\.\\COM26",19200);
 #else
     GPSPortParams = buildportParametersStruct("/dev/tty1",9600);
+    eCompPortParams = buildportParametersStruct("/dev/tty2",19200);
 #endif
 
     openComPort(&GPSPortParams);
+    openComPort(&eCompPortParams);
 
     //<platformSetup>
     //

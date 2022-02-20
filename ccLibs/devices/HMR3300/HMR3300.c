@@ -16,83 +16,58 @@ extern UI_8 ATO_F(const char* str, float* val);
 
 UI_8 tryParseEcompData(char* eCompStringin, struct eCompDataStruct* eCompDataPtr)
 {
-    int Istar = -1;
-    int I_S = -1;
-    int CommaCount = 0;
+
+    int commaIndex0 = 0;
+    int commaIndex1 = 0;
 
     // scan message for valid tokens
     for (int i = 2; i < charBuffMax; i++)
     {
-        // count all commas
+        // find all commas
         if (eCompStringin[i] == ',')
-            CommaCount++;
-
-        // find star
-        if (eCompStringin[i] == '*')
         {
-            Istar = i;
+            if(commaIndex0==0)
+                commaIndex0 = i;
+            else if(commaIndex1==0)
+                commaIndex1 = i;
+            else
+                return ui8FALSE;
         }
-        // find S
-        if (eCompStringin[i] == '$')
-        {
-            I_S = i;
-        }
-    }
 
-    // check message is valid
-    if (Istar == -1 && I_S == -1)
-    {
-        if (CommaCount > 3)
+        // find carriage return
+        if (eCompStringin[i] == '\r')
         {
-            CommaCount = 0;
-            int lastCommaIndex = 0;
-
-            for (int i = 0; i < charBuffMax; i++)
+            if(commaIndex0>0 && commaIndex1>commaIndex0)
             {
-                if (eCompStringin[i] == ',')
+                // yaw
+                eCompStringin[commaIndex0] = 0x00;
+                if (!ATO_F(&eCompStringin[0], &eCompDataPtr->yaw))
                 {
-                    CommaCount++;
-                    if (i > lastCommaIndex + 1)
-                    {
-                        // temporarily null terminate token sub string
-                        eCompStringin[i] = '\0';
-
-                        switch (CommaCount)
-                        {
-                        case 2: // yaw
-                            if (!ATO_F(&eCompStringin[lastCommaIndex + 1], &eCompDataPtr->yaw))
-                            {
-                                eCompStringin[i] = ',';
-                                return ui8FALSE;
-                            }
-                            break;
-                        case 3: // pitch                        
-                            if (!ATO_F(&eCompStringin[lastCommaIndex + 1], &eCompDataPtr->pitch))
-                            {
-                                eCompStringin[i] = ',';
-                                return ui8FALSE;
-                            }
-                            break;
-                        case 4: // roll
-                            if (!ATO_F(&eCompStringin[lastCommaIndex + 1], &eCompDataPtr->roll))
-                            {
-                                eCompStringin[i] = ',';
-                                return ui8FALSE;
-                            }
-                            break;
-                        }
-                        // reset to comma
-                        eCompStringin[i] = ',';
-                    }
-                    lastCommaIndex = i;
+                    eCompStringin[commaIndex0] = ',';
+                    return ui8FALSE;
                 }
+                // pitch
+                eCompStringin[commaIndex1] = 0x00;
+                if (!ATO_F(&eCompStringin[commaIndex0 + 1], &eCompDataPtr->pitch))
+                {
+                    eCompStringin[commaIndex1] = ',';
+                    return ui8FALSE;
+                }
+                // roll
+                eCompStringin[i] = 0x00;
+                if (!ATO_F(&eCompStringin[commaIndex1 + 1], &eCompDataPtr->roll))
+                {
+                    eCompStringin[i] = '\r';
+                    return ui8FALSE;
+                }
+                eCompStringin[commaIndex0] = ',';
+                eCompStringin[commaIndex1] = ',';
+                eCompStringin[i] = '\r';
+                return ui8TRUE;
             }
-            return ui8TRUE;
-
         }
-        else
-            return ui8FALSE;
     }
-    else
-        return ui8FALSE;
+    return ui8FALSE;
+
+
 }

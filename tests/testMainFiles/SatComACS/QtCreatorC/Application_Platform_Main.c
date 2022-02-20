@@ -87,7 +87,13 @@ UI_8 readGPS(struct gpsStruct* gpsStructPtrIn)
 
 UI_8 readEcompass(struct eCompStruct* eCompStructPtrIn)
 {
-    return ui8FALSE;
+    if(readComLine(&eCompPortParams) > 0)
+    {
+        eCompStructPtrIn->devptr = &eCompPortParams.serialdev;
+        return ui8TRUE;
+    }
+    else
+        return ui8FALSE;
 }
 
 
