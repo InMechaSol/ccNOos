@@ -1,4 +1,4 @@
-/** \file WIN32_Console.cpp
+/** \file Application_Platfrom_Main.c
 *   \brief WIN32 Console Implementation of ccNOos_Tests in c++
 
    Copyright 2021 InMechaSol, Inc
@@ -21,7 +21,7 @@ Notes:
 
 // Include all things ccNOos_tests, which is an application of ccNOos
 // ccNOos_tests is the application solution
-#include "..\..\..\testApps\SatComACS\PlatformApp_Serialization.h"
+#include "PlatformApp_Serialization.h"
 
 
 ////////////////////////////////
