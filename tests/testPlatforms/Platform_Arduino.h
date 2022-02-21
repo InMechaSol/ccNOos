@@ -13,13 +13,13 @@
 
 #include <Arduino.h>
 #include <Adafruit_MCP23017.h>
-#include "executionSystem/execution_system.h"    
-#include "consoleMenu/console_menu.h" 
-#define LIGHT_OFF (0u)      // 1-PSoC4, 0-most others
+#include "execution_system.h"    
+#include "console_menu.h" 
+#define LIGHT_OFF (0u)                          // 1-PSoC4, 0-most others
 #define uSEC_PER_CLOCK (1000u)
-#define MAXLINELENGTH (80)
 
- 
+struct SerialDeviceStruct GPSserialdev;
+struct SerialDeviceStruct eCompserialdev;
 
 // 0) (Optional) Platform Config and Log Files/Devices
 // 1) Platform Setup Function
@@ -31,6 +31,7 @@ void platformSetup()
         asm(".global _printf_float");
 #endif
 #endif
+
     Serial.begin(115200);
     Wire.begin();
 
@@ -64,16 +65,16 @@ void GetMenuChars(char* inStringPtr)
             //WriteMenuLine((char*)"Debugging: ");
             //WriteMenuLine(inStringPtr);
             //WriteMenuLine((char*)"\n");
-        } while (Serial.available() > 0 && idx < MAXLINELENGTH);
+        } while (Serial.available() > 0 && idx < charBuffMax);
         delay(1);
-        while (Serial.available() > 0 && idx < MAXLINELENGTH) {
+        while (Serial.available() > 0 && idx < charBuffMax) {
             inStringPtr[idx++] = Serial.read();
             //WriteMenuLine((char*)"Debugging: ");
             //WriteMenuLine(inStringPtr);
             //WriteMenuLine((char*)"\n");
         } 
         delay(2);
-        while (Serial.available() > 0 && idx < MAXLINELENGTH) {
+        while (Serial.available() > 0 && idx < charBuffMax) {
             inStringPtr[idx++] = Serial.read();
             //WriteMenuLine((char*)"Debugging: ");
             //WriteMenuLine(inStringPtr);
