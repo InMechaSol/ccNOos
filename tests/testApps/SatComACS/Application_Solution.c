@@ -239,20 +239,40 @@ MODdeclarePRINTm(Mn)
     // for looping...
     int lines2Print = 1;
     int linesPrinted = 0;
-    if (MODdataPTR(Mn)->LCDKeyPad.charbuff_In[0] != 0x00 > 0)
+    if (MODdataPTR(Mn)->LCDKeyPad.charbuff_In[0] != 0x00)
     {
+        MODdataPTR(Mn)->LCDKeyPad.charbuff_In[0] = 0x00;
         MODdataPTR(Mn)->LCDKeyPad.charsRead = 0;
         while (lines2Print > 0)
         {
             switch (linesPrinted)
             {
             case 0:
-                PRINT_MENU_LN  "\033[2J\033[0;0H\n// Version %s %s //", ccNOosccNOos_VerString(), ccNOosccNOos_VerDateString()     END_MENU_LN;
+                PRINT_MENU_LN  "\033[2J\033[0;0H\n/////////// SatComACS Menu ///////////////////"    END_MENU_LN;
+            case 1:
+                PRINT_MENU_LN  "\n// Version %s %s //", ccNOosccNOos_VerString(), ccNOosccNOos_VerDateString()       END_MENU_LN;
+            case 2:
+                PRINT_MENU_LN  "\nLatitude: \t\t%8.4f",  MODdataPTR(Mn)->APT.GPS.data.lattitude  END_MENU_LN;
+            case 3:
+                PRINT_MENU_LN  "\nLongitude: \t\t%8.4f",  MODdataPTR(Mn)->APT.GPS.data.longitude  END_MENU_LN;
             case 4:
-                PRINT_MENU_LN  "\n///////////////////////////////////////////////"      END_MENU_LN;
+                PRINT_MENU_LN  "\nAltitude: \t\t%8.0f",  MODdataPTR(Mn)->APT.GPS.data.altitude  END_MENU_LN;
             case 5:
-                PRINT_MENU_LN  "\nType \"satComACS:Var:Val;\" set Var to Val"      END_MENU_LN;
+                PRINT_MENU_LN  "\nDate/Time (UTC): %2i/%2i/%4i %6.0f",  MODdataPTR(Mn)->APT.GPS.data.month, MODdataPTR(Mn)->APT.GPS.data.day, MODdataPTR(Mn)->APT.GPS.data.year, MODdataPTR(Mn)->APT.GPS.data.utctime  END_MENU_LN;
             case 6:
+                PRINT_MENU_LN  "\nMagnetic Declination: \t%6.2f",  MODdataPTR(Mn)->WMM.lastGoodmagdeclination  END_MENU_LN;
+            case 7:
+                PRINT_MENU_LN  "\nAzimuth Heading: \t%6.2f",  MODdataPTR(Mn)->APT.eCompass.data.yaw  END_MENU_LN;
+            case 8:
+                PRINT_MENU_LN  "\nElevation Pitch: \t%6.2f",  MODdataPTR(Mn)->APT.eCompass.data.pitch  END_MENU_LN;
+            case 9:
+                PRINT_MENU_LN  "\nAPT Roll: \t\t%6.2f",  MODdataPTR(Mn)->APT.eCompass.data.roll  END_MENU_LN;
+
+            case 10:
+                PRINT_MENU_LN  "\n///////////////////////////////////////////////"      END_MENU_LN;
+            case 11:
+                PRINT_MENU_LN  "\nType \"satComACS:Var:Val;\" set Var to Val"      END_MENU_LN;
+            case 12:
                 PRINT_MENU_LN "\nInput>>" END_MENU_LN;
             default:
                 lines2Print = 0;
