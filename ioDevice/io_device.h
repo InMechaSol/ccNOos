@@ -126,7 +126,7 @@ struct SerialDeviceStruct
 
 ////////////////////////////////////////////////////////////////////////////////
 // C only, struct of function pointers
-// - not yet using this, may not use it, creates complications switch from c to c++
+// - not yet using this, may not use it, creates complications when switching from c to c++
 #ifndef __cplusplus
 
 struct ioDeviceStruct

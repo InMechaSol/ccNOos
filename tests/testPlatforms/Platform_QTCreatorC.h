@@ -27,6 +27,7 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // QTCreator_C is a special platfrom, it's a ccNOos test platform but, can link-in os features at the main file
+// - it can also run on either linux or windows, this is a unique test platform in that regard
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #include "serial_comms.h"
 #include "adafruit_ft232h.h"
@@ -80,23 +81,30 @@ void platformLoopDelay()
 pthread_t stdInThread;
 UI_8 stdInThreadRunning = ui8FALSE;
 UI_8 runOnce = ui8TRUE;
+UI_8 runONCE = ui8TRUE;
 void *readStdIn(void* voidinStringPtr)
 {
     char* inStringPtr = (char*)voidinStringPtr;
     int ch = 0;
     int retVal = 1;
-    while(ch < charBuffMax)
-    {
-        retVal = read(STDIN_FILENO, &inStringPtr[ch], 1);
-        ch++;
-        if  (
-            inStringPtr[ch-1] == '\n' ||
-            retVal < 1
-            )
-            break;
-    }
-    inStringPtr[ch] = 0x00;
-    stdInThreadRunning = ui8FALSE;
+
+    do{
+        ch = 0;
+        retVal = 1;
+        while(ch < charBuffMax)
+        {
+            retVal = read(STDIN_FILENO, &inStringPtr[ch], 1);
+            ch++;
+            if  (
+                inStringPtr[ch-1] == '\n' ||
+                retVal < 1
+                )
+                break;
+        }
+        inStringPtr[ch] = 0x00;
+        stdInThreadRunning = ui8FALSE;
+
+    }while(1);
     return NULL;
 }
 // 4) Basic ability for user console input
@@ -111,8 +119,12 @@ void GetMenuChars(char* inStringPtr)
     }
     else if(stdInThreadRunning == ui8FALSE && inStringPtr[0] == 0x00)
     {
-        if(pthread_create(&stdInThread, NULL, &readStdIn, inStringPtr )==0)
-            stdInThreadRunning = ui8TRUE;
+        if(runONCE)
+        {
+            if(pthread_create(&stdInThread, NULL, &readStdIn, inStringPtr )==0)
+                runONCE = ui8FALSE;
+        }
+        stdInThreadRunning = ui8TRUE;
     }
 
 }

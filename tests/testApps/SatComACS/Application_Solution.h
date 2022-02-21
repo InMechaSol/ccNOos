@@ -30,18 +30,13 @@ application.
 #include "execution_system.h"
 #include "console_menu.h"
 
-// SatComACS and Device includes (straight c linking) 
-#ifdef __cplusplus
-extern "C" {
-#endif
+// SatComACS and Device includes
 #include "satComControl.h"
 #include "NEO_LEA_M8T.h"
 #include "HMR3300.h"
 #include "ADRF6650.h"
 #include "LTC2360.h" 
-#ifdef __cplusplus
-}
-#endif
+
 
 
 // The main SatComACS module

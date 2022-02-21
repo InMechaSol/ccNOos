@@ -68,8 +68,32 @@ MODdeclareDATA(Mn);
 ///////////////////////////////////////////////////////////////////////
 // Platform and Application Specific IO Device Functions
 void writeAttenuatorValues(struct txRxStruct* txRxStructPtrIn) { ; }
-UI_8 readGPS(struct gpsStruct* gpsStructPtrIn) { return ui8FALSE; }
-UI_8 readEcompass(struct eCompStruct* eCompStructPtrIn) { return ui8FALSE; }
+
+
+
+UI_8 readGPS(struct gpsStruct* gpsStructPtrIn)
+{
+    if (readComLine(&GPSPortParams) > 0)
+    {
+        gpsStructPtrIn->devptr = &GPSPortParams.serialdev;
+        return ui8TRUE;
+    }
+    else
+        return ui8FALSE;
+}
+UI_8 readEcompass(struct eCompStruct* eCompStructPtrIn)
+{
+    if (readComLine(&eCompPortParams) > 0)
+    {
+        eCompStructPtrIn->devptr = &eCompPortParams.serialdev;
+        return ui8TRUE;
+    }
+    else
+        return ui8FALSE;
+}
+
+
+
 void readFreqConv(struct freqConvStruct* freqConvStructPtrIn) { ; }
 void writeFreqConv(struct freqConvStruct* freqConvStructPtrIn) { ; }
 void readPowerMeter(struct powerMeterStruct* powerMeterStructPtrIn) { ; }

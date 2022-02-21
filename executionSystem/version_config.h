@@ -194,7 +194,7 @@ STATIC_ASSERT(sizeof(I_32)==4, I_32_must_be_32_bits);
 ///////////////////////////////////////////////////////////////////////////////
 // True / False macros for UI_8 data type in boolean operatoins
 #define ui8FALSE (0u)
-#define ui8TRUE (!ui8FALSE)
+#define ui8TRUE (1u)
 
 /////////////////////////////////////////////////////////////////////////////
 // Compiler Configuration for nullptr support

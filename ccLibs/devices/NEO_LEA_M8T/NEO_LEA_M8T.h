@@ -15,4 +15,6 @@ struct gpsData createGPSDataStruct();
 UI_8 tryParseGPSData(char* gpsStringin, struct gpsData* gpsDataPtr);
 
 
+
+
 #endif  // NEOLEAM8T_H__
