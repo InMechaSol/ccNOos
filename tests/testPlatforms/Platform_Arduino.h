@@ -32,7 +32,23 @@ void platformSetup()
 #endif
 #endif
 
+    GPSserialdev.devdata = createDeviceStruct();
+    GPSserialdev.baudRate = 9600;
+    GPSserialdev.dataBits = 8;
+    GPSserialdev.stopBits = stop_one;
+    GPSserialdev.parity = parity_none;
+    GPSserialdev.handshake = handshake_none;
+
+    eCompserialdev.devdata = createDeviceStruct();
+    eCompserialdev.baudRate = 19200;
+    eCompserialdev.dataBits = 8;
+    eCompserialdev.stopBits = stop_one;
+    eCompserialdev.parity = parity_none;
+    eCompserialdev.handshake = handshake_none;
+
     Serial.begin(115200);
+    Serial1.begin(GPSserialdev.baudRate);
+    Serial2.begin(eCompserialdev.baudRate);
     Wire.begin();
 
     while (!Serial) {

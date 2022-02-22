@@ -75,10 +75,38 @@ void writeAttenuatorValues(struct txRxStruct* txRxStructPtrIn) { ; }
 
 UI_8 readGPS(struct gpsStruct* gpsStructPtrIn)
 {
-    if (ui8FALSE)
+    int idx = 0;
+    if (Serial1.available() > 0)
+    {
+        do {
+            GPSserialdev.devdata.inbuff.charbuff[idx++] = Serial1.read();
+            //WriteMenuLine((char*)"Debugging: ");
+            //WriteMenuLine(inStringPtr);
+            //WriteMenuLine((char*)"\n");
+        } while (Serial1.available() > 0 && idx < charBuffMax);
+        delay(1);
+        while (Serial1.available() > 0 && idx < charBuffMax) {
+            GPSserialdev.devdata.inbuff.charbuff[idx++] = Serial1.read();
+            //WriteMenuLine((char*)"Debugging: ");
+            //WriteMenuLine(inStringPtr);
+            //WriteMenuLine((char*)"\n");
+        }
+        //delay(2);
+        //while (Serial1.available() > 0 && idx < charBuffMax) {
+        //    GPSserialdev.devdata.inbuff.charbuff[idx++] = Serial1.read();
+        //    //WriteMenuLine((char*)"Debugging: ");
+        //    //WriteMenuLine(inStringPtr);
+        //    //WriteMenuLine((char*)"\n");
+        //}
+    }
+    GPSserialdev.devdata.inbuff.charbuff[idx] = 0x00;
+    if (idx > 0)
     {
         gpsStructPtrIn->devptr = &GPSserialdev;
         return ui8TRUE;
+    //    WriteMenuLine((char*)"Debugging: ");
+    //    WriteMenuLine(inStringPtr);
+    //    WriteMenuLine((char*)"\n");
     }
     else
         return ui8FALSE;
