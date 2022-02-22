@@ -36,6 +36,7 @@ struct devicedatastruct createDeviceStruct()
     outstruct.newDataReadIn = ui8FALSE;
     outstruct.triggerWriteOperation = ui8FALSE;
     outstruct.inbuff.charbuff[0] = 0x00;
+    outstruct.outbuff.charbuff[0] = 0x00;
     return outstruct;
 }
 
