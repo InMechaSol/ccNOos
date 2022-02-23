@@ -43,8 +43,8 @@ void platformSetup()
 {
 
 #ifdef _WIN32
-    GPSPortParams = buildportParametersStruct("\\\\.\\COM27", 9600);
-    eCompPortParams = buildportParametersStruct("\\\\.\\COM26", 19200);
+    GPSPortParams = buildportParametersStruct("\\\\.\\COM29", 9600);
+    eCompPortParams = buildportParametersStruct("\\\\.\\COM4", 19200);
 #else
     GPSPortParams = buildportParametersStruct("/dev/tty1", 9600);
     eCompPortParams = buildportParametersStruct("/dev/tty2", 19200);

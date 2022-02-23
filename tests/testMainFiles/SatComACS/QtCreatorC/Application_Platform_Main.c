@@ -75,23 +75,76 @@ void writeAttenuatorValues(struct txRxStruct* txRxStructPtrIn) { ; }
 
 UI_8 readGPS(struct gpsStruct* gpsStructPtrIn)
 {
-    if(readComLine(&GPSPortParams) > 0)
-    {
-        gpsStructPtrIn->devptr = &GPSPortParams.serialdev;
+    GPSPortParams.serialdev.numBytes2Read = 1;
+    GPSPortParams.serialdev.readIndex = 0;
+    gpsStructPtrIn->devptr = &GPSPortParams.serialdev;
+    int iNewLine = 0;
+    int tries = 0;
+    do{
+
+
+        if(readComPort(&GPSPortParams)==GPSPortParams.serialdev.numBytes2Read)
+        {
+            if(GPSPortParams.serialdev.devdata.inbuff.charbuff[GPSPortParams.serialdev.readIndex] == '\n')
+            {
+                iNewLine = GPSPortParams.serialdev.readIndex;
+            }
+            GPSPortParams.serialdev.readIndex += GPSPortParams.serialdev.numBytes2Read;
+        }
+        else if(GPSPortParams.serialdev.readIndex>0)
+        {
+            usleep(1000);
+            tries++;
+        }
+        else
+            break;
+
+
+    }while( GPSPortParams.serialdev.readIndex<charBuffMax && iNewLine == 0 && tries < 5);
+
+    GPSPortParams.serialdev.devdata.inbuff.charbuff[iNewLine] = '\0';
+
+    if(iNewLine>6)
         return ui8TRUE;
-    }
     else
         return ui8FALSE;
+
 }
 
 
 UI_8 readEcompass(struct eCompStruct* eCompStructPtrIn)
 {
-    if(readComLine(&eCompPortParams) > 0)
-    {
-        eCompStructPtrIn->devptr = &eCompPortParams.serialdev;
+    eCompPortParams.serialdev.numBytes2Read = 1;
+    eCompPortParams.serialdev.readIndex = 0;
+    eCompStructPtrIn->devptr = &eCompPortParams.serialdev;
+    int iNewLine = 0;
+    int tries = 0;
+    do{
+
+
+        if(readComPort(&eCompPortParams)==eCompPortParams.serialdev.numBytes2Read)
+        {
+            if(eCompPortParams.serialdev.devdata.inbuff.charbuff[eCompPortParams.serialdev.readIndex] == '\n')
+            {
+                iNewLine = eCompPortParams.serialdev.readIndex;
+            }
+            eCompPortParams.serialdev.readIndex += eCompPortParams.serialdev.numBytes2Read;
+        }
+        else if(eCompPortParams.serialdev.readIndex>0)
+        {
+            usleep(1000);
+            tries++;
+        }
+        else
+            break;
+
+
+    }while( eCompPortParams.serialdev.readIndex<charBuffMax && iNewLine == 0 && tries < 5);
+
+    eCompPortParams.serialdev.devdata.inbuff.charbuff[iNewLine] = '\0';
+
+    if(iNewLine>10)
         return ui8TRUE;
-    }
     else
         return ui8FALSE;
 }

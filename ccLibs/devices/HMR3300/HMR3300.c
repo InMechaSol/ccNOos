@@ -16,7 +16,6 @@ extern UI_8 ATO_F(const char* str, float* val);
 
 UI_8 tryParseEcompData(char* eCompStringin, struct eCompDataStruct* eCompDataPtr)
 {
-
     int commaIndex0 = 0;
     int commaIndex1 = 0;
 
@@ -37,7 +36,7 @@ UI_8 tryParseEcompData(char* eCompStringin, struct eCompDataStruct* eCompDataPtr
         // find carriage return
         if (eCompStringin[i] == '\r')
         {
-            if(commaIndex0>0 && commaIndex1>commaIndex0)
+            if((commaIndex0>1) && (commaIndex1>(commaIndex0+1)) && (i > (commaIndex1+1)))
             {
                 // yaw
                 eCompStringin[commaIndex0] = 0x00;

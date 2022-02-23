@@ -121,6 +121,8 @@ struct SerialDeviceStruct
     enum portParityEnum parity;
     enum portHandshakeEnum handshake;
     struct devicedatastruct devdata;
+    int numBytes2Read;
+    int readIndex;
 };
 
 
