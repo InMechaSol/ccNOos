@@ -1,13 +1,13 @@
 #if PLATFORM_NAME!=Arduino
-    error PLATFORM_NAME must be Arduino
+error PLATFORM_NAME must be Arduino
 #endif
 
 
 #ifdef REDEFINE_NULLPTR
-    #error Must not compile with -DREDEFINE_NULLPTR on Aduino ATMega (maybe others, need to test)
+#error Must not compile with -DREDEFINE_NULLPTR on Aduino ATMega (maybe others, need to test)
 #endif // !REDEFINE_NULLPTR
 #ifndef __NOEXCEPTIONS
-    #error Must compile with -D__NOEXCEPTIONS on Aduino ATMega (maybe others, need to test)
+#error Must compile with -D__NOEXCEPTIONS on Aduino ATMega (maybe others, need to test)
 #endif // !__NOEXCEPTIONS
 
 
@@ -20,6 +20,16 @@
 
 struct SerialDeviceStruct GPSserialdev;
 struct SerialDeviceStruct eCompserialdev;
+int gpsCharInt = -1;
+int eCompCharInt = -1;
+int consoleCharInt = -1;
+int idx = 0;
+void ReadSerialUARTS()
+{
+    consoleCharInt = Serial.read();
+    gpsCharInt = Serial1.read();
+    eCompCharInt = Serial2.read();
+}
 
 // 0) (Optional) Platform Config and Log Files/Devices
 // 1) Platform Setup Function
@@ -28,7 +38,7 @@ void platformSetup()
     //<platformSetup>
 #ifdef __USINGCONSOLEMENU
 #ifdef __USINGFLOATPRINTF
-        asm(".global _printf_float");
+    asm(".global _printf_float");
 #endif
 #endif
 
@@ -60,11 +70,19 @@ void platformSetup()
 void platformStart()
 {
     //<platformStart>
+    GPSserialdev.readIndex = 0;
+    eCompserialdev.readIndex = 0;
+    GPSserialdev.numBytes2Read = 1;
+    eCompserialdev.numBytes2Read = 1;
     //</platformStart>
 }
 // 3) Platform Loop Delay Function
 void platformLoopDelay()
 {
+
+    ReadSerialUARTS();
+
+
     //<platformLoopDelay>
     ;
     //</platformLoopDelay>
@@ -73,37 +91,24 @@ void platformLoopDelay()
 // 4) Basic ability for user console input
 void GetMenuChars(char* inStringPtr)
 {
-    int idx = 0;
-    if (Serial.available() > 0)
+
+    int iTerminator = 0;
+    if (consoleCharInt > -1)
     {
-        do {
-            inStringPtr[idx++] = Serial.read();
-            //WriteMenuLine((char*)"Debugging: ");
-            //WriteMenuLine(inStringPtr);
-            //WriteMenuLine((char*)"\n");
-        } while (Serial.available() > 0 && idx < charBuffMax);
-        delay(1);
-        while (Serial.available() > 0 && idx < charBuffMax) {
-            inStringPtr[idx++] = Serial.read();
-            //WriteMenuLine((char*)"Debugging: ");
-            //WriteMenuLine(inStringPtr);
-            //WriteMenuLine((char*)"\n");
-        } 
-        delay(2);
-        while (Serial.available() > 0 && idx < charBuffMax) {
-            inStringPtr[idx++] = Serial.read();
-            //WriteMenuLine((char*)"Debugging: ");
-            //WriteMenuLine(inStringPtr);
-            //WriteMenuLine((char*)"\n");
+
+        inStringPtr[idx] = (char)(consoleCharInt);
+        if (inStringPtr[idx] == ';')
+        {
+            iTerminator = idx;
+            inStringPtr[iTerminator + 1] = 0x00;
+            idx = 0;
         }
+        if (++idx >= charBuffMax)
+            idx = 0;
     }
-    inStringPtr[idx] = 0x00;
-    //if (idx > 0)
-    //{
-    //    WriteMenuLine((char*)"Debugging: ");
-    //    WriteMenuLine(inStringPtr);
-    //    WriteMenuLine((char*)"\n");
-    //}
+
+
+
 }
 // 5) Basic ability for user console output
 void WriteMenuLine(char* outStringPtr)

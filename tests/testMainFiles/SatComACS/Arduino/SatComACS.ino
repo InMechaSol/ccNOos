@@ -75,49 +75,53 @@ void writeAttenuatorValues(struct txRxStruct* txRxStructPtrIn) { ; }
 
 UI_8 readGPS(struct gpsStruct* gpsStructPtrIn)
 {
-    int idx = 0;
-    if (Serial1.available() > 0)
+    int iNewLine = 0;
+    if (gpsCharInt > -1)
     {
-        do {
-            GPSserialdev.devdata.inbuff.charbuff[idx++] = Serial1.read();
-            //WriteMenuLine((char*)"Debugging: ");
-            //WriteMenuLine(inStringPtr);
-            //WriteMenuLine((char*)"\n");
-        } while (Serial1.available() > 0 && idx < charBuffMax);
-        delay(1);
-        while (Serial1.available() > 0 && idx < charBuffMax) {
-            GPSserialdev.devdata.inbuff.charbuff[idx++] = Serial1.read();
-            //WriteMenuLine((char*)"Debugging: ");
-            //WriteMenuLine(inStringPtr);
-            //WriteMenuLine((char*)"\n");
+
+        GPSserialdev.devdata.inbuff.charbuff[GPSserialdev.readIndex] = (char)(gpsCharInt);
+        if (GPSserialdev.devdata.inbuff.charbuff[GPSserialdev.readIndex] == '\n')
+        {
+            iNewLine = GPSserialdev.readIndex;
         }
-        //delay(2);
-        //while (Serial1.available() > 0 && idx < charBuffMax) {
-        //    GPSserialdev.devdata.inbuff.charbuff[idx++] = Serial1.read();
-        //    //WriteMenuLine((char*)"Debugging: ");
-        //    //WriteMenuLine(inStringPtr);
-        //    //WriteMenuLine((char*)"\n");
-        //}
+        if (++GPSserialdev.readIndex >= charBuffMax)
+            GPSserialdev.readIndex = 0;
     }
-    GPSserialdev.devdata.inbuff.charbuff[idx] = 0x00;
-    if (idx > 0)
+
+    //GPSserialdev.devdata.inbuff.charbuff[iNewLine] = '\0';
+
+    if (iNewLine > 10)
     {
         gpsStructPtrIn->devptr = &GPSserialdev;
+        GPSserialdev.readIndex = 0;
         return ui8TRUE;
-    //    WriteMenuLine((char*)"Debugging: ");
-    //    WriteMenuLine(inStringPtr);
-    //    WriteMenuLine((char*)"\n");
     }
     else
         return ui8FALSE;
+
 }
 
 
 UI_8 readEcompass(struct eCompStruct* eCompStructPtrIn)
 {
-    if (ui8FALSE)
+    int iNewLine = 0;
+    if (eCompCharInt > -1)
+    {
+        eCompserialdev.devdata.inbuff.charbuff[eCompserialdev.readIndex] = (char)(eCompCharInt);
+        if (eCompserialdev.devdata.inbuff.charbuff[eCompserialdev.readIndex] == '\n')
+        {
+            iNewLine = eCompserialdev.readIndex;
+        }
+        if (++eCompserialdev.readIndex >= charBuffMax)
+            eCompserialdev.readIndex = 0;
+    }
+
+    //eCompserialdev.devdata.inbuff.charbuff[iNewLine] = '\0';
+
+    if (iNewLine > 6)
     {
         eCompStructPtrIn->devptr = &eCompserialdev;
+        eCompserialdev.readIndex = 0;
         return ui8TRUE;
     }
     else
