@@ -70,6 +70,99 @@ Notes:
 
 ///////////////////////////////////////////////////////////////////////
 // Platform and Application Specific IO Device Functions
+void linkAPIioDevices(struct SatComACSStruct* satcomacsStructPtrIn)
+{
+    satcomacsStructPtrIn->ConsoleMenu.devptr = &ConsoleMenuDevDataStruct;
+    satcomacsStructPtrIn->LCDKeyPad.devptr = &LCDKeyPadDevDataStruct;
+    ConsoleMenuDevDataStruct.triggerWriteOperation = ui8TRUE;
+    LCDKeyPadDevDataStruct.triggerWriteOperation = ui8TRUE;
+}
+pthread_t stdInThread;
+UI_8 stdInThreadRunning = ui8FALSE;
+UI_8 runOnce = ui8TRUE;
+UI_8 runONCE = ui8TRUE;
+void *readStdIn(void* voidinStringPtr)
+{
+    char* inStringPtr = (char*)voidinStringPtr;
+    int ch = 0;
+    int retVal = 1;
+
+    do{
+        ch = 0;
+        retVal = 1;
+        while(ch < charBuffMax)
+        {
+            retVal = read(STDIN_FILENO, &inStringPtr[ch], 1);
+            ch++;
+            if  (
+                inStringPtr[ch-1] == '\n' ||
+                retVal < 1
+                )
+                break;
+        }
+        inStringPtr[ch] = 0x00;
+        stdInThreadRunning = ui8FALSE;
+
+    }while(1);
+    return NULL;
+}
+// 4) Basic ability for user console input
+void GetMenuChars(struct uiStruct* uiStructPtrin)
+{
+
+    // if Consolue Menu
+    if (uiStructPtrin->devptr == &ConsoleMenuDevDataStruct)
+    {
+        if (stdInThreadRunning == ui8FALSE && uiStructPtrin->devptr->triggerWriteOperation == ui8FALSE)
+        {
+            if (runONCE)
+            {
+                if(pthread_create(&stdInThread, NULL, &readStdIn, &uiStructPtrin->devptr->inbuff.charbuff[0] )==0)
+                    runONCE = ui8FALSE;
+            }
+            stdInThreadRunning = ui8TRUE;
+        }
+    }
+    // if LCD KeyPad
+    else if (uiStructPtrin->devptr == &LCDKeyPadDevDataStruct)
+    {
+        ;
+    }
+
+}
+// 5) Basic ability for user console output
+void WriteMenuLine(struct uiStruct* uiStructPtrin)
+{
+
+    // if Consolue Menu
+    if (uiStructPtrin->devptr == &ConsoleMenuDevDataStruct)
+    {
+        if (stdInThreadRunning == ui8FALSE)
+        {
+            printf(&uiStructPtrin->devptr->outbuff.charbuff[0]);
+        }
+    }
+    // if LCD KeyPad
+    else if (uiStructPtrin->devptr == &LCDKeyPadDevDataStruct)
+    {
+        ;
+    }
+}
+// 6) (Optional) Logging Output
+void WriteLogLine(struct logStruct* logStructPtrin)
+{
+
+}
+// 7) (Optional) Config Input
+void ReadConfigLine(struct configStruct* configStructPtrin)
+{
+
+
+}
+
+
+
+
 void writeAttenuatorValues(struct txRxStruct* txRxStructPtrIn) { ; }
 
 

@@ -31,21 +31,43 @@ A console menu has data access to the full execution system and all it contains.
 #ifdef __USINGCONSOLEMENU
     
 #include "console_menu.h"
-#include "../executionSystem/execution_system.h"
+#include "execution_system.h"
 
-struct consoleMenuStruct CreateConsoleMenuStruct(
-        char* inputBufferPtrIn,
-        int inputBufferSizeIn,
-        char* outputBufferPtrIn,
-        int outputBufferSizeIn,
-        struct menuNode* rootNodeIn)
+const char* cursorString(UI_8 showCursor)
 {
-    struct consoleMenuStruct outStruct;
-    outStruct.inputBufferPtr = inputBufferPtrIn;
-    outStruct.inputBufferSize = inputBufferSizeIn;
-    outStruct.outputBufferPtr = outputBufferPtrIn;
-    outStruct.outputBufferSize = outputBufferSizeIn;
-    outStruct.rootNode = rootNodeIn;
+    if (showCursor == ui8TRUE)
+        return "->";
+    else
+        return "  ";
+}
+
+
+// Console UI Data Structure
+struct uiStruct createuiStruct()
+{
+    struct uiStruct outStruct;
+    outStruct.currentMenuIndex = 0;
+    outStruct.devptr = nullptr;
+    outStruct.lines2print = 0;
+    outStruct.linesprinted = 0;
+    return outStruct;
+}
+
+
+// Logging Interface Data Structure
+struct logStruct createlogStruct()
+{
+    struct logStruct outStruct;
+    outStruct.devptr = nullptr;
+    return outStruct;
+}
+
+
+// Config Interface Data Structure
+struct configStruct createconfigStruct()
+{
+    struct configStruct outStruct;
+    outStruct.devptr = nullptr;
     return outStruct;
 }
 

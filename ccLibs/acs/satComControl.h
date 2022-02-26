@@ -76,7 +76,14 @@ struct antennaStruct
 	struct commsParameters CommSystem;
 };
 struct antennaStruct createantennaStruct();
+#ifdef __USINGCONSOLEMENU
 
+void readTerminalMenuAPI(struct antennaStruct* terminalStructPtrIn, struct uiStruct* uiStructPtrIn);
+void writeTerminalMenuScreen(struct antennaStruct* terminalStructPtrIn, struct uiStruct* uiStructPtrIn);
+void writeTerminalLogLine(struct antennaStruct* terminalStructPtrIn, struct logStruct* logStructPtrIn);
+void readTerminalConfigLine(struct antennaStruct* terminalStructPtrIn, struct configStruct* configStructPtrIn);
+
+#endif
 
 /////////////////////////////////////////////////////////////////////////////////////
 // Functions

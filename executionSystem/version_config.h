@@ -306,11 +306,11 @@ STATIC_ASSERT(sizeof(I_32)==4, I_32_must_be_32_bits);
 #define MODdeclareLOOP(mNAME) __MODdeclareLOOP(mNAME)
 
 // Declaration Code - Module Print Menu Function Prototype
-#define __MODdeclarePRINTm(mNAME) int __MODprintMENU(mNAME) ( struct computeModuleStruct* compModPtrIn )
+#define __MODdeclarePRINTm(mNAME) void __MODprintMENU(mNAME) ( struct computeModuleStruct* compModPtrIn, struct uiStruct* uiStructPtrIn ,enum currentMenuNode* theCurrentMenuNode )
 #define MODdeclarePRINTm(mNAME) __MODdeclarePRINTm(mNAME)
 
 // Declaration Code - Module Parse Menu Function Prototype
-#define __MODdeclarePARSEi(mNAME) int __MODparseINPUT(mNAME) ( struct computeModuleStruct* compModPtrIn )
+#define __MODdeclarePARSEi(mNAME) void __MODparseINPUT(mNAME) ( struct computeModuleStruct* compModPtrIn, struct uiStruct* uiStructPtrIn ,enum currentMenuNode* theCurrentMenuNode )
 #define MODdeclarePARSEi(mNAME) __MODdeclarePARSEi(mNAME)
 
 // Declaration Code - Module Systick Function Prototype
@@ -319,6 +319,14 @@ STATIC_ASSERT(sizeof(I_32)==4, I_32_must_be_32_bits);
 
 // Code Snippets to Simplify Common Tasks
 //
+
+
+// Snippet Code - Create and Cast Pointer to Module Data and Ensure not null
+#define __MODDATAPTR_RETURN(mNAME) \
+        __MODdeclarePTRIN(mNAME) = ( ( __MODdeclareSTRUCT(mNAME)* )(compModPtrIn));\
+        if (__MODdataPTR(mNAME) == nullptr)\
+            return;
+#define MODDATAPTR_RETURN(mNAME) __MODDATAPTR_RETURN(mNAME)
 
 
 // Snippet Code - Create and Cast Pointer to Module Data and Ensure not null

@@ -18,6 +18,7 @@
 #include <stdarg.h>
 #include <pthread.h>
 
+
 #include "execution_system.h"
 #include "console_menu.h"
 
@@ -35,7 +36,11 @@
 struct portParametersStruct GPSPortParams;
 struct portParametersStruct eCompPortParams;
 
+struct devicedatastruct LCDKeyPadDevDataStruct;
+struct devicedatastruct ConsoleMenuDevDataStruct;
+
 // 0) (Optional) Platform Config and Log Files/Devices
+
 // 1) Platform Setup Function
 void platformSetup()
 {
@@ -50,6 +55,9 @@ void platformSetup()
 
     openComPort(&GPSPortParams);
     openComPort(&eCompPortParams);
+
+    LCDKeyPadDevDataStruct = createDeviceStruct();
+    ConsoleMenuDevDataStruct = createDeviceStruct();
 
     //<platformSetup>
     //
@@ -78,76 +86,6 @@ void platformLoopDelay()
 }
 
 #ifdef __USINGCONSOLEMENU
-pthread_t stdInThread;
-UI_8 stdInThreadRunning = ui8FALSE;
-UI_8 runOnce = ui8TRUE;
-UI_8 runONCE = ui8TRUE;
-void *readStdIn(void* voidinStringPtr)
-{
-    char* inStringPtr = (char*)voidinStringPtr;
-    int ch = 0;
-    int retVal = 1;
-
-    do{
-        ch = 0;
-        retVal = 1;
-        while(ch < charBuffMax)
-        {
-            retVal = read(STDIN_FILENO, &inStringPtr[ch], 1);
-            ch++;
-            if  (
-                inStringPtr[ch-1] == '\n' ||
-                retVal < 1
-                )
-                break;
-        }
-        inStringPtr[ch] = 0x00;
-        stdInThreadRunning = ui8FALSE;
-
-    }while(1);
-    return NULL;
-}
-// 4) Basic ability for user console input
-void GetMenuChars(char* inStringPtr)
-{
-    if(runOnce == ui8TRUE)
-    {
-        inStringPtr[0] = ';';
-        inStringPtr[1] = '\n';
-        inStringPtr[2] = '\0';
-        runOnce = ui8FALSE;
-    }
-    else if(stdInThreadRunning == ui8FALSE && inStringPtr[0] == 0x00)
-    {
-        if(runONCE)
-        {
-            if(pthread_create(&stdInThread, NULL, &readStdIn, inStringPtr )==0)
-                runONCE = ui8FALSE;
-        }
-        stdInThreadRunning = ui8TRUE;
-    }
-
-}
-// 5) Basic ability for user console output
-void WriteMenuLine(char* outStringPtr)
-{
-    if(stdInThreadRunning == ui8FALSE)
-    {
-
-        printf(outStringPtr);
-    }
-}
-// 6) (Optional) Logging Output
-void WriteLogLine(char* outStringPtr)
-{
-
-}
-// 7) (Optional) Config Input
-void ReadConfigLine(char* inStringPtr)
-{
-
-
-}
 // 8) Platform API Functions (From Template?)
 PlatformAPIFuncsTemplate(size+1);
 

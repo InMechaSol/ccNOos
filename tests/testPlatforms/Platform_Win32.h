@@ -35,6 +35,9 @@ struct portParametersStruct eCompPortParams;
 nbserial_class GPS_NBSerial(&GPSPortParams);
 nbserial_class eComp_NBSerial(&eCompPortParams);
 
+struct devicedatastruct LCDKeyPadDevDataStruct;
+struct devicedatastruct ConsoleMenuDevDataStruct;
+
 // 0) (Optional) Platform Config and Log Files/Devices
 std::ifstream configFile;
 std::ofstream LogFile;
@@ -52,6 +55,9 @@ void platformSetup()
 
     openComPort(&GPSPortParams);
     openComPort(&eCompPortParams);
+
+    LCDKeyPadDevDataStruct = createDeviceStruct();
+    ConsoleMenuDevDataStruct = createDeviceStruct();
 
     //<platformSetup>
     // 
@@ -79,72 +85,7 @@ void platformLoopDelay()
     //</platformLoopDelay>
 }
 #ifdef __USINGCONSOLEMENU
-std::thread stdInThread;
-UI_8 stdInThreadRunning = ui8FALSE;
-UI_8 runOnce = ui8TRUE;
-bool runONCE = true;
-void readStdIn(char* inStringPtr)
-{
-    do {
-        if (stdInThreadRunning == ui8TRUE)
-        {
-            std::cin >> inStringPtr;
-            stdInThreadRunning = ui8FALSE;
-        }
-    } while (true);
-}
-// 4) Basic ability for user console input
-void GetMenuChars(char* inStringPtr)
-{
-    if (runOnce == ui8TRUE)
-    {
-        inStringPtr[0] = ';';
-        inStringPtr[1] = '\n';
-        inStringPtr[2] = '\0';
-        runOnce = ui8FALSE;
-    }
-    else if (stdInThreadRunning == ui8FALSE && inStringPtr[0] == 0x00)
-    {
-        if (runONCE)
-        {
-            stdInThread = std::thread(readStdIn, inStringPtr);
-            runONCE = false;
-        }        
-        stdInThreadRunning = ui8TRUE;
-    }
 
-}
-// 5) Basic ability for user console output
-void WriteMenuLine(char* outStringPtr)
-{
-    if (stdInThreadRunning == ui8FALSE)
-    {
-        std::cout << outStringPtr;
-    }
-}
-// 6) (Optional) Logging Output
-void WriteLogLine(char* outStringPtr)
-{
-    int logLineLen = -1;
-    while (logLineLen < charBuffMax)
-        if (outStringPtr[++logLineLen] == 0x00)
-            break;
-    if (logLineLen > 0)
-        LogFile.write(outStringPtr, logLineLen);
-}
-// 7) (Optional) Config Input
-void ReadConfigLine(char* inStringPtr)
-{
-    int confLineLen = 0;
-    while (confLineLen < charBuffMax)
-    {
-        if (0 < configFile.peek())
-            configFile.read(&inStringPtr[confLineLen++], 1);
-        else
-            break;
-    }
-
-}
 // 8) Platform API Functions (From Template?)
 PlatformAPIFuncsTemplate(size + 1);
 #endif

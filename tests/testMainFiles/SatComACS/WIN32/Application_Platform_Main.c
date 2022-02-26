@@ -67,6 +67,81 @@ MODdeclareDATA(Mn);
 
 ///////////////////////////////////////////////////////////////////////
 // Platform and Application Specific IO Device Functions
+void linkAPIioDevices(struct SatComACSStruct* satcomacsStructPtrIn)
+{
+    satcomacsStructPtrIn->ConsoleMenu.devptr = &ConsoleMenuDevDataStruct;
+    satcomacsStructPtrIn->LCDKeyPad.devptr = &LCDKeyPadDevDataStruct;
+    ConsoleMenuDevDataStruct.triggerWriteOperation = ui8TRUE;
+    LCDKeyPadDevDataStruct.triggerWriteOperation = ui8TRUE;
+}
+std::thread stdInThread;
+UI_8 stdInThreadRunning = ui8FALSE;
+bool runONCE = true; // to launch std::in thread once
+void readStdIn(char* inStringPtr)
+{
+    do {
+        if (stdInThreadRunning == ui8TRUE)
+        {
+            std::cin >> inStringPtr;
+            stdInThreadRunning = ui8FALSE;
+        }
+    } while (true);
+}
+// 4) Basic ability for user console input via any io device
+void GetMenuChars(struct uiStruct* uiStructPtrin)
+{
+
+    // if Consolue Menu
+    if (uiStructPtrin->devptr == &ConsoleMenuDevDataStruct)
+    {
+        if (stdInThreadRunning == ui8FALSE && uiStructPtrin->devptr->triggerWriteOperation == ui8FALSE)
+        {
+            if (runONCE)
+            {
+                stdInThread = std::thread(readStdIn, &uiStructPtrin->devptr->inbuff.charbuff[0]);
+                runONCE = false;
+            }
+            stdInThreadRunning = ui8TRUE;
+        }
+    }
+    // if LCD KeyPad
+    else if (uiStructPtrin->devptr == &LCDKeyPadDevDataStruct)
+    {
+        ;
+    }
+}
+// 5) Basic ability for user console output
+void WriteMenuLine(struct uiStruct* uiStructPtrin)
+{
+    // if Consolue Menu
+    if (uiStructPtrin->devptr == &ConsoleMenuDevDataStruct)
+    {
+        if (stdInThreadRunning == ui8FALSE)
+        {
+            std::cout << &uiStructPtrin->devptr->outbuff.charbuff[0];
+        }
+    }
+    // if LCD KeyPad
+    else if (uiStructPtrin->devptr == &LCDKeyPadDevDataStruct)
+    {
+        ;
+    }
+    
+}
+// 6) (Optional) Logging Output
+void WriteLogLine(struct logStruct* logStructPtrin)
+{
+    ;
+}
+// 7) (Optional) Config Input
+void ReadConfigLine(struct configStruct* configStructPtrin)
+{
+    ;
+}
+
+
+
+
 void writeAttenuatorValues(struct txRxStruct* txRxStructPtrIn) { ; }
 
 

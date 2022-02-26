@@ -32,103 +32,35 @@ application.
 
 // SatComACS and Device includes
 #include "satComControl.h"
-#include "NEO_LEA_M8T.h"
-#include "HMR3300.h"
-#include "ADRF6650.h"
-#include "LTC2360.h" 
-
-
+#include "APTmodule.h"
+#include "TPMmodule.h"
+#include "TxRxmodule.h"
 
 // The main SatComACS module
 #define Mn SatComACS
 
-// Tx/Rx Module Data Structure
-#define MAX_NUM_ATTENUATORS (3u)
-#define MIN_ATTEN_VAL (0.0)
-#define MAX_ATTEN_VAL (31.75)
-struct txRxStruct
+enum currentMenuAction
 {
-    UI_8 CMD_AttenuatorBits, INDEX_Attenuator;
-    float AttenuatorValues[MAX_NUM_ATTENUATORS];
-    UI_8 AttenuatorNeedsWriting[MAX_NUM_ATTENUATORS];
+    cA_Enter,
+    cA_Up,
+    cA_Down,
+    cA_Forward,
+    cA_Back,
+    cA_Status,
+    cA_Acquire
 };
-struct txRxStruct createtxRxStruct();
-void writeAttenuatorValues(struct txRxStruct* txRxStructPtrIn);
 
-// APT Module Data Structure
-struct gpsStruct
+enum currentMenuNode
 {
-    struct SerialDeviceStruct* devptr;
-    struct gpsData data;
-    UI_8 newGPSData;
-    UI_8 Connected;
+    cM_RootNode,
+    cM_MainMenu,
+    cM_Devices,
+    cM_Terminal,
+    cM_ExecutionSystem,
+    cM_devTXRX,
+    cM_devAPT,
+    cM_devTPM
 };
-struct gpsStruct creategpsStruct();
-UI_8 readGPS(struct gpsStruct* gpsStructPtrIn);
-
-struct eCompStruct
-{
-    struct SerialDeviceStruct* devptr;
-    struct eCompDataStruct data;
-    UI_8 neweCompassData;
-    UI_8 Connected;
-};
-struct eCompStruct createeCompStruct();
-UI_8 readEcompass(struct eCompStruct* eCompStructPtrIn);
-
-struct aptStruct
-{
-    struct gpsStruct GPS;
-    struct eCompStruct eCompass;    
-};
-struct aptStruct createaptStruct();
-void tryReadAPTData(struct aptStruct* aptStructPtrIn);
-
-// WMM Data Structure
-struct wmmStruct
-{
-    float magdeclination;
-    // save non-volatile...
-    float lastGoodThreshold; // meters
-    float lastGoodMultiplier; // deg per meter
-    float lastGoodlatitude;
-    float lastGoodlongitude;
-    float lastGoodaltitude;
-    float lastGoodmagdeclination;
-};
-struct wmmStruct createwmmStruct();
-
-// TPM Module Data Structure
-struct freqConvStruct
-{
-    struct devicedatastruct* devptr;
-    struct ADRF6650DataStruct data;
-    UI_8 newFreqConvData;    
-};
-struct freqConvStruct createfreqConvStruct();
-void readFreqConv(struct freqConvStruct* freqConvStructPtrIn);
-void writeFreqConv(struct freqConvStruct* freqConvStructPtrIn);
-
-struct powerMeterStruct
-{
-    struct devicedatastruct* devptr;    
-    struct LTC2360DataStruct data;
-    UI_8 newPowerMeterValue;
-};
-struct powerMeterStruct createPowerMeterStruct();
-void readPowerMeter(struct powerMeterStruct* powerMeterStructPtrIn);
-void writePowerMeter(struct powerMeterStruct* powerMeterStructPtrIn);
-
-struct tpmStruct
-{
-    struct freqConvStruct freqConverter;
-    struct powerMeterStruct powerMeter;    
-};
-struct tpmStruct createtpmStruct();
-void tryReadTPMData(struct tpmStruct* tpmStructPtrIn);
-void tryWriteTPMData(struct tpmStruct* tpmStructPtrIn);
-
-
 
 // Main SatComACS Data Structure
 MODdeclareSTRUCT(Mn)
@@ -141,11 +73,11 @@ MODdeclareSTRUCT(Mn)
     struct wmmStruct WMM;
     struct tpmStruct TPM;    
     struct txRxStruct TxRx;    
-    // satComACS API Device Module
+    // satComACS API Device Modules
     struct uiStruct LCDKeyPad;
-    // 
-    UI_8 configured;
-    UI_16 printed, parsed;
+    struct uiStruct ConsoleMenu;
+    enum currentMenuNode LCDCurrentMenuNode;
+    enum currentMenuNode ConsoleCurrentMenuNode;
 };
 
 #define MODdeclareCREATEINS 
@@ -162,9 +94,20 @@ MODdeclareSYSTICK(Mn);
 
 #ifdef __USINGCONSOLEMENU 
 
-// Module Console Menu Print and Parse
+//// Module Console Menu Print and Parse
 MODdeclarePRINTm(Mn);
 MODdeclarePARSEi(Mn);
+
+void linkAPIioDevices(struct SatComACSStruct* satcomacsStructPtrIn);
+
+void readSatComACSDevicesMenuAPI(struct SatComACSStruct* satcomacsStructPtrIn, struct uiStruct* uiStructPtrIn);
+void writeSatComACSDevicesMenuScreen(struct SatComACSStruct* satcomacsStructPtrIn, struct uiStruct* uiStructPtrIn);
+
+void readSatComACSMenuAPI(struct SatComACSStruct* satcomacsStructPtrIn, struct uiStruct* uiStructPtrIn);
+void writeSatComACSMenuScreen(struct SatComACSStruct* satcomacsStructPtrIn, struct uiStruct* uiStructPtrIn);
+void writeSatComACSLogLine(struct SatComACSStruct* satcomacsStructPtrIn, struct logStruct* logStructPtrIn);
+void readSatComACSConfigLine(struct SatComACSStruct* satcomacsStructPtrIn, struct configStruct* configStructPtrIn);
+
 
 //// Module "JSON" serialization/deserialization for satComControl.h and motionControl.h data structures
 //struct satelliteStruct createSatelliteStructJSON(char* JSONptrIn);

@@ -1,0 +1,1 @@
+#include "PlatformApp_Serialization.c"

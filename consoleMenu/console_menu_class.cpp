@@ -33,3 +33,5 @@ A console menu has data access to the full execution system and all it contains.
     
 
 */
+
+#include "console_menu.c"
