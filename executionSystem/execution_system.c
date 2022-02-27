@@ -42,29 +42,7 @@ struct executionSystemStruct CreateExecutionSystemStruct(
     return outStruct;
 }
 
-#ifdef __USINGCONSOLEMENU
-UI_8 isASCIIchar(char inChar) { return ((inChar >= ASCII_space && inChar <= ASCII_tilda) || inChar == ASCII_lf || inChar == ASCII_cr || inChar == ASCII_tab || inChar == 0x00); }
-UI_8 isLetterchar(char inChar) { return ((inChar >= ASCII_A && inChar <= ASCII_Z) || (inChar >= ASCII_a && inChar <= ASCII_z)); }
-UI_8 isNumberchar(char inChar) { return ((inChar >= ASCII_0 && inChar <= ASCII_9) || inChar == ASCII_plus || inChar == ASCII_minus || inChar == ASCII_dot); }
-UI_8 isIntegerchar(char inChar) { return ((inChar >= ASCII_0 && inChar <= ASCII_9) || inChar == ASCII_plus || inChar == ASCII_minus); }
-UI_8 isUnsignedIntegerchar(char inChar) { return ((inChar >= ASCII_0 && inChar <= ASCII_9)); }
-UI_8 isDelimiterchar(char inChar) { return (inChar == ASCII_colon); }
-UI_8 isTerminatorchar(char inChar) { return (inChar == ASCII_semicolon); }
-UI_8 isASCIIString(char* inStringPtr) { int index = 0;  while (inStringPtr[index] != 0x00) if (!isASCIIchar(inStringPtr[index++])) return ui8FALSE; return ui8TRUE; }
-UI_8 isLetterString(char* inStringPtr) { int index = 0;  while (inStringPtr[index] != 0x00) if (!isLetterchar(inStringPtr[index++])) return ui8FALSE; return ui8TRUE; }
-UI_8 isNumberString(char* inStringPtr) { int index = 0;  while (inStringPtr[index] != 0x00) if (!isNumberchar(inStringPtr[index++])) return ui8FALSE; return ui8TRUE; }
-UI_8 isIntegerString(char* inStringPtr) { int index = 0;  while (inStringPtr[index] != 0x00) if (!isIntegerchar(inStringPtr[index++])) return ui8FALSE; return ui8TRUE; }
-UI_8 isUnsignedIntegerString(char* inStringPtr) { int index = 0;  while (inStringPtr[index] != 0x00) if (!isUnsignedIntegerchar(inStringPtr[index++])) return ui8FALSE; return ui8TRUE; }
-UI_8 stringMatchCaseSensitive(char* inStringPtr, const char* matchString) { int i = 0; while (matchString[i] != 0x00) {if (inStringPtr[i] != matchString[i]) return ui8FALSE; i++; } return ui8TRUE; }
-void stringInit(char* stringPtr, const char* initString)
-{
-    int idx = -1;
-    do{
-        idx++;
-        stringPtr[idx] = initString[idx];        
-    }while(initString[idx]!=0x00);
-}
-#endif
+
 ////////////////////////////////////////////////////////////////////////////////
 // C Application Entry Points (not built in cpp build)
 #ifndef __cplusplus

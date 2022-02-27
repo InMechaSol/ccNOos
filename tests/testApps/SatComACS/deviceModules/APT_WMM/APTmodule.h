@@ -78,10 +78,10 @@ struct wmmStruct createwmmStruct();
 
 #ifdef __USINGCONSOLEMENU
 
-void readAPTMenuAPI(struct aptStruct* aptStructPtrIn, struct uiStruct* uiStructPtrIn);
+void parseAPTMenuAPI(struct aptStruct* aptStructPtrIn, struct uiStruct* uiStructPtrIn);
 void writeAPTMenuScreen(struct aptStruct* aptStructPtrIn, struct uiStruct* uiStructPtrIn);
 void writeAPTLogLine(struct aptStruct* aptStructPtrIn, struct logStruct* logStructPtrIn);
-void readAPTConfigLine(struct aptStruct* aptStructPtrIn, struct configStruct* configStructPtrIn);
+void parseAPTConfigLine(struct aptStruct* aptStructPtrIn, struct configStruct* configStructPtrIn);
 
 #endif
 

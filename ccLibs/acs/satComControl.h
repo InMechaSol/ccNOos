@@ -78,10 +78,10 @@ struct antennaStruct
 struct antennaStruct createantennaStruct();
 #ifdef __USINGCONSOLEMENU
 
-void readTerminalMenuAPI(struct antennaStruct* terminalStructPtrIn, struct uiStruct* uiStructPtrIn);
+void parseTerminalMenuAPI(struct antennaStruct* terminalStructPtrIn, struct uiStruct* uiStructPtrIn);
 void writeTerminalMenuScreen(struct antennaStruct* terminalStructPtrIn, struct uiStruct* uiStructPtrIn);
 void writeTerminalLogLine(struct antennaStruct* terminalStructPtrIn, struct logStruct* logStructPtrIn);
-void readTerminalConfigLine(struct antennaStruct* terminalStructPtrIn, struct configStruct* configStructPtrIn);
+void parseTerminalConfigLine(struct antennaStruct* terminalStructPtrIn, struct configStruct* configStructPtrIn);
 
 #endif
 

@@ -37,9 +37,7 @@ MODdeclareCREATE(Mn)(MODdeclareCREATEINS)
     outStruct.TxRx = createtxRxStruct();
     outStruct.WMM = createwmmStruct();
     outStruct.ConsoleMenu = createuiStruct();
-    outStruct.ConsoleCurrentMenuNode = cM_MainMenu;
     outStruct.LCDKeyPad = createuiStruct();
-    outStruct.LCDCurrentMenuNode = cM_MainMenu;
     return outStruct;
 }
 
@@ -113,18 +111,26 @@ MODdeclarePRINTm(Mn)
     {
         if (uiStructPtrIn->devptr->triggerWriteOperation)
         {
-            switch (*theCurrentMenuNode)
+            switch ((enum currentMenuNode)uiStructPtrIn->currentMenuIndex)
             {
             case cM_MainMenu:
+                uiStructPtrIn->lines2print = 1;
+                uiStructPtrIn->linesprinted = 0;
                 writeSatComACSMenuScreen(MODdataPTR(Mn), uiStructPtrIn);
                 break;
             case cM_Devices:
+                uiStructPtrIn->lines2print = 1;
+                uiStructPtrIn->linesprinted = 0;
                 writeSatComACSDevicesMenuScreen(MODdataPTR(Mn), uiStructPtrIn);
                 break;
             case cM_Terminal:
+                uiStructPtrIn->lines2print = 1;
+                uiStructPtrIn->linesprinted = 0;
                 writeTerminalMenuScreen(&MODdataPTR(Mn)->Terminal, uiStructPtrIn);
                 break;
             case cM_devAPT:
+                uiStructPtrIn->lines2print = 1;
+                uiStructPtrIn->linesprinted = 0;
                 writeAPTMenuScreen(&MODdataPTR(Mn)->APT,uiStructPtrIn);
                 break;
             }
@@ -138,26 +144,28 @@ MODdeclarePARSEi(Mn)
     MODDATAPTR_RETURN(Mn);
     if (uiStructPtrIn != nullptr)
     {
-        switch (*theCurrentMenuNode)
-        {
-        case cM_MainMenu:
-            readSatComACSMenuAPI(MODdataPTR(Mn), uiStructPtrIn);
-            break;
-        case cM_Devices:
-            readSatComACSDevicesMenuAPI(MODdataPTR(Mn), uiStructPtrIn);
-            break;
-        case cM_Terminal:
-            readTerminalMenuAPI(&MODdataPTR(Mn)->Terminal, uiStructPtrIn);
-            break;
-        case cM_devAPT:
-            readAPTMenuAPI(&MODdataPTR(Mn)->APT, uiStructPtrIn);
-            break;
-        }
-
+        GetMenuChars(uiStructPtrIn);
         if (uiStructPtrIn->devptr->newDataReadIn)
-        {           
+        {
+            switch ((enum currentMenuNode)uiStructPtrIn->currentMenuIndex)
+            {
+            case cM_MainMenu:
+                parseSatComACSMenuAPI(MODdataPTR(Mn), uiStructPtrIn);
+                break;
+            case cM_Devices:
+                parseSatComACSDevicesMenuAPI(MODdataPTR(Mn), uiStructPtrIn);
+                break;
+            case cM_Terminal:
+                parseTerminalMenuAPI(&MODdataPTR(Mn)->Terminal, uiStructPtrIn);
+                break;
+            case cM_devAPT:
+                parseAPTMenuAPI(&MODdataPTR(Mn)->APT, uiStructPtrIn);
+                break;
+            }        
             uiStructPtrIn->devptr->triggerWriteOperation = ui8TRUE;
+            uiStructPtrIn->devptr->newDataReadIn = ui8FALSE;
         }
+        
     }
 }
 
@@ -250,17 +258,17 @@ void AcquiredState(MODdeclarePTRIN(Mn))
 
 void tryReadLCDKeyPad(MODdeclarePTRIN(Mn)) 
 { 
-    MODparseINPUT(Mn)(&MODdataPTR(Mn)->compMod, &MODdataPTR(Mn)->LCDKeyPad, &MODdataPTR(Mn)->LCDCurrentMenuNode);
+    MODparseINPUT(Mn)(&MODdataPTR(Mn)->compMod, &MODdataPTR(Mn)->LCDKeyPad);
 }
 void tryWriteLCDKeyPad(MODdeclarePTRIN(Mn)) 
 { 
-    MODprintMENU(Mn)(&MODdataPTR(Mn)->compMod, &MODdataPTR(Mn)->LCDKeyPad, &MODdataPTR(Mn)->LCDCurrentMenuNode);
+    MODprintMENU(Mn)(&MODdataPTR(Mn)->compMod, &MODdataPTR(Mn)->LCDKeyPad);
 }
 void tryReadConsoleMenu(MODdeclarePTRIN(Mn))
 {
-    MODparseINPUT(Mn)(&MODdataPTR(Mn)->compMod, &MODdataPTR(Mn)->ConsoleMenu, &MODdataPTR(Mn)->ConsoleCurrentMenuNode);
+    MODparseINPUT(Mn)(&MODdataPTR(Mn)->compMod, &MODdataPTR(Mn)->ConsoleMenu);
 }
 void tryWriteConsoleMenu(MODdeclarePTRIN(Mn)) 
 { 
-    MODprintMENU(Mn)(&MODdataPTR(Mn)->compMod, &MODdataPTR(Mn)->ConsoleMenu, &MODdataPTR(Mn)->ConsoleCurrentMenuNode);
+    MODprintMENU(Mn)(&MODdataPTR(Mn)->compMod, &MODdataPTR(Mn)->ConsoleMenu);
 }

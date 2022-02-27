@@ -63,10 +63,10 @@ void tryWriteTPMData(struct tpmStruct* tpmStructPtrIn);
 
 #ifdef __USINGCONSOLEMENU
 
-void readTPMMenuAPI(struct tpmStruct* tpmStructPtrIn, struct uiStruct* uiStructPtrIn);
+void parseTPMMenuAPI(struct tpmStruct* tpmStructPtrIn, struct uiStruct* uiStructPtrIn);
 void writeTPMMenuScreen(struct tpmStruct* tpmStructPtrIn, struct uiStruct* uiStructPtrIn);
 void writeTPMLogLine(struct tpmStruct* tpmStructPtrIn, struct logStruct* logStructPtrIn);
-void readTPMConfigLine(struct tpmStruct* tpmStructPtrIn, struct configStruct* configStructPtrIn);
+void parseTPMConfigLine(struct tpmStruct* tpmStructPtrIn, struct configStruct* configStructPtrIn);
 
 #endif
 

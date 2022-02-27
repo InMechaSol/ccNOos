@@ -83,8 +83,9 @@ void readStdIn(char* inStringPtr)
         if (stdInThreadRunning == ui8TRUE)
         {
             std::cin >> inStringPtr;
-            stdInThreadRunning = ui8FALSE;
+            stdInThreadRunning = ui8FALSE;            
         }
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
     } while (true);
 }
 // 4) Basic ability for user console input via any io device
@@ -94,14 +95,20 @@ void GetMenuChars(struct uiStruct* uiStructPtrin)
     // if Consolue Menu
     if (uiStructPtrin->devptr == &ConsoleMenuDevDataStruct)
     {
-        if (stdInThreadRunning == ui8FALSE && uiStructPtrin->devptr->triggerWriteOperation == ui8FALSE)
+        if (stdInThreadRunning == ui8FALSE )
         {
             if (runONCE)
             {
                 stdInThread = std::thread(readStdIn, &uiStructPtrin->devptr->inbuff.charbuff[0]);
                 runONCE = false;
+                stdInThreadRunning = ui8TRUE;
             }
-            stdInThreadRunning = ui8TRUE;
+            else if(uiStructPtrin->devptr->triggerWriteOperation == ui8FALSE)
+            {
+                uiStructPtrin->devptr->newDataReadIn = ui8TRUE;                
+                uiStructPtrin->parseIndex = 0;
+                stdInThreadRunning = ui8TRUE;
+            } 
         }
     }
     // if LCD KeyPad
@@ -116,10 +123,11 @@ void WriteMenuLine(struct uiStruct* uiStructPtrin)
     // if Consolue Menu
     if (uiStructPtrin->devptr == &ConsoleMenuDevDataStruct)
     {
-        if (stdInThreadRunning == ui8FALSE)
-        {
-            std::cout << &uiStructPtrin->devptr->outbuff.charbuff[0];
-        }
+        //if (stdInThreadRunning == ui8FALSE)
+        //{
+        //    std::cout << &uiStructPtrin->devptr->outbuff.charbuff[0];            
+        //}
+        std::cout << &uiStructPtrin->devptr->outbuff.charbuff[0];
     }
     // if LCD KeyPad
     else if (uiStructPtrin->devptr == &LCDKeyPadDevDataStruct)

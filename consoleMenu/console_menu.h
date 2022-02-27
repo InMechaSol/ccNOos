@@ -43,6 +43,7 @@ struct uiStruct
     struct devicedatastruct* devptr;
     int lines2print, linesprinted;
     int currentMenuIndex;
+    int parseIndex;
 };
 struct uiStruct createuiStruct();
 
@@ -78,6 +79,7 @@ UI_8 isIntegerString(char* inStringPtr);
 UI_8 isUnsignedIntegerString(char* inStringPtr);
 UI_8 stringMatchCaseSensitive(char* inStringPtr, const char* matchString);
 void stringInit(char* stringPtr, const char* initString);
+UI_16 stringLength(const char* stringPtr);
 const char* cursorString(UI_8 showCursor);
     
 void WriteMenuLine(struct uiStruct* uiStructPtrin); // rely on 0x00 termination? safer with length parameter
@@ -265,6 +267,38 @@ if (uiStructPtrIn->lines2print > 0)\
 
 
 #define CLOSESWITCH(NAMEEE) __CLOSESWITCH(NAMEEE)
+
+
+#define __OPENIF(tNAME, mNAME) \
+if (uiStructPtrIn->devptr->newDataReadIn) \
+{ \
+	if (stringMatchCaseSensitive(&uiStructPtrIn->devptr->inbuff.charbuff[uiStructPtrIn->parseIndex], tNAME) == ui8TRUE) \
+	{ \
+		uiStructPtrIn->parseIndex += stringLength( tNAME ); \
+		if (uiStructPtrIn->devptr->inbuff.charbuff[uiStructPtrIn->parseIndex] == ';') \
+		{ \
+			uiStructPtrIn->currentMenuIndex = cM_MainMenu; \
+		} \
+		else if (uiStructPtrIn->devptr->inbuff.charbuff[uiStructPtrIn->parseIndex] == ':') \
+		{ \
+            uiStructPtrIn->parseIndex++;
+
+#define OPENIF(tNAME, mNAME) __OPENIF(tNAME, mNAME)
+
+
+#define __CLOSEIF(tNAME, mNAME) \
+        } \
+        uiStructPtrIn->devptr->newDataReadIn = ui8FALSE; \
+    } \
+}
+
+#define CLOSEIF(tNAME, mNAME) __CLOSEIF(tNAME, mNAME)
+
+
+        
+
+
+
 
 
 #ifdef __cplusplus

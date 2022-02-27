@@ -306,11 +306,11 @@ STATIC_ASSERT(sizeof(I_32)==4, I_32_must_be_32_bits);
 #define MODdeclareLOOP(mNAME) __MODdeclareLOOP(mNAME)
 
 // Declaration Code - Module Print Menu Function Prototype
-#define __MODdeclarePRINTm(mNAME) void __MODprintMENU(mNAME) ( struct computeModuleStruct* compModPtrIn, struct uiStruct* uiStructPtrIn ,enum currentMenuNode* theCurrentMenuNode )
+#define __MODdeclarePRINTm(mNAME) void __MODprintMENU(mNAME) ( struct computeModuleStruct* compModPtrIn, struct uiStruct* uiStructPtrIn  )
 #define MODdeclarePRINTm(mNAME) __MODdeclarePRINTm(mNAME)
 
 // Declaration Code - Module Parse Menu Function Prototype
-#define __MODdeclarePARSEi(mNAME) void __MODparseINPUT(mNAME) ( struct computeModuleStruct* compModPtrIn, struct uiStruct* uiStructPtrIn ,enum currentMenuNode* theCurrentMenuNode )
+#define __MODdeclarePARSEi(mNAME) void __MODparseINPUT(mNAME) ( struct computeModuleStruct* compModPtrIn, struct uiStruct* uiStructPtrIn )
 #define MODdeclarePARSEi(mNAME) __MODdeclarePARSEi(mNAME)
 
 // Declaration Code - Module Systick Function Prototype

@@ -1,4 +1,4 @@
-/** \file TxRxmodule.h
+/** \file SatComACS_LCDapi.h
 *   \brief Cross-Platform Portable ccNOos SatComACS Example Declarations
 
    Copyright 2021 InMechaSol, Inc
@@ -23,37 +23,21 @@ only include this single header to implement a platform specific ccNOos SatComAC
 application.
 
 */
-#ifndef __TXRX_MOD_H__
-#define __TXRX_MOD_H__  
+#ifndef __SATCOMLCDAPI_H__
+#define __SATCOMLCDAPI_H__  
 
-#include "console_menu.h"
+#include "MenuAPI.h"
 
-// Tx/Rx Module Data Structure
-#define MAX_NUM_ATTENUATORS (3u)
-#define MIN_ATTEN_VAL (0.0)
-#define MAX_ATTEN_VAL (31.75)
-
-struct txRxStruct
-{
-    UI_8 CMD_AttenuatorBits, INDEX_Attenuator;
-    float AttenuatorValues[MAX_NUM_ATTENUATORS];
-    UI_8 AttenuatorNeedsWriting[MAX_NUM_ATTENUATORS];
-};
-struct txRxStruct createtxRxStruct();
-void writeAttenuatorValues(struct txRxStruct* txRxStructPtrIn);
 
 #ifdef __USINGCONSOLEMENU
 
-void parseTxRxMenuAPI(struct txRxStruct* txRxStructPtrIn, struct uiStruct* uiStructPtrIn);
-void writeTxRxMenuScreen(struct txRxStruct* txRxStructPtrIn, struct uiStruct* uiStructPtrIn);
-void writeTxRxLogLine(struct txRxStruct* txRxStructPtrIn, struct logStruct* logStructPtrIn);
-void parseTxRxConfigLine(struct txRxStruct* txRxStructPtrIn, struct configStruct* configStructPtrIn);
+
 
 #endif
-
 
 #ifdef __cplusplus
 
 
+
 #endif // !__cplusplus
-#endif // !__TXRX_MOD_H__
+#endif // !__SATCOMLCDAPI_H__

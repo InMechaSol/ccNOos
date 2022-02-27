@@ -39,28 +39,7 @@ application.
 // The main SatComACS module
 #define Mn SatComACS
 
-enum currentMenuAction
-{
-    cA_Enter,
-    cA_Up,
-    cA_Down,
-    cA_Forward,
-    cA_Back,
-    cA_Status,
-    cA_Acquire
-};
 
-enum currentMenuNode
-{
-    cM_RootNode,
-    cM_MainMenu,
-    cM_Devices,
-    cM_Terminal,
-    cM_ExecutionSystem,
-    cM_devTXRX,
-    cM_devAPT,
-    cM_devTPM
-};
 
 // Main SatComACS Data Structure
 MODdeclareSTRUCT(Mn)
@@ -76,8 +55,6 @@ MODdeclareSTRUCT(Mn)
     // satComACS API Device Modules
     struct uiStruct LCDKeyPad;
     struct uiStruct ConsoleMenu;
-    enum currentMenuNode LCDCurrentMenuNode;
-    enum currentMenuNode ConsoleCurrentMenuNode;
 };
 
 #define MODdeclareCREATEINS 
@@ -94,19 +71,42 @@ MODdeclareSYSTICK(Mn);
 
 #ifdef __USINGCONSOLEMENU 
 
+enum currentMenuAction
+{
+    cA_Enter,
+    cA_Up,
+    cA_Down,
+    cA_Forward,
+    cA_Back,
+    cA_Status,
+    cA_Acquire
+};
+
+enum currentMenuNode
+{
+    cM_RootNode,
+    cM_MainMenu=0,
+    cM_Devices,
+    cM_Terminal,
+    cM_ExecutionSystem,
+    cM_devTXRX,
+    cM_devAPT,
+    cM_devTPM
+};
+
 //// Module Console Menu Print and Parse
 MODdeclarePRINTm(Mn);
 MODdeclarePARSEi(Mn);
 
 void linkAPIioDevices(struct SatComACSStruct* satcomacsStructPtrIn);
 
-void readSatComACSDevicesMenuAPI(struct SatComACSStruct* satcomacsStructPtrIn, struct uiStruct* uiStructPtrIn);
+void parseSatComACSDevicesMenuAPI(struct SatComACSStruct* satcomacsStructPtrIn, struct uiStruct* uiStructPtrIn);
 void writeSatComACSDevicesMenuScreen(struct SatComACSStruct* satcomacsStructPtrIn, struct uiStruct* uiStructPtrIn);
 
-void readSatComACSMenuAPI(struct SatComACSStruct* satcomacsStructPtrIn, struct uiStruct* uiStructPtrIn);
+void parseSatComACSMenuAPI(struct SatComACSStruct* satcomacsStructPtrIn, struct uiStruct* uiStructPtrIn);
 void writeSatComACSMenuScreen(struct SatComACSStruct* satcomacsStructPtrIn, struct uiStruct* uiStructPtrIn);
 void writeSatComACSLogLine(struct SatComACSStruct* satcomacsStructPtrIn, struct logStruct* logStructPtrIn);
-void readSatComACSConfigLine(struct SatComACSStruct* satcomacsStructPtrIn, struct configStruct* configStructPtrIn);
+void parseSatComACSConfigLine(struct SatComACSStruct* satcomacsStructPtrIn, struct configStruct* configStructPtrIn);
 
 
 //// Module "JSON" serialization/deserialization for satComControl.h and motionControl.h data structures
