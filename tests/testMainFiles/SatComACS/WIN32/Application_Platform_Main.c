@@ -72,6 +72,7 @@ void linkAPIioDevices(struct SatComACSStruct* satcomacsStructPtrIn)
     satcomacsStructPtrIn->ConsoleMenu.devptr = &ConsoleMenuDevDataStruct;
     satcomacsStructPtrIn->LCDKeyPad.devptr = &LCDKeyPadDevDataStruct;
     ConsoleMenuDevDataStruct.triggerWriteOperation = ui8TRUE;
+    satcomacsStructPtrIn->ConsoleMenu.showHelp = ui8TRUE;
     LCDKeyPadDevDataStruct.triggerWriteOperation = ui8TRUE;
 }
 std::thread stdInThread;
@@ -123,11 +124,15 @@ void WriteMenuLine(struct uiStruct* uiStructPtrin)
     // if Consolue Menu
     if (uiStructPtrin->devptr == &ConsoleMenuDevDataStruct)
     {
-        //if (stdInThreadRunning == ui8FALSE)
-        //{
-        //    std::cout << &uiStructPtrin->devptr->outbuff.charbuff[0];            
-        //}
+        if (uiStructPtrin->clearScreen) {
+            std::cout << terminalClearString();
+            uiStructPtrin->clearScreen = ui8FALSE;
+        }
         std::cout << &uiStructPtrin->devptr->outbuff.charbuff[0];
+        if (uiStructPtrin->showPrompt) {
+            std::cout << terminalPromptString(uiStructPtrin->currentUserLevel);
+            uiStructPtrin->showPrompt = ui8FALSE;
+        }
     }
     // if LCD KeyPad
     else if (uiStructPtrin->devptr == &LCDKeyPadDevDataStruct)

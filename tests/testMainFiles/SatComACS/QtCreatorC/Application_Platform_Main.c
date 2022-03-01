@@ -75,6 +75,7 @@ void linkAPIioDevices(struct SatComACSStruct* satcomacsStructPtrIn)
     satcomacsStructPtrIn->ConsoleMenu.devptr = &ConsoleMenuDevDataStruct;
     satcomacsStructPtrIn->LCDKeyPad.devptr = &LCDKeyPadDevDataStruct;
     ConsoleMenuDevDataStruct.triggerWriteOperation = ui8TRUE;
+    satcomacsStructPtrIn->ConsoleMenu.showHelp = ui8TRUE;
     LCDKeyPadDevDataStruct.triggerWriteOperation = ui8TRUE;
 }
 pthread_t stdInThread;
@@ -113,14 +114,23 @@ void GetMenuChars(struct uiStruct* uiStructPtrin)
     // if Consolue Menu
     if (uiStructPtrin->devptr == &ConsoleMenuDevDataStruct)
     {
-        if (stdInThreadRunning == ui8FALSE && uiStructPtrin->devptr->triggerWriteOperation == ui8FALSE)
+        if (stdInThreadRunning == ui8FALSE)
         {
             if (runONCE)
             {
                 if(pthread_create(&stdInThread, NULL, &readStdIn, &uiStructPtrin->devptr->inbuff.charbuff[0] )==0)
+                {
                     runONCE = ui8FALSE;
+                    stdInThreadRunning = ui8TRUE;
+                }
             }
-            stdInThreadRunning = ui8TRUE;
+            else if(uiStructPtrin->devptr->triggerWriteOperation == ui8FALSE)
+            {
+                uiStructPtrin->devptr->newDataReadIn = ui8TRUE;
+                uiStructPtrin->parseIndex = 0;
+                stdInThreadRunning = ui8TRUE;
+            }
+
         }
     }
     // if LCD KeyPad
@@ -137,9 +147,14 @@ void WriteMenuLine(struct uiStruct* uiStructPtrin)
     // if Consolue Menu
     if (uiStructPtrin->devptr == &ConsoleMenuDevDataStruct)
     {
-        if (stdInThreadRunning == ui8FALSE)
-        {
-            printf(&uiStructPtrin->devptr->outbuff.charbuff[0]);
+        if (uiStructPtrin->clearScreen) {
+            printf(terminalClearString());
+            uiStructPtrin->clearScreen = ui8FALSE;
+        }
+        printf(&uiStructPtrin->devptr->outbuff.charbuff[0]);
+        if (uiStructPtrin->showPrompt) {
+            printf(terminalPromptString(uiStructPtrin->currentUserLevel));
+            uiStructPtrin->showPrompt = ui8FALSE;
         }
     }
     // if LCD KeyPad

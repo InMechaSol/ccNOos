@@ -111,33 +111,38 @@ MODdeclarePRINTm(Mn)
     {
         if (uiStructPtrIn->devptr->triggerWriteOperation)
         {
+            uiStructPtrIn->lines2print = 1;
+            uiStructPtrIn->linesprinted = 0;
+            uiStructPtrIn->clearScreen = ui8TRUE;
+
             switch ((enum currentMenuNode)uiStructPtrIn->currentMenuIndex)
             {
-            case cM_MainMenu:
-                uiStructPtrIn->lines2print = 1;
-                uiStructPtrIn->linesprinted = 0;
+            case cM_MainMenu:                
                 writeSatComACSMenuScreen(MODdataPTR(Mn), uiStructPtrIn);
                 break;
             case cM_Devices:
-                uiStructPtrIn->lines2print = 1;
-                uiStructPtrIn->linesprinted = 0;
                 writeSatComACSDevicesMenuScreen(MODdataPTR(Mn), uiStructPtrIn);
                 break;
             case cM_Terminal:
-                uiStructPtrIn->lines2print = 1;
-                uiStructPtrIn->linesprinted = 0;
                 writeTerminalMenuScreen(&MODdataPTR(Mn)->Terminal, uiStructPtrIn);
                 break;
             case cM_devAPT:
-                uiStructPtrIn->lines2print = 1;
-                uiStructPtrIn->linesprinted = 0;
                 writeAPTMenuScreen(&MODdataPTR(Mn)->APT,uiStructPtrIn);
                 break;
             }
+            uiStructPtrIn->lines2print = 1;
+            uiStructPtrIn->linesprinted = 0;
+            writeUIHelpString(uiStructPtrIn);
+            //uiStructPtrIn->showHelp = ui8TRUE;
+            uiStructPtrIn->showPrompt = ui8TRUE;
+            uiStructPtrIn->devptr->outbuff.charbuff[0] = 0x00;
+            WriteMenuLine(uiStructPtrIn);
+            
             uiStructPtrIn->devptr->triggerWriteOperation = ui8FALSE;
         }
     }
 }
+
 
 MODdeclarePARSEi(Mn) 
 {
@@ -147,11 +152,11 @@ MODdeclarePARSEi(Mn)
         GetMenuChars(uiStructPtrIn);
         if (uiStructPtrIn->devptr->newDataReadIn)
         {
-            switch ((enum currentMenuNode)uiStructPtrIn->currentMenuIndex)
+/*          switch ((enum currentMenuNode)uiStructPtrIn->currentMenuIndex)
             {
-            case cM_MainMenu:
+            case cM_MainMenu:   */
                 parseSatComACSMenuAPI(MODdataPTR(Mn), uiStructPtrIn);
-                break;
+/*              break;
             case cM_Devices:
                 parseSatComACSDevicesMenuAPI(MODdataPTR(Mn), uiStructPtrIn);
                 break;
@@ -161,7 +166,7 @@ MODdeclarePARSEi(Mn)
             case cM_devAPT:
                 parseAPTMenuAPI(&MODdataPTR(Mn)->APT, uiStructPtrIn);
                 break;
-            }        
+            }    */    
             uiStructPtrIn->devptr->triggerWriteOperation = ui8TRUE;
             uiStructPtrIn->devptr->newDataReadIn = ui8FALSE;
         }

@@ -40,16 +40,28 @@ const char* cursorString(UI_8 showCursor)
     else
         return "  ";
 }
-
+const char* terminalClearString()
+{
+    return "\033[2J\033[0;0H";
+}
+const char* terminalSlashes()
+{
+    return "\\\\\\\\\\";
+}
 
 // Console UI Data Structure
 struct uiStruct createuiStruct()
 {
     struct uiStruct outStruct;
     outStruct.currentMenuIndex = 0;
+    outStruct.currentUserLevel = 0;
     outStruct.devptr = nullptr;
     outStruct.lines2print = 0;
     outStruct.linesprinted = 0;
+    outStruct.clearScreen = ui8FALSE;
+    outStruct.parseIndex = 0;
+    outStruct.showHelp = ui8FALSE;
+    outStruct.showPrompt = ui8FALSE;
     return outStruct;
 }
 

@@ -24,7 +24,77 @@ only instantiate, configure, then execute the execution system.
 */
 #include "MenuAPI.h"
 
+void writeUIHelpString(struct uiStruct* uiStructPtrIn)
+{
+	if (uiStructPtrIn->showHelp == ui8TRUE)
+	{
+		OPENSWITCH(uiStructPtrIn->linesprinted)
+        case 0:
+			PRINT_MENU_LN  "\n%s %s - %s Menu %s", terminalSlashes(), xstr(Mn), "Help", terminalSlashes()   END_MENU_LN;
+		case 1:
+			PRINT_MENU_LN  "\n%sSatComACS; \tto display Main Menu", cursorString(0)   END_MENU_LN;
+		case 2:
+			PRINT_MENU_LN  "\n%sTerminal; \tto display Terminal Menu", cursorString(0)    END_MENU_LN;
+		case 3:
+			PRINT_MENU_LN   "\n%sDevices; \tto display Devices Menu", cursorString(0)   END_MENU_LN;
+		case 4:
+			PRINT_MENU_LN  "\n%sHelp; \tto display This View", cursorString(0)    END_MENU_LN;
+		case 5:
+			PRINT_MENU_LN  "\n%sUserLevel:Operator; \n\tto set current user level", cursorString(0)    END_MENU_LN;
+		case 6:
+			PRINT_MENU_LN  "\n%s; \t\tto Refresh Current View", cursorString(0)    END_MENU_LN;
+		case 7:
+			PRINT_MENU_LN  "\n%s %s - %s ", terminalSlashes(), xstr(Mn), "Key Pad Help"   END_MENU_LN;
+		case 8:
+			PRINT_MENU_LN  "\n%s7; Home\t8; Up", cursorString(0)    END_MENU_LN;
+		case 9:
+			PRINT_MENU_LN  "\n%s4; Back\t5; Action    6; Forward", cursorString(0)   END_MENU_LN;
+		case 10:
+			PRINT_MENU_LN  "\n%s1; Main\t2; Down", cursorString(0)    END_MENU_LN;
+		default:
+		CLOSESWITCH(uiStructPtrIn->linesprinted)
+		uiStructPtrIn->showHelp = ui8FALSE;
+	}
+}
+const char* terminalPromptString(int userLevelIndex)
+{
+	switch ((enum uiAccessLevel)userLevelIndex)
+	{
+	case  uiLevel_Developer: return "\n(Developer)>>";
+	case  uiLevel_Administrator: return "\n(Administrator)>>";
+	case  uiLevel_Operator: return "\n(Operator)>>";
+	case  uiLevel_Observer: return "\n(Observer)>>";
+	default: return "\n>>";
+	}
+}
+
+void parseUserLevel(struct uiStruct* uiStructPtrIn)
+{
+	
+	OPENIF("UserLevel", uiStructPtrIn->currentMenuIndex)
+		
+		if (stringMatchCaseSensitive(&uiStructPtrIn->devptr->inbuff.charbuff[uiStructPtrIn->parseIndex], "Developer") == ui8TRUE)
+			uiStructPtrIn->currentUserLevel = uiLevel_Developer;
+		//(Command) UserLevel:Operator;	
+		else if (stringMatchCaseSensitive(&uiStructPtrIn->devptr->inbuff.charbuff[uiStructPtrIn->parseIndex], "Operator") == ui8TRUE)
+			uiStructPtrIn->currentUserLevel = uiLevel_Operator;
+		else if (stringMatchCaseSensitive(&uiStructPtrIn->devptr->inbuff.charbuff[uiStructPtrIn->parseIndex], "Administrator") == ui8TRUE)
+			uiStructPtrIn->currentUserLevel = uiLevel_Administrator;
+		else if (stringMatchCaseSensitive(&uiStructPtrIn->devptr->inbuff.charbuff[uiStructPtrIn->parseIndex], "Observer") == ui8TRUE)
+			uiStructPtrIn->currentUserLevel = uiLevel_Observer;
+
+	CLOSEIF("UserLevel", uiStructPtrIn->currentMenuIndex)
+}
+
 // SatComACS
+void parseGroupSatComACS(struct SatComACSStruct* satcomacsStructPtrIn, struct uiStruct* uiStructPtrIn)
+{
+	parseTerminalMenuAPI(&satcomacsStructPtrIn->Terminal, uiStructPtrIn);
+	parseAPTMenuAPI(&satcomacsStructPtrIn->APT, uiStructPtrIn);
+	parseTPMMenuAPI(&satcomacsStructPtrIn->TPM, uiStructPtrIn);
+	parseTxRxMenuAPI(&satcomacsStructPtrIn->TxRx, uiStructPtrIn);
+	parseUserLevel(uiStructPtrIn);
+}
 void parseSatComACSMenuAPI(struct SatComACSStruct* satcomacsStructPtrIn, struct uiStruct* uiStructPtrIn)
 {
 	//(Status) SatComACS; to see cM_MainMenu screen
@@ -32,17 +102,18 @@ void parseSatComACSMenuAPI(struct SatComACSStruct* satcomacsStructPtrIn, struct 
 		//(Status) SatComACS:Terminal:State; 
 		//(Command) SatComACS:Terminal:State:antState_init;
 		//(Command) SatComACS:APT:GPS:Connected:0;		
-		parseTerminalMenuAPI(&satcomacsStructPtrIn->Terminal, uiStructPtrIn);
-		parseAPTMenuAPI(&satcomacsStructPtrIn->APT, uiStructPtrIn);
-		parseTPMMenuAPI(&satcomacsStructPtrIn->TPM, uiStructPtrIn);
-		parseTxRxMenuAPI(&satcomacsStructPtrIn->TxRx, uiStructPtrIn);
+		parseGroupSatComACS(satcomacsStructPtrIn, uiStructPtrIn);
 	CLOSEIF("SatComACS", cM_MainMenu)
+	//(Status) Terminal:State; 
+	//(Command) Terminal:State:antState_init;
+	//(Command) APT:GPS:Connected:0;		
+	parseGroupSatComACS(satcomacsStructPtrIn, uiStructPtrIn);
 }
 void writeSatComACSMenuScreen(struct SatComACSStruct* satcomacsStructPtrIn, struct uiStruct* uiStructPtrIn)
 {
 	OPENSWITCH(uiStructPtrIn->linesprinted)
 		case 0:
-			PRINT_MENU_LN  "\n/////////// SatComACS - Main Menu ///////////////////"			END_MENU_LN;
+			PRINT_MENU_LN  "\n%s %s - %s Menu %s", terminalSlashes(), xstr(Mn), "Main", terminalSlashes()   END_MENU_LN;
 		case 1:
 			PRINT_MENU_LN  "\n%sTerminal", cursorString(uiStructPtrIn->currentMenuIndex == 0)   END_MENU_LN;
 		case 2:
@@ -60,7 +131,7 @@ void writeSatComACSDevicesMenuScreen(struct SatComACSStruct* satcomacsStructPtrI
 {
 	OPENSWITCH(uiStructPtrIn->linesprinted)
 		case 0:
-			PRINT_MENU_LN  "\n/////////// SatComACS - Devices Menu ///////////////////"					END_MENU_LN;
+			PRINT_MENU_LN  "\n%s %s - %s Menu %s", terminalSlashes(), xstr(Mn), "Devices", terminalSlashes()   END_MENU_LN;
 		case 1:
 			PRINT_MENU_LN  "\n%sAPT WMM Device", cursorString(uiStructPtrIn->currentMenuIndex == 0)		END_MENU_LN;
 		case 2:
@@ -97,7 +168,7 @@ void writeTerminalMenuScreen(struct antennaStruct* terminalStructPtrIn, struct u
 {
 	OPENSWITCH(uiStructPtrIn->linesprinted)
 		case 0:
-			PRINT_MENU_LN  "\n/////////// SatComACS - Terminal Menu ///////////////////"    END_MENU_LN;
+			PRINT_MENU_LN  "\n%s %s - %s Menu %s", terminalSlashes(), xstr(Mn), "Terminal", terminalSlashes()   END_MENU_LN;
 		case 1:
 			PRINT_MENU_LN  "\nCurrent State: %s", currentStateString(terminalStructPtrIn)    END_MENU_LN;
 		case 2:
@@ -126,7 +197,7 @@ void writeTxRxMenuScreen(struct txRxStruct* txRxStructPtrIn, struct uiStruct* ui
 
 	OPENSWITCH(uiStructPtrIn->linesprinted)
 		case 0:
-			PRINT_MENU_LN  "\n/////////// SatComACS - Tx/Rx Menu ///////////////////"    END_MENU_LN;
+			PRINT_MENU_LN  "\n%s %s - %s Menu %s", terminalSlashes(), xstr(Mn), "TxRx", terminalSlashes()   END_MENU_LN;
 		default:
 	CLOSESWITCH(uiStructPtrIn->linesprinted)
 
@@ -146,7 +217,7 @@ void writeAPTMenuScreen(struct aptStruct* aptStructPtrIn, struct uiStruct* uiStr
 {
 	OPENSWITCH(uiStructPtrIn->linesprinted)
 		case 0:
-			PRINT_MENU_LN  "\n/////////// SatComACS - APT Menu ///////////////////"    END_MENU_LN;
+			PRINT_MENU_LN  "\n%s %s - %s Menu %s", terminalSlashes(), xstr(Mn), "APT", terminalSlashes()   END_MENU_LN;
 		default:
 	CLOSESWITCH(uiStructPtrIn->linesprinted)
 }
@@ -165,7 +236,7 @@ void writeTPMMenuScreen(struct tpmStruct* tpmStructPtrIn, struct uiStruct* uiStr
 {
 	OPENSWITCH(uiStructPtrIn->linesprinted)
 		case 0:
-			PRINT_MENU_LN  "\n/////////// SatComACS - TPM Menu ///////////////////"    END_MENU_LN;
+			PRINT_MENU_LN  "\n%s %s - %s Menu %s", terminalSlashes(), xstr(Mn), "TPM", terminalSlashes()   END_MENU_LN;
 		default:
 	CLOSESWITCH(uiStructPtrIn->linesprinted)
 }

@@ -70,6 +70,89 @@ MODdeclareDATA(Mn);
 
 ///////////////////////////////////////////////////////////////////////
 // Platform and Application Specific IO Device Functions
+void linkAPIioDevices(struct SatComACSStruct* satcomacsStructPtrIn)
+{
+    satcomacsStructPtrIn->ConsoleMenu.devptr = &ConsoleMenuserialdev.devdata;
+    satcomacsStructPtrIn->LCDKeyPad.devptr = &LCDKeyPadserialdev.devdata;
+    ConsoleMenuserialdev.devdata.triggerWriteOperation = ui8TRUE;
+    satcomacsStructPtrIn->ConsoleMenu.showHelp = ui8TRUE;
+    LCDKeyPadserialdev.devdata.triggerWriteOperation = ui8TRUE;
+}
+// 4) Basic ability for user console input via any io device
+void GetMenuChars(struct uiStruct* uiStructPtrin)
+{
+
+    // if Consolue Menu
+    if (uiStructPtrin->devptr == &ConsoleMenuserialdev.devdata)
+    {
+        if (consoleCharInt > -1)
+        {
+            if (uiStructPtrin->readIndex > 0 || (char)consoleCharInt != '\n')
+            {
+                uiStructPtrin->devptr->inbuff.charbuff[uiStructPtrin->readIndex] = (char)consoleCharInt;
+                if (uiStructPtrin->devptr->inbuff.charbuff[uiStructPtrin->readIndex] == ';')
+                {
+
+                    uiStructPtrin->devptr->inbuff.charbuff[uiStructPtrin->readIndex + 1] = 0x00;
+                    uiStructPtrin->devptr->newDataReadIn = ui8TRUE;
+                    uiStructPtrin->parseIndex = 0;
+                    uiStructPtrin->readIndex = 0;
+                    return;
+                }
+                if (++uiStructPtrin->readIndex >= charBuffMax)
+                    uiStructPtrin->readIndex = 0;
+            }
+
+        }
+    }
+    // if LCD KeyPad
+    else if (uiStructPtrin->devptr == &LCDKeyPadserialdev.devdata)
+    {
+        ;
+    }
+}
+// 5) Basic ability for user console output
+void WriteMenuLine(struct uiStruct* uiStructPtrin)
+{
+    // if Consolue Menu
+    if (uiStructPtrin->devptr == &ConsoleMenuserialdev.devdata)
+    {
+        if (uiStructPtrin->clearScreen) {
+            Serial.print(terminalClearString());
+            uiStructPtrin->clearScreen = ui8FALSE;
+        }
+        Serial.print(&uiStructPtrin->devptr->outbuff.charbuff[0]);
+        if (uiStructPtrin->showPrompt) {
+            Serial.print(terminalPromptString(uiStructPtrin->currentUserLevel));
+            uiStructPtrin->showPrompt = ui8FALSE;
+        }
+    }
+    // if LCD KeyPad
+    else if (uiStructPtrin->devptr == &LCDKeyPadserialdev.devdata)
+    {
+        ;
+    }
+
+}
+// 6) (Optional) Logging Output
+void WriteLogLine(struct logStruct* logStructPtrin)
+{
+    ;
+}
+// 7) (Optional) Config Input
+void ReadConfigLine(struct configStruct* configStructPtrin)
+{
+    ;
+}
+
+
+
+
+
+
+
+
+
 void writeAttenuatorValues(struct txRxStruct* txRxStructPtrIn) { ; }
 
 

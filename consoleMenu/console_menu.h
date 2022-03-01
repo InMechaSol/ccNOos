@@ -37,13 +37,16 @@ A console menu has data access to the full execution system and all it contains.
 
 #ifdef __USINGCONSOLEMENU
 
+
+
 // Console UI Data Structure
 struct uiStruct
 {
     struct devicedatastruct* devptr;
     int lines2print, linesprinted;
-    int currentMenuIndex;
-    int parseIndex;
+    int currentMenuIndex, currentUserLevel;
+    int parseIndex, readIndex;
+    UI_8 clearScreen, showHelp, showPrompt;
 };
 struct uiStruct createuiStruct();
 
@@ -81,6 +84,11 @@ UI_8 stringMatchCaseSensitive(char* inStringPtr, const char* matchString);
 void stringInit(char* stringPtr, const char* initString);
 UI_16 stringLength(const char* stringPtr);
 const char* cursorString(UI_8 showCursor);
+const char* terminalClearString();
+
+void writeUIHelpString(struct uiStruct* uiStructPtrIn);
+const char* terminalPromptString(int userLevelIndex);
+const char* terminalSlashes();
     
 void WriteMenuLine(struct uiStruct* uiStructPtrin); // rely on 0x00 termination? safer with length parameter
 void GetMenuChars(struct uiStruct* uiStructPtrin);
@@ -277,7 +285,7 @@ if (uiStructPtrIn->devptr->newDataReadIn) \
 		uiStructPtrIn->parseIndex += stringLength( tNAME ); \
 		if (uiStructPtrIn->devptr->inbuff.charbuff[uiStructPtrIn->parseIndex] == ';') \
 		{ \
-			uiStructPtrIn->currentMenuIndex = cM_MainMenu; \
+			uiStructPtrIn->currentMenuIndex = mNAME; \
 		} \
 		else if (uiStructPtrIn->devptr->inbuff.charbuff[uiStructPtrIn->parseIndex] == ':') \
 		{ \
@@ -289,6 +297,10 @@ if (uiStructPtrIn->devptr->newDataReadIn) \
 #define __CLOSEIF(tNAME, mNAME) \
         } \
         uiStructPtrIn->devptr->newDataReadIn = ui8FALSE; \
+    } \
+    if (stringMatchCaseSensitive(&uiStructPtrIn->devptr->inbuff.charbuff[uiStructPtrIn->parseIndex], "Help") == ui8TRUE) \
+	{ \
+        uiStructPtrIn->showHelp = ui8TRUE; \
     } \
 }
 

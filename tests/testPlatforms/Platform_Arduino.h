@@ -20,9 +20,13 @@ error PLATFORM_NAME must be Arduino
 
 struct SerialDeviceStruct GPSserialdev;
 struct SerialDeviceStruct eCompserialdev;
+struct SerialDeviceStruct LCDKeyPadserialdev;
+struct SerialDeviceStruct ConsoleMenuserialdev;
+
 int gpsCharInt = -1;
 int eCompCharInt = -1;
 int consoleCharInt = -1;
+int lcdCharInt = -1;
 int idx = 0;
 void ReadSerialUARTS()
 {
@@ -41,6 +45,19 @@ void platformSetup()
     asm(".global _printf_float");
 #endif
 #endif
+    ConsoleMenuserialdev.devdata = createDeviceStruct();
+    ConsoleMenuserialdev.baudRate = 115200;
+    ConsoleMenuserialdev.dataBits = 8;
+    ConsoleMenuserialdev.stopBits = stop_one;
+    ConsoleMenuserialdev.parity = parity_none;
+    ConsoleMenuserialdev.handshake = handshake_none;
+
+    LCDKeyPadserialdev.devdata = createDeviceStruct();
+    LCDKeyPadserialdev.baudRate = 9600;
+    LCDKeyPadserialdev.dataBits = 8;
+    LCDKeyPadserialdev.stopBits = stop_one;
+    LCDKeyPadserialdev.parity = parity_none;
+    LCDKeyPadserialdev.handshake = handshake_none;
 
     GPSserialdev.devdata = createDeviceStruct();
     GPSserialdev.baudRate = 9600;
@@ -59,6 +76,7 @@ void platformSetup()
     Serial.begin(115200);
     Serial1.begin(GPSserialdev.baudRate);
     Serial2.begin(eCompserialdev.baudRate);
+    Serial3.begin(LCDKeyPadserialdev.baudRate);
     Wire.begin();
 
     while (!Serial) {
@@ -74,6 +92,10 @@ void platformStart()
     eCompserialdev.readIndex = 0;
     GPSserialdev.numBytes2Read = 1;
     eCompserialdev.numBytes2Read = 1;
+    LCDKeyPadserialdev.readIndex = 0;
+    ConsoleMenuserialdev.readIndex = 0;
+    LCDKeyPadserialdev.numBytes2Read = 1;
+    ConsoleMenuserialdev.numBytes2Read = 1;
     //</platformStart>
 }
 // 3) Platform Loop Delay Function
@@ -87,47 +109,12 @@ void platformLoopDelay()
     ;
     //</platformLoopDelay>
 }
+
 #ifdef __USINGCONSOLEMENU
-// 4) Basic ability for user console input
-void GetMenuChars(char* inStringPtr)
-{
 
-    int iTerminator = 0;
-    if (consoleCharInt > -1)
-    {
-
-        inStringPtr[idx] = (char)(consoleCharInt);
-        if (inStringPtr[idx] == ';')
-        {
-            iTerminator = idx;
-            inStringPtr[iTerminator + 1] = 0x00;
-            idx = 0;
-        }
-        if (++idx >= charBuffMax)
-            idx = 0;
-    }
-
-
-
-}
-// 5) Basic ability for user console output
-void WriteMenuLine(char* outStringPtr)
-{
-    Serial.write(outStringPtr);
-}
-// 6) (Optional) Logging Output
-void WriteLogLine(char* outStringPtr)
-{
-    ;
-}
-// 7) (Optional) Config Input
-void ReadConfigLine(char* inStringPtr)
-{
-    ;
-
-}
 // 8) Platform API Functions (From Template?)
 PlatformAPIFuncsTemplate(size + 1);
+
 #endif
 // 9) Global Execution System Instance
 //executionSystemClass PLATFORM_EXESYS_NAME(PLATFORM_NAME)(uSEC_PER_CLOCK);

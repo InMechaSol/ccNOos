@@ -73,6 +73,7 @@ MODdeclareSYSTICK(Mn);
 
 enum currentMenuAction
 {
+    cA_NoAction,
     cA_Enter,
     cA_Up,
     cA_Down,
@@ -92,6 +93,14 @@ enum currentMenuNode
     cM_devTXRX,
     cM_devAPT,
     cM_devTPM
+};
+
+enum uiAccessLevel
+{
+    uiLevel_Observer = 0,
+    uiLevel_Operator,
+    uiLevel_Administrator,
+    uiLevel_Developer
 };
 
 //// Module Console Menu Print and Parse
