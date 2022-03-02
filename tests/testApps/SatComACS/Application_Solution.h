@@ -1,28 +1,28 @@
 /** \file Application_Solution.h
-*   \brief Cross-Platform Portable ccNOos SatComACS Example Declarations
+*   \brief part of ccNOos, Declarations for straight C and C++ wrappers 
 
-   Copyright 2021 InMechaSol, Inc
+    Copyright 2021 InMechaSol, Inc
+    https://www.inmechasol.org/
 
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+    Licensed under the Apache License, Version 2.0(the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
 
-     http://www.apache.org/licenses/LICENSE-2.0
+    http://www.apache.org/licenses/LICENSE-2.0
 
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
 
 Notes:
-
-This header demonstrates the usage of the ccNOos library and its dependence
-on other files in the library.  A platform specific main(.c,.cpp) file need
-only include this single header to implement a platform specific ccNOos SatComACS
-application.
+	(.c includes .h) - for straight C or
+	(.cpp includes .c which includes .h) - for C++ wrapped straight C
+	*Always compiled to a single compilation unit, either C or CPP, not both
 
 */
+
 #ifndef __CCNOOS_SATCOMACS__
 #define __CCNOOS_SATCOMACS__  
 
@@ -71,9 +71,16 @@ MODdeclareSYSTICK(Mn);
 
 #ifdef __USINGCONSOLEMENU 
 
+enum currentViewFormat
+{
+    cV_Console=0,
+    cv_LCD4_40,
+    cv_LCD2_40
+};
+
 enum currentMenuAction
 {
-    cA_NoAction,
+    cA_NoAction=0,
     cA_Enter,
     cA_Up,
     cA_Down,
@@ -85,8 +92,8 @@ enum currentMenuAction
 
 enum currentMenuNode
 {
-    cM_RootNode,
     cM_MainMenu=0,
+    cM_RootNode,
     cM_Devices,
     cM_Terminal,
     cM_ExecutionSystem,
@@ -109,11 +116,17 @@ MODdeclarePARSEi(Mn);
 
 void linkAPIioDevices(struct SatComACSStruct* satcomacsStructPtrIn);
 
+void parseConsoleKeyPadAPI(struct SatComACSStruct* satcomacsStructPtrIn, struct uiStruct* uiStructPtrIn);
+void parseLCDKeyPadAPI(struct SatComACSStruct* satcomacsStructPtrIn, struct uiStruct* uiStructPtrIn);
+
+
 void parseSatComACSDevicesMenuAPI(struct SatComACSStruct* satcomacsStructPtrIn, struct uiStruct* uiStructPtrIn);
 void writeSatComACSDevicesMenuScreen(struct SatComACSStruct* satcomacsStructPtrIn, struct uiStruct* uiStructPtrIn);
 
 void parseSatComACSMenuAPI(struct SatComACSStruct* satcomacsStructPtrIn, struct uiStruct* uiStructPtrIn);
 void writeSatComACSMenuScreen(struct SatComACSStruct* satcomacsStructPtrIn, struct uiStruct* uiStructPtrIn);
+
+
 void writeSatComACSLogLine(struct SatComACSStruct* satcomacsStructPtrIn, struct logStruct* logStructPtrIn);
 void parseSatComACSConfigLine(struct SatComACSStruct* satcomacsStructPtrIn, struct configStruct* configStructPtrIn);
 
