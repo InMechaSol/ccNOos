@@ -1,4 +1,22 @@
 var searchData=
 [
-  ['tdd_5fbypass_5faddr_869',['TDD_BYPASS_ADDR',['../a00008.html#a3becb8979217fb6ff345fc0506b8cf47a8d3f97a8df2ca2d0a3293b8332bc550b',1,'ADRF6650_Map.h']]]
+  ['scratch_5faddr_1277',['SCRATCH_ADDR',['../a00020.html#a3becb8979217fb6ff345fc0506b8cf47a28205d7103a89836cb78550bbaabe49a',1,'ADRF6650_Map.h']]],
+  ['sd_5fctrl_5faddr_1278',['SD_CTRL_ADDR',['../a00020.html#a3becb8979217fb6ff345fc0506b8cf47ad3577cfa62785cfa23c1873bff4cfc44',1,'ADRF6650_Map.h']]],
+  ['sd_5fphase_5fh_5f0_5faddr_1279',['SD_PHASE_H_0_ADDR',['../a00020.html#a3becb8979217fb6ff345fc0506b8cf47ae3726539642b7858c68b5fd2642e9b17',1,'ADRF6650_Map.h']]],
+  ['sd_5fphase_5fl_5f0_5faddr_1280',['SD_PHASE_L_0_ADDR',['../a00020.html#a3becb8979217fb6ff345fc0506b8cf47afc678794d040668e76070faf491ce191',1,'ADRF6650_Map.h']]],
+  ['sd_5fphase_5fm_5f0_5faddr_1281',['SD_PHASE_M_0_ADDR',['../a00020.html#a3becb8979217fb6ff345fc0506b8cf47a5c3356fbca7b0da76e017416aaba3c11',1,'ADRF6650_Map.h']]],
+  ['si_5fvco_5fsel_5faddr_1282',['SI_VCO_SEL_ADDR',['../a00020.html#a3becb8979217fb6ff345fc0506b8cf47a52ef5dadf86316f06381bc5170e5173a',1,'ADRF6650_Map.h']]],
+  ['sig_5fpath_5f9_5fnormal_5faddr_1283',['SIG_PATH_9_NORMAL_ADDR',['../a00020.html#a3becb8979217fb6ff345fc0506b8cf47ac62f49044d907d6a138b48171430cf38',1,'ADRF6650_Map.h']]],
+  ['spi_5fconfig_5fb_5faddr_1284',['SPI_CONFIG_B_ADDR',['../a00020.html#a3becb8979217fb6ff345fc0506b8cf47aceb3f11d152b31293d8864351867d96d',1,'ADRF6650_Map.h']]],
+  ['spi_5frevison_5faddr_1285',['SPI_REVISON_ADDR',['../a00020.html#a3becb8979217fb6ff345fc0506b8cf47a138abe4d786f594b828f3755c1119c01',1,'ADRF6650_Map.h']]],
+  ['spitype_5ffour_1286',['SPIType_four',['../a00095.html#a5c16b8104495a289b230998e01264bb9a339a2c3bf567f0ba3b8143c20059aeac',1,'io_device.h']]],
+  ['spitype_5fone_1287',['SPIType_one',['../a00095.html#a5c16b8104495a289b230998e01264bb9ac47b28d2ebc0f0d5cb51d5ac33d65c5c',1,'io_device.h']]],
+  ['spitype_5fthree_1288',['SPIType_three',['../a00095.html#a5c16b8104495a289b230998e01264bb9a03029b270b93be07b7654b774846d561',1,'io_device.h']]],
+  ['spitype_5ftwo_1289',['SPIType_two',['../a00095.html#a5c16b8104495a289b230998e01264bb9a83dee0127c2ac20910069761d195f71d',1,'io_device.h']]],
+  ['stop_5fnone_1290',['stop_none',['../a00095.html#a14bf2158d45b82fab05d87693ae4372da3e22a463f0419655a936e98eb19bf34b',1,'io_device.h']]],
+  ['stop_5fone_1291',['stop_one',['../a00095.html#a14bf2158d45b82fab05d87693ae4372dad7a4392901a88968073500ee1bd454af',1,'io_device.h']]],
+  ['stop_5fonepointfive_1292',['stop_onepointfive',['../a00095.html#a14bf2158d45b82fab05d87693ae4372da37c0e4af380c3c18597d23973d9d4f32',1,'io_device.h']]],
+  ['stop_5ftwo_1293',['stop_two',['../a00095.html#a14bf2158d45b82fab05d87693ae4372dafdadb62b454c7b67ba5b08478fe7241e',1,'io_device.h']]],
+  ['synth_5f0_5faddr_1294',['SYNTH_0_ADDR',['../a00020.html#a3becb8979217fb6ff345fc0506b8cf47a0627f6a9ae93db571e88eef8f4cf5c77',1,'ADRF6650_Map.h']]],
+  ['synth_5faddr_1295',['SYNTH_ADDR',['../a00020.html#a3becb8979217fb6ff345fc0506b8cf47ae100fd55fdce3196ed0fc8237a665ccf',1,'ADRF6650_Map.h']]]
 ];

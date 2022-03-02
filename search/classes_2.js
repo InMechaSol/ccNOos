@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['executionentrystruct_631',['executionEntryStruct',['../a00164.html',1,'']]],
-  ['executionsystemstruct_632',['executionSystemStruct',['../a00152.html',1,'']]]
+  ['devicebufferunion_855',['devicebufferunion',['../a00249.html',1,'']]],
+  ['devicedatastruct_856',['devicedatastruct',['../a00253.html',1,'']]]
 ];

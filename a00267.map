@@ -1,0 +1,7 @@
+<map id="gpsStruct" name="gpsStruct">
+<area shape="rect" id="node1" title=" " alt="" coords="31,288,109,315"/>
+<area shape="rect" id="node2" href="$a00221.html" title=" " alt="" coords="5,199,76,225"/>
+<area shape="rect" id="node3" href="$a00261.html" title=" " alt="" coords="101,199,229,225"/>
+<area shape="rect" id="node4" href="$a00253.html" title="the common data struct of io devices" alt="" coords="107,109,223,136"/>
+<area shape="rect" id="node5" href="$a00249.html" title="char/byte ambiguous container for io data" alt="" coords="105,5,225,32"/>
+</map>

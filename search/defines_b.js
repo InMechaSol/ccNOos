@@ -1,8 +1,10 @@
 var searchData=
 [
-  ['ui8false_1244',['ui8FALSE',['../a00065.html#a18a8e11d3ba338929d2c54ed0ef6c366',1,'version_config.h']]],
-  ['ui8true_1245',['ui8TRUE',['../a00065.html#a41bf12e8bb3c33f7121dec7d8557335e',1,'version_config.h']]],
-  ['usec_5fper_5fclock_1246',['uSEC_PER_CLOCK',['../a00101.html#a3120c3c642290677dabaaf14122ccf8f',1,'uSEC_PER_CLOCK():&#160;Platform_Arduino.h'],['../a00104.html#a3120c3c642290677dabaaf14122ccf8f',1,'uSEC_PER_CLOCK():&#160;Platform_PSoC4.h'],['../a00107.html#a3120c3c642290677dabaaf14122ccf8f',1,'uSEC_PER_CLOCK():&#160;Platform_QTCreatorC.h'],['../a00110.html#a3120c3c642290677dabaaf14122ccf8f',1,'uSEC_PER_CLOCK():&#160;Platform_Win32.h']]],
-  ['usnow_1247',['uSNOW',['../a00192.html#a9b428f08b5acc0d42ed88ef266569408',1,'Application_Solution.c']]],
-  ['usthen_1248',['uSTHEN',['../a00192.html#a082378bfbedc8dbb416ec0a6cb6d5923',1,'Application_Solution.c']]]
+  ['time_5fmin_5fper_5fhr_1685',['TIME_MIN_PER_HR',['../a00083.html#acd19476249d7737a99325918dc954973',1,'execution_system.h']]],
+  ['time_5fsec_5fper_5fmin_1686',['TIME_SEC_PER_MIN',['../a00083.html#aa061cf26f4350031a77a835e626df7e4',1,'execution_system.h']]],
+  ['time_5fserial_5findex_1687',['TIME_SERIAL_INDEX',['../a00336.html#a3fe0b9429cd92ac075c594aa0f16ebfa',1,'Application_Solution.h']]],
+  ['time_5fstr_5flen_1688',['TIME_STR_LEN',['../a00336.html#a81164bcf637ea8b3d2601c0ea4e90332',1,'Application_Solution.h']]],
+  ['time_5fus_5fper_5fhr_1689',['TIME_uS_PER_HR',['../a00083.html#aad915f1d12d6f9b1f1a34bedae348a94',1,'execution_system.h']]],
+  ['time_5fus_5fper_5fmin_1690',['TIME_us_PER_MIN',['../a00083.html#a3c6cfb936888efd379fa3e0b32053d35',1,'execution_system.h']]],
+  ['time_5fus_5fper_5fsec_1691',['TIME_uS_PER_SEC',['../a00083.html#a12f5f08bb42fde5aef295f46b3fc7eaa',1,'execution_system.h']]]
 ];

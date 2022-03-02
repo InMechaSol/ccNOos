@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.20"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ccNOos: ioDevice/README.md File Reference</title>
+<title>ccNOos: tests/testPlatforms/Platform_Win32.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -61,13 +61,344 @@ $(function() {
 </iframe>
 </div>
 
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_59425e443f801f1f2fd8bbe4959a3ccf.html">tests</a></li><li class="navelem"><a class="el" href="dir_417bf905c08bcd153fac5484ed2b4290.html">testPlatforms</a></li>  </ul>
+</div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
-<div class="title">ioDevice/README.md File Reference</div>  </div>
+<div class="title">Platform_Win32.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>part of ccNOos, Declarations for straight C and C++ wrappers  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;ctime&gt;</code><br />
+<code>#include &lt;thread&gt;</code><br />
+<code>#include &lt;cstdarg&gt;</code><br />
+<code>#include &lt;cstdio&gt;</code><br />
+<code>#include &lt;iostream&gt;</code><br />
+<code>#include &lt;fstream&gt;</code><br />
+<code>#include &quot;<a class="el" href="a00083_source.html">execution_system.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a00074_source.html">console_menu.h</a>&quot;</code><br />
+<code>#include &quot;serial_comms.h&quot;</code><br />
+<code>#include &quot;adafruit_ft232h.h&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for Platform_Win32.h:</div>
+<div class="dyncontent">
+<div class="center"><img src="a00180.png" border="0" usemap="#atests_2test_platforms_2_platform___win32_8h" alt=""/></div>
+<map name="tests_2test_platforms_2_platform___win32_8h" id="atests_2test_platforms_2_platform___win32_8h">
+<area shape="rect" title="part of ccNOos, Declarations for straight C and C++ wrappers" alt="" coords="356,5,488,47"/>
+<area shape="rect" title=" " alt="" coords="5,95,60,121"/>
+<area shape="rect" title=" " alt="" coords="85,95,143,121"/>
+<area shape="rect" title=" " alt="" coords="168,95,233,121"/>
+<area shape="rect" title=" " alt="" coords="257,95,315,121"/>
+<area shape="rect" title=" " alt="" coords="339,95,411,121"/>
+<area shape="rect" title=" " alt="" coords="436,95,501,121"/>
+<area shape="rect" href="a00083.html" title="part of ccNOos, Declarations for straight C and C++ wrappers" alt="" coords="406,169,545,196"/>
+<area shape="rect" href="a00074.html" title="part of ccNOos, Declarations for straight C and C++ wrappers" alt="" coords="577,95,694,121"/>
+<area shape="rect" title=" " alt="" coords="718,95,833,121"/>
+<area shape="rect" title=" " alt="" coords="857,95,974,121"/>
+<area shape="rect" href="a00089.html" title="part of ccNOos, Declarations for straight C and C++ wrappers" alt="" coords="578,244,693,271"/>
+<area shape="rect" href="a00065.html" title="part of ccNOos, Declarations for straight C and C++ wrappers" alt="" coords="569,169,701,196"/>
+<area shape="rect" href="a00095.html" title="part of ccNOos, Declarations for straight C and C++ wrappers" alt="" coords="725,169,812,196"/>
+</map>
+</div>
+</div><div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><img src="a00181.png" border="0" usemap="#atests_2test_platforms_2_platform___win32_8hdep" alt=""/></div>
+<map name="tests_2test_platforms_2_platform___win32_8hdep" id="atests_2test_platforms_2_platform___win32_8hdep">
+<area shape="rect" title="part of ccNOos, Declarations for straight C and C++ wrappers" alt="" coords="223,5,355,47"/>
+<area shape="rect" href="a00399.html" title=" " alt="" coords="5,95,160,165"/>
+<area shape="rect" href="a00375.html" title=" " alt="" coords="184,102,395,158"/>
+<area shape="rect" href="a00387.html" title=" " alt="" coords="419,102,603,158"/>
+<area shape="rect" href="a00414.html" title=" " alt="" coords="5,213,160,284"/>
+<area shape="rect" href="a00402.html" title=" " alt="" coords="184,221,395,277"/>
+<area shape="rect" href="a00408.html" title=" " alt="" coords="419,221,603,277"/>
+</map>
+</div>
+</div>
+<p><a href="a00179_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:af7178cfc09e0491d2a81b9a8dad4d7be"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00179.html#af7178cfc09e0491d2a81b9a8dad4d7be">LIGHT_OFF</a>&#160;&#160;&#160;(0u)</td></tr>
+<tr class="separator:af7178cfc09e0491d2a81b9a8dad4d7be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3120c3c642290677dabaaf14122ccf8f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00179.html#a3120c3c642290677dabaaf14122ccf8f">uSEC_PER_CLOCK</a>&#160;&#160;&#160;(1000000/CLOCKS_PER_SEC)</td></tr>
+<tr class="separator:a3120c3c642290677dabaaf14122ccf8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a1a5667631fb6b165e20e1b005fbf5902"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00179.html#a1a5667631fb6b165e20e1b005fbf5902">platformSetup</a> ()</td></tr>
+<tr class="separator:a1a5667631fb6b165e20e1b005fbf5902"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4968fd7c5aa1e4c1f873c1b62f82bab9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00179.html#a4968fd7c5aa1e4c1f873c1b62f82bab9">platformStart</a> ()</td></tr>
+<tr class="separator:a4968fd7c5aa1e4c1f873c1b62f82bab9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd96223fc08c356fb130ea95e23bcbd2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00179.html#acd96223fc08c356fb130ea95e23bcbd2">platformLoopDelay</a> ()</td></tr>
+<tr class="separator:acd96223fc08c356fb130ea95e23bcbd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a0404c85c0ed165750925e543d1802ef6"><td class="memItemLeft" align="right" valign="top">struct portParametersStruct&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00179.html#a0404c85c0ed165750925e543d1802ef6">GPSPortParams</a></td></tr>
+<tr class="separator:a0404c85c0ed165750925e543d1802ef6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae272b2ca89dff217a138306c631aa5d4"><td class="memItemLeft" align="right" valign="top">struct portParametersStruct&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00179.html#ae272b2ca89dff217a138306c631aa5d4">eCompPortParams</a></td></tr>
+<tr class="separator:ae272b2ca89dff217a138306c631aa5d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91a5d4a1bf3c075cccbf99628f65b9af"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="a00253.html">devicedatastruct</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00179.html#a91a5d4a1bf3c075cccbf99628f65b9af">LCDKeyPadDevDataStruct</a></td></tr>
+<tr class="separator:a91a5d4a1bf3c075cccbf99628f65b9af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b07bf99e0dc1abbc98694800dc11839"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="a00253.html">devicedatastruct</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00179.html#a7b07bf99e0dc1abbc98694800dc11839">ConsoleMenuDevDataStruct</a></td></tr>
+<tr class="separator:a7b07bf99e0dc1abbc98694800dc11839"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a39e6ae4a2ad0c5e8bab0a4da94b4038e"><td class="memItemLeft" align="right" valign="top">std::ifstream&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00179.html#a39e6ae4a2ad0c5e8bab0a4da94b4038e">configFile</a></td></tr>
+<tr class="separator:a39e6ae4a2ad0c5e8bab0a4da94b4038e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a89863577783900bbbf335667334dbc19"><td class="memItemLeft" align="right" valign="top">std::ofstream&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00179.html#a89863577783900bbbf335667334dbc19">LogFile</a></td></tr>
+<tr class="separator:a89863577783900bbbf335667334dbc19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>part of ccNOos, Declarations for straight C and C++ wrappers </p>
+<p>Copyright 2021 InMechaSol, Inc <a href="https://www.inmechasol.org/">https://www.inmechasol.org/</a></p>
+<p>Licensed under the Apache License, Version 2.0(the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at</p>
+<p><a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
+<p>Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.</p>
+<p>Notes: (.c includes .h) - for straight C or (.cpp includes .c which includes .h) - for C++ wrapped straight C Always compiled to a single compilation unit, either C or CPP, not both </p>
+
+<p class="definition">Definition in file <a class="el" href="a00179_source.html">Platform_Win32.h</a>.</p>
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="af7178cfc09e0491d2a81b9a8dad4d7be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af7178cfc09e0491d2a81b9a8dad4d7be">&#9670;&nbsp;</a></span>LIGHT_OFF</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define LIGHT_OFF&#160;&#160;&#160;(0u)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00179_source.html#l00049">49</a> of file <a class="el" href="a00179_source.html">Platform_Win32.h</a>.</p>
+
+</div>
+</div>
+<a id="a3120c3c642290677dabaaf14122ccf8f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3120c3c642290677dabaaf14122ccf8f">&#9670;&nbsp;</a></span>uSEC_PER_CLOCK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define uSEC_PER_CLOCK&#160;&#160;&#160;(1000000/CLOCKS_PER_SEC)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00179_source.html#l00050">50</a> of file <a class="el" href="a00179_source.html">Platform_Win32.h</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="acd96223fc08c356fb130ea95e23bcbd2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd96223fc08c356fb130ea95e23bcbd2">&#9670;&nbsp;</a></span>platformLoopDelay()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void platformLoopDelay </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00179_source.html#l00106">106</a> of file <a class="el" href="a00179_source.html">Platform_Win32.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;{</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="comment">//&lt;platformLoopDelay&gt;</span></div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    std::this_thread::sleep_for(std::chrono::milliseconds(1));</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="comment">//&lt;/platformLoopDelay&gt;</span></div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a1a5667631fb6b165e20e1b005fbf5902"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a5667631fb6b165e20e1b005fbf5902">&#9670;&nbsp;</a></span>platformSetup()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void platformSetup </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00179_source.html#l00070">70</a> of file <a class="el" href="a00179_source.html">Platform_Win32.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;{</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="preprocessor">#ifdef _WIN32</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <a class="code" href="a00179.html#a0404c85c0ed165750925e543d1802ef6">GPSPortParams</a> = buildportParametersStruct(<span class="stringliteral">&quot;\\\\.\\COM31&quot;</span>, 9600);</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <a class="code" href="a00179.html#ae272b2ca89dff217a138306c631aa5d4">eCompPortParams</a> = buildportParametersStruct(<span class="stringliteral">&quot;\\\\.\\COM30&quot;</span>, 19200);</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <a class="code" href="a00179.html#a0404c85c0ed165750925e543d1802ef6">GPSPortParams</a> = buildportParametersStruct(<span class="stringliteral">&quot;/dev/tty1&quot;</span>, 9600);</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <a class="code" href="a00179.html#ae272b2ca89dff217a138306c631aa5d4">eCompPortParams</a> = buildportParametersStruct(<span class="stringliteral">&quot;/dev/tty2&quot;</span>, 19200);</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    openComPort(&amp;<a class="code" href="a00179.html#a0404c85c0ed165750925e543d1802ef6">GPSPortParams</a>);</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    openComPort(&amp;<a class="code" href="a00179.html#ae272b2ca89dff217a138306c631aa5d4">eCompPortParams</a>);</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <a class="code" href="a00179.html#a91a5d4a1bf3c075cccbf99628f65b9af">LCDKeyPadDevDataStruct</a> = <a class="code" href="a00092.html#a6565a7883f71d510cc0d1c71a5772aa1">createDeviceStruct</a>();</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <a class="code" href="a00179.html#a7b07bf99e0dc1abbc98694800dc11839">ConsoleMenuDevDataStruct</a> = <a class="code" href="a00092.html#a6565a7883f71d510cc0d1c71a5772aa1">createDeviceStruct</a>();</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="comment">//&lt;platformSetup&gt;</span></div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="comment">// </span></div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="comment">// open config device</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <a class="code" href="a00179.html#a39e6ae4a2ad0c5e8bab0a4da94b4038e">configFile</a>.open(<span class="stringliteral">&quot;conFile.json&quot;</span>);</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <a class="code" href="a00179.html#a89863577783900bbbf335667334dbc19">LogFile</a>.open(<span class="stringliteral">&quot;logFile.json&quot;</span>);</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="comment">// read config string?? </span></div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="comment">// </span></div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="comment">// open log device</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="comment">// wrtie log string??</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="comment">// </span></div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="comment">//&lt;/platformSetup&gt;</span></div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a4968fd7c5aa1e4c1f873c1b62f82bab9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4968fd7c5aa1e4c1f873c1b62f82bab9">&#9670;&nbsp;</a></span>platformStart()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void platformStart </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00179_source.html#l00100">100</a> of file <a class="el" href="a00179_source.html">Platform_Win32.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;{</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="comment">//&lt;platformStart&gt;</span></div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="comment">//&lt;/platformStart&gt;</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="a39e6ae4a2ad0c5e8bab0a4da94b4038e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a39e6ae4a2ad0c5e8bab0a4da94b4038e">&#9670;&nbsp;</a></span>configFile</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::ifstream configFile</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00179_source.html#l00067">67</a> of file <a class="el" href="a00179_source.html">Platform_Win32.h</a>.</p>
+
+</div>
+</div>
+<a id="a7b07bf99e0dc1abbc98694800dc11839"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b07bf99e0dc1abbc98694800dc11839">&#9670;&nbsp;</a></span>ConsoleMenuDevDataStruct</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct <a class="el" href="a00253.html">devicedatastruct</a> ConsoleMenuDevDataStruct</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00179_source.html#l00061">61</a> of file <a class="el" href="a00179_source.html">Platform_Win32.h</a>.</p>
+
+</div>
+</div>
+<a id="ae272b2ca89dff217a138306c631aa5d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae272b2ca89dff217a138306c631aa5d4">&#9670;&nbsp;</a></span>eCompPortParams</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">nbserial_class eComp_NBSerial&amp; eCompPortParams</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00179_source.html#l00001">1</a> of file <a class="el" href="a00179_source.html">Platform_Win32.h</a>.</p>
+
+</div>
+</div>
+<a id="a0404c85c0ed165750925e543d1802ef6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0404c85c0ed165750925e543d1802ef6">&#9670;&nbsp;</a></span>GPSPortParams</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">nbserial_class GPS_NBSerial&amp; GPSPortParams</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00179_source.html#l00001">1</a> of file <a class="el" href="a00179_source.html">Platform_Win32.h</a>.</p>
+
+</div>
+</div>
+<a id="a91a5d4a1bf3c075cccbf99628f65b9af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91a5d4a1bf3c075cccbf99628f65b9af">&#9670;&nbsp;</a></span>LCDKeyPadDevDataStruct</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct <a class="el" href="a00253.html">devicedatastruct</a> LCDKeyPadDevDataStruct</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00179_source.html#l00061">61</a> of file <a class="el" href="a00179_source.html">Platform_Win32.h</a>.</p>
+
+</div>
+</div>
+<a id="a89863577783900bbbf335667334dbc19"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a89863577783900bbbf335667334dbc19">&#9670;&nbsp;</a></span>LogFile</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::ofstream LogFile</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00179_source.html#l00068">68</a> of file <a class="el" href="a00179_source.html">Platform_Win32.h</a>.</p>
+
+</div>
+</div>
 </div><!-- contents -->
+<div class="ttc" id="aa00179_html_a0404c85c0ed165750925e543d1802ef6"><div class="ttname"><a href="a00179.html#a0404c85c0ed165750925e543d1802ef6">GPSPortParams</a></div><div class="ttdeci">struct portParametersStruct GPSPortParams</div><div class="ttdef"><b>Definition:</b> <a href="a00179_source.html#l00001">Platform_Win32.h:58</a></div></div>
+<div class="ttc" id="aa00179_html_a89863577783900bbbf335667334dbc19"><div class="ttname"><a href="a00179.html#a89863577783900bbbf335667334dbc19">LogFile</a></div><div class="ttdeci">std::ofstream LogFile</div><div class="ttdef"><b>Definition:</b> <a href="a00179_source.html#l00068">Platform_Win32.h:68</a></div></div>
+<div class="ttc" id="aa00179_html_ae272b2ca89dff217a138306c631aa5d4"><div class="ttname"><a href="a00179.html#ae272b2ca89dff217a138306c631aa5d4">eCompPortParams</a></div><div class="ttdeci">struct portParametersStruct eCompPortParams</div><div class="ttdef"><b>Definition:</b> <a href="a00179_source.html#l00001">Platform_Win32.h:59</a></div></div>
+<div class="ttc" id="aa00179_html_a39e6ae4a2ad0c5e8bab0a4da94b4038e"><div class="ttname"><a href="a00179.html#a39e6ae4a2ad0c5e8bab0a4da94b4038e">configFile</a></div><div class="ttdeci">std::ifstream configFile</div><div class="ttdef"><b>Definition:</b> <a href="a00179_source.html#l00067">Platform_Win32.h:67</a></div></div>
+<div class="ttc" id="aa00179_html_a7b07bf99e0dc1abbc98694800dc11839"><div class="ttname"><a href="a00179.html#a7b07bf99e0dc1abbc98694800dc11839">ConsoleMenuDevDataStruct</a></div><div class="ttdeci">struct devicedatastruct ConsoleMenuDevDataStruct</div><div class="ttdef"><b>Definition:</b> <a href="a00179_source.html#l00061">Platform_Win32.h:64</a></div></div>
+<div class="ttc" id="aa00179_html_a91a5d4a1bf3c075cccbf99628f65b9af"><div class="ttname"><a href="a00179.html#a91a5d4a1bf3c075cccbf99628f65b9af">LCDKeyPadDevDataStruct</a></div><div class="ttdeci">struct devicedatastruct LCDKeyPadDevDataStruct</div><div class="ttdef"><b>Definition:</b> <a href="a00179_source.html#l00061">Platform_Win32.h:63</a></div></div>
+<div class="ttc" id="aa00092_html_a6565a7883f71d510cc0d1c71a5772aa1"><div class="ttname"><a href="a00092.html#a6565a7883f71d510cc0d1c71a5772aa1">createDeviceStruct</a></div><div class="ttdeci">struct devicedatastruct createDeviceStruct()</div><div class="ttdef"><b>Definition:</b> <a href="a00092_source.html#l00001">io_device.c:30</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by&#160;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.20

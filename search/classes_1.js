@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['commsparameters_629',['commsParameters',['../a00128.html',1,'']]],
-  ['computemodulestruct_630',['computeModuleStruct',['../a00148.html',1,'']]]
+  ['commsparameters_853',['commsParameters',['../a00189.html',1,'']]],
+  ['computemodulestruct_854',['computeModuleStruct',['../a00229.html',1,'']]]
 ];

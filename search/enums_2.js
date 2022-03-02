@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['register_5faddr_5ft_787',['register_addr_t',['../a00008.html#a3becb8979217fb6ff345fc0506b8cf47',1,'ADRF6650_Map.h']]]
+  ['porthandshakeenum_1186',['portHandshakeEnum',['../a00095.html#a7e0a52e4154045de5f18c519c4d28e94',1,'io_device.h']]],
+  ['portparityenum_1187',['portParityEnum',['../a00095.html#a321920b9e4812e0ae30dfda5d5f85f0b',1,'io_device.h']]],
+  ['portstopbitsenum_1188',['portStopBitsEnum',['../a00095.html#a14bf2158d45b82fab05d87693ae4372d',1,'io_device.h']]]
 ];

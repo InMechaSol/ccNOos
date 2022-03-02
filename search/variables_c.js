@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['read_770',['read',['../a00168.html#a5540707d2956795b869f5f36625b55c5',1,'ioDeviceStruct']]],
-  ['roll_771',['roll',['../a00140.html#a26fd84d522945b6038221d9e38c7cc39',1,'antennaAttitudeStruct']]],
-  ['rx_5flo_772',['Rx_LO',['../a00128.html#a1caa0fbbda647f81d2d0d05547dd4ea4',1,'commsParameters']]]
+  ['open_1143',['open',['../a00265.html#a8665fab5ba6093142bdad3d4cf89d35b',1,'ioDeviceStruct']]],
+  ['outbuff_1144',['outbuff',['../a00253.html#a1ad116c3a9782608f30cee19b1793c03',1,'devicedatastruct']]]
 ];

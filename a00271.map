@@ -1,0 +1,7 @@
+<map id="eCompStruct" name="eCompStruct">
+<area shape="rect" id="node1" title=" " alt="" coords="71,288,169,315"/>
+<area shape="rect" id="node2" href="$a00213.html" title=" " alt="" coords="5,199,131,225"/>
+<area shape="rect" id="node3" href="$a00261.html" title=" " alt="" coords="155,199,283,225"/>
+<area shape="rect" id="node4" href="$a00253.html" title="the common data struct of io devices" alt="" coords="161,109,277,136"/>
+<area shape="rect" id="node5" href="$a00249.html" title="char/byte ambiguous container for io data" alt="" coords="159,5,279,32"/>
+</map>

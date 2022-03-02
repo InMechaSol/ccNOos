@@ -1,4 +1,5 @@
-<map id="ccLibs/acs/satComControl.h" name="ccLibs/acs/satComControl.h">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,192,32"/>
-<area shape="rect" id="node2" href="$a00065.html" title="ccNOos Source Code Version and Configuration Declarations" alt="" coords="25,80,172,121"/>
+<map id="ccLibs/devices/HMR3300/HMR3300.c" name="ccLibs/devices/HMR3300/HMR3300.c">
+<area shape="rect" id="node1" title="part of ccNOos, Implementation for straight C, or Declarations for C++ wrappers" alt="" coords="5,5,173,47"/>
+<area shape="rect" id="node2" href="$a00029.html" title="part of ccNOos, Declarations for straight C and C++ wrappers" alt="" coords="44,95,135,121"/>
+<area shape="rect" id="node3" href="$a00089.html" title="part of ccNOos, Declarations for straight C and C++ wrappers" alt="" coords="32,169,147,196"/>
 </map>

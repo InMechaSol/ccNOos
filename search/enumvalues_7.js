@@ -1,9 +1,7 @@
 var searchData=
 [
-  ['iflin_5foverride_5faddr_832',['IFLIN_OVERRIDE_ADDR',['../a00008.html#a3becb8979217fb6ff345fc0506b8cf47a3fd7fdf38e7ba635f1f0de35d62d74d7',1,'ADRF6650_Map.h']]],
-  ['ifmain_5foverride_5faddr_833',['IFMAIN_OVERRIDE_ADDR',['../a00008.html#a3becb8979217fb6ff345fc0506b8cf47a4c840265b7870cfc633585e60ef28b4d',1,'ADRF6650_Map.h']]],
-  ['int_5fdiv_5fh_5fslave_5faddr_834',['INT_DIV_H_SLAVE_ADDR',['../a00008.html#a3becb8979217fb6ff345fc0506b8cf47a0cb3a2ee755b118b0ad5f1a770bff671',1,'ADRF6650_Map.h']]],
-  ['int_5fdiv_5fl_5fslave_5faddr_835',['INT_DIV_L_SLAVE_ADDR',['../a00008.html#a3becb8979217fb6ff345fc0506b8cf47a08815d1b79b613a65e12f4cfa40973c7',1,'ADRF6650_Map.h']]],
-  ['int_5fh_5faddr_836',['INT_H_ADDR',['../a00008.html#a3becb8979217fb6ff345fc0506b8cf47a748f9c5784ef52822f98e6b4d9c3e4a9',1,'ADRF6650_Map.h']]],
-  ['int_5fl_5faddr_837',['INT_L_ADDR',['../a00008.html#a3becb8979217fb6ff345fc0506b8cf47a27cba9e2f9f82aa42c97ceb5f4a2f8bc',1,'ADRF6650_Map.h']]]
+  ['handshake_5fnone_1242',['handshake_none',['../a00095.html#a7e0a52e4154045de5f18c519c4d28e94adcc9f02c97799a3d7f2ab45e99bcb513',1,'io_device.h']]],
+  ['handshake_5frequesttosend_1243',['handshake_requesttosend',['../a00095.html#a7e0a52e4154045de5f18c519c4d28e94a0af918d9cc5041fdca38779090abdbdc',1,'io_device.h']]],
+  ['handshake_5frequesttosendxonxoff_1244',['handshake_requesttosendxonxoff',['../a00095.html#a7e0a52e4154045de5f18c519c4d28e94a12a7572c075eb0ef629ab506bbd31135',1,'io_device.h']]],
+  ['handshake_5fxonxoff_1245',['handshake_xonxoff',['../a00095.html#a7e0a52e4154045de5f18c519c4d28e94a2f8d73465ba530ddfe1866262886acd4',1,'io_device.h']]]
 ];

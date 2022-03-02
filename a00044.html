@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.20"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ccNOos: computeModule/compute_module_class.cpp File Reference</title>
+<title>ccNOos: ccLibs/devices/NEO_LEA_M8T/NEO_LEA_M8T.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,47 +63,43 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_e260cef30fb7430716b398e5e5c0bf1e.html">computeModule</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_0197008c3304fc5d14dd8cc29e6fb81c.html">ccLibs</a></li><li class="navelem"><a class="el" href="dir_5866f88dd7b51529a8265c9e7e5e0040.html">devices</a></li><li class="navelem"><a class="el" href="dir_90abfafef124e95516cfc7a423234862.html">NEO_LEA_M8T</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">compute_module_class.cpp File Reference</div>  </div>
+<div class="title">NEO_LEA_M8T.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>ccNOos Compute Module Class Wrappers  
+<p>part of ccNOos, Implementation for C++ wrappers  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="a00038_source.html">compute_module.c</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="a00041_source.html">NEO_LEA_M8T.c</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
-Include dependency graph for compute_module_class.cpp:</div>
+Include dependency graph for NEO_LEA_M8T.cpp:</div>
 <div class="dyncontent">
-<div class="center"><img src="a00045.png" border="0" usemap="#acompute_module_2compute__module__class_8cpp" alt=""/></div>
-<map name="compute_module_2compute__module__class_8cpp" id="compute_module_2compute__module__class_8cpp">
-<area shape="rect" title="ccNOos Compute Module Class Wrappers" alt="" coords="67,5,235,47"/>
-<area shape="rect" href="a00038.html" title="ccNOos Compute Module Definitions" alt="" coords="85,95,217,121"/>
-<area shape="rect" href="a00041.html" title="ccNOos Compute Module Declarations" alt="" coords="5,177,137,203"/>
-<area shape="rect" href="a00059.html" title="ccNOos Module Execution System Declarations" alt="" coords="161,169,304,211"/>
-<area shape="rect" href="a00065.html" title="ccNOos Source Code Version and Configuration Declarations" alt="" coords="84,259,219,300"/>
+<div class="center"><img src="a00045.png" border="0" usemap="#acc_libs_2devices_2_n_e_o___l_e_a___m8_t_2_n_e_o___l_e_a___m8_t_8cpp" alt=""/></div>
+<map name="cc_libs_2devices_2_n_e_o___l_e_a___m8_t_2_n_e_o___l_e_a___m8_t_8cpp" id="acc_libs_2devices_2_n_e_o___l_e_a___m8_t_2_n_e_o___l_e_a___m8_t_8cpp">
+<area shape="rect" title="part of ccNOos, Implementation for C++ wrappers" alt="" coords="35,5,241,47"/>
+<area shape="rect" href="a00041.html" title="part of ccNOos, Implementation for straight C, or Declarations for C++ wrappers" alt="" coords="75,95,201,121"/>
+<area shape="rect" href="a00047.html" title="part of ccNOos, Declarations for straight C and C++ wrappers" alt="" coords="75,169,201,196"/>
+<area shape="rect" href="a00074.html" title="part of ccNOos, Declarations for straight C and C++ wrappers" alt="" coords="79,244,197,271"/>
+<area shape="rect" href="a00065.html" title="part of ccNOos, Declarations for straight C and C++ wrappers" alt="" coords="5,319,137,345"/>
+<area shape="rect" href="a00095.html" title="part of ccNOos, Declarations for straight C and C++ wrappers" alt="" coords="161,319,248,345"/>
+<area shape="rect" href="a00089.html" title="part of ccNOos, Declarations for straight C and C++ wrappers" alt="" coords="81,393,195,420"/>
 </map>
 </div>
 </div>
 <p><a href="a00044_source.html">Go to the source code of this file.</a></p>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>ccNOos Compute Module Class Wrappers </p>
-<p>Copyright 2021 InMechaSol, Inc</p>
-<p>Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at</p>
+<div class="textblock"><p>part of ccNOos, Implementation for C++ wrappers </p>
+<p>Copyright 2021 InMechaSol, Inc <a href="https://www.inmechasol.org/">https://www.inmechasol.org/</a></p>
+<p>Licensed under the Apache License, Version 2.0(the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at</p>
 <p><a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
 <p>Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.</p>
-<p>Notes:</p>
-<p>Be certain to compile only one compilation unit in cpp,</p><ul>
-<li>not 1 in c and another in cpp</li>
-<li>all three files (.h .c and .cpp) &ndash; used to create single cpp compilation unit</li>
-</ul>
-<p>A compute module is a fundamental code block, according to ccNOos philosophy, for Execution by the Execution System. It provides a few common entry points; all modules will have these common entry points to be called by the execution system.</p>
-<p>A compute module is a collection of entry points (functions) assignable to unique execution levels. The execution system is configured to "compute" modules at particular execution levels. </p>
+<p>Notes: (.c includes .h) - for straight C or (.cpp includes .c which includes .h) - for C++ wrapped straight C Always compiled to a single compilation unit, either C or CPP, not both </p>
 
-<p class="definition">Definition in file <a class="el" href="a00044_source.html">compute_module_class.cpp</a>.</p>
+<p class="definition">Definition in file <a class="el" href="a00044_source.html">NEO_LEA_M8T.cpp</a>.</p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

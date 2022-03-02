@@ -1,0 +1,5 @@
+<map id="SerialDeviceStruct" name="SerialDeviceStruct">
+<area shape="rect" id="node1" title=" " alt="" coords="5,199,133,225"/>
+<area shape="rect" id="node2" href="$a00253.html" title="the common data struct of io devices" alt="" coords="11,109,127,136"/>
+<area shape="rect" id="node3" href="$a00249.html" title="char/byte ambiguous container for io data" alt="" coords="9,5,129,32"/>
+</map>

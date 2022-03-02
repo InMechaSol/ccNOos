@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['return_5ferror_1090',['RETURN_ERROR',['../a00065.html#a9eec9e2a2ffc5f3c7a1bfbe1ba4a4c2b',1,'version_config.h']]],
-  ['return_5fsuccess_1091',['RETURN_SUCCESS',['../a00065.html#a9d37d43ac2717b06ef7120784465e56f',1,'version_config.h']]]
+  ['platform_5fapp_5fctemplate_1528',['PLATFORM_APP_CTEMPLATE',['../a00339.html#aa3040ea762a4afa0e87c9daf106521d3',1,'PLATFORM_APP_CTEMPLATE():&#160;Application_Solution.h'],['../a00333.html#aa3040ea762a4afa0e87c9daf106521d3',1,'PLATFORM_APP_CTEMPLATE():&#160;Application_Solution.h'],['../a00336.html#aa3040ea762a4afa0e87c9daf106521d3',1,'PLATFORM_APP_CTEMPLATE():&#160;Application_Solution.h']]]
 ];

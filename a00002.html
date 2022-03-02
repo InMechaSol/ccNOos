@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.20"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ccNOos: ccLibs/acs/ADRF6650.c File Reference</title>
+<title>ccNOos: ccLibs/acs/satComControl.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -70,19 +70,31 @@ $(function() {
   <div class="summary">
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">ADRF6650.c File Reference</div>  </div>
+<div class="title">satComControl.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="a00005_source.html">ADRF6650.h</a>&quot;</code><br />
+
+<p>part of ccNOos, Implementation for straight C, or Declarations for C++ wrappers  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &quot;<a class="el" href="a00008_source.html">satComControl.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
-Include dependency graph for ADRF6650.c:</div>
+Include dependency graph for satComControl.c:</div>
 <div class="dyncontent">
-<div class="center"><img src="a00003.png" border="0" usemap="#acc_libs_2acs_2_a_d_r_f6650_8c" alt=""/></div>
-<map name="cc_libs_2acs_2_a_d_r_f6650_8c" id="cc_libs_2acs_2_a_d_r_f6650_8c">
-<area shape="rect" title=" " alt="" coords="60,5,223,32"/>
-<area shape="rect" href="a00005.html" title=" " alt="" coords="93,80,189,107"/>
-<area shape="rect" href="a00008.html" title=" " alt="" coords="5,155,133,181"/>
-<area shape="rect" href="a00065.html" title="ccNOos Source Code Version and Configuration Declarations" alt="" coords="157,155,272,181"/>
+<div class="center"><img src="a00003.png" border="0" usemap="#acc_libs_2acs_2sat_com_control_8c" alt=""/></div>
+<map name="cc_libs_2acs_2sat_com_control_8c" id="acc_libs_2acs_2sat_com_control_8c">
+<area shape="rect" title="part of ccNOos, Implementation for straight C, or Declarations for C++ wrappers" alt="" coords="5,5,192,32"/>
+<area shape="rect" href="a00008.html" title="part of ccNOos, Declarations for straight C and C++ wrappers" alt="" coords="39,80,158,107"/>
+<area shape="rect" href="a00056.html" title="part of ccNOos, Declarations for straight C and C++ wrappers" alt="" coords="42,155,155,181"/>
+<area shape="rect" href="a00089.html" title="part of ccNOos, Declarations for straight C and C++ wrappers" alt="" coords="41,229,156,256"/>
+</map>
+</div>
+</div><div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><img src="a00004.png" border="0" usemap="#acc_libs_2acs_2sat_com_control_8cdep" alt=""/></div>
+<map name="cc_libs_2acs_2sat_com_control_8cdep" id="acc_libs_2acs_2sat_com_control_8cdep">
+<area shape="rect" title="part of ccNOos, Implementation for straight C, or Declarations for C++ wrappers" alt="" coords="12,5,199,32"/>
+<area shape="rect" href="a00005.html" title="part of ccNOos, Implementation for C++ wrappers" alt="" coords="5,80,205,107"/>
 </map>
 </div>
 </div>
@@ -90,735 +102,241 @@ Include dependency graph for ADRF6650.c:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a3575d076f435de95fd27ca4be03a6b2d"><td class="memItemLeft" align="right" valign="top">UI_8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00002.html#a3575d076f435de95fd27ca4be03a6b2d">ConnectSerial</a> (struct <a class="el" href="a00116.html">ADRF6650DataStruct</a> *ADRF6650DataPtrIn)</td></tr>
-<tr class="separator:a3575d076f435de95fd27ca4be03a6b2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a03bf47c6f45d6a4587d776dbd67f973f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00002.html#a03bf47c6f45d6a4587d776dbd67f973f">InitSPI</a> (struct <a class="el" href="a00116.html">ADRF6650DataStruct</a> *ADRF6650DataPtrIn)</td></tr>
-<tr class="separator:a03bf47c6f45d6a4587d776dbd67f973f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae2c2c78d4f4ddc67a473efb7d7cb79a1"><td class="memItemLeft" align="right" valign="top">UI_8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00002.html#ae2c2c78d4f4ddc67a473efb7d7cb79a1">spi_in</a> (<a class="el" href="a00008.html#a3becb8979217fb6ff345fc0506b8cf47">register_addr_t</a> addr, struct <a class="el" href="a00116.html">ADRF6650DataStruct</a> *ADRF6650DataPtrIn)</td></tr>
-<tr class="separator:ae2c2c78d4f4ddc67a473efb7d7cb79a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a362ada40aeda32d333753c93b6bf9c73"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00002.html#a362ada40aeda32d333753c93b6bf9c73">spi_out</a> (<a class="el" href="a00008.html#a3becb8979217fb6ff345fc0506b8cf47">register_addr_t</a> addr, UI_8 data, struct <a class="el" href="a00116.html">ADRF6650DataStruct</a> *ADRF6650DataPtrIn)</td></tr>
-<tr class="separator:a362ada40aeda32d333753c93b6bf9c73"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa8c11f09e3499ea2399160de35d2f0ea"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00002.html#aa8c11f09e3499ea2399160de35d2f0ea">reset_chip</a> (struct <a class="el" href="a00116.html">ADRF6650DataStruct</a> *ADRF6650DataPtrIn)</td></tr>
-<tr class="separator:aa8c11f09e3499ea2399160de35d2f0ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a50ac66d32e687993a924ce0b29775a99"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00002.html#a50ac66d32e687993a924ce0b29775a99">config_ADRF6650</a> (struct <a class="el" href="a00116.html">ADRF6650DataStruct</a> *ADRF6650DataPtrIn)</td></tr>
-<tr class="separator:a50ac66d32e687993a924ce0b29775a99"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a707d06b1a0e6fd2de1860fa41777ac"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00002.html#a4a707d06b1a0e6fd2de1860fa41777ac">config_TDD</a> (struct <a class="el" href="a00116.html">ADRF6650DataStruct</a> *ADRF6650DataPtrIn)</td></tr>
-<tr class="separator:a4a707d06b1a0e6fd2de1860fa41777ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad23f8a10a98ef6510a6403c31b5bedea"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00002.html#ad23f8a10a98ef6510a6403c31b5bedea">set_D</a> (I_16 value, struct <a class="el" href="a00116.html">ADRF6650DataStruct</a> *ADRF6650DataPtrIn)</td></tr>
-<tr class="separator:ad23f8a10a98ef6510a6403c31b5bedea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab75150b5e4c760af11d2fa508aff7fcb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00002.html#ab75150b5e4c760af11d2fa508aff7fcb">set_R</a> (I_16 value, struct <a class="el" href="a00116.html">ADRF6650DataStruct</a> *ADRF6650DataPtrIn)</td></tr>
-<tr class="separator:ab75150b5e4c760af11d2fa508aff7fcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a985d1eaeb82b623ff6f5621aae6d25"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00002.html#a4a985d1eaeb82b623ff6f5621aae6d25">set_T</a> (I_16 value, struct <a class="el" href="a00116.html">ADRF6650DataStruct</a> *ADRF6650DataPtrIn)</td></tr>
-<tr class="separator:a4a985d1eaeb82b623ff6f5621aae6d25"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af55fadf327f14965fea5ae4be863d747"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00002.html#af55fadf327f14965fea5ae4be863d747">set_frac1</a> (I_16 data, struct <a class="el" href="a00116.html">ADRF6650DataStruct</a> *ADRF6650DataPtrIn)</td></tr>
-<tr class="separator:af55fadf327f14965fea5ae4be863d747"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa01d445088834a1e819071224824a348"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00002.html#aa01d445088834a1e819071224824a348">set_frac2</a> (I_16 data, struct <a class="el" href="a00116.html">ADRF6650DataStruct</a> *ADRF6650DataPtrIn)</td></tr>
-<tr class="separator:aa01d445088834a1e819071224824a348"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4af1104f547e1ebac1e590cf853b07b6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00002.html#a4af1104f547e1ebac1e590cf853b07b6">set_mod</a> (I_16 data, struct <a class="el" href="a00116.html">ADRF6650DataStruct</a> *ADRF6650DataPtrIn)</td></tr>
-<tr class="separator:a4af1104f547e1ebac1e590cf853b07b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac35d3baee7f997044f70faff201456ee"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00002.html#ac35d3baee7f997044f70faff201456ee">set_int</a> (I_16 data, struct <a class="el" href="a00116.html">ADRF6650DataStruct</a> *ADRF6650DataPtrIn)</td></tr>
-<tr class="separator:ac35d3baee7f997044f70faff201456ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a617b7d985c8ece80763cd414074bb722"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00002.html#a617b7d985c8ece80763cd414074bb722">set_phase</a> (I_16 data, struct <a class="el" href="a00116.html">ADRF6650DataStruct</a> *ADRF6650DataPtrIn)</td></tr>
-<tr class="separator:a617b7d985c8ece80763cd414074bb722"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a480bdfbfb518ffc788fcb46765c7ac7e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00002.html#a480bdfbfb518ffc788fcb46765c7ac7e">set_bleed_en</a> (UI_8 enable, struct <a class="el" href="a00116.html">ADRF6650DataStruct</a> *ADRF6650DataPtrIn)</td></tr>
-<tr class="separator:a480bdfbfb518ffc788fcb46765c7ac7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aab9cb8525288bc7cf9845b87108c3e75"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00002.html#aab9cb8525288bc7cf9845b87108c3e75">set_bicp</a> (I_16 data, struct <a class="el" href="a00116.html">ADRF6650DataStruct</a> *ADRF6650DataPtrIn)</td></tr>
-<tr class="separator:aab9cb8525288bc7cf9845b87108c3e75"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab920122ad43213f0be69db8092f4778b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00002.html#ab920122ad43213f0be69db8092f4778b">set_cp_current</a> (I_16 data, struct <a class="el" href="a00116.html">ADRF6650DataStruct</a> *ADRF6650DataPtrIn)</td></tr>
-<tr class="separator:ab920122ad43213f0be69db8092f4778b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a426b18e463882112c4a74cc2efcad834"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00002.html#a426b18e463882112c4a74cc2efcad834">set_vco_freq</a> (double frequency, struct <a class="el" href="a00116.html">ADRF6650DataStruct</a> *ADRF6650DataPtrIn)</td></tr>
-<tr class="separator:a426b18e463882112c4a74cc2efcad834"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2c72c5cdbe15aa8b5a8614e67d300c95"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00002.html#a2c72c5cdbe15aa8b5a8614e67d300c95">set_ref_input</a> (struct <a class="el" href="a00116.html">ADRF6650DataStruct</a> *ADRF6650DataPtrIn)</td></tr>
-<tr class="separator:a2c72c5cdbe15aa8b5a8614e67d300c95"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a20eb20e03547d7cd90e063ec8bf09e5a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00002.html#a20eb20e03547d7cd90e063ec8bf09e5a">set_lo_freq</a> (double frequency, struct <a class="el" href="a00116.html">ADRF6650DataStruct</a> *ADRF6650DataPtrIn)</td></tr>
-<tr class="separator:a20eb20e03547d7cd90e063ec8bf09e5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa14193c09c0d4ffd2af4aa339bd804c3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00002.html#aa14193c09c0d4ffd2af4aa339bd804c3">set_mixer_en</a> (UI_8 enable, struct <a class="el" href="a00116.html">ADRF6650DataStruct</a> *ADRF6650DataPtrIn)</td></tr>
-<tr class="separator:aa14193c09c0d4ffd2af4aa339bd804c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aebaf0189b34fdb6e2160419cff048bf2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00002.html#aebaf0189b34fdb6e2160419cff048bf2">set_lo_out_en</a> (UI_8 enable, struct <a class="el" href="a00116.html">ADRF6650DataStruct</a> *ADRF6650DataPtrIn)</td></tr>
-<tr class="separator:aebaf0189b34fdb6e2160419cff048bf2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a340d586faa4d29885d4e49fee9843549"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00002.html#a340d586faa4d29885d4e49fee9843549">set_dvga_mode</a> (<a class="el" href="a00005.html#a0eea76ba8db4bd73fe834001982c568f">dvga_mode_t</a> mode, struct <a class="el" href="a00116.html">ADRF6650DataStruct</a> *ADRF6650DataPtrIn)</td></tr>
-<tr class="separator:a340d586faa4d29885d4e49fee9843549"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac603cae1abf861c006a48ce53a843fba"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00002.html#ac603cae1abf861c006a48ce53a843fba">set_dvga1_atten</a> (I_16 data, struct <a class="el" href="a00116.html">ADRF6650DataStruct</a> *ADRF6650DataPtrIn)</td></tr>
-<tr class="separator:ac603cae1abf861c006a48ce53a843fba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a303a8c9f31ce0cc6410accdf2cb843ac"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00002.html#a303a8c9f31ce0cc6410accdf2cb843ac">set_dvga2_atten</a> (I_16 data, struct <a class="el" href="a00116.html">ADRF6650DataStruct</a> *ADRF6650DataPtrIn)</td></tr>
-<tr class="separator:a303a8c9f31ce0cc6410accdf2cb843ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09a075e3e5c8340901d632f5985edf6f"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="a00185.html">satelliteStruct</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00002.html#a09a075e3e5c8340901d632f5985edf6f">createSatelliteStruct</a> ()</td></tr>
+<tr class="separator:a09a075e3e5c8340901d632f5985edf6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3993b18325e4a3214fdd99cc5ae8410e"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="a00189.html">commsParameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00002.html#a3993b18325e4a3214fdd99cc5ae8410e">createcommsParameters</a> ()</td></tr>
+<tr class="separator:a3993b18325e4a3214fdd99cc5ae8410e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6603b1f8408bf5e58a6ed010ecebdae4"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="a00193.html">geoLocationStruct</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00002.html#a6603b1f8408bf5e58a6ed010ecebdae4">creategeoLocationStruct</a> ()</td></tr>
+<tr class="separator:a6603b1f8408bf5e58a6ed010ecebdae4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a20f90feab1b76fb83cf2aaa4e966bf25"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="a00197.html">antennaAttitudeStruct</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00002.html#a20f90feab1b76fb83cf2aaa4e966bf25">createantennaAttitudeStruct</a> ()</td></tr>
+<tr class="separator:a20f90feab1b76fb83cf2aaa4e966bf25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d14eb37c43f0fbf2ffe4407d559192b"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="a00201.html">antennaAxis</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00002.html#a2d14eb37c43f0fbf2ffe4407d559192b">createantennaAxis</a> ()</td></tr>
+<tr class="separator:a2d14eb37c43f0fbf2ffe4407d559192b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3f04ed8d96d76577eca3fdd3598c425"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="a00205.html">antennaStruct</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00002.html#aa3f04ed8d96d76577eca3fdd3598c425">createantennaStruct</a> ()</td></tr>
+<tr class="separator:aa3f04ed8d96d76577eca3fdd3598c425"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b551194dd989cea8826eeaf6065ddc3"><td class="memItemLeft" align="right" valign="top">UI_8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00002.html#a1b551194dd989cea8826eeaf6065ddc3">CalculateLookAngle</a> (struct <a class="el" href="a00205.html">antennaStruct</a> *antStructInPtr)</td></tr>
+<tr class="separator:a1b551194dd989cea8826eeaf6065ddc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
-<a id="a50ac66d32e687993a924ce0b29775a99"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a50ac66d32e687993a924ce0b29775a99">&#9670;&nbsp;</a></span>config_ADRF6650()</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>part of ccNOos, Implementation for straight C, or Declarations for C++ wrappers </p>
+<p>Copyright 2021 InMechaSol, Inc <a href="https://www.inmechasol.org/">https://www.inmechasol.org/</a></p>
+<p>Licensed under the Apache License, Version 2.0(the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at</p>
+<p><a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
+<p>Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.</p>
+<p>Notes: (.c includes .h) - for straight C or (.cpp includes .c which includes .h) - for C++ wrapped straight C Always compiled to a single compilation unit, either C or CPP, not both </p>
+
+<p class="definition">Definition in file <a class="el" href="a00002_source.html">satComControl.c</a>.</p>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="a1b551194dd989cea8826eeaf6065ddc3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b551194dd989cea8826eeaf6065ddc3">&#9670;&nbsp;</a></span>CalculateLookAngle()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void config_ADRF6650 </td>
+          <td class="memname">UI_8 CalculateLookAngle </td>
           <td>(</td>
-          <td class="paramtype">struct <a class="el" href="a00116.html">ADRF6650DataStruct</a> *&#160;</td>
-          <td class="paramname"><em>ADRF6650DataPtrIn</em></td><td>)</td>
+          <td class="paramtype">struct <a class="el" href="a00205.html">antennaStruct</a> *&#160;</td>
+          <td class="paramname"><em>antStructInPtr</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="a00002_source.html#l00082">82</a> of file <a class="el" href="a00002_source.html">satComControl.c</a>.</p>
+<div class="fragment"><div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;{</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keywordflow">if</span>(antStructInPtr-&gt;<a class="code" href="a00205.html#a353ee47df65a1211850b0f9467481772">State</a>)</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    {</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        ;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    }</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="a00089.html#a18a8e11d3ba338929d2c54ed0ef6c366">ui8FALSE</a>;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;}</div>
+</div><!-- fragment -->
 </div>
 </div>
-<a id="a4a707d06b1a0e6fd2de1860fa41777ac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4a707d06b1a0e6fd2de1860fa41777ac">&#9670;&nbsp;</a></span>config_TDD()</h2>
+<a id="a20f90feab1b76fb83cf2aaa4e966bf25"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a20f90feab1b76fb83cf2aaa4e966bf25">&#9670;&nbsp;</a></span>createantennaAttitudeStruct()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void config_TDD </td>
+          <td class="memname">struct <a class="el" href="a00197.html">antennaAttitudeStruct</a> createantennaAttitudeStruct </td>
           <td>(</td>
-          <td class="paramtype">struct <a class="el" href="a00116.html">ADRF6650DataStruct</a> *&#160;</td>
-          <td class="paramname"><em>ADRF6650DataPtrIn</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="a00002_source.html#l00001">1</a> of file <a class="el" href="a00002_source.html">satComControl.c</a>.</p>
+<div class="fragment"><div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;{</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keyword">struct </span><a class="code" href="a00197.html">antennaAttitudeStruct</a> outStruct;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    outStruct.<a class="code" href="a00197.html#a282e7d4378d4a18a805b8980295ac86c">pitch</a> = 0;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    outStruct.roll = 0;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    outStruct.yaw = 0;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordflow">return</span> outStruct;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;}</div>
+</div><!-- fragment -->
 </div>
 </div>
-<a id="a3575d076f435de95fd27ca4be03a6b2d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3575d076f435de95fd27ca4be03a6b2d">&#9670;&nbsp;</a></span>ConnectSerial()</h2>
+<a id="a2d14eb37c43f0fbf2ffe4407d559192b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d14eb37c43f0fbf2ffe4407d559192b">&#9670;&nbsp;</a></span>createantennaAxis()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">UI_8 ConnectSerial </td>
+          <td class="memname">struct <a class="el" href="a00201.html">antennaAxis</a> createantennaAxis </td>
           <td>(</td>
-          <td class="paramtype">struct <a class="el" href="a00116.html">ADRF6650DataStruct</a> *&#160;</td>
-          <td class="paramname"><em>ADRF6650DataPtrIn</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="a00002_source.html#l00001">1</a> of file <a class="el" href="a00002_source.html">satComControl.c</a>.</p>
+<div class="fragment"><div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;{</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keyword">struct </span><a class="code" href="a00201.html">antennaAxis</a> outStruct;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    outStruct.<a class="code" href="a00201.html#a71be1b805be249d99da1bf5ae181c19e">Pedestal</a> = <a class="code" href="a00050.html#ad4757160d9e9d099c258109cc84976d7">createaxisStruct</a>();</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    outStruct.World = <a class="code" href="a00050.html#ad4757160d9e9d099c258109cc84976d7">createaxisStruct</a>();</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordflow">return</span> outStruct;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;}</div>
+</div><!-- fragment -->
 </div>
 </div>
-<a id="a03bf47c6f45d6a4587d776dbd67f973f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a03bf47c6f45d6a4587d776dbd67f973f">&#9670;&nbsp;</a></span>InitSPI()</h2>
+<a id="aa3f04ed8d96d76577eca3fdd3598c425"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa3f04ed8d96d76577eca3fdd3598c425">&#9670;&nbsp;</a></span>createantennaStruct()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void InitSPI </td>
+          <td class="memname">struct <a class="el" href="a00205.html">antennaStruct</a> createantennaStruct </td>
           <td>(</td>
-          <td class="paramtype">struct <a class="el" href="a00116.html">ADRF6650DataStruct</a> *&#160;</td>
-          <td class="paramname"><em>ADRF6650DataPtrIn</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="a00002_source.html#l00001">1</a> of file <a class="el" href="a00002_source.html">satComControl.c</a>.</p>
+<div class="fragment"><div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;{</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keyword">struct </span><a class="code" href="a00205.html">antennaStruct</a> outStruct;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    outStruct.<a class="code" href="a00205.html#a353ee47df65a1211850b0f9467481772">State</a> = <a class="code" href="a00008.html#a6a56abcf8efce3cf1545e61fa3c4352fa3b5e89b28dbbf817446b6c8f06e6b923">antState_init</a>;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    outStruct.GeoLocation = <a class="code" href="a00002.html#a6603b1f8408bf5e58a6ed010ecebdae4">creategeoLocationStruct</a>();</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    outStruct.AzimuthAxis = <a class="code" href="a00002.html#a2d14eb37c43f0fbf2ffe4407d559192b">createantennaAxis</a>();</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    outStruct.ElevationAxis = <a class="code" href="a00002.html#a2d14eb37c43f0fbf2ffe4407d559192b">createantennaAxis</a>();</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    outStruct.ReflectorAttitude = <a class="code" href="a00002.html#a20f90feab1b76fb83cf2aaa4e966bf25">createantennaAttitudeStruct</a>();</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    outStruct.BaseAttitude = <a class="code" href="a00002.html#a20f90feab1b76fb83cf2aaa4e966bf25">createantennaAttitudeStruct</a>();</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    outStruct.TargetSatellite = <a class="code" href="a00002.html#a09a075e3e5c8340901d632f5985edf6f">createSatelliteStruct</a>();</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    outStruct.CommSystem = <a class="code" href="a00002.html#a3993b18325e4a3214fdd99cc5ae8410e">createcommsParameters</a>();</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordflow">return</span> outStruct;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;}</div>
+</div><!-- fragment -->
 </div>
 </div>
-<a id="aa8c11f09e3499ea2399160de35d2f0ea"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa8c11f09e3499ea2399160de35d2f0ea">&#9670;&nbsp;</a></span>reset_chip()</h2>
+<a id="a3993b18325e4a3214fdd99cc5ae8410e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3993b18325e4a3214fdd99cc5ae8410e">&#9670;&nbsp;</a></span>createcommsParameters()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void reset_chip </td>
+          <td class="memname">struct <a class="el" href="a00189.html">commsParameters</a> createcommsParameters </td>
           <td>(</td>
-          <td class="paramtype">struct <a class="el" href="a00116.html">ADRF6650DataStruct</a> *&#160;</td>
-          <td class="paramname"><em>ADRF6650DataPtrIn</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="a00002_source.html#l00001">1</a> of file <a class="el" href="a00002_source.html">satComControl.c</a>.</p>
+<div class="fragment"><div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;{</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">struct </span><a class="code" href="a00189.html">commsParameters</a> outStruct;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    outStruct.<a class="code" href="a00189.html#a99b9179e13a68b8e83d13d3fe6bbdf72">Rx_LO_MHz</a> = 0;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    outStruct.Tx_LO_MHz = 0;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    outStruct.RxSignalStrengthMetric = 0;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordflow">return</span> outStruct;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;}</div>
+</div><!-- fragment -->
 </div>
 </div>
-<a id="aab9cb8525288bc7cf9845b87108c3e75"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aab9cb8525288bc7cf9845b87108c3e75">&#9670;&nbsp;</a></span>set_bicp()</h2>
+<a id="a6603b1f8408bf5e58a6ed010ecebdae4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6603b1f8408bf5e58a6ed010ecebdae4">&#9670;&nbsp;</a></span>creategeoLocationStruct()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void set_bicp </td>
+          <td class="memname">struct <a class="el" href="a00193.html">geoLocationStruct</a> creategeoLocationStruct </td>
           <td>(</td>
-          <td class="paramtype">I_16&#160;</td>
-          <td class="paramname"><em>data</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
-          <td class="paramtype">struct <a class="el" href="a00116.html">ADRF6650DataStruct</a> *&#160;</td>
-          <td class="paramname"><em>ADRF6650DataPtrIn</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="a00002_source.html#l00001">1</a> of file <a class="el" href="a00002_source.html">satComControl.c</a>.</p>
+<div class="fragment"><div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;{</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keyword">struct </span><a class="code" href="a00193.html">geoLocationStruct</a> outStruct;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    outStruct.<a class="code" href="a00193.html#a0e13a4b4ae0cefdac2a413284239caa6">altitude</a> = 0;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    outStruct.latitude = 0;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    outStruct.longitude = 0;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordflow">return</span> outStruct;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;}</div>
+</div><!-- fragment -->
 </div>
 </div>
-<a id="a480bdfbfb518ffc788fcb46765c7ac7e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a480bdfbfb518ffc788fcb46765c7ac7e">&#9670;&nbsp;</a></span>set_bleed_en()</h2>
+<a id="a09a075e3e5c8340901d632f5985edf6f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a09a075e3e5c8340901d632f5985edf6f">&#9670;&nbsp;</a></span>createSatelliteStruct()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void set_bleed_en </td>
+          <td class="memname">struct <a class="el" href="a00185.html">satelliteStruct</a> createSatelliteStruct </td>
           <td>(</td>
-          <td class="paramtype">UI_8&#160;</td>
-          <td class="paramname"><em>enable</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">struct <a class="el" href="a00116.html">ADRF6650DataStruct</a> *&#160;</td>
-          <td class="paramname"><em>ADRF6650DataPtrIn</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ab920122ad43213f0be69db8092f4778b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab920122ad43213f0be69db8092f4778b">&#9670;&nbsp;</a></span>set_cp_current()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void set_cp_current </td>
-          <td>(</td>
-          <td class="paramtype">I_16&#160;</td>
-          <td class="paramname"><em>data</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">struct <a class="el" href="a00116.html">ADRF6650DataStruct</a> *&#160;</td>
-          <td class="paramname"><em>ADRF6650DataPtrIn</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ad23f8a10a98ef6510a6403c31b5bedea"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad23f8a10a98ef6510a6403c31b5bedea">&#9670;&nbsp;</a></span>set_D()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void set_D </td>
-          <td>(</td>
-          <td class="paramtype">I_16&#160;</td>
-          <td class="paramname"><em>value</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">struct <a class="el" href="a00116.html">ADRF6650DataStruct</a> *&#160;</td>
-          <td class="paramname"><em>ADRF6650DataPtrIn</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ac603cae1abf861c006a48ce53a843fba"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac603cae1abf861c006a48ce53a843fba">&#9670;&nbsp;</a></span>set_dvga1_atten()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void set_dvga1_atten </td>
-          <td>(</td>
-          <td class="paramtype">I_16&#160;</td>
-          <td class="paramname"><em>data</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">struct <a class="el" href="a00116.html">ADRF6650DataStruct</a> *&#160;</td>
-          <td class="paramname"><em>ADRF6650DataPtrIn</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a303a8c9f31ce0cc6410accdf2cb843ac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a303a8c9f31ce0cc6410accdf2cb843ac">&#9670;&nbsp;</a></span>set_dvga2_atten()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void set_dvga2_atten </td>
-          <td>(</td>
-          <td class="paramtype">I_16&#160;</td>
-          <td class="paramname"><em>data</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">struct <a class="el" href="a00116.html">ADRF6650DataStruct</a> *&#160;</td>
-          <td class="paramname"><em>ADRF6650DataPtrIn</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a340d586faa4d29885d4e49fee9843549"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a340d586faa4d29885d4e49fee9843549">&#9670;&nbsp;</a></span>set_dvga_mode()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void set_dvga_mode </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00005.html#a0eea76ba8db4bd73fe834001982c568f">dvga_mode_t</a>&#160;</td>
-          <td class="paramname"><em>mode</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">struct <a class="el" href="a00116.html">ADRF6650DataStruct</a> *&#160;</td>
-          <td class="paramname"><em>ADRF6650DataPtrIn</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="af55fadf327f14965fea5ae4be863d747"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af55fadf327f14965fea5ae4be863d747">&#9670;&nbsp;</a></span>set_frac1()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void set_frac1 </td>
-          <td>(</td>
-          <td class="paramtype">I_16&#160;</td>
-          <td class="paramname"><em>data</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">struct <a class="el" href="a00116.html">ADRF6650DataStruct</a> *&#160;</td>
-          <td class="paramname"><em>ADRF6650DataPtrIn</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aa01d445088834a1e819071224824a348"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa01d445088834a1e819071224824a348">&#9670;&nbsp;</a></span>set_frac2()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void set_frac2 </td>
-          <td>(</td>
-          <td class="paramtype">I_16&#160;</td>
-          <td class="paramname"><em>data</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">struct <a class="el" href="a00116.html">ADRF6650DataStruct</a> *&#160;</td>
-          <td class="paramname"><em>ADRF6650DataPtrIn</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ac35d3baee7f997044f70faff201456ee"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac35d3baee7f997044f70faff201456ee">&#9670;&nbsp;</a></span>set_int()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void set_int </td>
-          <td>(</td>
-          <td class="paramtype">I_16&#160;</td>
-          <td class="paramname"><em>data</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">struct <a class="el" href="a00116.html">ADRF6650DataStruct</a> *&#160;</td>
-          <td class="paramname"><em>ADRF6650DataPtrIn</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a20eb20e03547d7cd90e063ec8bf09e5a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a20eb20e03547d7cd90e063ec8bf09e5a">&#9670;&nbsp;</a></span>set_lo_freq()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void set_lo_freq </td>
-          <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>frequency</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">struct <a class="el" href="a00116.html">ADRF6650DataStruct</a> *&#160;</td>
-          <td class="paramname"><em>ADRF6650DataPtrIn</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aebaf0189b34fdb6e2160419cff048bf2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aebaf0189b34fdb6e2160419cff048bf2">&#9670;&nbsp;</a></span>set_lo_out_en()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void set_lo_out_en </td>
-          <td>(</td>
-          <td class="paramtype">UI_8&#160;</td>
-          <td class="paramname"><em>enable</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">struct <a class="el" href="a00116.html">ADRF6650DataStruct</a> *&#160;</td>
-          <td class="paramname"><em>ADRF6650DataPtrIn</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aa14193c09c0d4ffd2af4aa339bd804c3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa14193c09c0d4ffd2af4aa339bd804c3">&#9670;&nbsp;</a></span>set_mixer_en()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void set_mixer_en </td>
-          <td>(</td>
-          <td class="paramtype">UI_8&#160;</td>
-          <td class="paramname"><em>enable</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">struct <a class="el" href="a00116.html">ADRF6650DataStruct</a> *&#160;</td>
-          <td class="paramname"><em>ADRF6650DataPtrIn</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a4af1104f547e1ebac1e590cf853b07b6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4af1104f547e1ebac1e590cf853b07b6">&#9670;&nbsp;</a></span>set_mod()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void set_mod </td>
-          <td>(</td>
-          <td class="paramtype">I_16&#160;</td>
-          <td class="paramname"><em>data</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">struct <a class="el" href="a00116.html">ADRF6650DataStruct</a> *&#160;</td>
-          <td class="paramname"><em>ADRF6650DataPtrIn</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a617b7d985c8ece80763cd414074bb722"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a617b7d985c8ece80763cd414074bb722">&#9670;&nbsp;</a></span>set_phase()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void set_phase </td>
-          <td>(</td>
-          <td class="paramtype">I_16&#160;</td>
-          <td class="paramname"><em>data</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">struct <a class="el" href="a00116.html">ADRF6650DataStruct</a> *&#160;</td>
-          <td class="paramname"><em>ADRF6650DataPtrIn</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ab75150b5e4c760af11d2fa508aff7fcb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab75150b5e4c760af11d2fa508aff7fcb">&#9670;&nbsp;</a></span>set_R()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void set_R </td>
-          <td>(</td>
-          <td class="paramtype">I_16&#160;</td>
-          <td class="paramname"><em>value</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">struct <a class="el" href="a00116.html">ADRF6650DataStruct</a> *&#160;</td>
-          <td class="paramname"><em>ADRF6650DataPtrIn</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a2c72c5cdbe15aa8b5a8614e67d300c95"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2c72c5cdbe15aa8b5a8614e67d300c95">&#9670;&nbsp;</a></span>set_ref_input()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void set_ref_input </td>
-          <td>(</td>
-          <td class="paramtype">struct <a class="el" href="a00116.html">ADRF6650DataStruct</a> *&#160;</td>
-          <td class="paramname"><em>ADRF6650DataPtrIn</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-</div>
-</div>
-<a id="a4a985d1eaeb82b623ff6f5621aae6d25"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4a985d1eaeb82b623ff6f5621aae6d25">&#9670;&nbsp;</a></span>set_T()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void set_T </td>
-          <td>(</td>
-          <td class="paramtype">I_16&#160;</td>
-          <td class="paramname"><em>value</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">struct <a class="el" href="a00116.html">ADRF6650DataStruct</a> *&#160;</td>
-          <td class="paramname"><em>ADRF6650DataPtrIn</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a426b18e463882112c4a74cc2efcad834"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a426b18e463882112c4a74cc2efcad834">&#9670;&nbsp;</a></span>set_vco_freq()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void set_vco_freq </td>
-          <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>frequency</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">struct <a class="el" href="a00116.html">ADRF6650DataStruct</a> *&#160;</td>
-          <td class="paramname"><em>ADRF6650DataPtrIn</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ae2c2c78d4f4ddc67a473efb7d7cb79a1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae2c2c78d4f4ddc67a473efb7d7cb79a1">&#9670;&nbsp;</a></span>spi_in()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">UI_8 spi_in </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00008.html#a3becb8979217fb6ff345fc0506b8cf47">register_addr_t</a>&#160;</td>
-          <td class="paramname"><em>addr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">struct <a class="el" href="a00116.html">ADRF6650DataStruct</a> *&#160;</td>
-          <td class="paramname"><em>ADRF6650DataPtrIn</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a362ada40aeda32d333753c93b6bf9c73"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a362ada40aeda32d333753c93b6bf9c73">&#9670;&nbsp;</a></span>spi_out()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void spi_out </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00008.html#a3becb8979217fb6ff345fc0506b8cf47">register_addr_t</a>&#160;</td>
-          <td class="paramname"><em>addr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">UI_8&#160;</td>
-          <td class="paramname"><em>data</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">struct <a class="el" href="a00116.html">ADRF6650DataStruct</a> *&#160;</td>
-          <td class="paramname"><em>ADRF6650DataPtrIn</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
+<p class="definition">Definition at line <a class="el" href="a00002_source.html#l00001">1</a> of file <a class="el" href="a00002_source.html">satComControl.c</a>.</p>
+<div class="fragment"><div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;{</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keyword">struct </span><a class="code" href="a00185.html">satelliteStruct</a> outStruct;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    outStruct.<a class="code" href="a00185.html#a1c4d6d33ebaa9bd97359a77164c7476d">UpLinkFreq_kHz</a> = 0;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    outStruct.DownLinkFreq_kHz = 0;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    outStruct.SSP_Lattitude = 0;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    outStruct.SSP_Longitude = 0;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    outStruct.SSP_Altitude = 0; </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordflow">return</span> outStruct;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;}</div>
+</div><!-- fragment -->
 </div>
 </div>
 </div><!-- contents -->
+<div class="ttc" id="aa00002_html_a2d14eb37c43f0fbf2ffe4407d559192b"><div class="ttname"><a href="a00002.html#a2d14eb37c43f0fbf2ffe4407d559192b">createantennaAxis</a></div><div class="ttdeci">struct antennaAxis createantennaAxis()</div><div class="ttdef"><b>Definition:</b> <a href="a00002_source.html#l00001">satComControl.c:62</a></div></div>
+<div class="ttc" id="aa00201_html"><div class="ttname"><a href="a00201.html">antennaAxis</a></div><div class="ttdef"><b>Definition:</b> <a href="a00008_source.html#l00073">satComControl.h:74</a></div></div>
+<div class="ttc" id="aa00189_html_a99b9179e13a68b8e83d13d3fe6bbdf72"><div class="ttname"><a href="a00189.html#a99b9179e13a68b8e83d13d3fe6bbdf72">commsParameters::Rx_LO_MHz</a></div><div class="ttdeci">float Rx_LO_MHz</div><div class="ttdef"><b>Definition:</b> <a href="a00008_source.html#l00048">satComControl.h:48</a></div></div>
+<div class="ttc" id="aa00002_html_a20f90feab1b76fb83cf2aaa4e966bf25"><div class="ttname"><a href="a00002.html#a20f90feab1b76fb83cf2aaa4e966bf25">createantennaAttitudeStruct</a></div><div class="ttdeci">struct antennaAttitudeStruct createantennaAttitudeStruct()</div><div class="ttdef"><b>Definition:</b> <a href="a00002_source.html#l00001">satComControl.c:54</a></div></div>
+<div class="ttc" id="aa00193_html_a0e13a4b4ae0cefdac2a413284239caa6"><div class="ttname"><a href="a00193.html#a0e13a4b4ae0cefdac2a413284239caa6">geoLocationStruct::altitude</a></div><div class="ttdeci">float altitude</div><div class="ttdef"><b>Definition:</b> <a href="a00008_source.html#l00059">satComControl.h:59</a></div></div>
+<div class="ttc" id="aa00201_html_a71be1b805be249d99da1bf5ae181c19e"><div class="ttname"><a href="a00201.html#a71be1b805be249d99da1bf5ae181c19e">antennaAxis::Pedestal</a></div><div class="ttdeci">struct axisStruct Pedestal</div><div class="ttdef"><b>Definition:</b> <a href="a00008_source.html#l00068">satComControl.h:76</a></div></div>
+<div class="ttc" id="aa00089_html_a18a8e11d3ba338929d2c54ed0ef6c366"><div class="ttname"><a href="a00089.html#a18a8e11d3ba338929d2c54ed0ef6c366">ui8FALSE</a></div><div class="ttdeci">#define ui8FALSE</div><div class="ttdef"><b>Definition:</b> <a href="a00089_source.html#l00189">version_config.h:189</a></div></div>
+<div class="ttc" id="aa00050_html_ad4757160d9e9d099c258109cc84976d7"><div class="ttname"><a href="a00050.html#ad4757160d9e9d099c258109cc84976d7">createaxisStruct</a></div><div class="ttdeci">struct axisStruct createaxisStruct()</div><div class="ttdef"><b>Definition:</b> <a href="a00050_source.html#l00001">motionControl.c:28</a></div></div>
+<div class="ttc" id="aa00205_html"><div class="ttname"><a href="a00205.html">antennaStruct</a></div><div class="ttdef"><b>Definition:</b> <a href="a00008_source.html#l00092">satComControl.h:93</a></div></div>
+<div class="ttc" id="aa00002_html_a6603b1f8408bf5e58a6ed010ecebdae4"><div class="ttname"><a href="a00002.html#a6603b1f8408bf5e58a6ed010ecebdae4">creategeoLocationStruct</a></div><div class="ttdeci">struct geoLocationStruct creategeoLocationStruct()</div><div class="ttdef"><b>Definition:</b> <a href="a00002_source.html#l00001">satComControl.c:46</a></div></div>
+<div class="ttc" id="aa00197_html_a282e7d4378d4a18a805b8980295ac86c"><div class="ttname"><a href="a00197.html#a282e7d4378d4a18a805b8980295ac86c">antennaAttitudeStruct::pitch</a></div><div class="ttdeci">float pitch</div><div class="ttdef"><b>Definition:</b> <a href="a00008_source.html#l00067">satComControl.h:67</a></div></div>
+<div class="ttc" id="aa00197_html"><div class="ttname"><a href="a00197.html">antennaAttitudeStruct</a></div><div class="ttdef"><b>Definition:</b> <a href="a00008_source.html#l00064">satComControl.h:65</a></div></div>
+<div class="ttc" id="aa00002_html_a3993b18325e4a3214fdd99cc5ae8410e"><div class="ttname"><a href="a00002.html#a3993b18325e4a3214fdd99cc5ae8410e">createcommsParameters</a></div><div class="ttdeci">struct commsParameters createcommsParameters()</div><div class="ttdef"><b>Definition:</b> <a href="a00002_source.html#l00001">satComControl.c:38</a></div></div>
+<div class="ttc" id="aa00189_html"><div class="ttname"><a href="a00189.html">commsParameters</a></div><div class="ttdef"><b>Definition:</b> <a href="a00008_source.html#l00046">satComControl.h:47</a></div></div>
+<div class="ttc" id="aa00185_html_a1c4d6d33ebaa9bd97359a77164c7476d"><div class="ttname"><a href="a00185.html#a1c4d6d33ebaa9bd97359a77164c7476d">satelliteStruct::UpLinkFreq_kHz</a></div><div class="ttdeci">float UpLinkFreq_kHz</div><div class="ttdef"><b>Definition:</b> <a href="a00008_source.html#l00037">satComControl.h:37</a></div></div>
+<div class="ttc" id="aa00002_html_a09a075e3e5c8340901d632f5985edf6f"><div class="ttname"><a href="a00002.html#a09a075e3e5c8340901d632f5985edf6f">createSatelliteStruct</a></div><div class="ttdeci">struct satelliteStruct createSatelliteStruct()</div><div class="ttdef"><b>Definition:</b> <a href="a00002_source.html#l00001">satComControl.c:28</a></div></div>
+<div class="ttc" id="aa00193_html"><div class="ttname"><a href="a00193.html">geoLocationStruct</a></div><div class="ttdef"><b>Definition:</b> <a href="a00008_source.html#l00055">satComControl.h:56</a></div></div>
+<div class="ttc" id="aa00205_html_a353ee47df65a1211850b0f9467481772"><div class="ttname"><a href="a00205.html#a353ee47df65a1211850b0f9467481772">antennaStruct::State</a></div><div class="ttdeci">enum antennaState State</div><div class="ttdef"><b>Definition:</b> <a href="a00008_source.html#l00068">satComControl.h:94</a></div></div>
+<div class="ttc" id="aa00185_html"><div class="ttname"><a href="a00185.html">satelliteStruct</a></div><div class="ttdef"><b>Definition:</b> <a href="a00008_source.html#l00035">satComControl.h:36</a></div></div>
+<div class="ttc" id="aa00008_html_a6a56abcf8efce3cf1545e61fa3c4352fa3b5e89b28dbbf817446b6c8f06e6b923"><div class="ttname"><a href="a00008.html#a6a56abcf8efce3cf1545e61fa3c4352fa3b5e89b28dbbf817446b6c8f06e6b923">antState_init</a></div><div class="ttdeci">@ antState_init</div><div class="ttdef"><b>Definition:</b> <a href="a00008_source.html#l00084">satComControl.h:84</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by&#160;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.20

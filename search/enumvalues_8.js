@@ -1,7 +1,9 @@
 var searchData=
 [
-  ['lo_5fcntrl2_5faddr_838',['LO_CNTRL2_ADDR',['../a00008.html#a3becb8979217fb6ff345fc0506b8cf47ac85964ae210973745a08a4aadac70ef3',1,'ADRF6650_Map.h']]],
-  ['lo_5fcntrl8_5faddr_839',['LO_CNTRL8_ADDR',['../a00008.html#a3becb8979217fb6ff345fc0506b8cf47add63bfe95050ebedf0fa1993f64afa9f',1,'ADRF6650_Map.h']]],
-  ['lock_5fdetect_5faddr_840',['LOCK_DETECT_ADDR',['../a00008.html#a3becb8979217fb6ff345fc0506b8cf47ade7be35a3459424b62442a6ba5e19b45',1,'ADRF6650_Map.h']]],
-  ['lpf_5foverride_5faddr_841',['LPF_OVERRIDE_ADDR',['../a00008.html#a3becb8979217fb6ff345fc0506b8cf47ac161b17106cee819de9d19ed93b8cbcc',1,'ADRF6650_Map.h']]]
+  ['iflin_5foverride_5faddr_1246',['IFLIN_OVERRIDE_ADDR',['../a00020.html#a3becb8979217fb6ff345fc0506b8cf47a3fd7fdf38e7ba635f1f0de35d62d74d7',1,'ADRF6650_Map.h']]],
+  ['ifmain_5foverride_5faddr_1247',['IFMAIN_OVERRIDE_ADDR',['../a00020.html#a3becb8979217fb6ff345fc0506b8cf47a4c840265b7870cfc633585e60ef28b4d',1,'ADRF6650_Map.h']]],
+  ['int_5fdiv_5fh_5fslave_5faddr_1248',['INT_DIV_H_SLAVE_ADDR',['../a00020.html#a3becb8979217fb6ff345fc0506b8cf47a0cb3a2ee755b118b0ad5f1a770bff671',1,'ADRF6650_Map.h']]],
+  ['int_5fdiv_5fl_5fslave_5faddr_1249',['INT_DIV_L_SLAVE_ADDR',['../a00020.html#a3becb8979217fb6ff345fc0506b8cf47a08815d1b79b613a65e12f4cfa40973c7',1,'ADRF6650_Map.h']]],
+  ['int_5fh_5faddr_1250',['INT_H_ADDR',['../a00020.html#a3becb8979217fb6ff345fc0506b8cf47a748f9c5784ef52822f98e6b4d9c3e4a9',1,'ADRF6650_Map.h']]],
+  ['int_5fl_5faddr_1251',['INT_L_ADDR',['../a00020.html#a3becb8979217fb6ff345fc0506b8cf47a27cba9e2f9f82aa42c97ceb5f4a2f8bc',1,'ADRF6650_Map.h']]]
 ];

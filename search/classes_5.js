@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['linkedentrypointstruct_635',['linkedEntryPointStruct',['../a00160.html',1,'']]],
-  ['linkediodevicestruct_636',['linkedIODeviceStruct',['../a00156.html',1,'']]],
-  ['ltc2360datastruct_637',['LTC2360DataStruct',['../a00120.html',1,'']]]
+  ['geolocationstruct_862',['geoLocationStruct',['../a00193.html',1,'']]],
+  ['gpsdata_863',['gpsData',['../a00221.html',1,'']]],
+  ['gpsstruct_864',['gpsStruct',['../a00269.html',1,'']]]
 ];

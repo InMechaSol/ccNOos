@@ -1,0 +1,10 @@
+<map id="aptStruct" name="aptStruct">
+<area shape="rect" id="node1" title=" " alt="" coords="153,377,227,404"/>
+<area shape="rect" id="node2" href="$a00269.html" title=" " alt="" coords="95,288,173,315"/>
+<area shape="rect" id="node3" href="$a00221.html" title=" " alt="" coords="5,199,76,225"/>
+<area shape="rect" id="node4" href="$a00261.html" title=" " alt="" coords="101,199,229,225"/>
+<area shape="rect" id="node7" href="$a00273.html" title=" " alt="" coords="198,288,297,315"/>
+<area shape="rect" id="node5" href="$a00253.html" title="the common data struct of io devices" alt="" coords="107,109,223,136"/>
+<area shape="rect" id="node6" href="$a00249.html" title="char/byte ambiguous container for io data" alt="" coords="105,5,225,32"/>
+<area shape="rect" id="node8" href="$a00213.html" title=" " alt="" coords="253,199,378,225"/>
+</map>

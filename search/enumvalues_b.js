@@ -1,8 +1,4 @@
 var searchData=
 [
-  ['phase_5fh_5fslave_5faddr_850',['PHASE_H_SLAVE_ADDR',['../a00008.html#a3becb8979217fb6ff345fc0506b8cf47acd589333469a6c34a4a5aefb3c27be26',1,'ADRF6650_Map.h']]],
-  ['phase_5fl_5fslave_5faddr_851',['PHASE_L_SLAVE_ADDR',['../a00008.html#a3becb8979217fb6ff345fc0506b8cf47a526171e3f4664031590f571fa007cd92',1,'ADRF6650_Map.h']]],
-  ['phase_5fm_5fslave_5faddr_852',['PHASE_M_SLAVE_ADDR',['../a00008.html#a3becb8979217fb6ff345fc0506b8cf47aa2b24cc15dec7cab6e3af4c97546cc64',1,'ADRF6650_Map.h']]],
-  ['product_5fid_5f1_5faddr_853',['PRODUCT_ID_1_ADDR',['../a00008.html#a3becb8979217fb6ff345fc0506b8cf47a45d1552f4d1a393cc8f56ffde9c477c6',1,'ADRF6650_Map.h']]],
-  ['product_5fid_5f2_5faddr_854',['PRODUCT_ID_2_ADDR',['../a00008.html#a3becb8979217fb6ff345fc0506b8cf47a6ce8b4e56cf31601b7c1b2cbdb22608c',1,'ADRF6650_Map.h']]]
+  ['override_5fselect_5faddr_1263',['OVERRIDE_SELECT_ADDR',['../a00020.html#a3becb8979217fb6ff345fc0506b8cf47acfa7c28be3f2e7ee2d057cc03d82f538',1,'ADRF6650_Map.h']]]
 ];

@@ -1,5 +1,6 @@
-<map id="ccLibs/acs/LTC2360.c" name="ccLibs/acs/LTC2360.c">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,156,32"/>
-<area shape="rect" id="node2" href="$a00014.html" title=" " alt="" coords="39,80,123,107"/>
-<area shape="rect" id="node3" href="$a00065.html" title="ccNOos Source Code Version and Configuration Declarations" alt="" coords="23,155,138,181"/>
+<map id="ccLibs/devices/ADRF6650/ADRF6650.c" name="ccLibs/devices/ADRF6650/ADRF6650.c">
+<area shape="rect" id="node1" title="part of ccNOos, Implementation for straight C, or Declarations for C++ wrappers" alt="" coords="54,5,229,47"/>
+<area shape="rect" id="node2" href="$a00017.html" title="part of ccNOos, Declarations for straight C and C++ wrappers" alt="" coords="93,95,189,121"/>
+<area shape="rect" id="node3" href="$a00020.html" title="part of ccNOos, Declarations for straight C and C++ wrappers" alt="" coords="5,169,133,196"/>
+<area shape="rect" id="node4" href="$a00089.html" title="part of ccNOos, Declarations for straight C and C++ wrappers" alt="" coords="157,169,272,196"/>
 </map>
