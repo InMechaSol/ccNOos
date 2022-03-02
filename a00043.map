@@ -1,4 +1,4 @@
 <map id="ccLibs/devices/NEO_LEA_M8T/NEO_LEA_M8T.c" name="ccLibs/devices/NEO_LEA_M8T/NEO_LEA_M8T.c">
-<area shape="rect" id="node1" title="part of ccNOos, Implementation for straight C, or Declarations for C++ wrappers" alt="" coords="12,5,205,47"/>
+<area shape="rect" id="node1" title="part of ccNOos, Implementation for straight C, included by C++ wrappers" alt="" coords="12,5,205,47"/>
 <area shape="rect" id="node2" href="$a00044.html" title="part of ccNOos, Implementation for C++ wrappers" alt="" coords="5,95,212,136"/>
 </map>

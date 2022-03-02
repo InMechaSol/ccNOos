@@ -72,69 +72,70 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <a href="a00017.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/** \file ADRF6650.h</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">*   \brief part of ccNOos, Declarations for straight C and C++ wrappers </span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">*   \brief part of ccNOos, Declarations for straight C and C++ </span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"></span> </div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">    Copyright 2021 InMechaSol, Inc</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">    https://www.inmechasol.org/</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">    Licensed under the Apache License, Version 2.0(the &quot;License&quot;);</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">    you may not use this file except in compliance with the License.</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">    You may obtain a copy of the License at</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">    http://www.apache.org/licenses/LICENSE-2.0</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">    Unless required by applicable law or agreed to in writing, software</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">    See the License for the specific language governing permissions and</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">    limitations under the License.</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">Notes:</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">    (.c includes .h) - for straight C or</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">    (.cpp includes .c which includes .h) - for C++ wrapped straight C</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">    *Always compiled to a single compilation unit, either C or CPP, not both</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#ifndef ADRF6660_H</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#define ADRF6660_H</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="a00020.html">ADRF6650_Map.h</a>&quot;</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="a00089.html">version_config.h</a>&quot;</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">    https://github.com/InMechaSol/ccNOos</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">    Licensed under the Apache License, Version 2.0(the &quot;License&quot;);</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">    you may not use this file except in compliance with the License.</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">    You may obtain a copy of the License at</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">    http://www.apache.org/licenses/LICENSE-2.0</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">    Unless required by applicable law or agreed to in writing, software</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">    See the License for the specific language governing permissions and</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">    limitations under the License.</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">Notes:</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">    (.c includes .h) - for straight C or</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">    (.cpp includes .c which includes .h) - for C++ wrapped straight C</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">    *Always compiled to a single compilation unit, either C or CPP, not both</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#ifndef ADRF6660_H</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#define ADRF6660_H</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="a00020.html">ADRF6650_Map.h</a>&quot;</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="a00089.html">version_config.h</a>&quot;</span></div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="a00209.html">   33</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a00209.html">ADRF6650DataStruct</a></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;{</div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="a00209.html#a93e04581e858a7ff78ee6955ac7fcfc3">   35</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a00209.html#a93e04581e858a7ff78ee6955ac7fcfc3">DesiredCenterFreqMHz</a>;</div>
-<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="a00209.html#aa8310d49ea9d39cfd9886acbb22e663d">   36</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a00209.html#aa8310d49ea9d39cfd9886acbb22e663d">RequiredLOFreqMHz</a>;</div>
-<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="a00209.html#a30708f90e933c05bbe134ce60e9bf077">   37</a></span>&#160;    UI_8 <a class="code" href="a00209.html#a30708f90e933c05bbe134ce60e9bf077">LockedOnRequiredLOFreq</a>;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;};</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="a00017.html#aaf45e852a9c559dcbcfa2ef21a6283b2">   40</a></span>&#160;<span class="preprocessor">#define DVGA_MAX_ATTEN 43</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="a00017.html#a0eea76ba8db4bd73fe834001982c568f">   42</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">enum</span> {</div>
-<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="a00017.html#a0eea76ba8db4bd73fe834001982c568fa548172a0dbfa8d16af7ab10fa5551bd1">   43</a></span>&#160;    <a class="code" href="a00017.html#a0eea76ba8db4bd73fe834001982c568fa548172a0dbfa8d16af7ab10fa5551bd1">DVGA_SPI_MODE</a>,</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <a class="code" href="a00017.html#a0eea76ba8db4bd73fe834001982c568fae78eef50af811f91190f435b0662788e">DVGA_UP_DOWN_MODE</a></div>
-<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="a00017.html#a0eea76ba8db4bd73fe834001982c568fae78eef50af811f91190f435b0662788e">   45</a></span>&#160;}<a class="code" href="a00017.html#a0eea76ba8db4bd73fe834001982c568f">dvga_mode_t</a>;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment">// public scoped functions</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="keyword">struct </span><a class="code" href="a00209.html">ADRF6650DataStruct</a> <a class="code" href="a00017.html#abb364534da9645149572dfa69bfd1385">CreateADRF6650Data</a>(); <span class="comment">// data initialization function - like a class constructor</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="a00209.html">   34</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a00209.html">ADRF6650DataStruct</a></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;{</div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="a00209.html#a93e04581e858a7ff78ee6955ac7fcfc3">   36</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a00209.html#a93e04581e858a7ff78ee6955ac7fcfc3">DesiredCenterFreqMHz</a>;</div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="a00209.html#aa8310d49ea9d39cfd9886acbb22e663d">   37</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a00209.html#aa8310d49ea9d39cfd9886acbb22e663d">RequiredLOFreqMHz</a>;</div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="a00209.html#a30708f90e933c05bbe134ce60e9bf077">   38</a></span>&#160;    UI_8 <a class="code" href="a00209.html#a30708f90e933c05bbe134ce60e9bf077">LockedOnRequiredLOFreq</a>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;};</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="a00017.html#aaf45e852a9c559dcbcfa2ef21a6283b2">   41</a></span>&#160;<span class="preprocessor">#define DVGA_MAX_ATTEN 43</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="a00017.html#a0eea76ba8db4bd73fe834001982c568f">   43</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">enum</span> {</div>
+<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="a00017.html#a0eea76ba8db4bd73fe834001982c568fa548172a0dbfa8d16af7ab10fa5551bd1">   44</a></span>&#160;    <a class="code" href="a00017.html#a0eea76ba8db4bd73fe834001982c568fa548172a0dbfa8d16af7ab10fa5551bd1">DVGA_SPI_MODE</a>,</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <a class="code" href="a00017.html#a0eea76ba8db4bd73fe834001982c568fae78eef50af811f91190f435b0662788e">DVGA_UP_DOWN_MODE</a></div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="a00017.html#a0eea76ba8db4bd73fe834001982c568fae78eef50af811f91190f435b0662788e">   46</a></span>&#160;}<a class="code" href="a00017.html#a0eea76ba8db4bd73fe834001982c568f">dvga_mode_t</a>;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">// public scoped functions</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="keyword">struct </span><a class="code" href="a00209.html">ADRF6650DataStruct</a> <a class="code" href="a00017.html#abb364534da9645149572dfa69bfd1385">CreateADRF6650Data</a>(); <span class="comment">// data initialization function - like a class constructor</span></div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="preprocessor">#endif // ADRF6660_CLASS_H</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="preprocessor">#endif // ADRF6660_CLASS_H</span></div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aa00209_html_a30708f90e933c05bbe134ce60e9bf077"><div class="ttname"><a href="a00209.html#a30708f90e933c05bbe134ce60e9bf077">ADRF6650DataStruct::LockedOnRequiredLOFreq</a></div><div class="ttdeci">UI_8 LockedOnRequiredLOFreq</div><div class="ttdef"><b>Definition:</b> <a href="a00017_source.html#l00037">ADRF6650.h:37</a></div></div>
-<div class="ttc" id="aa00209_html"><div class="ttname"><a href="a00209.html">ADRF6650DataStruct</a></div><div class="ttdef"><b>Definition:</b> <a href="a00017_source.html#l00033">ADRF6650.h:34</a></div></div>
-<div class="ttc" id="aa00017_html_abb364534da9645149572dfa69bfd1385"><div class="ttname"><a href="a00017.html#abb364534da9645149572dfa69bfd1385">CreateADRF6650Data</a></div><div class="ttdeci">struct ADRF6650DataStruct CreateADRF6650Data()</div><div class="ttdef"><b>Definition:</b> <a href="a00011_source.html#l00001">ADRF6650.c:28</a></div></div>
-<div class="ttc" id="aa00017_html_a0eea76ba8db4bd73fe834001982c568fae78eef50af811f91190f435b0662788e"><div class="ttname"><a href="a00017.html#a0eea76ba8db4bd73fe834001982c568fae78eef50af811f91190f435b0662788e">DVGA_UP_DOWN_MODE</a></div><div class="ttdeci">@ DVGA_UP_DOWN_MODE</div><div class="ttdef"><b>Definition:</b> <a href="a00017_source.html#l00045">ADRF6650.h:44</a></div></div>
-<div class="ttc" id="aa00209_html_a93e04581e858a7ff78ee6955ac7fcfc3"><div class="ttname"><a href="a00209.html#a93e04581e858a7ff78ee6955ac7fcfc3">ADRF6650DataStruct::DesiredCenterFreqMHz</a></div><div class="ttdeci">float DesiredCenterFreqMHz</div><div class="ttdef"><b>Definition:</b> <a href="a00017_source.html#l00035">ADRF6650.h:35</a></div></div>
-<div class="ttc" id="aa00089_html"><div class="ttname"><a href="a00089.html">version_config.h</a></div><div class="ttdoc">part of ccNOos, Declarations for straight C and C++ wrappers</div></div>
-<div class="ttc" id="aa00020_html"><div class="ttname"><a href="a00020.html">ADRF6650_Map.h</a></div><div class="ttdoc">part of ccNOos, Declarations for straight C and C++ wrappers</div></div>
-<div class="ttc" id="aa00209_html_aa8310d49ea9d39cfd9886acbb22e663d"><div class="ttname"><a href="a00209.html#aa8310d49ea9d39cfd9886acbb22e663d">ADRF6650DataStruct::RequiredLOFreqMHz</a></div><div class="ttdeci">float RequiredLOFreqMHz</div><div class="ttdef"><b>Definition:</b> <a href="a00017_source.html#l00036">ADRF6650.h:36</a></div></div>
-<div class="ttc" id="aa00017_html_a0eea76ba8db4bd73fe834001982c568f"><div class="ttname"><a href="a00017.html#a0eea76ba8db4bd73fe834001982c568f">dvga_mode_t</a></div><div class="ttdeci">dvga_mode_t</div><div class="ttdef"><b>Definition:</b> <a href="a00017_source.html#l00042">ADRF6650.h:42</a></div></div>
-<div class="ttc" id="aa00017_html_a0eea76ba8db4bd73fe834001982c568fa548172a0dbfa8d16af7ab10fa5551bd1"><div class="ttname"><a href="a00017.html#a0eea76ba8db4bd73fe834001982c568fa548172a0dbfa8d16af7ab10fa5551bd1">DVGA_SPI_MODE</a></div><div class="ttdeci">@ DVGA_SPI_MODE</div><div class="ttdef"><b>Definition:</b> <a href="a00017_source.html#l00043">ADRF6650.h:43</a></div></div>
+<div class="ttc" id="aa00209_html_a30708f90e933c05bbe134ce60e9bf077"><div class="ttname"><a href="a00209.html#a30708f90e933c05bbe134ce60e9bf077">ADRF6650DataStruct::LockedOnRequiredLOFreq</a></div><div class="ttdeci">UI_8 LockedOnRequiredLOFreq</div><div class="ttdef"><b>Definition:</b> <a href="a00017_source.html#l00038">ADRF6650.h:38</a></div></div>
+<div class="ttc" id="aa00209_html"><div class="ttname"><a href="a00209.html">ADRF6650DataStruct</a></div><div class="ttdef"><b>Definition:</b> <a href="a00017_source.html#l00034">ADRF6650.h:35</a></div></div>
+<div class="ttc" id="aa00017_html_abb364534da9645149572dfa69bfd1385"><div class="ttname"><a href="a00017.html#abb364534da9645149572dfa69bfd1385">CreateADRF6650Data</a></div><div class="ttdeci">struct ADRF6650DataStruct CreateADRF6650Data()</div><div class="ttdef"><b>Definition:</b> <a href="a00011_source.html#l00001">ADRF6650.c:29</a></div></div>
+<div class="ttc" id="aa00017_html_a0eea76ba8db4bd73fe834001982c568fae78eef50af811f91190f435b0662788e"><div class="ttname"><a href="a00017.html#a0eea76ba8db4bd73fe834001982c568fae78eef50af811f91190f435b0662788e">DVGA_UP_DOWN_MODE</a></div><div class="ttdeci">@ DVGA_UP_DOWN_MODE</div><div class="ttdef"><b>Definition:</b> <a href="a00017_source.html#l00046">ADRF6650.h:45</a></div></div>
+<div class="ttc" id="aa00209_html_a93e04581e858a7ff78ee6955ac7fcfc3"><div class="ttname"><a href="a00209.html#a93e04581e858a7ff78ee6955ac7fcfc3">ADRF6650DataStruct::DesiredCenterFreqMHz</a></div><div class="ttdeci">float DesiredCenterFreqMHz</div><div class="ttdef"><b>Definition:</b> <a href="a00017_source.html#l00036">ADRF6650.h:36</a></div></div>
+<div class="ttc" id="aa00089_html"><div class="ttname"><a href="a00089.html">version_config.h</a></div><div class="ttdoc">part of ccNOos, Declarations for straight C and C++</div></div>
+<div class="ttc" id="aa00020_html"><div class="ttname"><a href="a00020.html">ADRF6650_Map.h</a></div><div class="ttdoc">part of ccNOos, Declarations for straight C and C++</div></div>
+<div class="ttc" id="aa00209_html_aa8310d49ea9d39cfd9886acbb22e663d"><div class="ttname"><a href="a00209.html#aa8310d49ea9d39cfd9886acbb22e663d">ADRF6650DataStruct::RequiredLOFreqMHz</a></div><div class="ttdeci">float RequiredLOFreqMHz</div><div class="ttdef"><b>Definition:</b> <a href="a00017_source.html#l00037">ADRF6650.h:37</a></div></div>
+<div class="ttc" id="aa00017_html_a0eea76ba8db4bd73fe834001982c568f"><div class="ttname"><a href="a00017.html#a0eea76ba8db4bd73fe834001982c568f">dvga_mode_t</a></div><div class="ttdeci">dvga_mode_t</div><div class="ttdef"><b>Definition:</b> <a href="a00017_source.html#l00043">ADRF6650.h:43</a></div></div>
+<div class="ttc" id="aa00017_html_a0eea76ba8db4bd73fe834001982c568fa548172a0dbfa8d16af7ab10fa5551bd1"><div class="ttname"><a href="a00017.html#a0eea76ba8db4bd73fe834001982c568fa548172a0dbfa8d16af7ab10fa5551bd1">DVGA_SPI_MODE</a></div><div class="ttdeci">@ DVGA_SPI_MODE</div><div class="ttdef"><b>Definition:</b> <a href="a00017_source.html#l00044">ADRF6650.h:44</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by&#160;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.20

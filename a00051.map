@@ -1,5 +1,5 @@
 <map id="ccLibs/mcs/motionControl.c" name="ccLibs/mcs/motionControl.c">
-<area shape="rect" id="node1" title="part of ccNOos, Implementation for straight C, or Declarations for C++ wrappers" alt="" coords="5,5,189,32"/>
-<area shape="rect" id="node2" href="$a00056.html" title="part of ccNOos, Declarations for straight C and C++ wrappers" alt="" coords="41,80,154,107"/>
-<area shape="rect" id="node3" href="$a00089.html" title="part of ccNOos, Declarations for straight C and C++ wrappers" alt="" coords="40,155,155,181"/>
+<area shape="rect" id="node1" title="part of ccNOos, Implementation for straight C, included by C++ wrappers" alt="" coords="5,5,189,32"/>
+<area shape="rect" id="node2" href="$a00056.html" title="part of ccNOos, Declarations for straight C and C++" alt="" coords="41,80,154,107"/>
+<area shape="rect" id="node3" href="$a00089.html" title="part of ccNOos, Declarations for straight C and C++" alt="" coords="40,155,155,181"/>
 </map>

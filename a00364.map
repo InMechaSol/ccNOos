@@ -1,9 +1,9 @@
 <map id="tests/testApps/SysTick/PlatformApp_Serialization.h" name="tests/testApps/SysTick/PlatformApp_Serialization.h">
 <area shape="rect" id="node1" title=" " alt="" coords="77,5,263,47"/>
 <area shape="rect" id="node2" href="$a00336.html" title=" " alt="" coords="95,95,245,121"/>
-<area shape="rect" id="node3" href="$a00083.html" title="part of ccNOos, Declarations for straight C and C++ wrappers" alt="" coords="5,169,164,211"/>
-<area shape="rect" id="node5" href="$a00074.html" title="part of ccNOos, Declarations for straight C and C++ wrappers" alt="" coords="188,169,323,211"/>
-<area shape="rect" id="node4" href="$a00089.html" title="part of ccNOos, Declarations for straight C and C++ wrappers" alt="" coords="131,333,246,360"/>
-<area shape="rect" id="node6" href="$a00065.html" title="part of ccNOos, Declarations for straight C and C++ wrappers" alt="" coords="123,259,255,285"/>
-<area shape="rect" id="node7" href="$a00095.html" title="part of ccNOos, Declarations for straight C and C++ wrappers" alt="" coords="279,259,365,285"/>
+<area shape="rect" id="node3" href="$a00083.html" title="part of ccNOos, Declarations for straight C and C++" alt="" coords="5,169,164,211"/>
+<area shape="rect" id="node5" href="$a00074.html" title="part of ccNOos, Declarations for straight C and C++" alt="" coords="188,169,323,211"/>
+<area shape="rect" id="node4" href="$a00089.html" title="part of ccNOos, Declarations for straight C and C++" alt="" coords="131,333,246,360"/>
+<area shape="rect" id="node6" href="$a00065.html" title="part of ccNOos, Declarations for straight C and C++" alt="" coords="123,259,255,285"/>
+<area shape="rect" id="node7" href="$a00095.html" title="part of ccNOos, Declarations for straight C and C++" alt="" coords="279,259,365,285"/>
 </map>

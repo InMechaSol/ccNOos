@@ -1,4 +1,4 @@
 <map id="tests/testApps/SatComACS/apiModules/LCDKeyPad/LCDapi.c" name="tests/testApps/SatComACS/apiModules/LCDKeyPad/LCDapi.c">
-<area shape="rect" id="node1" title="part of ccNOos, Implementation for straight C, or Declarations for C++ wrappers" alt="" coords="13,5,237,47"/>
+<area shape="rect" id="node1" title="part of ccNOos, Implementation for straight C, included by C++ wrappers" alt="" coords="13,5,237,47"/>
 <area shape="rect" id="node2" href="$a00131.html" title="part of ccNOos, Implementation for C++ wrappers" alt="" coords="5,95,244,136"/>
 </map>

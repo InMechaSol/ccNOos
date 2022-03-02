@@ -1,6 +1,6 @@
 <map id="tests/testApps/SatComACS/apiModules/LCDKeyPad/LCDapi.c" name="tests/testApps/SatComACS/apiModules/LCDKeyPad/LCDapi.c">
-<area shape="rect" id="node1" title="part of ccNOos, Implementation for straight C, or Declarations for C++ wrappers" alt="" coords="5,5,229,47"/>
-<area shape="rect" id="node2" href="$a00134.html" title="part of ccNOos, Declarations for straight C and C++ wrappers" alt="" coords="80,95,155,121"/>
-<area shape="rect" id="node3" href="$a00125.html" title="part of ccNOos, Declarations for straight C and C++ wrappers" alt="" coords="74,169,161,196"/>
+<area shape="rect" id="node1" title="part of ccNOos, Implementation for straight C, included by C++ wrappers" alt="" coords="5,5,229,47"/>
+<area shape="rect" id="node2" href="$a00134.html" title="part of ccNOos, Declarations for straight C and C++" alt="" coords="80,95,155,121"/>
+<area shape="rect" id="node3" href="$a00125.html" title="part of ccNOos, Declarations for straight C and C++" alt="" coords="74,169,161,196"/>
 <area shape="rect" id="node4" title=" " alt="" coords="42,244,193,271"/>
 </map>

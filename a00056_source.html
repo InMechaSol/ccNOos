@@ -72,51 +72,52 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <a href="a00056.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/** \file motionControl.h</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">*   \brief part of ccNOos, Declarations for straight C and C++ wrappers </span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">*   \brief part of ccNOos, Declarations for straight C and C++ </span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"></span> </div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">    Copyright 2021 InMechaSol, Inc</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">    https://www.inmechasol.org/</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">    Licensed under the Apache License, Version 2.0(the &quot;License&quot;);</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">    you may not use this file except in compliance with the License.</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">    You may obtain a copy of the License at</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">    http://www.apache.org/licenses/LICENSE-2.0</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">    Unless required by applicable law or agreed to in writing, software</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">    See the License for the specific language governing permissions and</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">    limitations under the License.</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">Notes:</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">    (.c includes .h) - for straight C or</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">    (.cpp includes .c which includes .h) - for C++ wrapped straight C</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">    *Always compiled to a single compilation unit, either C or CPP, not both</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#ifndef __ccNOos_MCS__</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#define __ccNOos_MCS__</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="a00089.html">version_config.h</a>&quot;</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="a00225.html">   31</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a00225.html">axisStruct</a></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;{</div>
-<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="a00225.html#ac32df05f0dbbfd251572f10886fef1bb">   33</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a00225.html#ac32df05f0dbbfd251572f10886fef1bb">PositionCmd</a>;</div>
-<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="a00225.html#a14ba9a807351b04ec80b17e68c9364b4">   34</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a00225.html#a14ba9a807351b04ec80b17e68c9364b4">PositionFbk</a>;</div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="a00225.html#acc5e60203d3945c27247707acbe21dad">   35</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a00225.html#acc5e60203d3945c27247707acbe21dad">PositionErr</a>;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;};</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">struct </span><a class="code" href="a00225.html">axisStruct</a> <a class="code" href="a00056.html#ad4757160d9e9d099c258109cc84976d7">createaxisStruct</a>();</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">    https://github.com/InMechaSol/ccNOos</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">    Licensed under the Apache License, Version 2.0(the &quot;License&quot;);</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">    you may not use this file except in compliance with the License.</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">    You may obtain a copy of the License at</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">    http://www.apache.org/licenses/LICENSE-2.0</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">    Unless required by applicable law or agreed to in writing, software</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">    See the License for the specific language governing permissions and</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">    limitations under the License.</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">Notes:</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">    (.c includes .h) - for straight C or</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">    (.cpp includes .c which includes .h) - for C++ wrapped straight C</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">    *Always compiled to a single compilation unit, either C or CPP, not both</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#ifndef __ccNOos_MCS__</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#define __ccNOos_MCS__</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="a00089.html">version_config.h</a>&quot;</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="a00225.html">   32</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a00225.html">axisStruct</a></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;{</div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="a00225.html#ac32df05f0dbbfd251572f10886fef1bb">   34</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a00225.html#ac32df05f0dbbfd251572f10886fef1bb">PositionCmd</a>;</div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="a00225.html#a14ba9a807351b04ec80b17e68c9364b4">   35</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a00225.html#a14ba9a807351b04ec80b17e68c9364b4">PositionFbk</a>;</div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="a00225.html#acc5e60203d3945c27247707acbe21dad">   36</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a00225.html#acc5e60203d3945c27247707acbe21dad">PositionErr</a>;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;};</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keyword">struct </span><a class="code" href="a00225.html">axisStruct</a> <a class="code" href="a00056.html#ad4757160d9e9d099c258109cc84976d7">createaxisStruct</a>();</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="preprocessor">#endif</span></div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aa00056_html_ad4757160d9e9d099c258109cc84976d7"><div class="ttname"><a href="a00056.html#ad4757160d9e9d099c258109cc84976d7">createaxisStruct</a></div><div class="ttdeci">struct axisStruct createaxisStruct()</div><div class="ttdef"><b>Definition:</b> <a href="a00050_source.html#l00001">motionControl.c:28</a></div></div>
-<div class="ttc" id="aa00225_html"><div class="ttname"><a href="a00225.html">axisStruct</a></div><div class="ttdef"><b>Definition:</b> <a href="a00056_source.html#l00031">motionControl.h:32</a></div></div>
-<div class="ttc" id="aa00225_html_ac32df05f0dbbfd251572f10886fef1bb"><div class="ttname"><a href="a00225.html#ac32df05f0dbbfd251572f10886fef1bb">axisStruct::PositionCmd</a></div><div class="ttdeci">float PositionCmd</div><div class="ttdef"><b>Definition:</b> <a href="a00056_source.html#l00033">motionControl.h:33</a></div></div>
-<div class="ttc" id="aa00225_html_a14ba9a807351b04ec80b17e68c9364b4"><div class="ttname"><a href="a00225.html#a14ba9a807351b04ec80b17e68c9364b4">axisStruct::PositionFbk</a></div><div class="ttdeci">float PositionFbk</div><div class="ttdef"><b>Definition:</b> <a href="a00056_source.html#l00034">motionControl.h:34</a></div></div>
-<div class="ttc" id="aa00089_html"><div class="ttname"><a href="a00089.html">version_config.h</a></div><div class="ttdoc">part of ccNOos, Declarations for straight C and C++ wrappers</div></div>
-<div class="ttc" id="aa00225_html_acc5e60203d3945c27247707acbe21dad"><div class="ttname"><a href="a00225.html#acc5e60203d3945c27247707acbe21dad">axisStruct::PositionErr</a></div><div class="ttdeci">float PositionErr</div><div class="ttdef"><b>Definition:</b> <a href="a00056_source.html#l00035">motionControl.h:35</a></div></div>
+<div class="ttc" id="aa00056_html_ad4757160d9e9d099c258109cc84976d7"><div class="ttname"><a href="a00056.html#ad4757160d9e9d099c258109cc84976d7">createaxisStruct</a></div><div class="ttdeci">struct axisStruct createaxisStruct()</div><div class="ttdef"><b>Definition:</b> <a href="a00050_source.html#l00001">motionControl.c:29</a></div></div>
+<div class="ttc" id="aa00225_html"><div class="ttname"><a href="a00225.html">axisStruct</a></div><div class="ttdef"><b>Definition:</b> <a href="a00056_source.html#l00032">motionControl.h:33</a></div></div>
+<div class="ttc" id="aa00225_html_ac32df05f0dbbfd251572f10886fef1bb"><div class="ttname"><a href="a00225.html#ac32df05f0dbbfd251572f10886fef1bb">axisStruct::PositionCmd</a></div><div class="ttdeci">float PositionCmd</div><div class="ttdef"><b>Definition:</b> <a href="a00056_source.html#l00034">motionControl.h:34</a></div></div>
+<div class="ttc" id="aa00225_html_a14ba9a807351b04ec80b17e68c9364b4"><div class="ttname"><a href="a00225.html#a14ba9a807351b04ec80b17e68c9364b4">axisStruct::PositionFbk</a></div><div class="ttdeci">float PositionFbk</div><div class="ttdef"><b>Definition:</b> <a href="a00056_source.html#l00035">motionControl.h:35</a></div></div>
+<div class="ttc" id="aa00089_html"><div class="ttname"><a href="a00089.html">version_config.h</a></div><div class="ttdoc">part of ccNOos, Declarations for straight C and C++</div></div>
+<div class="ttc" id="aa00225_html_acc5e60203d3945c27247707acbe21dad"><div class="ttname"><a href="a00225.html#acc5e60203d3945c27247707acbe21dad">axisStruct::PositionErr</a></div><div class="ttdeci">float PositionErr</div><div class="ttdef"><b>Definition:</b> <a href="a00056_source.html#l00036">motionControl.h:36</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by&#160;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.20

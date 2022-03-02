@@ -72,251 +72,252 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <a href="a00080.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno"><a class="line" href="a00083.html#a435f4a4956bbda98348d28c494bd0627">    1</a></span>&#160;<span class="comment">/** \file execution_system.c</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">*   \brief part of ccNOos, Implementation for straight C, or Declarations for C++ wrappers </span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">*   \brief part of ccNOos, Implementation for straight C, included by C++ wrappers </span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"></span> </div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">    Copyright 2021 InMechaSol, Inc</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">    https://www.inmechasol.org/</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">    Licensed under the Apache License, Version 2.0(the &quot;License&quot;);</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">    you may not use this file except in compliance with the License.</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">    You may obtain a copy of the License at</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">    http://www.apache.org/licenses/LICENSE-2.0</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">    Unless required by applicable law or agreed to in writing, software</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">    See the License for the specific language governing permissions and</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">    limitations under the License.</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">Notes:</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">    (.c includes .h) - for straight C or</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">    (.cpp includes .c which includes .h) - for C++ wrapped straight C</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">    *Always compiled to a single compilation unit, either C or CPP, not both</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="a00083.html">execution_system.h</a>&quot;</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="a00074.html">console_menu.h</a>&quot;</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">    https://github.com/InMechaSol/ccNOos</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">    Licensed under the Apache License, Version 2.0(the &quot;License&quot;);</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">    you may not use this file except in compliance with the License.</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">    You may obtain a copy of the License at</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">    http://www.apache.org/licenses/LICENSE-2.0</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">    Unless required by applicable law or agreed to in writing, software</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">    See the License for the specific language governing permissions and</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">    limitations under the License.</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">Notes:</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">    (.c includes .h) - for straight C or</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">    (.cpp includes .c which includes .h) - for C++ wrapped straight C</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">    *Always compiled to a single compilation unit, either C or CPP, not both</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="a00083.html">execution_system.h</a>&quot;</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="a00074.html">console_menu.h</a>&quot;</span></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keyword">struct </span><a class="code" href="a00233.html">executionSystemStruct</a> <a class="code" href="a00080.html#a435f4a4956bbda98348d28c494bd0627">CreateExecutionSystemStruct</a>(</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    UI_32 uSperTick</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    )</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;{</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keyword">struct </span><a class="code" href="a00233.html">executionSystemStruct</a> outStruct;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    outStruct.<a class="code" href="a00233.html#a555128b56ac521c2370e32e29dbe4b7c">hourTicks</a> = 0u;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    outStruct.<a class="code" href="a00233.html#ab9b669ef6b91ae803c6183ed93027d16">uSecTicks</a> = 0u;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    outStruct.<a class="code" href="a00233.html#a9265ad969fcf6b18de36c0b1585956b6">uSecPerSysTick</a> = uSperTick;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordflow">return</span> outStruct;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;}</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">////////////////////////////////////////////////////////////////////////////////</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment"></span><span class="comment">// C Application Entry Points (not built in cpp build)</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="preprocessor">#ifndef __cplusplus</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="a00083.html#a3db8840ecba8dde92b0681c5cbf993e5">   46</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a00080.html#a3db8840ecba8dde92b0681c5cbf993e5">ModuleExeArea</a>(</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;            UI_32 ExcpIndex,</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            <span class="keyword">struct</span> <a class="code" href="a00241.html">linkedEntryPointStruct</a>* exeListHeadIn</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;            )</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;{</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keyword">struct </span><a class="code" href="a00241.html">linkedEntryPointStruct</a>* currentExeNode = exeListHeadIn;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordtype">int</span> retVal;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordflow">if</span>(currentExeNode!=<span class="keyword">nullptr</span>)</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    {</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="keywordflow">if</span>(currentExeNode-&gt;<a class="code" href="a00241.html#a8f5a55a9f9676ba488bcee2133bf5bd9">entryPoint</a> != <span class="keyword">nullptr</span>)</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        {   </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            <span class="keywordflow">do</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            {</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;                <span class="keywordflow">if</span>(currentExeNode-&gt;<a class="code" href="a00241.html#a71af0f0882a4d9eda4db03c0986d1a93">dataPtr</a>-&gt;<a class="code" href="a00229.html#a76d9e8af30a27fcb321c649462efc73f">exceptionFlags</a>==0u)</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;                    retVal = currentExeNode-&gt;<a class="code" href="a00241.html#a8f5a55a9f9676ba488bcee2133bf5bd9">entryPoint</a>(</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;                                        currentExeNode-&gt;<a class="code" href="a00241.html#a71af0f0882a4d9eda4db03c0986d1a93">dataPtr</a>   </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                                        );</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                    retVal = <a class="code" href="a00089.html#a9d37d43ac2717b06ef7120784465e56f">RETURN_SUCCESS</a>;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                            </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                <span class="keywordflow">if</span>(retVal != <a class="code" href="a00089.html#a9d37d43ac2717b06ef7120784465e56f">RETURN_SUCCESS</a>)</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;                    currentExeNode-&gt;<a class="code" href="a00241.html#a71af0f0882a4d9eda4db03c0986d1a93">dataPtr</a>-&gt;<a class="code" href="a00229.html#a76d9e8af30a27fcb321c649462efc73f">exceptionFlags</a> |= (0x00000001 &lt;&lt; ExcpIndex);</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;                </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;                <span class="keywordflow">if</span>(currentExeNode-&gt;<a class="code" href="a00241.html#aa41c7d034d2b7405ccd568e3a8174202">nextPtr</a> != <span class="keyword">nullptr</span>)</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;                    currentExeNode = currentExeNode-&gt;<a class="code" href="a00241.html#aa41c7d034d2b7405ccd568e3a8174202">nextPtr</a>;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;                <span class="keywordflow">else</span> </div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                    <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                    </div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;            }<span class="keywordflow">while</span>(currentExeNode-&gt;<a class="code" href="a00241.html#a8f5a55a9f9676ba488bcee2133bf5bd9">entryPoint</a> != <span class="keyword">nullptr</span>);</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        } </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    }    </div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;}</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
-<div class="line"><a name="l00079"></a><span class="lineno"><a class="line" href="a00083.html#aa3676eb2402706982d631067b0f78aa8">   79</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a00080.html#aa3676eb2402706982d631067b0f78aa8">ModuleExceptionArea</a>(</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;            <span class="keyword">struct</span> <a class="code" href="a00241.html">linkedEntryPointStruct</a>* exeListHeadIn</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;            )</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;{</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keyword">struct </span><a class="code" href="a00241.html">linkedEntryPointStruct</a>* currentExeNode = exeListHeadIn;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keywordtype">int</span> retVal;</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordflow">if</span>(currentExeNode!=<span class="keyword">nullptr</span>)</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    {</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        <span class="keywordflow">if</span>(currentExeNode-&gt;<a class="code" href="a00241.html#a8f5a55a9f9676ba488bcee2133bf5bd9">entryPoint</a> != <span class="keyword">nullptr</span>)</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        {   </div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;            <span class="keywordflow">do</span></div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;            {</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;                <span class="keywordflow">if</span>(currentExeNode-&gt;<a class="code" href="a00241.html#a71af0f0882a4d9eda4db03c0986d1a93">dataPtr</a>-&gt;<a class="code" href="a00229.html#a76d9e8af30a27fcb321c649462efc73f">exceptionFlags</a>!=0u)</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;                    retVal = currentExeNode-&gt;<a class="code" href="a00241.html#a8f5a55a9f9676ba488bcee2133bf5bd9">entryPoint</a>(</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;                                        currentExeNode-&gt;<a class="code" href="a00241.html#a71af0f0882a4d9eda4db03c0986d1a93">dataPtr</a></div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;                                        );</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;                <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;                    retVal = <a class="code" href="a00089.html#a9d37d43ac2717b06ef7120784465e56f">RETURN_SUCCESS</a>;</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;                            </div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;                <span class="keywordflow">if</span>(retVal != <a class="code" href="a00089.html#a9d37d43ac2717b06ef7120784465e56f">RETURN_SUCCESS</a>)</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;                    currentExeNode-&gt;<a class="code" href="a00241.html#a71af0f0882a4d9eda4db03c0986d1a93">dataPtr</a>-&gt;<a class="code" href="a00229.html#a76d9e8af30a27fcb321c649462efc73f">exceptionFlags</a> |= (0x00000001 &lt;&lt; <a class="code" href="a00083.html#a26182649eca259adf1962de30b2042e3">EXP_HANDLER</a>);</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;                </div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;                <span class="keywordflow">if</span>(currentExeNode-&gt;<a class="code" href="a00241.html#aa41c7d034d2b7405ccd568e3a8174202">nextPtr</a> != <span class="keyword">nullptr</span>)</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;                    currentExeNode = currentExeNode-&gt;<a class="code" href="a00241.html#aa41c7d034d2b7405ccd568e3a8174202">nextPtr</a>;</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;                <span class="keywordflow">else</span> </div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;                    <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;                    </div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;            }<span class="keywordflow">while</span>(currentExeNode-&gt;<a class="code" href="a00241.html#a8f5a55a9f9676ba488bcee2133bf5bd9">entryPoint</a> != <span class="keyword">nullptr</span>);</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        } </div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    }    </div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;}</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    </div>
-<div class="line"><a name="l00111"></a><span class="lineno"><a class="line" href="a00083.html#ac9cdc939a3f31fb6d9d33f3e5249ab93">  111</a></span>&#160;<span class="keywordtype">int</span> <a class="code" href="a00080.html#ac9cdc939a3f31fb6d9d33f3e5249ab93">ExecuteMain</a>(</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        <span class="keyword">struct</span> <a class="code" href="a00233.html">executionSystemStruct</a>* exeStructIn, </div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        <span class="keyword">struct</span> <a class="code" href="a00245.html">executionEntryStruct</a>* exeEntryPtrsIn</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        )</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;{</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <span class="keywordflow">if</span>(exeStructIn == <span class="keyword">nullptr</span> || exeEntryPtrsIn == <span class="keyword">nullptr</span>)</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="a00089.html#a9eec9e2a2ffc5f3c7a1bfbe1ba4a4c2b">RETURN_ERROR</a>;</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        </div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <span class="comment">// platform exe system setup</span></div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <a class="code" href="a00083.html#a1a5667631fb6b165e20e1b005fbf5902">platformSetup</a>();</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    </div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    <span class="comment">// module setup execution area</span></div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    <a class="code" href="a00080.html#a3db8840ecba8dde92b0681c5cbf993e5">ModuleExeArea</a>(</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        <a class="code" href="a00083.html#ad5af21cdc118cf8e4b5375d88188e5a4">EXP_SETUP</a>, </div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        exeEntryPtrsIn-&gt;<a class="code" href="a00245.html#a53c8ea205cfacd635a7b99fcc1fa026f">setupListHead</a></div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        );</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    </div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <span class="comment">// platform exe system start</span></div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <a class="code" href="a00083.html#a4968fd7c5aa1e4c1f873c1b62f82bab9">platformStart</a>();</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    </div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    <span class="comment">// module exception and loop execution areas</span></div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    <span class="keywordflow">for</span>(;;)</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    {</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;        <a class="code" href="a00080.html#aa3676eb2402706982d631067b0f78aa8">ModuleExceptionArea</a>(</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;            exeEntryPtrsIn-&gt;<a class="code" href="a00245.html#af79bb62a6851336e1285a521df1ca81c">exceptionListHead</a></div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;            );</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;        </div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;        <a class="code" href="a00080.html#a3db8840ecba8dde92b0681c5cbf993e5">ModuleExeArea</a>(</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;            <a class="code" href="a00083.html#a3676bc5cac724c7fdce2a4603617bb65">EXP_LOOP</a>, </div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;            exeEntryPtrsIn-&gt;<a class="code" href="a00245.html#a69dffd90fe13278d2276dfabd1af78d8">loopListHead</a></div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;            );</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;        </div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;        <a class="code" href="a00083.html#acd96223fc08c356fb130ea95e23bcbd2">platformLoopDelay</a>();</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    }</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    </div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="a00089.html#a9d37d43ac2717b06ef7120784465e56f">RETURN_SUCCESS</a>;</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;}</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160; </div>
-<div class="line"><a name="l00149"></a><span class="lineno"><a class="line" href="a00083.html#abee1c9e2349cc442439dd9adbdb186f6">  149</a></span>&#160;<span class="keywordtype">int</span> <a class="code" href="a00080.html#abee1c9e2349cc442439dd9adbdb186f6">ExecuteSetup</a>(</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;        <span class="keyword">struct</span> <a class="code" href="a00233.html">executionSystemStruct</a>* exeStructIn,</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        <span class="keyword">struct</span> <a class="code" href="a00245.html">executionEntryStruct</a>* exeEntryPtrsIn</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;        )</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;{</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    <span class="keywordflow">if</span>(exeStructIn == <span class="keyword">nullptr</span> || exeEntryPtrsIn == <span class="keyword">nullptr</span>)</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="a00089.html#a9eec9e2a2ffc5f3c7a1bfbe1ba4a4c2b">RETURN_ERROR</a>;</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160; </div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    <span class="comment">// platform exe system setup</span></div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    <a class="code" href="a00083.html#a1a5667631fb6b165e20e1b005fbf5902">platformSetup</a>();</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160; </div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    <span class="comment">// module setup execution area</span></div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    <a class="code" href="a00080.html#a3db8840ecba8dde92b0681c5cbf993e5">ModuleExeArea</a>(</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;        <a class="code" href="a00083.html#ad5af21cdc118cf8e4b5375d88188e5a4">EXP_SETUP</a>,</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;        exeEntryPtrsIn-&gt;<a class="code" href="a00245.html#a53c8ea205cfacd635a7b99fcc1fa026f">setupListHead</a></div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;        );</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160; </div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    <span class="comment">// platform exe system start</span></div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    <a class="code" href="a00083.html#a4968fd7c5aa1e4c1f873c1b62f82bab9">platformStart</a>();</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    </div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="a00089.html#a9d37d43ac2717b06ef7120784465e56f">RETURN_SUCCESS</a>;</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;}</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160; </div>
-<div class="line"><a name="l00172"></a><span class="lineno"><a class="line" href="a00083.html#ac349a5bbe26b1909aaff4dd5ab15b470">  172</a></span>&#160;<span class="keywordtype">int</span> <a class="code" href="a00080.html#ac349a5bbe26b1909aaff4dd5ab15b470">ExecuteLoop</a>(</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;        <span class="keyword">struct</span> <a class="code" href="a00233.html">executionSystemStruct</a>* exeStructIn,</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;        <span class="keyword">struct</span> <a class="code" href="a00245.html">executionEntryStruct</a>* exeEntryPtrsIn</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;        )</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;{</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    <span class="comment">// module exception and loop execution areas</span></div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    <a class="code" href="a00080.html#aa3676eb2402706982d631067b0f78aa8">ModuleExceptionArea</a>(</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;        exeEntryPtrsIn-&gt;<a class="code" href="a00245.html#af79bb62a6851336e1285a521df1ca81c">exceptionListHead</a></div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;        );</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160; </div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    <a class="code" href="a00080.html#a3db8840ecba8dde92b0681c5cbf993e5">ModuleExeArea</a>(</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;        <a class="code" href="a00083.html#a3676bc5cac724c7fdce2a4603617bb65">EXP_LOOP</a>,</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;        exeEntryPtrsIn-&gt;<a class="code" href="a00245.html#a69dffd90fe13278d2276dfabd1af78d8">loopListHead</a></div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;        );</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160; </div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;    <a class="code" href="a00083.html#acd96223fc08c356fb130ea95e23bcbd2">platformLoopDelay</a>();</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160; </div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="a00089.html#a9d37d43ac2717b06ef7120784465e56f">RETURN_SUCCESS</a>;</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;}</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160; </div>
-<div class="line"><a name="l00192"></a><span class="lineno"><a class="line" href="a00083.html#a64bb8d964e454b894734bf1873f9702b">  192</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a00080.html#a64bb8d964e454b894734bf1873f9702b">ExecuteSysTick</a>(</div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;        <span class="keyword">struct</span> <a class="code" href="a00233.html">executionSystemStruct</a>* exeStructIn, </div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;        <span class="keyword">struct</span> <a class="code" href="a00245.html">executionEntryStruct</a>* exeEntryPtrsIn</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;        )</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;{</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    exeStructIn-&gt;<a class="code" href="a00233.html#ab9b669ef6b91ae803c6183ed93027d16">uSecTicks</a> += exeStructIn-&gt;<a class="code" href="a00233.html#a9265ad969fcf6b18de36c0b1585956b6">uSecPerSysTick</a>;</div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;    <span class="keywordflow">if</span>(exeStructIn-&gt;<a class="code" href="a00233.html#ab9b669ef6b91ae803c6183ed93027d16">uSecTicks</a> &gt;= <a class="code" href="a00083.html#aad915f1d12d6f9b1f1a34bedae348a94">TIME_uS_PER_HR</a>)</div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;    {</div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;        exeStructIn-&gt;<a class="code" href="a00233.html#ab9b669ef6b91ae803c6183ed93027d16">uSecTicks</a> = 0u;</div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;        exeStructIn-&gt;<a class="code" href="a00233.html#a555128b56ac521c2370e32e29dbe4b7c">hourTicks</a>++;</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    }</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;    </div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;    <span class="comment">// module systick execution area</span></div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;    <a class="code" href="a00080.html#a3db8840ecba8dde92b0681c5cbf993e5">ModuleExeArea</a>(</div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;            <a class="code" href="a00083.html#aa2068e4ecdea57eb22c052a651ff2b17">EXP_SYSTICK</a>, </div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;            exeEntryPtrsIn-&gt;<a class="code" href="a00245.html#a1e1e450b148c683e43c602fdbb1d268e">sysTickListHead</a></div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;            );        </div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;    </div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;}</div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keyword">struct </span><a class="code" href="a00233.html">executionSystemStruct</a> <a class="code" href="a00080.html#a435f4a4956bbda98348d28c494bd0627">CreateExecutionSystemStruct</a>(</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    UI_32 uSperTick</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    )</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;{</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keyword">struct </span><a class="code" href="a00233.html">executionSystemStruct</a> outStruct;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    outStruct.<a class="code" href="a00233.html#a555128b56ac521c2370e32e29dbe4b7c">hourTicks</a> = 0u;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    outStruct.<a class="code" href="a00233.html#ab9b669ef6b91ae803c6183ed93027d16">uSecTicks</a> = 0u;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    outStruct.<a class="code" href="a00233.html#a9265ad969fcf6b18de36c0b1585956b6">uSecPerSysTick</a> = uSperTick;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordflow">return</span> outStruct;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;}</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment">////////////////////////////////////////////////////////////////////////////////</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment"></span><span class="comment">// C Application Entry Points (not built in cpp build)</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor">#ifndef __cplusplus</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="a00083.html#a3db8840ecba8dde92b0681c5cbf993e5">   47</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a00080.html#a3db8840ecba8dde92b0681c5cbf993e5">ModuleExeArea</a>(</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            UI_32 ExcpIndex,</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;            <span class="keyword">struct</span> <a class="code" href="a00241.html">linkedEntryPointStruct</a>* exeListHeadIn</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;            )</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;{</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keyword">struct </span><a class="code" href="a00241.html">linkedEntryPointStruct</a>* currentExeNode = exeListHeadIn;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordtype">int</span> retVal;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordflow">if</span>(currentExeNode!=<span class="keyword">nullptr</span>)</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    {</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <span class="keywordflow">if</span>(currentExeNode-&gt;<a class="code" href="a00241.html#a8f5a55a9f9676ba488bcee2133bf5bd9">entryPoint</a> != <span class="keyword">nullptr</span>)</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        {   </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            <span class="keywordflow">do</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            {</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;                <span class="keywordflow">if</span>(currentExeNode-&gt;<a class="code" href="a00241.html#a71af0f0882a4d9eda4db03c0986d1a93">dataPtr</a>-&gt;<a class="code" href="a00229.html#a76d9e8af30a27fcb321c649462efc73f">exceptionFlags</a>==0u)</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;                    retVal = currentExeNode-&gt;<a class="code" href="a00241.html#a8f5a55a9f9676ba488bcee2133bf5bd9">entryPoint</a>(</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                                        currentExeNode-&gt;<a class="code" href="a00241.html#a71af0f0882a4d9eda4db03c0986d1a93">dataPtr</a>   </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                                        );</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                    retVal = <a class="code" href="a00089.html#a9d37d43ac2717b06ef7120784465e56f">RETURN_SUCCESS</a>;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                            </div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;                <span class="keywordflow">if</span>(retVal != <a class="code" href="a00089.html#a9d37d43ac2717b06ef7120784465e56f">RETURN_SUCCESS</a>)</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;                    currentExeNode-&gt;<a class="code" href="a00241.html#a71af0f0882a4d9eda4db03c0986d1a93">dataPtr</a>-&gt;<a class="code" href="a00229.html#a76d9e8af30a27fcb321c649462efc73f">exceptionFlags</a> |= (0x00000001 &lt;&lt; ExcpIndex);</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;                </div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;                <span class="keywordflow">if</span>(currentExeNode-&gt;<a class="code" href="a00241.html#aa41c7d034d2b7405ccd568e3a8174202">nextPtr</a> != <span class="keyword">nullptr</span>)</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;                    currentExeNode = currentExeNode-&gt;<a class="code" href="a00241.html#aa41c7d034d2b7405ccd568e3a8174202">nextPtr</a>;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                <span class="keywordflow">else</span> </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                    <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                    </div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;            }<span class="keywordflow">while</span>(currentExeNode-&gt;<a class="code" href="a00241.html#a8f5a55a9f9676ba488bcee2133bf5bd9">entryPoint</a> != <span class="keyword">nullptr</span>);</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        } </div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    }    </div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;}</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="a00083.html#aa3676eb2402706982d631067b0f78aa8">   80</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a00080.html#aa3676eb2402706982d631067b0f78aa8">ModuleExceptionArea</a>(</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;            <span class="keyword">struct</span> <a class="code" href="a00241.html">linkedEntryPointStruct</a>* exeListHeadIn</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;            )</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;{</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keyword">struct </span><a class="code" href="a00241.html">linkedEntryPointStruct</a>* currentExeNode = exeListHeadIn;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordtype">int</span> retVal;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keywordflow">if</span>(currentExeNode!=<span class="keyword">nullptr</span>)</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    {</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        <span class="keywordflow">if</span>(currentExeNode-&gt;<a class="code" href="a00241.html#a8f5a55a9f9676ba488bcee2133bf5bd9">entryPoint</a> != <span class="keyword">nullptr</span>)</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        {   </div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;            <span class="keywordflow">do</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;            {</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;                <span class="keywordflow">if</span>(currentExeNode-&gt;<a class="code" href="a00241.html#a71af0f0882a4d9eda4db03c0986d1a93">dataPtr</a>-&gt;<a class="code" href="a00229.html#a76d9e8af30a27fcb321c649462efc73f">exceptionFlags</a>!=0u)</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;                    retVal = currentExeNode-&gt;<a class="code" href="a00241.html#a8f5a55a9f9676ba488bcee2133bf5bd9">entryPoint</a>(</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;                                        currentExeNode-&gt;<a class="code" href="a00241.html#a71af0f0882a4d9eda4db03c0986d1a93">dataPtr</a></div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;                                        );</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;                <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;                    retVal = <a class="code" href="a00089.html#a9d37d43ac2717b06ef7120784465e56f">RETURN_SUCCESS</a>;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;                            </div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;                <span class="keywordflow">if</span>(retVal != <a class="code" href="a00089.html#a9d37d43ac2717b06ef7120784465e56f">RETURN_SUCCESS</a>)</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;                    currentExeNode-&gt;<a class="code" href="a00241.html#a71af0f0882a4d9eda4db03c0986d1a93">dataPtr</a>-&gt;<a class="code" href="a00229.html#a76d9e8af30a27fcb321c649462efc73f">exceptionFlags</a> |= (0x00000001 &lt;&lt; <a class="code" href="a00083.html#a26182649eca259adf1962de30b2042e3">EXP_HANDLER</a>);</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;                </div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;                <span class="keywordflow">if</span>(currentExeNode-&gt;<a class="code" href="a00241.html#aa41c7d034d2b7405ccd568e3a8174202">nextPtr</a> != <span class="keyword">nullptr</span>)</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;                    currentExeNode = currentExeNode-&gt;<a class="code" href="a00241.html#aa41c7d034d2b7405ccd568e3a8174202">nextPtr</a>;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;                <span class="keywordflow">else</span> </div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;                    <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;                    </div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;            }<span class="keywordflow">while</span>(currentExeNode-&gt;<a class="code" href="a00241.html#a8f5a55a9f9676ba488bcee2133bf5bd9">entryPoint</a> != <span class="keyword">nullptr</span>);</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        } </div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    }    </div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;}</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    </div>
+<div class="line"><a name="l00112"></a><span class="lineno"><a class="line" href="a00083.html#ac9cdc939a3f31fb6d9d33f3e5249ab93">  112</a></span>&#160;<span class="keywordtype">int</span> <a class="code" href="a00080.html#ac9cdc939a3f31fb6d9d33f3e5249ab93">ExecuteMain</a>(</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        <span class="keyword">struct</span> <a class="code" href="a00233.html">executionSystemStruct</a>* exeStructIn, </div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        <span class="keyword">struct</span> <a class="code" href="a00245.html">executionEntryStruct</a>* exeEntryPtrsIn</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        )</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;{</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="keywordflow">if</span>(exeStructIn == <span class="keyword">nullptr</span> || exeEntryPtrsIn == <span class="keyword">nullptr</span>)</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="a00089.html#a9eec9e2a2ffc5f3c7a1bfbe1ba4a4c2b">RETURN_ERROR</a>;</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        </div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="comment">// platform exe system setup</span></div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <a class="code" href="a00083.html#a1a5667631fb6b165e20e1b005fbf5902">platformSetup</a>();</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    </div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    <span class="comment">// module setup execution area</span></div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    <a class="code" href="a00080.html#a3db8840ecba8dde92b0681c5cbf993e5">ModuleExeArea</a>(</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        <a class="code" href="a00083.html#ad5af21cdc118cf8e4b5375d88188e5a4">EXP_SETUP</a>, </div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        exeEntryPtrsIn-&gt;<a class="code" href="a00245.html#a53c8ea205cfacd635a7b99fcc1fa026f">setupListHead</a></div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        );</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    </div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <span class="comment">// platform exe system start</span></div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <a class="code" href="a00083.html#a4968fd7c5aa1e4c1f873c1b62f82bab9">platformStart</a>();</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    </div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    <span class="comment">// module exception and loop execution areas</span></div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    <span class="keywordflow">for</span>(;;)</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    {</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;        <a class="code" href="a00080.html#aa3676eb2402706982d631067b0f78aa8">ModuleExceptionArea</a>(</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;            exeEntryPtrsIn-&gt;<a class="code" href="a00245.html#af79bb62a6851336e1285a521df1ca81c">exceptionListHead</a></div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;            );</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;        </div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;        <a class="code" href="a00080.html#a3db8840ecba8dde92b0681c5cbf993e5">ModuleExeArea</a>(</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;            <a class="code" href="a00083.html#a3676bc5cac724c7fdce2a4603617bb65">EXP_LOOP</a>, </div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;            exeEntryPtrsIn-&gt;<a class="code" href="a00245.html#a69dffd90fe13278d2276dfabd1af78d8">loopListHead</a></div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;            );</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;        </div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;        <a class="code" href="a00083.html#acd96223fc08c356fb130ea95e23bcbd2">platformLoopDelay</a>();</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    }</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    </div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="a00089.html#a9d37d43ac2717b06ef7120784465e56f">RETURN_SUCCESS</a>;</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;}</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160; </div>
+<div class="line"><a name="l00150"></a><span class="lineno"><a class="line" href="a00083.html#abee1c9e2349cc442439dd9adbdb186f6">  150</a></span>&#160;<span class="keywordtype">int</span> <a class="code" href="a00080.html#abee1c9e2349cc442439dd9adbdb186f6">ExecuteSetup</a>(</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        <span class="keyword">struct</span> <a class="code" href="a00233.html">executionSystemStruct</a>* exeStructIn,</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;        <span class="keyword">struct</span> <a class="code" href="a00245.html">executionEntryStruct</a>* exeEntryPtrsIn</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;        )</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;{</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    <span class="keywordflow">if</span>(exeStructIn == <span class="keyword">nullptr</span> || exeEntryPtrsIn == <span class="keyword">nullptr</span>)</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="a00089.html#a9eec9e2a2ffc5f3c7a1bfbe1ba4a4c2b">RETURN_ERROR</a>;</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160; </div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    <span class="comment">// platform exe system setup</span></div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    <a class="code" href="a00083.html#a1a5667631fb6b165e20e1b005fbf5902">platformSetup</a>();</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160; </div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    <span class="comment">// module setup execution area</span></div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    <a class="code" href="a00080.html#a3db8840ecba8dde92b0681c5cbf993e5">ModuleExeArea</a>(</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;        <a class="code" href="a00083.html#ad5af21cdc118cf8e4b5375d88188e5a4">EXP_SETUP</a>,</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;        exeEntryPtrsIn-&gt;<a class="code" href="a00245.html#a53c8ea205cfacd635a7b99fcc1fa026f">setupListHead</a></div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;        );</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160; </div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    <span class="comment">// platform exe system start</span></div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    <a class="code" href="a00083.html#a4968fd7c5aa1e4c1f873c1b62f82bab9">platformStart</a>();</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    </div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="a00089.html#a9d37d43ac2717b06ef7120784465e56f">RETURN_SUCCESS</a>;</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;}</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160; </div>
+<div class="line"><a name="l00173"></a><span class="lineno"><a class="line" href="a00083.html#ac349a5bbe26b1909aaff4dd5ab15b470">  173</a></span>&#160;<span class="keywordtype">int</span> <a class="code" href="a00080.html#ac349a5bbe26b1909aaff4dd5ab15b470">ExecuteLoop</a>(</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;        <span class="keyword">struct</span> <a class="code" href="a00233.html">executionSystemStruct</a>* exeStructIn,</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;        <span class="keyword">struct</span> <a class="code" href="a00245.html">executionEntryStruct</a>* exeEntryPtrsIn</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;        )</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;{</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    <span class="comment">// module exception and loop execution areas</span></div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;    <a class="code" href="a00080.html#aa3676eb2402706982d631067b0f78aa8">ModuleExceptionArea</a>(</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;        exeEntryPtrsIn-&gt;<a class="code" href="a00245.html#af79bb62a6851336e1285a521df1ca81c">exceptionListHead</a></div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;        );</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160; </div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    <a class="code" href="a00080.html#a3db8840ecba8dde92b0681c5cbf993e5">ModuleExeArea</a>(</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;        <a class="code" href="a00083.html#a3676bc5cac724c7fdce2a4603617bb65">EXP_LOOP</a>,</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;        exeEntryPtrsIn-&gt;<a class="code" href="a00245.html#a69dffd90fe13278d2276dfabd1af78d8">loopListHead</a></div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;        );</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160; </div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;    <a class="code" href="a00083.html#acd96223fc08c356fb130ea95e23bcbd2">platformLoopDelay</a>();</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160; </div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="a00089.html#a9d37d43ac2717b06ef7120784465e56f">RETURN_SUCCESS</a>;</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;}</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160; </div>
+<div class="line"><a name="l00193"></a><span class="lineno"><a class="line" href="a00083.html#a64bb8d964e454b894734bf1873f9702b">  193</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a00080.html#a64bb8d964e454b894734bf1873f9702b">ExecuteSysTick</a>(</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;        <span class="keyword">struct</span> <a class="code" href="a00233.html">executionSystemStruct</a>* exeStructIn, </div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;        <span class="keyword">struct</span> <a class="code" href="a00245.html">executionEntryStruct</a>* exeEntryPtrsIn</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;        )</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;{</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;    exeStructIn-&gt;<a class="code" href="a00233.html#ab9b669ef6b91ae803c6183ed93027d16">uSecTicks</a> += exeStructIn-&gt;<a class="code" href="a00233.html#a9265ad969fcf6b18de36c0b1585956b6">uSecPerSysTick</a>;</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;    <span class="keywordflow">if</span>(exeStructIn-&gt;<a class="code" href="a00233.html#ab9b669ef6b91ae803c6183ed93027d16">uSecTicks</a> &gt;= <a class="code" href="a00083.html#aad915f1d12d6f9b1f1a34bedae348a94">TIME_uS_PER_HR</a>)</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    {</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;        exeStructIn-&gt;<a class="code" href="a00233.html#ab9b669ef6b91ae803c6183ed93027d16">uSecTicks</a> = 0u;</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;        exeStructIn-&gt;<a class="code" href="a00233.html#a555128b56ac521c2370e32e29dbe4b7c">hourTicks</a>++;</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;    }</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;    </div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;    <span class="comment">// module systick execution area</span></div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;    <a class="code" href="a00080.html#a3db8840ecba8dde92b0681c5cbf993e5">ModuleExeArea</a>(</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;            <a class="code" href="a00083.html#aa2068e4ecdea57eb22c052a651ff2b17">EXP_SYSTICK</a>, </div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;            exeEntryPtrsIn-&gt;<a class="code" href="a00245.html#a1e1e450b148c683e43c602fdbb1d268e">sysTickListHead</a></div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;            );        </div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    </div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;}</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160; </div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aa00074_html"><div class="ttname"><a href="a00074.html">console_menu.h</a></div><div class="ttdoc">part of ccNOos, Declarations for straight C and C++ wrappers</div></div>
-<div class="ttc" id="aa00080_html_ac349a5bbe26b1909aaff4dd5ab15b470"><div class="ttname"><a href="a00080.html#ac349a5bbe26b1909aaff4dd5ab15b470">ExecuteLoop</a></div><div class="ttdeci">int ExecuteLoop(struct executionSystemStruct *exeStructIn, struct executionEntryStruct *exeEntryPtrsIn)</div><div class="ttdef"><b>Definition:</b> <a href="a00080_source.html#l00172">execution_system.c:172</a></div></div>
-<div class="ttc" id="aa00241_html_a71af0f0882a4d9eda4db03c0986d1a93"><div class="ttname"><a href="a00241.html#a71af0f0882a4d9eda4db03c0986d1a93">linkedEntryPointStruct::dataPtr</a></div><div class="ttdeci">struct computeModuleStruct * dataPtr</div><div class="ttdef"><b>Definition:</b> <a href="a00083_source.html#l00116">execution_system.h:116</a></div></div>
-<div class="ttc" id="aa00083_html_ad5af21cdc118cf8e4b5375d88188e5a4"><div class="ttname"><a href="a00083.html#ad5af21cdc118cf8e4b5375d88188e5a4">EXP_SETUP</a></div><div class="ttdeci">#define EXP_SETUP</div><div class="ttdef"><b>Definition:</b> <a href="a00083_source.html#l00042">execution_system.h:42</a></div></div>
-<div class="ttc" id="aa00233_html_a9265ad969fcf6b18de36c0b1585956b6"><div class="ttname"><a href="a00233.html#a9265ad969fcf6b18de36c0b1585956b6">executionSystemStruct::uSecPerSysTick</a></div><div class="ttdeci">UI_32 uSecPerSysTick</div><div class="ttdef"><b>Definition:</b> <a href="a00083_source.html#l00059">execution_system.h:59</a></div></div>
-<div class="ttc" id="aa00083_html_a26182649eca259adf1962de30b2042e3"><div class="ttname"><a href="a00083.html#a26182649eca259adf1962de30b2042e3">EXP_HANDLER</a></div><div class="ttdeci">#define EXP_HANDLER</div><div class="ttdef"><b>Definition:</b> <a href="a00083_source.html#l00046">execution_system.h:46</a></div></div>
-<div class="ttc" id="aa00245_html_a69dffd90fe13278d2276dfabd1af78d8"><div class="ttname"><a href="a00245.html#a69dffd90fe13278d2276dfabd1af78d8">executionEntryStruct::loopListHead</a></div><div class="ttdeci">struct linkedEntryPointStruct * loopListHead</div><div class="ttdef"><b>Definition:</b> <a href="a00083_source.html#l00125">execution_system.h:125</a></div></div>
-<div class="ttc" id="aa00080_html_a3db8840ecba8dde92b0681c5cbf993e5"><div class="ttname"><a href="a00080.html#a3db8840ecba8dde92b0681c5cbf993e5">ModuleExeArea</a></div><div class="ttdeci">void ModuleExeArea(UI_32 ExcpIndex, struct linkedEntryPointStruct *exeListHeadIn)</div><div class="ttdef"><b>Definition:</b> <a href="a00080_source.html#l00046">execution_system.c:46</a></div></div>
-<div class="ttc" id="aa00245_html"><div class="ttname"><a href="a00245.html">executionEntryStruct</a></div><div class="ttdef"><b>Definition:</b> <a href="a00083_source.html#l00122">execution_system.h:123</a></div></div>
-<div class="ttc" id="aa00241_html_aa41c7d034d2b7405ccd568e3a8174202"><div class="ttname"><a href="a00241.html#aa41c7d034d2b7405ccd568e3a8174202">linkedEntryPointStruct::nextPtr</a></div><div class="ttdeci">struct linkedEntryPointStruct * nextPtr</div><div class="ttdef"><b>Definition:</b> <a href="a00083_source.html#l00115">execution_system.h:115</a></div></div>
-<div class="ttc" id="aa00233_html"><div class="ttname"><a href="a00233.html">executionSystemStruct</a></div><div class="ttdef"><b>Definition:</b> <a href="a00083_source.html#l00055">execution_system.h:56</a></div></div>
-<div class="ttc" id="aa00245_html_af79bb62a6851336e1285a521df1ca81c"><div class="ttname"><a href="a00245.html#af79bb62a6851336e1285a521df1ca81c">executionEntryStruct::exceptionListHead</a></div><div class="ttdeci">struct linkedEntryPointStruct * exceptionListHead</div><div class="ttdef"><b>Definition:</b> <a href="a00083_source.html#l00127">execution_system.h:127</a></div></div>
-<div class="ttc" id="aa00083_html_a4968fd7c5aa1e4c1f873c1b62f82bab9"><div class="ttname"><a href="a00083.html#a4968fd7c5aa1e4c1f873c1b62f82bab9">platformStart</a></div><div class="ttdeci">void platformStart()</div><div class="ttdef"><b>Definition:</b> <a href="a00170_source.html#l00113">Platform_Arduino.h:113</a></div></div>
-<div class="ttc" id="aa00241_html_a8f5a55a9f9676ba488bcee2133bf5bd9"><div class="ttname"><a href="a00241.html#a8f5a55a9f9676ba488bcee2133bf5bd9">linkedEntryPointStruct::entryPoint</a></div><div class="ttdeci">int(* entryPoint)(struct computeModuleStruct *dataPtrIn)</div><div class="ttdef"><b>Definition:</b> <a href="a00083_source.html#l00117">execution_system.h:117</a></div></div>
-<div class="ttc" id="aa00083_html"><div class="ttname"><a href="a00083.html">execution_system.h</a></div><div class="ttdoc">part of ccNOos, Declarations for straight C and C++ wrappers</div></div>
-<div class="ttc" id="aa00083_html_a3676bc5cac724c7fdce2a4603617bb65"><div class="ttname"><a href="a00083.html#a3676bc5cac724c7fdce2a4603617bb65">EXP_LOOP</a></div><div class="ttdeci">#define EXP_LOOP</div><div class="ttdef"><b>Definition:</b> <a href="a00083_source.html#l00043">execution_system.h:43</a></div></div>
-<div class="ttc" id="aa00083_html_a1a5667631fb6b165e20e1b005fbf5902"><div class="ttname"><a href="a00083.html#a1a5667631fb6b165e20e1b005fbf5902">platformSetup</a></div><div class="ttdeci">void platformSetup()</div><div class="ttdef"><b>Definition:</b> <a href="a00170_source.html#l00065">Platform_Arduino.h:65</a></div></div>
-<div class="ttc" id="aa00083_html_acd96223fc08c356fb130ea95e23bcbd2"><div class="ttname"><a href="a00083.html#acd96223fc08c356fb130ea95e23bcbd2">platformLoopDelay</a></div><div class="ttdeci">void platformLoopDelay()</div><div class="ttdef"><b>Definition:</b> <a href="a00170_source.html#l00127">Platform_Arduino.h:127</a></div></div>
-<div class="ttc" id="aa00083_html_aa2068e4ecdea57eb22c052a651ff2b17"><div class="ttname"><a href="a00083.html#aa2068e4ecdea57eb22c052a651ff2b17">EXP_SYSTICK</a></div><div class="ttdeci">#define EXP_SYSTICK</div><div class="ttdef"><b>Definition:</b> <a href="a00083_source.html#l00044">execution_system.h:44</a></div></div>
-<div class="ttc" id="aa00080_html_aa3676eb2402706982d631067b0f78aa8"><div class="ttname"><a href="a00080.html#aa3676eb2402706982d631067b0f78aa8">ModuleExceptionArea</a></div><div class="ttdeci">void ModuleExceptionArea(struct linkedEntryPointStruct *exeListHeadIn)</div><div class="ttdef"><b>Definition:</b> <a href="a00080_source.html#l00079">execution_system.c:79</a></div></div>
-<div class="ttc" id="aa00080_html_a435f4a4956bbda98348d28c494bd0627"><div class="ttname"><a href="a00080.html#a435f4a4956bbda98348d28c494bd0627">CreateExecutionSystemStruct</a></div><div class="ttdeci">struct executionSystemStruct CreateExecutionSystemStruct(UI_32 uSperTick)</div><div class="ttdef"><b>Definition:</b> <a href="a00080_source.html#l00001">execution_system.c:30</a></div></div>
-<div class="ttc" id="aa00233_html_a555128b56ac521c2370e32e29dbe4b7c"><div class="ttname"><a href="a00233.html#a555128b56ac521c2370e32e29dbe4b7c">executionSystemStruct::hourTicks</a></div><div class="ttdeci">UI_32 hourTicks</div><div class="ttdef"><b>Definition:</b> <a href="a00083_source.html#l00058">execution_system.h:58</a></div></div>
-<div class="ttc" id="aa00080_html_abee1c9e2349cc442439dd9adbdb186f6"><div class="ttname"><a href="a00080.html#abee1c9e2349cc442439dd9adbdb186f6">ExecuteSetup</a></div><div class="ttdeci">int ExecuteSetup(struct executionSystemStruct *exeStructIn, struct executionEntryStruct *exeEntryPtrsIn)</div><div class="ttdef"><b>Definition:</b> <a href="a00080_source.html#l00149">execution_system.c:149</a></div></div>
-<div class="ttc" id="aa00245_html_a53c8ea205cfacd635a7b99fcc1fa026f"><div class="ttname"><a href="a00245.html#a53c8ea205cfacd635a7b99fcc1fa026f">executionEntryStruct::setupListHead</a></div><div class="ttdeci">struct linkedEntryPointStruct * setupListHead</div><div class="ttdef"><b>Definition:</b> <a href="a00083_source.html#l00124">execution_system.h:124</a></div></div>
-<div class="ttc" id="aa00080_html_ac9cdc939a3f31fb6d9d33f3e5249ab93"><div class="ttname"><a href="a00080.html#ac9cdc939a3f31fb6d9d33f3e5249ab93">ExecuteMain</a></div><div class="ttdeci">int ExecuteMain(struct executionSystemStruct *exeStructIn, struct executionEntryStruct *exeEntryPtrsIn)</div><div class="ttdef"><b>Definition:</b> <a href="a00080_source.html#l00111">execution_system.c:111</a></div></div>
-<div class="ttc" id="aa00229_html_a76d9e8af30a27fcb321c649462efc73f"><div class="ttname"><a href="a00229.html#a76d9e8af30a27fcb321c649462efc73f">computeModuleStruct::exceptionFlags</a></div><div class="ttdeci">UI_32 exceptionFlags</div><div class="ttdef"><b>Definition:</b> <a href="a00065_source.html#l00033">compute_module.h:33</a></div></div>
-<div class="ttc" id="aa00241_html"><div class="ttname"><a href="a00241.html">linkedEntryPointStruct</a></div><div class="ttdef"><b>Definition:</b> <a href="a00083_source.html#l00113">execution_system.h:114</a></div></div>
-<div class="ttc" id="aa00080_html_a64bb8d964e454b894734bf1873f9702b"><div class="ttname"><a href="a00080.html#a64bb8d964e454b894734bf1873f9702b">ExecuteSysTick</a></div><div class="ttdeci">void ExecuteSysTick(struct executionSystemStruct *exeStructIn, struct executionEntryStruct *exeEntryPtrsIn)</div><div class="ttdef"><b>Definition:</b> <a href="a00080_source.html#l00192">execution_system.c:192</a></div></div>
-<div class="ttc" id="aa00083_html_aad915f1d12d6f9b1f1a34bedae348a94"><div class="ttname"><a href="a00083.html#aad915f1d12d6f9b1f1a34bedae348a94">TIME_uS_PER_HR</a></div><div class="ttdeci">#define TIME_uS_PER_HR</div><div class="ttdef"><b>Definition:</b> <a href="a00083_source.html#l00034">execution_system.h:34</a></div></div>
-<div class="ttc" id="aa00089_html_a9d37d43ac2717b06ef7120784465e56f"><div class="ttname"><a href="a00089.html#a9d37d43ac2717b06ef7120784465e56f">RETURN_SUCCESS</a></div><div class="ttdeci">#define RETURN_SUCCESS</div><div class="ttdoc">Function Return Value for Success.</div><div class="ttdef"><b>Definition:</b> <a href="a00089_source.html#l00086">version_config.h:86</a></div></div>
-<div class="ttc" id="aa00089_html_a9eec9e2a2ffc5f3c7a1bfbe1ba4a4c2b"><div class="ttname"><a href="a00089.html#a9eec9e2a2ffc5f3c7a1bfbe1ba4a4c2b">RETURN_ERROR</a></div><div class="ttdeci">#define RETURN_ERROR</div><div class="ttdoc">Function Return Value for ERROR.</div><div class="ttdef"><b>Definition:</b> <a href="a00089_source.html#l00091">version_config.h:91</a></div></div>
-<div class="ttc" id="aa00233_html_ab9b669ef6b91ae803c6183ed93027d16"><div class="ttname"><a href="a00233.html#ab9b669ef6b91ae803c6183ed93027d16">executionSystemStruct::uSecTicks</a></div><div class="ttdeci">UI_32 uSecTicks</div><div class="ttdef"><b>Definition:</b> <a href="a00083_source.html#l00057">execution_system.h:57</a></div></div>
-<div class="ttc" id="aa00245_html_a1e1e450b148c683e43c602fdbb1d268e"><div class="ttname"><a href="a00245.html#a1e1e450b148c683e43c602fdbb1d268e">executionEntryStruct::sysTickListHead</a></div><div class="ttdeci">struct linkedEntryPointStruct * sysTickListHead</div><div class="ttdef"><b>Definition:</b> <a href="a00083_source.html#l00126">execution_system.h:126</a></div></div>
+<div class="ttc" id="aa00074_html"><div class="ttname"><a href="a00074.html">console_menu.h</a></div><div class="ttdoc">part of ccNOos, Declarations for straight C and C++</div></div>
+<div class="ttc" id="aa00080_html_ac349a5bbe26b1909aaff4dd5ab15b470"><div class="ttname"><a href="a00080.html#ac349a5bbe26b1909aaff4dd5ab15b470">ExecuteLoop</a></div><div class="ttdeci">int ExecuteLoop(struct executionSystemStruct *exeStructIn, struct executionEntryStruct *exeEntryPtrsIn)</div><div class="ttdef"><b>Definition:</b> <a href="a00080_source.html#l00173">execution_system.c:173</a></div></div>
+<div class="ttc" id="aa00241_html_a71af0f0882a4d9eda4db03c0986d1a93"><div class="ttname"><a href="a00241.html#a71af0f0882a4d9eda4db03c0986d1a93">linkedEntryPointStruct::dataPtr</a></div><div class="ttdeci">struct computeModuleStruct * dataPtr</div><div class="ttdef"><b>Definition:</b> <a href="a00083_source.html#l00117">execution_system.h:117</a></div></div>
+<div class="ttc" id="aa00083_html_ad5af21cdc118cf8e4b5375d88188e5a4"><div class="ttname"><a href="a00083.html#ad5af21cdc118cf8e4b5375d88188e5a4">EXP_SETUP</a></div><div class="ttdeci">#define EXP_SETUP</div><div class="ttdef"><b>Definition:</b> <a href="a00083_source.html#l00043">execution_system.h:43</a></div></div>
+<div class="ttc" id="aa00233_html_a9265ad969fcf6b18de36c0b1585956b6"><div class="ttname"><a href="a00233.html#a9265ad969fcf6b18de36c0b1585956b6">executionSystemStruct::uSecPerSysTick</a></div><div class="ttdeci">UI_32 uSecPerSysTick</div><div class="ttdef"><b>Definition:</b> <a href="a00083_source.html#l00060">execution_system.h:60</a></div></div>
+<div class="ttc" id="aa00083_html_a26182649eca259adf1962de30b2042e3"><div class="ttname"><a href="a00083.html#a26182649eca259adf1962de30b2042e3">EXP_HANDLER</a></div><div class="ttdeci">#define EXP_HANDLER</div><div class="ttdef"><b>Definition:</b> <a href="a00083_source.html#l00047">execution_system.h:47</a></div></div>
+<div class="ttc" id="aa00245_html_a69dffd90fe13278d2276dfabd1af78d8"><div class="ttname"><a href="a00245.html#a69dffd90fe13278d2276dfabd1af78d8">executionEntryStruct::loopListHead</a></div><div class="ttdeci">struct linkedEntryPointStruct * loopListHead</div><div class="ttdef"><b>Definition:</b> <a href="a00083_source.html#l00126">execution_system.h:126</a></div></div>
+<div class="ttc" id="aa00080_html_a3db8840ecba8dde92b0681c5cbf993e5"><div class="ttname"><a href="a00080.html#a3db8840ecba8dde92b0681c5cbf993e5">ModuleExeArea</a></div><div class="ttdeci">void ModuleExeArea(UI_32 ExcpIndex, struct linkedEntryPointStruct *exeListHeadIn)</div><div class="ttdef"><b>Definition:</b> <a href="a00080_source.html#l00047">execution_system.c:47</a></div></div>
+<div class="ttc" id="aa00245_html"><div class="ttname"><a href="a00245.html">executionEntryStruct</a></div><div class="ttdef"><b>Definition:</b> <a href="a00083_source.html#l00123">execution_system.h:124</a></div></div>
+<div class="ttc" id="aa00241_html_aa41c7d034d2b7405ccd568e3a8174202"><div class="ttname"><a href="a00241.html#aa41c7d034d2b7405ccd568e3a8174202">linkedEntryPointStruct::nextPtr</a></div><div class="ttdeci">struct linkedEntryPointStruct * nextPtr</div><div class="ttdef"><b>Definition:</b> <a href="a00083_source.html#l00116">execution_system.h:116</a></div></div>
+<div class="ttc" id="aa00233_html"><div class="ttname"><a href="a00233.html">executionSystemStruct</a></div><div class="ttdef"><b>Definition:</b> <a href="a00083_source.html#l00056">execution_system.h:57</a></div></div>
+<div class="ttc" id="aa00245_html_af79bb62a6851336e1285a521df1ca81c"><div class="ttname"><a href="a00245.html#af79bb62a6851336e1285a521df1ca81c">executionEntryStruct::exceptionListHead</a></div><div class="ttdeci">struct linkedEntryPointStruct * exceptionListHead</div><div class="ttdef"><b>Definition:</b> <a href="a00083_source.html#l00128">execution_system.h:128</a></div></div>
+<div class="ttc" id="aa00083_html_a4968fd7c5aa1e4c1f873c1b62f82bab9"><div class="ttname"><a href="a00083.html#a4968fd7c5aa1e4c1f873c1b62f82bab9">platformStart</a></div><div class="ttdeci">void platformStart()</div><div class="ttdef"><b>Definition:</b> <a href="a00170_source.html#l00114">Platform_Arduino.h:114</a></div></div>
+<div class="ttc" id="aa00241_html_a8f5a55a9f9676ba488bcee2133bf5bd9"><div class="ttname"><a href="a00241.html#a8f5a55a9f9676ba488bcee2133bf5bd9">linkedEntryPointStruct::entryPoint</a></div><div class="ttdeci">int(* entryPoint)(struct computeModuleStruct *dataPtrIn)</div><div class="ttdef"><b>Definition:</b> <a href="a00083_source.html#l00118">execution_system.h:118</a></div></div>
+<div class="ttc" id="aa00083_html"><div class="ttname"><a href="a00083.html">execution_system.h</a></div><div class="ttdoc">part of ccNOos, Declarations for straight C and C++</div></div>
+<div class="ttc" id="aa00083_html_a3676bc5cac724c7fdce2a4603617bb65"><div class="ttname"><a href="a00083.html#a3676bc5cac724c7fdce2a4603617bb65">EXP_LOOP</a></div><div class="ttdeci">#define EXP_LOOP</div><div class="ttdef"><b>Definition:</b> <a href="a00083_source.html#l00044">execution_system.h:44</a></div></div>
+<div class="ttc" id="aa00083_html_a1a5667631fb6b165e20e1b005fbf5902"><div class="ttname"><a href="a00083.html#a1a5667631fb6b165e20e1b005fbf5902">platformSetup</a></div><div class="ttdeci">void platformSetup()</div><div class="ttdef"><b>Definition:</b> <a href="a00170_source.html#l00066">Platform_Arduino.h:66</a></div></div>
+<div class="ttc" id="aa00083_html_acd96223fc08c356fb130ea95e23bcbd2"><div class="ttname"><a href="a00083.html#acd96223fc08c356fb130ea95e23bcbd2">platformLoopDelay</a></div><div class="ttdeci">void platformLoopDelay()</div><div class="ttdef"><b>Definition:</b> <a href="a00170_source.html#l00128">Platform_Arduino.h:128</a></div></div>
+<div class="ttc" id="aa00083_html_aa2068e4ecdea57eb22c052a651ff2b17"><div class="ttname"><a href="a00083.html#aa2068e4ecdea57eb22c052a651ff2b17">EXP_SYSTICK</a></div><div class="ttdeci">#define EXP_SYSTICK</div><div class="ttdef"><b>Definition:</b> <a href="a00083_source.html#l00045">execution_system.h:45</a></div></div>
+<div class="ttc" id="aa00080_html_aa3676eb2402706982d631067b0f78aa8"><div class="ttname"><a href="a00080.html#aa3676eb2402706982d631067b0f78aa8">ModuleExceptionArea</a></div><div class="ttdeci">void ModuleExceptionArea(struct linkedEntryPointStruct *exeListHeadIn)</div><div class="ttdef"><b>Definition:</b> <a href="a00080_source.html#l00080">execution_system.c:80</a></div></div>
+<div class="ttc" id="aa00080_html_a435f4a4956bbda98348d28c494bd0627"><div class="ttname"><a href="a00080.html#a435f4a4956bbda98348d28c494bd0627">CreateExecutionSystemStruct</a></div><div class="ttdeci">struct executionSystemStruct CreateExecutionSystemStruct(UI_32 uSperTick)</div><div class="ttdef"><b>Definition:</b> <a href="a00080_source.html#l00001">execution_system.c:31</a></div></div>
+<div class="ttc" id="aa00233_html_a555128b56ac521c2370e32e29dbe4b7c"><div class="ttname"><a href="a00233.html#a555128b56ac521c2370e32e29dbe4b7c">executionSystemStruct::hourTicks</a></div><div class="ttdeci">UI_32 hourTicks</div><div class="ttdef"><b>Definition:</b> <a href="a00083_source.html#l00059">execution_system.h:59</a></div></div>
+<div class="ttc" id="aa00080_html_abee1c9e2349cc442439dd9adbdb186f6"><div class="ttname"><a href="a00080.html#abee1c9e2349cc442439dd9adbdb186f6">ExecuteSetup</a></div><div class="ttdeci">int ExecuteSetup(struct executionSystemStruct *exeStructIn, struct executionEntryStruct *exeEntryPtrsIn)</div><div class="ttdef"><b>Definition:</b> <a href="a00080_source.html#l00150">execution_system.c:150</a></div></div>
+<div class="ttc" id="aa00245_html_a53c8ea205cfacd635a7b99fcc1fa026f"><div class="ttname"><a href="a00245.html#a53c8ea205cfacd635a7b99fcc1fa026f">executionEntryStruct::setupListHead</a></div><div class="ttdeci">struct linkedEntryPointStruct * setupListHead</div><div class="ttdef"><b>Definition:</b> <a href="a00083_source.html#l00125">execution_system.h:125</a></div></div>
+<div class="ttc" id="aa00080_html_ac9cdc939a3f31fb6d9d33f3e5249ab93"><div class="ttname"><a href="a00080.html#ac9cdc939a3f31fb6d9d33f3e5249ab93">ExecuteMain</a></div><div class="ttdeci">int ExecuteMain(struct executionSystemStruct *exeStructIn, struct executionEntryStruct *exeEntryPtrsIn)</div><div class="ttdef"><b>Definition:</b> <a href="a00080_source.html#l00112">execution_system.c:112</a></div></div>
+<div class="ttc" id="aa00229_html_a76d9e8af30a27fcb321c649462efc73f"><div class="ttname"><a href="a00229.html#a76d9e8af30a27fcb321c649462efc73f">computeModuleStruct::exceptionFlags</a></div><div class="ttdeci">UI_32 exceptionFlags</div><div class="ttdef"><b>Definition:</b> <a href="a00065_source.html#l00034">compute_module.h:34</a></div></div>
+<div class="ttc" id="aa00241_html"><div class="ttname"><a href="a00241.html">linkedEntryPointStruct</a></div><div class="ttdef"><b>Definition:</b> <a href="a00083_source.html#l00114">execution_system.h:115</a></div></div>
+<div class="ttc" id="aa00080_html_a64bb8d964e454b894734bf1873f9702b"><div class="ttname"><a href="a00080.html#a64bb8d964e454b894734bf1873f9702b">ExecuteSysTick</a></div><div class="ttdeci">void ExecuteSysTick(struct executionSystemStruct *exeStructIn, struct executionEntryStruct *exeEntryPtrsIn)</div><div class="ttdef"><b>Definition:</b> <a href="a00080_source.html#l00193">execution_system.c:193</a></div></div>
+<div class="ttc" id="aa00083_html_aad915f1d12d6f9b1f1a34bedae348a94"><div class="ttname"><a href="a00083.html#aad915f1d12d6f9b1f1a34bedae348a94">TIME_uS_PER_HR</a></div><div class="ttdeci">#define TIME_uS_PER_HR</div><div class="ttdef"><b>Definition:</b> <a href="a00083_source.html#l00035">execution_system.h:35</a></div></div>
+<div class="ttc" id="aa00089_html_a9d37d43ac2717b06ef7120784465e56f"><div class="ttname"><a href="a00089.html#a9d37d43ac2717b06ef7120784465e56f">RETURN_SUCCESS</a></div><div class="ttdeci">#define RETURN_SUCCESS</div><div class="ttdoc">Function Return Value for Success.</div><div class="ttdef"><b>Definition:</b> <a href="a00089_source.html#l00087">version_config.h:87</a></div></div>
+<div class="ttc" id="aa00089_html_a9eec9e2a2ffc5f3c7a1bfbe1ba4a4c2b"><div class="ttname"><a href="a00089.html#a9eec9e2a2ffc5f3c7a1bfbe1ba4a4c2b">RETURN_ERROR</a></div><div class="ttdeci">#define RETURN_ERROR</div><div class="ttdoc">Function Return Value for ERROR.</div><div class="ttdef"><b>Definition:</b> <a href="a00089_source.html#l00092">version_config.h:92</a></div></div>
+<div class="ttc" id="aa00233_html_ab9b669ef6b91ae803c6183ed93027d16"><div class="ttname"><a href="a00233.html#ab9b669ef6b91ae803c6183ed93027d16">executionSystemStruct::uSecTicks</a></div><div class="ttdeci">UI_32 uSecTicks</div><div class="ttdef"><b>Definition:</b> <a href="a00083_source.html#l00058">execution_system.h:58</a></div></div>
+<div class="ttc" id="aa00245_html_a1e1e450b148c683e43c602fdbb1d268e"><div class="ttname"><a href="a00245.html#a1e1e450b148c683e43c602fdbb1d268e">executionEntryStruct::sysTickListHead</a></div><div class="ttdeci">struct linkedEntryPointStruct * sysTickListHead</div><div class="ttdef"><b>Definition:</b> <a href="a00083_source.html#l00127">execution_system.h:127</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by&#160;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.20

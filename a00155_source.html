@@ -72,54 +72,55 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <a href="a00155.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno"><a class="line" href="a00161.html#a47523d197222dfaf74b266d8563853a5">    1</a></span>&#160;<span class="comment">/** \file TxRxmodule.c</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">*   \brief part of ccNOos, Implementation for straight C, or Declarations for C++ wrappers </span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">*   \brief part of ccNOos, Implementation for straight C, included by C++ wrappers </span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"></span> </div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">    Copyright 2021 InMechaSol, Inc</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">    https://www.inmechasol.org/</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">    Licensed under the Apache License, Version 2.0(the &quot;License&quot;);</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">    you may not use this file except in compliance with the License.</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">    You may obtain a copy of the License at</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">    http://www.apache.org/licenses/LICENSE-2.0</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">    Unless required by applicable law or agreed to in writing, software</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">    See the License for the specific language governing permissions and</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">    limitations under the License.</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">Notes:</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">    (.c includes .h) - for straight C or</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">    (.cpp includes .c which includes .h) - for C++ wrapped straight C</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">    *Always compiled to a single compilation unit, either C or CPP, not both</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="a00161.html">TxRxmodule.h</a>&quot;</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">    https://github.com/InMechaSol/ccNOos</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">    Licensed under the Apache License, Version 2.0(the &quot;License&quot;);</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">    you may not use this file except in compliance with the License.</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">    You may obtain a copy of the License at</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">    http://www.apache.org/licenses/LICENSE-2.0</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">    Unless required by applicable law or agreed to in writing, software</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">    See the License for the specific language governing permissions and</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">    limitations under the License.</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">Notes:</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">    (.c includes .h) - for straight C or</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">    (.cpp includes .c which includes .h) - for C++ wrapped straight C</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">    *Always compiled to a single compilation unit, either C or CPP, not both</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="a00161.html">TxRxmodule.h</a>&quot;</span></div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">struct </span><a class="code" href="a00297.html">txRxStruct</a> <a class="code" href="a00155.html#a47523d197222dfaf74b266d8563853a5">createtxRxStruct</a>()</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;{</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keyword">struct </span><a class="code" href="a00297.html">txRxStruct</a> outStruct;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordtype">int</span> i;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordflow">for</span> (i = 0; i &lt; <a class="code" href="a00161.html#a0a5ca733025d1c9001db055f2bced756">MAX_NUM_ATTENUATORS</a>; i++)</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    {</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        outStruct.<a class="code" href="a00297.html#ad92e3b45a6c8f1ce6a33463c4bbdc9be">AttenuatorNeedsWriting</a>[i] = <a class="code" href="a00089.html#a18a8e11d3ba338929d2c54ed0ef6c366">ui8FALSE</a>;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    }    </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    outStruct.<a class="code" href="a00297.html#ad2247af87468bf0d23fe839de016cc6c">INDEX_Attenuator</a> = 0;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    outStruct.<a class="code" href="a00297.html#aa93a7965d5f8e0b95434588b2956e713">CMD_AttenuatorBits</a> = 0x00;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordflow">return</span> outStruct;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;}</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keyword">struct </span><a class="code" href="a00297.html">txRxStruct</a> <a class="code" href="a00155.html#a47523d197222dfaf74b266d8563853a5">createtxRxStruct</a>()</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;{</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keyword">struct </span><a class="code" href="a00297.html">txRxStruct</a> outStruct;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordtype">int</span> i;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordflow">for</span> (i = 0; i &lt; <a class="code" href="a00161.html#a0a5ca733025d1c9001db055f2bced756">MAX_NUM_ATTENUATORS</a>; i++)</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    {</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        outStruct.<a class="code" href="a00297.html#ad92e3b45a6c8f1ce6a33463c4bbdc9be">AttenuatorNeedsWriting</a>[i] = <a class="code" href="a00089.html#a18a8e11d3ba338929d2c54ed0ef6c366">ui8FALSE</a>;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    }    </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    outStruct.<a class="code" href="a00297.html#ad2247af87468bf0d23fe839de016cc6c">INDEX_Attenuator</a> = 0;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    outStruct.<a class="code" href="a00297.html#aa93a7965d5f8e0b95434588b2956e713">CMD_AttenuatorBits</a> = 0x00;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordflow">return</span> outStruct;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aa00297_html_ad92e3b45a6c8f1ce6a33463c4bbdc9be"><div class="ttname"><a href="a00297.html#ad92e3b45a6c8f1ce6a33463c4bbdc9be">txRxStruct::AttenuatorNeedsWriting</a></div><div class="ttdeci">UI_8 AttenuatorNeedsWriting[MAX_NUM_ATTENUATORS]</div><div class="ttdef"><b>Definition:</b> <a href="a00161_source.html#l00040">TxRxmodule.h:40</a></div></div>
-<div class="ttc" id="aa00161_html_a0a5ca733025d1c9001db055f2bced756"><div class="ttname"><a href="a00161.html#a0a5ca733025d1c9001db055f2bced756">MAX_NUM_ATTENUATORS</a></div><div class="ttdeci">#define MAX_NUM_ATTENUATORS</div><div class="ttdef"><b>Definition:</b> <a href="a00161_source.html#l00032">TxRxmodule.h:32</a></div></div>
-<div class="ttc" id="aa00089_html_a18a8e11d3ba338929d2c54ed0ef6c366"><div class="ttname"><a href="a00089.html#a18a8e11d3ba338929d2c54ed0ef6c366">ui8FALSE</a></div><div class="ttdeci">#define ui8FALSE</div><div class="ttdef"><b>Definition:</b> <a href="a00089_source.html#l00189">version_config.h:189</a></div></div>
-<div class="ttc" id="aa00155_html_a47523d197222dfaf74b266d8563853a5"><div class="ttname"><a href="a00155.html#a47523d197222dfaf74b266d8563853a5">createtxRxStruct</a></div><div class="ttdeci">struct txRxStruct createtxRxStruct()</div><div class="ttdef"><b>Definition:</b> <a href="a00155_source.html#l00001">TxRxmodule.c:29</a></div></div>
-<div class="ttc" id="aa00161_html"><div class="ttname"><a href="a00161.html">TxRxmodule.h</a></div><div class="ttdoc">part of ccNOos, Declarations for straight C and C++ wrappers</div></div>
-<div class="ttc" id="aa00297_html_ad2247af87468bf0d23fe839de016cc6c"><div class="ttname"><a href="a00297.html#ad2247af87468bf0d23fe839de016cc6c">txRxStruct::INDEX_Attenuator</a></div><div class="ttdeci">UI_8 INDEX_Attenuator</div><div class="ttdef"><b>Definition:</b> <a href="a00161_source.html#l00038">TxRxmodule.h:38</a></div></div>
-<div class="ttc" id="aa00297_html"><div class="ttname"><a href="a00297.html">txRxStruct</a></div><div class="ttdef"><b>Definition:</b> <a href="a00161_source.html#l00036">TxRxmodule.h:37</a></div></div>
-<div class="ttc" id="aa00297_html_aa93a7965d5f8e0b95434588b2956e713"><div class="ttname"><a href="a00297.html#aa93a7965d5f8e0b95434588b2956e713">txRxStruct::CMD_AttenuatorBits</a></div><div class="ttdeci">UI_8 CMD_AttenuatorBits</div><div class="ttdef"><b>Definition:</b> <a href="a00161_source.html#l00038">TxRxmodule.h:38</a></div></div>
+<div class="ttc" id="aa00297_html_ad92e3b45a6c8f1ce6a33463c4bbdc9be"><div class="ttname"><a href="a00297.html#ad92e3b45a6c8f1ce6a33463c4bbdc9be">txRxStruct::AttenuatorNeedsWriting</a></div><div class="ttdeci">UI_8 AttenuatorNeedsWriting[MAX_NUM_ATTENUATORS]</div><div class="ttdef"><b>Definition:</b> <a href="a00161_source.html#l00041">TxRxmodule.h:41</a></div></div>
+<div class="ttc" id="aa00161_html_a0a5ca733025d1c9001db055f2bced756"><div class="ttname"><a href="a00161.html#a0a5ca733025d1c9001db055f2bced756">MAX_NUM_ATTENUATORS</a></div><div class="ttdeci">#define MAX_NUM_ATTENUATORS</div><div class="ttdef"><b>Definition:</b> <a href="a00161_source.html#l00033">TxRxmodule.h:33</a></div></div>
+<div class="ttc" id="aa00089_html_a18a8e11d3ba338929d2c54ed0ef6c366"><div class="ttname"><a href="a00089.html#a18a8e11d3ba338929d2c54ed0ef6c366">ui8FALSE</a></div><div class="ttdeci">#define ui8FALSE</div><div class="ttdef"><b>Definition:</b> <a href="a00089_source.html#l00190">version_config.h:190</a></div></div>
+<div class="ttc" id="aa00155_html_a47523d197222dfaf74b266d8563853a5"><div class="ttname"><a href="a00155.html#a47523d197222dfaf74b266d8563853a5">createtxRxStruct</a></div><div class="ttdeci">struct txRxStruct createtxRxStruct()</div><div class="ttdef"><b>Definition:</b> <a href="a00155_source.html#l00001">TxRxmodule.c:30</a></div></div>
+<div class="ttc" id="aa00161_html"><div class="ttname"><a href="a00161.html">TxRxmodule.h</a></div><div class="ttdoc">part of ccNOos, Declarations for straight C and C++</div></div>
+<div class="ttc" id="aa00297_html_ad2247af87468bf0d23fe839de016cc6c"><div class="ttname"><a href="a00297.html#ad2247af87468bf0d23fe839de016cc6c">txRxStruct::INDEX_Attenuator</a></div><div class="ttdeci">UI_8 INDEX_Attenuator</div><div class="ttdef"><b>Definition:</b> <a href="a00161_source.html#l00039">TxRxmodule.h:39</a></div></div>
+<div class="ttc" id="aa00297_html"><div class="ttname"><a href="a00297.html">txRxStruct</a></div><div class="ttdef"><b>Definition:</b> <a href="a00161_source.html#l00037">TxRxmodule.h:38</a></div></div>
+<div class="ttc" id="aa00297_html_aa93a7965d5f8e0b95434588b2956e713"><div class="ttname"><a href="a00297.html#aa93a7965d5f8e0b95434588b2956e713">txRxStruct::CMD_AttenuatorBits</a></div><div class="ttdeci">UI_8 CMD_AttenuatorBits</div><div class="ttdef"><b>Definition:</b> <a href="a00161_source.html#l00039">TxRxmodule.h:39</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by&#160;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.20

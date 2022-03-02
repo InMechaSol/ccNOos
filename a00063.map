@@ -1,6 +1,6 @@
 <map id="computeModule/compute_module.c" name="computeModule/compute_module.c">
-<area shape="rect" id="node1" title="part of ccNOos, Implementation for straight C, or Declarations for C++ wrappers" alt="" coords="67,5,235,47"/>
-<area shape="rect" id="node2" href="$a00065.html" title="part of ccNOos, Declarations for straight C and C++ wrappers" alt="" coords="5,95,137,121"/>
-<area shape="rect" id="node4" href="$a00083.html" title="part of ccNOos, Declarations for straight C and C++ wrappers" alt="" coords="162,95,301,121"/>
-<area shape="rect" id="node3" href="$a00089.html" title="part of ccNOos, Declarations for straight C and C++ wrappers" alt="" coords="94,169,209,196"/>
+<area shape="rect" id="node1" title="part of ccNOos, Implementation for straight C, included by C++ wrappers" alt="" coords="67,5,235,47"/>
+<area shape="rect" id="node2" href="$a00065.html" title="part of ccNOos, Declarations for straight C and C++" alt="" coords="5,95,137,121"/>
+<area shape="rect" id="node4" href="$a00083.html" title="part of ccNOos, Declarations for straight C and C++" alt="" coords="162,95,301,121"/>
+<area shape="rect" id="node3" href="$a00089.html" title="part of ccNOos, Declarations for straight C and C++" alt="" coords="94,169,209,196"/>
 </map>

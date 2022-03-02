@@ -1,4 +1,4 @@
 <map id="tests/testApps/SatComACS/deviceModules/APT_WMM/APTmodule.c" name="tests/testApps/SatComACS/deviceModules/APT_WMM/APTmodule.c">
-<area shape="rect" id="node1" title="part of ccNOos, Implementation for straight C, or Declarations for C++ wrappers" alt="" coords="5,5,191,61"/>
+<area shape="rect" id="node1" title="part of ccNOos, Implementation for straight C, included by C++ wrappers" alt="" coords="5,5,191,61"/>
 <area shape="rect" id="node2" href="$a00140.html" title="part of ccNOos, Implementation for C++ wrappers" alt="" coords="5,109,191,165"/>
 </map>
