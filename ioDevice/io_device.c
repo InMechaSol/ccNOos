@@ -1,7 +1,8 @@
 /** \file io_device.c
-*   \brief part of ccNOos, Implementation for straight C, or Declarations for C++ wrappers 
+*   \brief part of <a href="https://github.com/InMechaSol/ccNOos">ccNOos</a>, Implementation for straight C 
 
     Copyright 2021 InMechaSol, Inc
+
     https://www.inmechasol.org/
 
     Licensed under the Apache License, Version 2.0(the "License");

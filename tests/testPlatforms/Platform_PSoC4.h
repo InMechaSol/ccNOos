@@ -1,7 +1,8 @@
 /** \file Platform_PSoC4.h
-*   \brief part of ccNOos, Declarations for straight C and C++ wrappers 
+*   \brief part of <a href="https://github.com/InMechaSol/ccNOos">ccNOos</a>, Platform Specification, PSoC4 
 
     Copyright 2021 InMechaSol, Inc
+
     https://www.inmechasol.org/
 
     Licensed under the Apache License, Version 2.0(the "License");

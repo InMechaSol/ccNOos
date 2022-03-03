@@ -1,7 +1,8 @@
 /** \file SatComACS.ino
-*   \brief part of ccNOos, HowUnlikelyWouldItBe@if thisEx@ctTextWasN8 
+*   \brief part of <a href="https://github.com/InMechaSol/ccNOos">ccNOos</a>, Implementation for C++ wrappers 
 
     Copyright 2021 InMechaSol, Inc
+
     https://www.inmechasol.org/
 
     Licensed under the Apache License, Version 2.0(the "License");
