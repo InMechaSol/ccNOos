@@ -1,9 +1,9 @@
 /** \file console_menu_class.cpp
-*   \brief part of <a href="https://github.com/InMechaSol/ccNOos">ccNOos</a>, Implementation for C++ wrappers 
+*   \brief <a href="https://www.inmechasol.org/" target="_blank">IMS</a>:
+		<a href="https://github.com/InMechaSol/ccNOos" target="_blank">ccNOos</a>,
+		Implementation for C++ wrappers 
 
-    Copyright 2021 InMechaSol, Inc
-
-    https://www.inmechasol.org/
+    Copyright 2021 <a href="https://www.inmechasol.org/" target="_blank">InMechaSol, Inc</a>    
 
     Licensed under the Apache License, Version 2.0(the "License");
     you may not use this file except in compliance with the License.

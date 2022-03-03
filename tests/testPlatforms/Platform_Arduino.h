@@ -1,9 +1,9 @@
 /** \file Platform_Arduino.h
-*   \brief part of <a href="https://github.com/InMechaSol/ccNOos">ccNOos</a>, Platform Specification, Arduino 
+*   \brief <a href="https://www.inmechasol.org/" target="_blank">IMS</a>:
+		<a href="https://github.com/InMechaSol/ccNOos" target="_blank">ccNOos</a>,
+		Platform Specification, Arduino 
 
-    Copyright 2021 InMechaSol, Inc
-
-    https://www.inmechasol.org/
+    Copyright 2021 <a href="https://www.inmechasol.org/" target="_blank">InMechaSol, Inc</a>    
 
     Licensed under the Apache License, Version 2.0(the "License");
     you may not use this file except in compliance with the License.
