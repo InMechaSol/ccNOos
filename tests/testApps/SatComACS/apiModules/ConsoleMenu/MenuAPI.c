@@ -124,10 +124,13 @@ void parseGroupSatComACS(struct SatComACSStruct* satcomacsStructPtrIn, struct ui
 	if (uiStructPtrIn == &satcomacsStructPtrIn->ConsoleMenu)
 	{
 		parseConsoleKeyPadAPI(satcomacsStructPtrIn, uiStructPtrIn);
-		parseTerminalMenuAPI(&satcomacsStructPtrIn->Terminal, uiStructPtrIn);
-		parseAPTMenuAPI(&satcomacsStructPtrIn->APT, uiStructPtrIn);
-		parseTPMMenuAPI(&satcomacsStructPtrIn->TPM, uiStructPtrIn);
-		parseTxRxMenuAPI(&satcomacsStructPtrIn->TxRx, uiStructPtrIn);
+		if (uiStructPtrIn->currentUserLevel > uiLevel_Observer)
+		{
+			parseTerminalMenuAPI(&satcomacsStructPtrIn->Terminal, uiStructPtrIn);
+			parseAPTMenuAPI(&satcomacsStructPtrIn->APT, uiStructPtrIn);
+			parseTPMMenuAPI(&satcomacsStructPtrIn->TPM, uiStructPtrIn);
+			parseTxRxMenuAPI(&satcomacsStructPtrIn->TxRx, uiStructPtrIn);
+		}
 		parseUserLevel(uiStructPtrIn);
 		if (stringMatchCaseSensitive(&uiStructPtrIn->devptr->inbuff.charbuff[uiStructPtrIn->parseIndex], "Help") == ui8TRUE)
 			uiStructPtrIn->showHelp = ui8TRUE;
@@ -135,8 +138,7 @@ void parseGroupSatComACS(struct SatComACSStruct* satcomacsStructPtrIn, struct ui
 	else if (uiStructPtrIn == &satcomacsStructPtrIn->LCDKeyPad)
 	{
 		parseLCDKeyPadAPI(satcomacsStructPtrIn, uiStructPtrIn);
-	}
-	
+	}	
 }
 void parseSatComACSMenuAPI(struct SatComACSStruct* satcomacsStructPtrIn, struct uiStruct* uiStructPtrIn)
 {
@@ -326,20 +328,37 @@ void writeTerminalMenuScreen(struct antennaStruct* terminalStructPtrIn, struct u
 // TxRx Module
 void parseGroupTxRx(struct txRxStruct* txRxStructPtrIn, struct uiStruct* uiStructPtrIn)
 {
-	OPENIF("T1", cM_devTXRX)
-		//(Command) T1:val; 	
-		;
-	CLOSEIF("T1", cM_devTXRX)	
+	int iComma = 0;
+	if (uiStructPtrIn->devptr->newDataReadIn){
+		for (int i = uiStructPtrIn->parseIndex; i < charBuffMax; i++){
+			if (uiStructPtrIn->devptr->inbuff.charbuff[i] == ';') {
+				iComma = i; break;
+	}	}	}
+	if (iComma > 0)
+	{
+		uiStructPtrIn->devptr->inbuff.charbuff[iComma] = 0x00;
 
-	OPENIF("T2", cM_devTXRX)
-		//(Command) T2:val; 	
-		;
-	CLOSEIF("T2", cM_devTXRX)
+		OPENIF("T1", cM_devTXRX)
+			//(Command) T1:val; 		
+			if (ATO_F(&uiStructPtrIn->devptr->inbuff.charbuff[uiStructPtrIn->parseIndex], &txRxStructPtrIn->AttenuatorValues[0]))
+				txRxStructPtrIn->AttenuatorNeedsWriting[0] = ui8TRUE;			
+		CLOSEIF("T1", cM_devTXRX)	
 
-	OPENIF("R", cM_devTXRX)
-		//(Command) R:val; 	
-		;
-	CLOSEIF("R", cM_devTXRX)
+		OPENIF("T2", cM_devTXRX)
+			//(Command) T2:val; 	
+			if (ATO_F(&uiStructPtrIn->devptr->inbuff.charbuff[uiStructPtrIn->parseIndex], &txRxStructPtrIn->AttenuatorValues[2]))
+				txRxStructPtrIn->AttenuatorNeedsWriting[2] = ui8TRUE;
+		CLOSEIF("T2", cM_devTXRX)
+
+		OPENIF("R", cM_devTXRX)
+			//(Command) R:val; 	
+			if (ATO_F(&uiStructPtrIn->devptr->inbuff.charbuff[uiStructPtrIn->parseIndex], &txRxStructPtrIn->AttenuatorValues[1]))
+				txRxStructPtrIn->AttenuatorNeedsWriting[1] = ui8TRUE;
+		CLOSEIF("R", cM_devTXRX)
+
+		uiStructPtrIn->devptr->inbuff.charbuff[iComma] = ';';
+		uiStructPtrIn->currentMenuIndex = cM_devTXRX;
+	}
 }
 void parseTxRxMenuAPI(struct txRxStruct* txRxStructPtrIn, struct uiStruct* uiStructPtrIn)
 {
