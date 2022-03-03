@@ -1,9 +1,9 @@
 <map id="tests/testApps/SatComACS/deviceModules/APT_WMM/APTmodule.h" name="tests/testApps/SatComACS/deviceModules/APT_WMM/APTmodule.h">
-<area shape="rect" id="node1" title="part of ccNOos, Declarations for straight C and C++" alt="" coords="128,5,313,61"/>
-<area shape="rect" id="node2" href="$a00047.html" title="part of ccNOos, Declarations for straight C and C++" alt="" coords="109,109,234,136"/>
-<area shape="rect" id="node7" href="$a00029.html" title="part of ccNOos, Declarations for straight C and C++" alt="" coords="241,184,331,211"/>
-<area shape="rect" id="node3" href="$a00074.html" title="part of ccNOos, Declarations for straight C and C++" alt="" coords="99,184,217,211"/>
-<area shape="rect" id="node4" href="$a00065.html" title="part of ccNOos, Declarations for straight C and C++" alt="" coords="5,259,137,285"/>
-<area shape="rect" id="node6" href="$a00095.html" title="part of ccNOos, Declarations for straight C and C++" alt="" coords="161,259,248,285"/>
-<area shape="rect" id="node5" href="$a00089.html" title="part of ccNOos, Declarations for straight C and C++" alt="" coords="147,333,262,360"/>
+<area shape="rect" id="node1" title="IMS: ccNOos, Declarations for straight C and C++" alt="" coords="128,5,313,61"/>
+<area shape="rect" id="node2" href="$a00047.html" title="IMS: ccNOos, Declarations for straight C and C++" alt="" coords="109,109,234,136"/>
+<area shape="rect" id="node7" href="$a00029.html" title="IMS: ccNOos, Declarations for straight C and C++" alt="" coords="241,184,331,211"/>
+<area shape="rect" id="node3" href="$a00074.html" title="IMS: ccNOos, Declarations for straight C and C++" alt="" coords="99,184,217,211"/>
+<area shape="rect" id="node4" href="$a00065.html" title="IMS: ccNOos, Declarations for straight C and C++" alt="" coords="5,259,137,285"/>
+<area shape="rect" id="node6" href="$a00095.html" title="IMS: ccNOos, Declarations for straight C and C++" alt="" coords="161,259,248,285"/>
+<area shape="rect" id="node5" href="$a00089.html" title="IMS: ccNOos, Declarations for straight C and C++" alt="" coords="147,333,262,360"/>
 </map>

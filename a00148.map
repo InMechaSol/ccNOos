@@ -1,4 +1,4 @@
 <map id="tests/testApps/SatComACS/deviceModules/TPM/TPMmodule.c" name="tests/testApps/SatComACS/deviceModules/TPM/TPMmodule.c">
-<area shape="rect" id="node1" title="part of ccNOos, Implementation for straight C, included by C++ wrappers" alt="" coords="12,5,239,47"/>
-<area shape="rect" id="node2" href="$a00149.html" title="part of ccNOos, Implementation for C++ wrappers" alt="" coords="5,95,245,136"/>
+<area shape="rect" id="node1" title="IMS: ccNOos, Implementation for straight C" alt="" coords="12,5,239,47"/>
+<area shape="rect" id="node2" href="$a00149.html" title="IMS: ccNOos, Implementation for C++ wrappers" alt="" coords="5,95,245,136"/>
 </map>

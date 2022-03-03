@@ -1,11 +1,11 @@
 <map id="tests/testApps/SatComACS/deviceModules/APT_WMM/APTmodule.cpp" name="tests/testApps/SatComACS/deviceModules/APT_WMM/APTmodule.cpp">
-<area shape="rect" id="node1" title="part of ccNOos, Implementation for C++ wrappers" alt="" coords="128,5,313,61"/>
-<area shape="rect" id="node2" href="$a00137.html" title="part of ccNOos, Implementation for straight C, included by C++ wrappers" alt="" coords="171,109,271,136"/>
-<area shape="rect" id="node3" href="$a00143.html" title="part of ccNOos, Declarations for straight C and C++" alt="" coords="171,184,271,211"/>
-<area shape="rect" id="node4" href="$a00047.html" title="part of ccNOos, Declarations for straight C and C++" alt="" coords="109,259,234,285"/>
-<area shape="rect" id="node9" href="$a00029.html" title="part of ccNOos, Declarations for straight C and C++" alt="" coords="241,333,331,360"/>
-<area shape="rect" id="node5" href="$a00074.html" title="part of ccNOos, Declarations for straight C and C++" alt="" coords="99,333,217,360"/>
-<area shape="rect" id="node6" href="$a00065.html" title="part of ccNOos, Declarations for straight C and C++" alt="" coords="5,408,137,435"/>
-<area shape="rect" id="node8" href="$a00095.html" title="part of ccNOos, Declarations for straight C and C++" alt="" coords="161,408,248,435"/>
-<area shape="rect" id="node7" href="$a00089.html" title="part of ccNOos, Declarations for straight C and C++" alt="" coords="147,483,262,509"/>
+<area shape="rect" id="node1" title="IMS: ccNOos, Implementation for C++ wrappers" alt="" coords="128,5,313,61"/>
+<area shape="rect" id="node2" href="$a00137.html" title="IMS: ccNOos, Implementation for straight C" alt="" coords="171,109,271,136"/>
+<area shape="rect" id="node3" href="$a00143.html" title="IMS: ccNOos, Declarations for straight C and C++" alt="" coords="171,184,271,211"/>
+<area shape="rect" id="node4" href="$a00047.html" title="IMS: ccNOos, Declarations for straight C and C++" alt="" coords="109,259,234,285"/>
+<area shape="rect" id="node9" href="$a00029.html" title="IMS: ccNOos, Declarations for straight C and C++" alt="" coords="241,333,331,360"/>
+<area shape="rect" id="node5" href="$a00074.html" title="IMS: ccNOos, Declarations for straight C and C++" alt="" coords="99,333,217,360"/>
+<area shape="rect" id="node6" href="$a00065.html" title="IMS: ccNOos, Declarations for straight C and C++" alt="" coords="5,408,137,435"/>
+<area shape="rect" id="node8" href="$a00095.html" title="IMS: ccNOos, Declarations for straight C and C++" alt="" coords="161,408,248,435"/>
+<area shape="rect" id="node7" href="$a00089.html" title="IMS: ccNOos, Declarations for straight C and C++" alt="" coords="147,483,262,509"/>
 </map>

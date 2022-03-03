@@ -1,6 +1,6 @@
 <map id="ccLibs/devices/HMR3300/HMR3300.cpp" name="ccLibs/devices/HMR3300/HMR3300.cpp">
-<area shape="rect" id="node1" title="part of ccNOos, Implementation for C++ wrappers" alt="" coords="5,5,173,47"/>
-<area shape="rect" id="node2" href="$a00023.html" title="part of ccNOos, Implementation for straight C, included by C++ wrappers" alt="" coords="44,95,135,121"/>
-<area shape="rect" id="node3" href="$a00029.html" title="part of ccNOos, Declarations for straight C and C++" alt="" coords="44,169,135,196"/>
-<area shape="rect" id="node4" href="$a00089.html" title="part of ccNOos, Declarations for straight C and C++" alt="" coords="32,244,147,271"/>
+<area shape="rect" id="node1" title="IMS: ccNOos, Implementation for C++ wrappers" alt="" coords="5,5,173,47"/>
+<area shape="rect" id="node2" href="$a00023.html" title="IMS: ccNOos, Implementation for straight C" alt="" coords="44,95,135,121"/>
+<area shape="rect" id="node3" href="$a00029.html" title="IMS: ccNOos, Declarations for straight C and C++" alt="" coords="44,169,135,196"/>
+<area shape="rect" id="node4" href="$a00089.html" title="IMS: ccNOos, Declarations for straight C and C++" alt="" coords="32,244,147,271"/>
 </map>

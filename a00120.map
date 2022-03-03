@@ -1,6 +1,6 @@
 <map id="tests/testApps/SatComACS/apiModules/ConsoleMenu/MenuAPI.c" name="tests/testApps/SatComACS/apiModules/ConsoleMenu/MenuAPI.c">
-<area shape="rect" id="node1" title="part of ccNOos, Implementation for straight C, included by C++ wrappers" alt="" coords="5,5,191,61"/>
-<area shape="rect" id="node2" href="$a00134.html" title="part of ccNOos, Declarations for straight C and C++" alt="" coords="61,109,135,136"/>
-<area shape="rect" id="node3" href="$a00125.html" title="part of ccNOos, Declarations for straight C and C++" alt="" coords="55,184,141,211"/>
+<area shape="rect" id="node1" title="IMS: ccNOos, Implementation for straight C" alt="" coords="5,5,191,61"/>
+<area shape="rect" id="node2" href="$a00134.html" title="IMS: ccNOos, Declarations for straight C and C++" alt="" coords="61,109,135,136"/>
+<area shape="rect" id="node3" href="$a00125.html" title="IMS: ccNOos, Declarations for straight C and C++" alt="" coords="55,184,141,211"/>
 <area shape="rect" id="node4" title=" " alt="" coords="23,259,173,285"/>
 </map>

@@ -1,7 +1,7 @@
 <map id="ccLibs/acs/satComControl.cpp" name="ccLibs/acs/satComControl.cpp">
-<area shape="rect" id="node1" title="part of ccNOos, Implementation for C++ wrappers" alt="" coords="5,5,205,32"/>
-<area shape="rect" id="node2" href="$a00002.html" title="part of ccNOos, Implementation for straight C, included by C++ wrappers" alt="" coords="46,80,165,107"/>
-<area shape="rect" id="node3" href="$a00008.html" title="part of ccNOos, Declarations for straight C and C++" alt="" coords="46,155,165,181"/>
-<area shape="rect" id="node4" href="$a00056.html" title="part of ccNOos, Declarations for straight C and C++" alt="" coords="49,229,162,256"/>
-<area shape="rect" id="node5" href="$a00089.html" title="part of ccNOos, Declarations for straight C and C++" alt="" coords="48,304,163,331"/>
+<area shape="rect" id="node1" title="IMS: ccNOos, Implementation for C++ wrappers" alt="" coords="5,5,205,32"/>
+<area shape="rect" id="node2" href="$a00002.html" title="IMS: ccNOos, Implementation for straight C" alt="" coords="46,80,165,107"/>
+<area shape="rect" id="node3" href="$a00008.html" title="IMS: ccNOos, Declarations for straight C and C++" alt="" coords="46,155,165,181"/>
+<area shape="rect" id="node4" href="$a00056.html" title="IMS: ccNOos, Declarations for straight C and C++" alt="" coords="49,229,162,256"/>
+<area shape="rect" id="node5" href="$a00089.html" title="IMS: ccNOos, Declarations for straight C and C++" alt="" coords="48,304,163,331"/>
 </map>

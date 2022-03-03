@@ -1,11 +1,11 @@
 <map id="ccLibs/devices/HMR3300/HMR3300.h" name="ccLibs/devices/HMR3300/HMR3300.h">
-<area shape="rect" id="node1" title="part of ccNOos, Declarations for straight C and C++" alt="" coords="105,5,273,47"/>
-<area shape="rect" id="node2" href="$a00023.html" title="part of ccNOos, Implementation for straight C, included by C++ wrappers" alt="" coords="5,102,173,143"/>
-<area shape="rect" id="node4" href="$a00143.html" title="part of ccNOos, Declarations for straight C and C++" alt="" coords="198,95,383,151"/>
-<area shape="rect" id="node3" href="$a00026.html" title="part of ccNOos, Implementation for C++ wrappers" alt="" coords="5,206,173,247"/>
-<area shape="rect" id="node5" href="$a00333.html" title="part of ccNOos, Declarations for straight C and C++" alt="" coords="198,206,383,247"/>
-<area shape="rect" id="node8" href="$a00137.html" title="part of ccNOos, Implementation for straight C, included by C++ wrappers" alt="" coords="407,199,593,255"/>
-<area shape="rect" id="node6" href="$a00315.html" title="part of ccNOos, Implementation for straight C, included by C++ wrappers" alt="" coords="198,310,383,351"/>
-<area shape="rect" id="node7" href="$a00324.html" title="part of ccNOos, Implementation for C++ wrappers" alt="" coords="198,407,383,448"/>
-<area shape="rect" id="node9" href="$a00140.html" title="part of ccNOos, Implementation for C++ wrappers" alt="" coords="407,303,593,359"/>
+<area shape="rect" id="node1" title="IMS: ccNOos, Declarations for straight C and C++" alt="" coords="105,5,273,47"/>
+<area shape="rect" id="node2" href="$a00023.html" title="IMS: ccNOos, Implementation for straight C" alt="" coords="5,102,173,143"/>
+<area shape="rect" id="node4" href="$a00143.html" title="IMS: ccNOos, Declarations for straight C and C++" alt="" coords="198,95,383,151"/>
+<area shape="rect" id="node3" href="$a00026.html" title="IMS: ccNOos, Implementation for C++ wrappers" alt="" coords="5,206,173,247"/>
+<area shape="rect" id="node5" href="$a00333.html" title="IMS: ccNOos, Declarations for straight C and C++" alt="" coords="198,206,383,247"/>
+<area shape="rect" id="node8" href="$a00137.html" title="IMS: ccNOos, Implementation for straight C" alt="" coords="407,199,593,255"/>
+<area shape="rect" id="node6" href="$a00315.html" title="IMS: ccNOos, Implementation for straight C" alt="" coords="198,310,383,351"/>
+<area shape="rect" id="node7" href="$a00324.html" title="IMS: ccNOos, Implementation for C++ wrappers" alt="" coords="198,407,383,448"/>
+<area shape="rect" id="node9" href="$a00140.html" title="IMS: ccNOos, Implementation for C++ wrappers" alt="" coords="407,303,593,359"/>
 </map>

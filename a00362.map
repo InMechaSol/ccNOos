@@ -1,6 +1,6 @@
 <map id="tests/testApps/SatComACS/PlatformApp_Serialization.h" name="tests/testApps/SatComACS/PlatformApp_Serialization.h">
-<area shape="rect" id="node1" title="part of ccNOos, Declarations for straight C and C++" alt="" coords="124,5,311,47"/>
-<area shape="rect" id="node2" href="$a00342.html" title="part of ccNOos, Implementation for straight C, included by C++ wrappers" alt="" coords="12,102,199,143"/>
+<area shape="rect" id="node1" title="IMS: ccNOos, Declarations for straight C and C++" alt="" coords="124,5,311,47"/>
+<area shape="rect" id="node2" href="$a00342.html" title="IMS: ccNOos, Implementation for straight C" alt="" coords="12,102,199,143"/>
 <area shape="rect" id="node4" href="$a00369.html" title=" " alt="" coords="223,95,436,151"/>
-<area shape="rect" id="node3" href="$a00351.html" title="part of ccNOos, Implementation for C++ wrappers" alt="" coords="5,199,205,240"/>
+<area shape="rect" id="node3" href="$a00351.html" title="IMS: ccNOos, Implementation for C++ wrappers" alt="" coords="5,199,205,240"/>
 </map>

@@ -1,8 +1,8 @@
 <map id="tests/testApps/SatComACS/deviceModules/APT_WMM/APTmodule.h" name="tests/testApps/SatComACS/deviceModules/APT_WMM/APTmodule.h">
-<area shape="rect" id="node1" title="part of ccNOos, Declarations for straight C and C++" alt="" coords="109,5,295,61"/>
-<area shape="rect" id="node2" href="$a00333.html" title="part of ccNOos, Declarations for straight C and C++" alt="" coords="5,117,191,158"/>
-<area shape="rect" id="node5" href="$a00137.html" title="part of ccNOos, Implementation for straight C, included by C++ wrappers" alt="" coords="215,109,400,165"/>
-<area shape="rect" id="node3" href="$a00315.html" title="part of ccNOos, Implementation for straight C, included by C++ wrappers" alt="" coords="5,221,191,262"/>
-<area shape="rect" id="node4" href="$a00324.html" title="part of ccNOos, Implementation for C++ wrappers" alt="" coords="5,317,191,359"/>
-<area shape="rect" id="node6" href="$a00140.html" title="part of ccNOos, Implementation for C++ wrappers" alt="" coords="215,213,400,269"/>
+<area shape="rect" id="node1" title="IMS: ccNOos, Declarations for straight C and C++" alt="" coords="109,5,295,61"/>
+<area shape="rect" id="node2" href="$a00333.html" title="IMS: ccNOos, Declarations for straight C and C++" alt="" coords="5,117,191,158"/>
+<area shape="rect" id="node5" href="$a00137.html" title="IMS: ccNOos, Implementation for straight C" alt="" coords="215,109,400,165"/>
+<area shape="rect" id="node3" href="$a00315.html" title="IMS: ccNOos, Implementation for straight C" alt="" coords="5,221,191,262"/>
+<area shape="rect" id="node4" href="$a00324.html" title="IMS: ccNOos, Implementation for C++ wrappers" alt="" coords="5,317,191,359"/>
+<area shape="rect" id="node6" href="$a00140.html" title="IMS: ccNOos, Implementation for C++ wrappers" alt="" coords="215,213,400,269"/>
 </map>
