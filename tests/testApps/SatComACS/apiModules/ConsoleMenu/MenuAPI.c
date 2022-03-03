@@ -169,14 +169,14 @@ void writeSatComACSMenuScreenConsole(struct SatComACSStruct* satcomacsStructPtrI
 void writeSatComACSMenuScreenLCDBig(struct SatComACSStruct* satcomacsStructPtrIn, struct uiStruct* uiStructPtrIn)
 {
 	OPENSWITCH(uiStructPtrIn)
-				case 0:
-					PRINT_MENU_LN  "\n%s - %s Menu", xstr(Mn), "Main"   END_MENU_LN;
-				case 1:
-					PRINT_MENU_LN  "\n%sTerminal", cursorString(uiStructPtrIn->cursorIndex == 0)   END_MENU_LN;
-				case 2:
-					PRINT_MENU_LN  "\n%sDevices", cursorString(uiStructPtrIn->cursorIndex == 1)    END_MENU_LN;
-				default:
-					CLOSESWITCH(uiStructPtrIn)
+		case 0:
+			PRINT_MENU_LN  "\n%s - %s Menu", xstr(Mn), "Main"   END_MENU_LN;
+		case 1:
+			PRINT_MENU_LN  "\n%sTerminal", cursorString(uiStructPtrIn->cursorIndex == 0)   END_MENU_LN;
+		case 2:
+			PRINT_MENU_LN  "\n%sDevices", cursorString(uiStructPtrIn->cursorIndex == 1)    END_MENU_LN;
+		default:
+	CLOSESWITCH(uiStructPtrIn)
 }
 void writeSatComACSMenuScreenLCDSmall(struct SatComACSStruct* satcomacsStructPtrIn, struct uiStruct* uiStructPtrIn)
 {
@@ -206,40 +206,40 @@ void parseSatComACSDevicesMenuAPI(struct SatComACSStruct* satcomacsStructPtrIn, 
 void writeSatComACSDevicesMenuScreenConsole(struct SatComACSStruct* satcomacsStructPtrIn, struct uiStruct* uiStructPtrIn)
 {
 	OPENSWITCH(uiStructPtrIn)
-			case 0:
-				PRINT_MENU_LN  "\n%s %s - %s Menu %s", terminalSlashes(), xstr(Mn), "Devices", terminalSlashes()   END_MENU_LN;
-			case 1:
-				PRINT_MENU_LN  "\n%sAPT WMM Device", cursorString(uiStructPtrIn->cursorIndex == 0)		END_MENU_LN;
-			case 2:
-				PRINT_MENU_LN  "\n%sTPM Device", cursorString(uiStructPtrIn->cursorIndex == 1)			END_MENU_LN;
-			case 3:
-				PRINT_MENU_LN  "\n%sTxRx Device", cursorString(uiStructPtrIn->cursorIndex == 2)		END_MENU_LN;
-			default:
-				CLOSESWITCH(uiStructPtrIn)
+		case 0:
+			PRINT_MENU_LN  "\n%s %s - %s Menu %s", terminalSlashes(), xstr(Mn), "Devices", terminalSlashes()   END_MENU_LN;
+		case 1:
+			PRINT_MENU_LN  "\n%sAPT WMM Device", cursorString(uiStructPtrIn->cursorIndex == 0)		END_MENU_LN;
+		case 2:
+			PRINT_MENU_LN  "\n%sTPM Device", cursorString(uiStructPtrIn->cursorIndex == 1)			END_MENU_LN;
+		case 3:
+			PRINT_MENU_LN  "\n%sTxRx Device", cursorString(uiStructPtrIn->cursorIndex == 2)		END_MENU_LN;
+		default:
+	CLOSESWITCH(uiStructPtrIn)
 }
 void writeSatComACSDevicesMenuScreenLCDBig(struct SatComACSStruct* satcomacsStructPtrIn, struct uiStruct* uiStructPtrIn)
 {
 	OPENSWITCH(uiStructPtrIn)
-			case 0:
-				PRINT_MENU_LN  "\n%s - %s Menu ", xstr(Mn), "Devices"   END_MENU_LN;
-			case 1:
-				PRINT_MENU_LN  "\n%sAPT WMM Device", cursorString(uiStructPtrIn->cursorIndex == 0)		END_MENU_LN;
-			case 2:
-				PRINT_MENU_LN  "\n%sTPM Device", cursorString(uiStructPtrIn->cursorIndex == 1)			END_MENU_LN;
-			case 3:
-				PRINT_MENU_LN  "\n%sTxRx Device", cursorString(uiStructPtrIn->cursorIndex == 2)		END_MENU_LN;
-			default:
-				CLOSESWITCH(uiStructPtrIn)
+		case 0:
+			PRINT_MENU_LN  "\n%s - %s Menu ", xstr(Mn), "Devices"   END_MENU_LN;
+		case 1:
+			PRINT_MENU_LN  "\n%sAPT WMM Device", cursorString(uiStructPtrIn->cursorIndex == 0)		END_MENU_LN;
+		case 2:
+			PRINT_MENU_LN  "\n%sTPM Device", cursorString(uiStructPtrIn->cursorIndex == 1)			END_MENU_LN;
+		case 3:
+			PRINT_MENU_LN  "\n%sTxRx Device", cursorString(uiStructPtrIn->cursorIndex == 2)		END_MENU_LN;
+		default:
+	CLOSESWITCH(uiStructPtrIn)
 }
 void writeSatComACSDevicesMenuScreenLCDSmall(struct SatComACSStruct* satcomacsStructPtrIn, struct uiStruct* uiStructPtrIn)
 {
 	OPENSWITCH(uiStructPtrIn)
-			case 0:
-				PRINT_MENU_LN  "\n%s %s - %s Menu %s", terminalSlashes(), xstr(Mn), "Devices", terminalSlashes()   END_MENU_LN;
-			case 1:
-				PRINT_MENU_LN  "\n%sAPT WMM Device", cursorString(uiStructPtrIn->cursorIndex == 0)		END_MENU_LN;
-			default:
-				CLOSESWITCH(uiStructPtrIn)
+		case 0:
+			PRINT_MENU_LN  "\n%s %s - %s Menu %s", terminalSlashes(), xstr(Mn), "Devices", terminalSlashes()   END_MENU_LN;
+		case 1:
+			PRINT_MENU_LN  "\n%sAPT WMM Device", cursorString(uiStructPtrIn->cursorIndex == 0)		END_MENU_LN;
+		default:
+	CLOSESWITCH(uiStructPtrIn)
 }
 void writeSatComACSDevicesMenuScreen(struct SatComACSStruct* satcomacsStructPtrIn, struct uiStruct* uiStructPtrIn)
 {
@@ -276,42 +276,42 @@ void parseTerminalMenuAPI(struct antennaStruct* terminalStructPtrIn, struct uiSt
 void writeTerminalMenuScreenConsole(struct antennaStruct* terminalStructPtrIn, struct uiStruct* uiStructPtrIn)
 {
 	OPENSWITCH(uiStructPtrIn)
-	case 0:
-		PRINT_MENU_LN  "\n%s %s - %s Menu %s", terminalSlashes(), xstr(Mn), "Terminal", terminalSlashes()   END_MENU_LN;
-	case 1:
-		PRINT_MENU_LN  "\nCurrent State: %s", currentStateString(terminalStructPtrIn)						END_MENU_LN;
-	case 2:
-		PRINT_MENU_LN  "\n%sGeo-Location", cursorString(uiStructPtrIn->cursorIndex == 0)					END_MENU_LN;
-	case 3:
-		PRINT_MENU_LN  "\n%sAttitude and Position", cursorString(uiStructPtrIn->cursorIndex == 1)			END_MENU_LN;
-	case 4:
-		PRINT_MENU_LN  "\n%sSatCom System", cursorString(uiStructPtrIn->cursorIndex == 2)					END_MENU_LN;
-	default:
-		CLOSESWITCH(uiStructPtrIn)
+		case 0:
+			PRINT_MENU_LN  "\n%s %s - %s Menu %s", terminalSlashes(), xstr(Mn), "Terminal", terminalSlashes()   END_MENU_LN;
+		case 1:
+			PRINT_MENU_LN  "\nCurrent State: %s", currentStateString(terminalStructPtrIn)						END_MENU_LN;
+		case 2:
+			PRINT_MENU_LN  "\n%sGeo-Location", cursorString(uiStructPtrIn->cursorIndex == 0)					END_MENU_LN;
+		case 3:
+			PRINT_MENU_LN  "\n%sAttitude and Position", cursorString(uiStructPtrIn->cursorIndex == 1)			END_MENU_LN;
+		case 4:
+			PRINT_MENU_LN  "\n%sSatCom System", cursorString(uiStructPtrIn->cursorIndex == 2)					END_MENU_LN;
+		default:
+	CLOSESWITCH(uiStructPtrIn)
 }
 void writeTerminalMenuScreenLCDSmall(struct antennaStruct* terminalStructPtrIn, struct uiStruct* uiStructPtrIn)
 {
 	OPENSWITCH(uiStructPtrIn)
-	case 0:
-		PRINT_MENU_LN  "\n%s - %s Menu ", xstr(Mn), "Terminal"   END_MENU_LN;
-	case 1:
-		PRINT_MENU_LN  "\nCurrent State: %s", currentStateString(terminalStructPtrIn)						END_MENU_LN;
-	case 2:
-		PRINT_MENU_LN  "\n%sGeo-Location", cursorString(uiStructPtrIn->cursorIndex == 0)					END_MENU_LN;
-	case 3:
-		PRINT_MENU_LN  "\n%sAttitude and Position", cursorString(uiStructPtrIn->cursorIndex == 1)			END_MENU_LN;
-	default:
-		CLOSESWITCH(uiStructPtrIn)
+		case 0:
+			PRINT_MENU_LN  "\n%s - %s Menu ", xstr(Mn), "Terminal"   END_MENU_LN;
+		case 1:
+			PRINT_MENU_LN  "\nCurrent State: %s", currentStateString(terminalStructPtrIn)						END_MENU_LN;
+		case 2:
+			PRINT_MENU_LN  "\n%sGeo-Location", cursorString(uiStructPtrIn->cursorIndex == 0)					END_MENU_LN;
+		case 3:
+			PRINT_MENU_LN  "\n%sAttitude and Position", cursorString(uiStructPtrIn->cursorIndex == 1)			END_MENU_LN;
+		default:
+	CLOSESWITCH(uiStructPtrIn)
 }
 void writeTerminalMenuScreenLCDBig(struct antennaStruct* terminalStructPtrIn, struct uiStruct* uiStructPtrIn)
 {
 	OPENSWITCH(uiStructPtrIn)
-	case 0:
-		PRINT_MENU_LN  "\n%s - %s Menu ", xstr(Mn), "Terminal"   END_MENU_LN;
-	case 1:
-		PRINT_MENU_LN  "\nCurrent State: %s", currentStateString(terminalStructPtrIn)						END_MENU_LN;
-	default:
-		CLOSESWITCH(uiStructPtrIn)
+		case 0:
+			PRINT_MENU_LN  "\n%s - %s Menu ", xstr(Mn), "Terminal"   END_MENU_LN;
+		case 1:
+			PRINT_MENU_LN  "\nCurrent State: %s", currentStateString(terminalStructPtrIn)						END_MENU_LN;
+		default:
+	CLOSESWITCH(uiStructPtrIn)
 }
 void writeTerminalMenuScreen(struct antennaStruct* terminalStructPtrIn, struct uiStruct* uiStructPtrIn)
 {
@@ -324,62 +324,81 @@ void writeTerminalMenuScreen(struct antennaStruct* terminalStructPtrIn, struct u
 }
 
 // TxRx Module
+void parseGroupTxRx(struct txRxStruct* txRxStructPtrIn, struct uiStruct* uiStructPtrIn)
+{
+	OPENIF("T1", cM_devTXRX)
+		//(Command) T1:val; 	
+		;
+	CLOSEIF("T1", cM_devTXRX)	
+
+	OPENIF("T2", cM_devTXRX)
+		//(Command) T2:val; 	
+		;
+	CLOSEIF("T2", cM_devTXRX)
+
+	OPENIF("R", cM_devTXRX)
+		//(Command) R:val; 	
+		;
+	CLOSEIF("R", cM_devTXRX)
+}
 void parseTxRxMenuAPI(struct txRxStruct* txRxStructPtrIn, struct uiStruct* uiStructPtrIn)
 {
 	//(Status) TxRx; to see cM_TxRx screen
 	OPENIF("TxRx", cM_devTXRX)
 		//(Status) TxRx:; 
 		//(Command) TxRx::;
-		//(Command) TxRx:::;		
+		//(Command) TxRx:::;	
+		parseGroupTxRx(txRxStructPtrIn, uiStructPtrIn);
 	CLOSEIF("TxRx", cM_devTXRX)
+	parseGroupTxRx(txRxStructPtrIn, uiStructPtrIn);
 }
 void writeTxRxMenuScreenConsole(struct txRxStruct* txRxStructPtrIn, struct uiStruct* uiStructPtrIn)
 {
 	OPENSWITCH(uiStructPtrIn)
-	case 0:
-		PRINT_MENU_LN  "\n%s %s - %s Menu %s", terminalSlashes(), xstr(Mn), "TxRx", terminalSlashes()   END_MENU_LN;
-	case 1:
-		PRINT_MENU_LN  "\nCurrent Attenuation Tx1: %6.2f dB", txRxStructPtrIn->AttenuatorValues[0]      END_MENU_LN;
-	case 3:
-		PRINT_MENU_LN  "\nCurrent Attenuation Rx:  %6.2f dB", txRxStructPtrIn->AttenuatorValues[1]      END_MENU_LN;
-	case 2:
-		PRINT_MENU_LN  "\nCurrent Attenuation Tx2: %6.2f dB", txRxStructPtrIn->AttenuatorValues[2]      END_MENU_LN;
-	case 4:
-		PRINT_MENU_LN  "\n//////////////////////////////////"      END_MENU_LN;
-	case 5:
-		PRINT_MENU_LN  "\nType \"T1:22.75;\" set Tx1 to 22.75"      END_MENU_LN;
-	case 6:
-		PRINT_MENU_LN  "\nType \"R:21.00;\"  set Rx  to 21.00"      END_MENU_LN;
-	case 7:
-		PRINT_MENU_LN  "\nType \"T2:19.25;\" set Tx2 to 19.25"      END_MENU_LN;
-	default:
-		CLOSESWITCH(uiStructPtrIn)
+		case 0:
+			PRINT_MENU_LN  "\n%s %s - %s Menu %s", terminalSlashes(), xstr(Mn), "TxRx", terminalSlashes()   END_MENU_LN;
+		case 1:
+			PRINT_MENU_LN  "\nCurrent Attenuation Tx1: %6.2f dB", txRxStructPtrIn->AttenuatorValues[0]      END_MENU_LN;
+		case 3:
+			PRINT_MENU_LN  "\nCurrent Attenuation Rx:  %6.2f dB", txRxStructPtrIn->AttenuatorValues[1]      END_MENU_LN;
+		case 2:
+			PRINT_MENU_LN  "\nCurrent Attenuation Tx2: %6.2f dB", txRxStructPtrIn->AttenuatorValues[2]      END_MENU_LN;
+		case 4:
+			PRINT_MENU_LN  "\n//////////////////////////////////"      END_MENU_LN;
+		case 5:
+			PRINT_MENU_LN  "\nType \"T1:22.75;\" set Tx1 to 22.75"      END_MENU_LN;
+		case 6:
+			PRINT_MENU_LN  "\nType \"R:21.00;\"  set Rx  to 21.00"      END_MENU_LN;
+		case 7:
+			PRINT_MENU_LN  "\nType \"T2:19.25;\" set Tx2 to 19.25"      END_MENU_LN;
+		default:
+	CLOSESWITCH(uiStructPtrIn)
 }
 void writeTxRxMenuScreenLCDBig(struct txRxStruct* txRxStructPtrIn, struct uiStruct* uiStructPtrIn)
 {
 	OPENSWITCH(uiStructPtrIn)
-	case 0:
-		PRINT_MENU_LN  "\n%s %s - %s Menu %s", terminalSlashes(), xstr(Mn), "TxRx", terminalSlashes()   END_MENU_LN;
-	case 1:
-		PRINT_MENU_LN  "\nCurrent Attenuation Tx1: %6.2f dB", txRxStructPtrIn->AttenuatorValues[0]      END_MENU_LN;
-	case 3:
-		PRINT_MENU_LN  "\nCurrent Attenuation Rx:  %6.2f dB", txRxStructPtrIn->AttenuatorValues[1]      END_MENU_LN;
-	case 2:
-		PRINT_MENU_LN  "\nCurrent Attenuation Tx2: %6.2f dB", txRxStructPtrIn->AttenuatorValues[2]      END_MENU_LN;
-	default:
-		CLOSESWITCH(uiStructPtrIn)
+		case 0:
+			PRINT_MENU_LN  "\n%s %s - %s Menu %s", terminalSlashes(), xstr(Mn), "TxRx", terminalSlashes()   END_MENU_LN;
+		case 1:
+			PRINT_MENU_LN  "\nCurrent Attenuation Tx1: %6.2f dB", txRxStructPtrIn->AttenuatorValues[0]      END_MENU_LN;
+		case 3:
+			PRINT_MENU_LN  "\nCurrent Attenuation Rx:  %6.2f dB", txRxStructPtrIn->AttenuatorValues[1]      END_MENU_LN;
+		case 2:
+			PRINT_MENU_LN  "\nCurrent Attenuation Tx2: %6.2f dB", txRxStructPtrIn->AttenuatorValues[2]      END_MENU_LN;
+		default:
+	CLOSESWITCH(uiStructPtrIn)
 }
 void writeTxRxMenuScreenLCDSmall(struct txRxStruct* txRxStructPtrIn, struct uiStruct* uiStructPtrIn)
 {
 	OPENSWITCH(uiStructPtrIn)
-	case 1:
-		PRINT_MENU_LN  "\nCurrent Attenuation Tx1: %6.2f dB", txRxStructPtrIn->AttenuatorValues[0]      END_MENU_LN;
-		//case 3:
-		//	PRINT_MENU_LN  "\nCurrent Attenuation Rx:  %6.2f dB", txRxStructPtrIn->AttenuatorValues[1]      END_MENU_LN;
-	case 2:
-		PRINT_MENU_LN  "\nCurrent Attenuation Tx2: %6.2f dB", txRxStructPtrIn->AttenuatorValues[2]      END_MENU_LN;
-	default:
-		CLOSESWITCH(uiStructPtrIn)
+		case 1:
+			PRINT_MENU_LN  "\nCurrent Attenuation Tx1: %6.2f dB", txRxStructPtrIn->AttenuatorValues[0]      END_MENU_LN;
+			//case 3:
+			//	PRINT_MENU_LN  "\nCurrent Attenuation Rx:  %6.2f dB", txRxStructPtrIn->AttenuatorValues[1]      END_MENU_LN;
+		case 2:
+			PRINT_MENU_LN  "\nCurrent Attenuation Tx2: %6.2f dB", txRxStructPtrIn->AttenuatorValues[2]      END_MENU_LN;
+		default:
+	CLOSESWITCH(uiStructPtrIn)
 }
 void writeTxRxMenuScreen(struct txRxStruct* txRxStructPtrIn, struct uiStruct* uiStructPtrIn)
 {
