@@ -33,10 +33,15 @@ Notes:
 #define MAX_NUM_ATTENUATORS (3u)
 #define MIN_ATTEN_VAL (0.0)
 #define MAX_ATTEN_VAL (31.75)
+#define MAX_MDMS (4u)
+
+#define SWITCH_OPEN (0u)
 
 struct txRxStruct
 {
     UI_8 CMD_AttenuatorBits, INDEX_Attenuator;
+    UI_8 MDMSwitchStates[MAX_MDMS];
+    UI_8 MDMSwitchNeedsWriting[MAX_MDMS];
     float AttenuatorValues[MAX_NUM_ATTENUATORS];
     UI_8 AttenuatorNeedsWriting[MAX_NUM_ATTENUATORS];
 };

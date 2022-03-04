@@ -168,16 +168,19 @@ void ReadConfigLine(struct configStruct* configStructPtrin)
 #define SETPIN_RX_C0_50(high_low)  IC1.digitalWrite(12, high_low)
 #define SETPIN_RX_LE(high_low)     IC1.digitalWrite(15, high_low) 
 
-#define SETPIN_XX_C16(high_low)    
-#define SETPIN_XX_C8(high_low)     
-#define SETPIN_XX_C4(high_low)     
-#define SETPIN_XX_C2(high_low)     
-#define SETPIN_XX_C1(high_low)     
-#define SETPIN_XX_C0_25(high_low)  
-#define SETPIN_XX_C0_50(high_low)  
-#define SETPIN_XX_LE(high_low)
+#define SETPIN_XX_C16(high_low)    IC12.digitalWrite(0, high_low)
+#define SETPIN_XX_C8(high_low)     IC12.digitalWrite(1, high_low)
+#define SETPIN_XX_C4(high_low)     IC12.digitalWrite(2, high_low)
+#define SETPIN_XX_C2(high_low)     IC12.digitalWrite(3, high_low)
+#define SETPIN_XX_C1(high_low)     IC12.digitalWrite(4, high_low)
+#define SETPIN_XX_C0_25(high_low)  IC12.digitalWrite(5, high_low)
+#define SETPIN_XX_C0_50(high_low)  IC12.digitalWrite(6, high_low)
+#define SETPIN_XX_LE(high_low)     IC12.digitalWrite(14, high_low)
 
-
+#define SETPIN_MDM1_SW(high_low)   IC12.digitalWrite(7, high_low)
+#define SETPIN_MDM2_SW(high_low)   IC12.digitalWrite(8, high_low)
+#define SETPIN_MDM3_SW(high_low)   IC12.digitalWrite(9, high_low)
+#define SETPIN_MDM4_SW(high_low)   IC12.digitalWrite(10, high_low)
 
 
 float ModuloFloat(float floatValue, float* intPartPtr)
@@ -190,8 +193,10 @@ float ModuloFloat(float floatValue, float* intPartPtr)
 
 // Application Specific, Platform modifications
 #define IC1Addr 0x27
+#define IC12Addr 0x00
 bool runOnce = true;
 Adafruit_MCP23017 IC1;
+Adafruit_MCP23017 IC12;
 void writeAttenuatorValues(struct txRxStruct* txRxStructPtrIn) 
 { 
     if (runOnce)
@@ -214,6 +219,23 @@ void writeAttenuatorValues(struct txRxStruct* txRxStructPtrIn)
         IC1.pinMode(13, OUTPUT);
         IC1.pinMode(14, OUTPUT);
         IC1.pinMode(15, OUTPUT);
+        IC12.begin(IC1Addr);
+        IC12.pinMode(0, OUTPUT);
+        IC12.pinMode(1, OUTPUT);
+        IC12.pinMode(2, OUTPUT);
+        IC12.pinMode(3, OUTPUT);
+        IC12.pinMode(4, OUTPUT);
+        IC12.pinMode(5, OUTPUT);
+        IC12.pinMode(6, OUTPUT);
+        IC12.pinMode(7, OUTPUT);
+        IC12.pinMode(8, OUTPUT);
+        IC12.pinMode(9, OUTPUT);
+        IC12.pinMode(10, OUTPUT);
+        IC12.pinMode(11, OUTPUT);
+        IC12.pinMode(12, OUTPUT);
+        IC12.pinMode(13, OUTPUT);
+        IC12.pinMode(14, OUTPUT);
+        IC12.pinMode(15, OUTPUT);
     }
 
 #define bit16   ( (0b10000000 & txRxStructPtrIn->CMD_AttenuatorBits) >> 7 )
@@ -221,8 +243,8 @@ void writeAttenuatorValues(struct txRxStruct* txRxStructPtrIn)
 #define bit4    ( (0b00100000 & txRxStructPtrIn->CMD_AttenuatorBits) >> 5 )
 #define bit2    ( (0b00010000 & txRxStructPtrIn->CMD_AttenuatorBits) >> 4 )
 #define bit1    ( (0b00001000 & txRxStructPtrIn->CMD_AttenuatorBits) >> 3 )
-#define bit0_25 ( (0b00000100 & txRxStructPtrIn->CMD_AttenuatorBits) >> 2 )
-#define bit0_50 ( (0b00000010 & txRxStructPtrIn->CMD_AttenuatorBits) >> 1 )
+#define bit0_50 ( (0b00000100 & txRxStructPtrIn->CMD_AttenuatorBits) >> 2 )
+#define bit0_25 ( (0b00000010 & txRxStructPtrIn->CMD_AttenuatorBits) >> 1 )
 
     switch (txRxStructPtrIn->INDEX_Attenuator) {
     case 0:
