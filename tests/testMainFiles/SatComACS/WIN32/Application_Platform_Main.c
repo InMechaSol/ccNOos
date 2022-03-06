@@ -153,11 +153,39 @@ void ReadConfigLine(struct configStruct* configStructPtrin)
 }
 
 
+#define SETPIN_TX_C16(high_low)    
+#define SETPIN_TX_C8(high_low)     
+#define SETPIN_TX_C4(high_low)     
+#define SETPIN_TX_C2(high_low)     
+#define SETPIN_TX_C1(high_low)     
+#define SETPIN_TX_C0_25(high_low)  
+#define SETPIN_TX_C0_50(high_low)  
+#define SETPIN_TX_LE(high_low)     
 
+#define SETPIN_RX_C16(high_low)    
+#define SETPIN_RX_C8(high_low)     
+#define SETPIN_RX_C4(high_low)     
+#define SETPIN_RX_C2(high_low)     
+#define SETPIN_RX_C1(high_low)     
+#define SETPIN_RX_C0_25(high_low)  
+#define SETPIN_RX_C0_50(high_low)  
+#define SETPIN_RX_LE(high_low)     
 
-void writeAttenuatorValues(struct txRxStruct* txRxStructPtrIn) { ; }
+#define SETPIN_XX_C16(high_low)    
+#define SETPIN_XX_C8(high_low)     
+#define SETPIN_XX_C4(high_low)     
+#define SETPIN_XX_C2(high_low)     
+#define SETPIN_XX_C1(high_low)     
+#define SETPIN_XX_C0_25(high_low)  
+#define SETPIN_XX_C0_50(high_low)  
+#define SETPIN_XX_LE(high_low)     
 
+#define SETPIN_MDM1_SW(high_low)   
+#define SETPIN_MDM2_SW(high_low)   
+#define SETPIN_MDM3_SW(high_low)   
+#define SETPIN_MDM4_SW(high_low)   
 
+SatComACS_TxRx_WriteFuncsTemplate(std::this_thread::sleep_for(std::chrono::milliseconds(1)))
 
 UI_8 readGPS(struct gpsStruct* gpsStructPtrIn)
 {
