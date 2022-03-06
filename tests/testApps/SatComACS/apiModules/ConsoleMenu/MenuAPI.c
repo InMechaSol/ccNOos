@@ -340,21 +340,45 @@ void parseGroupTxRx(struct txRxStruct* txRxStructPtrIn, struct uiStruct* uiStruc
 
 		OPENIF("T1", cM_devTXRX)
 			//(Command) T1:val; 		
-			if (ATO_F(&uiStructPtrIn->devptr->inbuff.charbuff[uiStructPtrIn->parseIndex], &txRxStructPtrIn->AttenuatorValues[0]))
+			if (ATO_F(&uiStructPtrIn->devptr->inbuff.charbuff[uiStructPtrIn->parseIndex], &txRxStructPtrIn->AttenuatorValues[0].DATCMD))
 				txRxStructPtrIn->AttenuatorNeedsWriting[0] = ui8TRUE;			
 		CLOSEIF("T1", cM_devTXRX)	
 
 		OPENIF("T2", cM_devTXRX)
 			//(Command) T2:val; 	
-			if (ATO_F(&uiStructPtrIn->devptr->inbuff.charbuff[uiStructPtrIn->parseIndex], &txRxStructPtrIn->AttenuatorValues[2]))
+			if (ATO_F(&uiStructPtrIn->devptr->inbuff.charbuff[uiStructPtrIn->parseIndex], &txRxStructPtrIn->AttenuatorValues[2].DATCMD))
 				txRxStructPtrIn->AttenuatorNeedsWriting[2] = ui8TRUE;
 		CLOSEIF("T2", cM_devTXRX)
 
 		OPENIF("R", cM_devTXRX)
 			//(Command) R:val; 	
-			if (ATO_F(&uiStructPtrIn->devptr->inbuff.charbuff[uiStructPtrIn->parseIndex], &txRxStructPtrIn->AttenuatorValues[1]))
+			if (ATO_F(&uiStructPtrIn->devptr->inbuff.charbuff[uiStructPtrIn->parseIndex], &txRxStructPtrIn->AttenuatorValues[1].DATCMD))
 				txRxStructPtrIn->AttenuatorNeedsWriting[1] = ui8TRUE;
 		CLOSEIF("R", cM_devTXRX)
+
+		OPENIF("M1", cM_devTXRX)
+			//(Command) M1:val; 		
+			if (ATO_U8(&uiStructPtrIn->devptr->inbuff.charbuff[uiStructPtrIn->parseIndex], &txRxStructPtrIn->MDMSwitchStates[0]))
+				txRxStructPtrIn->MDMSwitchNeedsWriting[0] = ui8TRUE;
+		CLOSEIF("M1", cM_devTXRX)
+
+		OPENIF("M2", cM_devTXRX)
+			//(Command) M2:val; 		
+			if (ATO_U8(&uiStructPtrIn->devptr->inbuff.charbuff[uiStructPtrIn->parseIndex], &txRxStructPtrIn->MDMSwitchStates[1]))
+				txRxStructPtrIn->MDMSwitchNeedsWriting[1] = ui8TRUE;
+		CLOSEIF("M2", cM_devTXRX)
+
+		OPENIF("M3", cM_devTXRX)
+			//(Command) M3:val; 		
+			if (ATO_U8(&uiStructPtrIn->devptr->inbuff.charbuff[uiStructPtrIn->parseIndex], &txRxStructPtrIn->MDMSwitchStates[2]))
+				txRxStructPtrIn->MDMSwitchNeedsWriting[2] = ui8TRUE;
+		CLOSEIF("M3", cM_devTXRX)
+
+		OPENIF("M4", cM_devTXRX)
+			//(Command) M4:val; 		
+			if (ATO_U8(&uiStructPtrIn->devptr->inbuff.charbuff[uiStructPtrIn->parseIndex], &txRxStructPtrIn->MDMSwitchStates[3]))
+				txRxStructPtrIn->MDMSwitchNeedsWriting[3] = ui8TRUE;
+		CLOSEIF("M4", cM_devTXRX)
 
 		uiStructPtrIn->devptr->inbuff.charbuff[iComma] = ';';
 		uiStructPtrIn->currentMenuIndex = cM_devTXRX;
@@ -371,25 +395,46 @@ void parseTxRxMenuAPI(struct txRxStruct* txRxStructPtrIn, struct uiStruct* uiStr
 	CLOSEIF("TxRx", cM_devTXRX)
 	parseGroupTxRx(txRxStructPtrIn, uiStructPtrIn);
 }
+const char* switchOpenClosedString(UI_8 openClose)
+{
+	if (openClose)
+		return "open";
+	else
+		return "closed";
+}
 void writeTxRxMenuScreenConsole(struct txRxStruct* txRxStructPtrIn, struct uiStruct* uiStructPtrIn)
 {
 	OPENSWITCH(uiStructPtrIn)
 		case 0:
 			PRINT_MENU_LN  "\n%s %s - %s Menu %s", terminalSlashes(), xstr(Mn), "TxRx", terminalSlashes()   END_MENU_LN;
 		case 1:
-			PRINT_MENU_LN  "\nCurrent Attenuation Tx1: %6.2f dB", txRxStructPtrIn->AttenuatorValues[0]      END_MENU_LN;
+			PRINT_MENU_LN  "\nCurrent Attenuation Tx1: %6.2f dB", txRxStructPtrIn->AttenuatorValues[0].DATCMD      END_MENU_LN;
 		case 3:
-			PRINT_MENU_LN  "\nCurrent Attenuation Rx:  %6.2f dB", txRxStructPtrIn->AttenuatorValues[1]      END_MENU_LN;
+			PRINT_MENU_LN  "\nCurrent Attenuation Rx:  %6.2f dB", txRxStructPtrIn->AttenuatorValues[1].DATCMD      END_MENU_LN;
 		case 2:
-			PRINT_MENU_LN  "\nCurrent Attenuation Tx2: %6.2f dB", txRxStructPtrIn->AttenuatorValues[2]      END_MENU_LN;
+			PRINT_MENU_LN  "\nCurrent Attenuation Tx2: %6.2f dB", txRxStructPtrIn->AttenuatorValues[2].DATCMD      END_MENU_LN;
 		case 4:
-			PRINT_MENU_LN  "\n//////////////////////////////////"      END_MENU_LN;
+			PRINT_MENU_LN  "\n-----------------------------------"      END_MENU_LN;
 		case 5:
-			PRINT_MENU_LN  "\nType \"T1:22.75;\" set Tx1 to 22.75"      END_MENU_LN;
+			PRINT_MENU_LN  "\nModem Switch State M1: %s  ", switchOpenClosedString(txRxStructPtrIn->MDMSwitchStates[0] )     END_MENU_LN;
 		case 6:
-			PRINT_MENU_LN  "\nType \"R:21.00;\"  set Rx  to 21.00"      END_MENU_LN;
+			PRINT_MENU_LN  "\nModem Switch State M2: %s   ", switchOpenClosedString(txRxStructPtrIn->MDMSwitchStates[1] )     END_MENU_LN;
 		case 7:
-			PRINT_MENU_LN  "\nType \"T2:19.25;\" set Tx2 to 19.25"      END_MENU_LN;
+			PRINT_MENU_LN  "\nModem Switch State M3: %s ", switchOpenClosedString(txRxStructPtrIn->MDMSwitchStates[2] )     END_MENU_LN;
+		case 8:
+			PRINT_MENU_LN  "\nModem Switch State M4: %s ", switchOpenClosedString(txRxStructPtrIn->MDMSwitchStates[3] )     END_MENU_LN;
+		case 9:
+			PRINT_MENU_LN  "\n//////////////////////////////////"      END_MENU_LN;
+		case 10:
+			PRINT_MENU_LN  "\n\"T1:22.75;\" set Tx1 to 22.75"      END_MENU_LN;
+		case 11:
+			PRINT_MENU_LN  "\n\"R:21.00;\"  set Rx  to 21.00"      END_MENU_LN;
+		case 12:
+			PRINT_MENU_LN  "\n\"T2:19.25;\" set Tx2 to 19.25"      END_MENU_LN;
+		case 13:
+			PRINT_MENU_LN  "\n\"M1:1;\"     set Mdm1Sw open"      END_MENU_LN;
+		case 14:
+			PRINT_MENU_LN  "\n\"M4:0;\"     set Mdm4Sw closed"      END_MENU_LN;
 		default:
 	CLOSESWITCH(uiStructPtrIn)
 }

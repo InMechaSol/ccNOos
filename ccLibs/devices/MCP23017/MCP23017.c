@@ -1,4 +1,4 @@
-/** \file TxRxmodule.c
+/** \file MCP23017.c
 *   \brief <a href="https://www.inmechasol.org/" target="_blank">IMS</a>:
 		<a href="https://github.com/InMechaSol/ccNOos" target="_blank">ccNOos</a>,
 		Implementation for straight C 
@@ -24,23 +24,11 @@ Notes:
 
 */
 
-#include "TxRxmodule.h"
+#include "MCP23017.h"
 
-struct txRxStruct createtxRxStruct()
+struct portExpStruct createportExpStruct()
 {
-    struct txRxStruct outStruct;
-    int i;
-    for (i = 0; i < MAX_NUM_ATTENUATORS; i++)
-    {
-        outStruct.AttenuatorValues[i] = createDATStruct();
-        outStruct.AttenuatorNeedsWriting[i] = ui8FALSE;
-    } 
-    for (i = 0; i < MAX_MDMS; i++)
-    {
-        outStruct.MDMSwitchStates[i] = 0;
-        outStruct.MDMSwitchNeedsWriting[i] = ui8FALSE;
-    }
-    return outStruct;
+	struct portExpStruct outStruct;
+    outStruct.bits = 0;
+	return outStruct;
 }
-
-

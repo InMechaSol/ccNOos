@@ -96,6 +96,7 @@ MODdeclareLOOP(Mn)
     // write devices
     tryWriteTPMData(&MODdataPTR(Mn)->TPM);
     writeAttenuatorValues(&MODdataPTR(Mn)->TxRx);
+    writeModemSwitchValues(&MODdataPTR(Mn)->TxRx);
     tryWriteLCDKeyPad(MODdataPTR(Mn));
     tryWriteConsoleMenu(MODdataPTR(Mn));
 

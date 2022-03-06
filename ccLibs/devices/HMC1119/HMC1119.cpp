@@ -1,7 +1,7 @@
-/** \file TxRxmodule.c
+/** \file HMC1119.cpp
 *   \brief <a href="https://www.inmechasol.org/" target="_blank">IMS</a>:
 		<a href="https://github.com/InMechaSol/ccNOos" target="_blank">ccNOos</a>,
-		Implementation for straight C 
+		Implementation for C++ wrappers 
 
     Copyright 2021 <a href="https://www.inmechasol.org/" target="_blank">InMechaSol, Inc</a>    
 
@@ -24,23 +24,5 @@ Notes:
 
 */
 
-#include "TxRxmodule.h"
-
-struct txRxStruct createtxRxStruct()
-{
-    struct txRxStruct outStruct;
-    int i;
-    for (i = 0; i < MAX_NUM_ATTENUATORS; i++)
-    {
-        outStruct.AttenuatorValues[i] = createDATStruct();
-        outStruct.AttenuatorNeedsWriting[i] = ui8FALSE;
-    } 
-    for (i = 0; i < MAX_MDMS; i++)
-    {
-        outStruct.MDMSwitchStates[i] = 0;
-        outStruct.MDMSwitchNeedsWriting[i] = ui8FALSE;
-    }
-    return outStruct;
-}
-
+#include "HMC1119.c"
 

@@ -1,7 +1,7 @@
-/** \file TxRxmodule.c
+/** \file MCP23017.h
 *   \brief <a href="https://www.inmechasol.org/" target="_blank">IMS</a>:
 		<a href="https://github.com/InMechaSol/ccNOos" target="_blank">ccNOos</a>,
-		Implementation for straight C 
+		Declarations for straight C and C++ 
 
     Copyright 2021 <a href="https://www.inmechasol.org/" target="_blank">InMechaSol, Inc</a>    
 
@@ -24,23 +24,19 @@ Notes:
 
 */
 
-#include "TxRxmodule.h"
+#ifndef MCP23017_H
+#define MCP23017_H
 
-struct txRxStruct createtxRxStruct()
+#include "version_config.h"
+
+
+struct portExpStruct
 {
-    struct txRxStruct outStruct;
-    int i;
-    for (i = 0; i < MAX_NUM_ATTENUATORS; i++)
-    {
-        outStruct.AttenuatorValues[i] = createDATStruct();
-        outStruct.AttenuatorNeedsWriting[i] = ui8FALSE;
-    } 
-    for (i = 0; i < MAX_MDMS; i++)
-    {
-        outStruct.MDMSwitchStates[i] = 0;
-        outStruct.MDMSwitchNeedsWriting[i] = ui8FALSE;
-    }
-    return outStruct;
-}
+	UI_16 bits;
+};
+struct portExpStruct createportExpStruct();
 
 
+
+
+#endif // MCP23017_H

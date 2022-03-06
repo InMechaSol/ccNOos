@@ -61,6 +61,13 @@ void ReadSerialUARTS()
     eCompCharInt = Serial2.read();
 }
 
+
+#define IC1Addr 0x27
+#define IC12Addr 0x00
+Adafruit_MCP23017 IC1;
+Adafruit_MCP23017 IC12;
+
+
 // 0) (Optional) Platform Config and Log Files/Devices
 // 1) Platform Setup Function
 void platformSetup()
@@ -122,6 +129,40 @@ void platformStart()
     ConsoleMenuserialdev.readIndex = 0;
     LCDKeyPadserialdev.numBytes2Read = 1;
     ConsoleMenuserialdev.numBytes2Read = 1;
+    IC1.begin(IC1Addr);
+    IC1.pinMode(0, OUTPUT);
+    IC1.pinMode(1, OUTPUT);
+    IC1.pinMode(2, OUTPUT);
+    IC1.pinMode(3, OUTPUT);
+    IC1.pinMode(4, OUTPUT);
+    IC1.pinMode(5, OUTPUT);
+    IC1.pinMode(6, OUTPUT);
+    IC1.pinMode(7, OUTPUT);
+    IC1.pinMode(8, OUTPUT);
+    IC1.pinMode(9, OUTPUT);
+    IC1.pinMode(10, OUTPUT);
+    IC1.pinMode(11, OUTPUT);
+    IC1.pinMode(12, OUTPUT);
+    IC1.pinMode(13, OUTPUT);
+    IC1.pinMode(14, OUTPUT);
+    IC1.pinMode(15, OUTPUT);
+    IC12.begin(IC12Addr);
+    IC12.pinMode(0, OUTPUT);
+    IC12.pinMode(1, OUTPUT);
+    IC12.pinMode(2, OUTPUT);
+    IC12.pinMode(3, OUTPUT);
+    IC12.pinMode(4, OUTPUT);
+    IC12.pinMode(5, OUTPUT);
+    IC12.pinMode(6, OUTPUT);
+    IC12.pinMode(7, OUTPUT);
+    IC12.pinMode(8, OUTPUT);
+    IC12.pinMode(9, OUTPUT);
+    IC12.pinMode(10, OUTPUT);
+    IC12.pinMode(11, OUTPUT);
+    IC12.pinMode(12, OUTPUT);
+    IC12.pinMode(13, OUTPUT);
+    IC12.pinMode(14, OUTPUT);
+    IC12.pinMode(15, OUTPUT);
     //</platformStart>
 }
 // 3) Platform Loop Delay Function
