@@ -86,7 +86,7 @@ void writeUIHelpString(struct uiStruct* uiStructPtrIn);
 const char* terminalPromptString(int userLevelIndex);
 const char* terminalSlashes();
     
-void WriteMenuLine(struct uiStruct* uiStructPtrin); // rely on 0x00 termination? safer with length parameter
+void WriteMenuLine(struct uiStruct* uiStructPtrin);
 void GetMenuChars(struct uiStruct* uiStructPtrin);
 
 void WriteLogLine(struct logStruct* logStructPtrin);
@@ -237,15 +237,14 @@ UI_8 ATO_U64(const char* str, UI_64* val)\
 #define ASCII_tab				9
 
 #define __INIT_MENU_VARS(CHARS_PER_LINE, CHAR_PTR)  char * linebuff = CHAR_PTR; \
-        int charsWritten = 0; \
         int maxChars = CHARS_PER_LINE
 
 #define INIT_MENU_VARS(CHARS_PER_LINE, CHAR_PTR) __INIT_MENU_VARS(CHARS_PER_LINE, CHAR_PTR)
 
-#define __PRINT_MENU_LN SN_PrintF( linebuff, maxChars, 
+#define __PRINT_MENU_LN uiStructPtrIn->devptr->numbytes2Write = SN_PrintF( linebuff, maxChars, 
 #define PRINT_MENU_LN __PRINT_MENU_LN
 
-#define __END_MENU_LN ); break
+#define __END_MENU_LN );  break
 #define END_MENU_LN __END_MENU_LN
 
 #define __OPENSWITCH(NAMEEE) INIT_MENU_VARS(charBuffMax, &NAMEEE->devptr->outbuff.charbuff[0]); \

@@ -155,18 +155,18 @@ void parseSatComACSMenuAPI(struct SatComACSStruct* satcomacsStructPtrIn, struct 
 	parseGroupSatComACS(satcomacsStructPtrIn, uiStructPtrIn);
 }
 void writeSatComACSMenuScreenConsole(struct SatComACSStruct* satcomacsStructPtrIn, struct uiStruct* uiStructPtrIn)
-{
+{	
 	OPENSWITCH(uiStructPtrIn)
-				case 0:
-					PRINT_MENU_LN  "\n%s %s - %s Menu %s", terminalSlashes(), xstr(Mn), "Main", terminalSlashes()   END_MENU_LN;
-				case 1:
-					PRINT_MENU_LN  "\n%sTerminal", cursorString(uiStructPtrIn->cursorIndex == 0)   END_MENU_LN;
-				case 2:
-					PRINT_MENU_LN  "\n%sDevices", cursorString(uiStructPtrIn->cursorIndex == 1)    END_MENU_LN;
-				case 3:
-					PRINT_MENU_LN  "\n%sExecution System", cursorString(uiStructPtrIn->cursorIndex == 2)    END_MENU_LN;
-				default:
-					CLOSESWITCH(uiStructPtrIn)
+		case 0:
+			PRINT_MENU_LN  "\n%s %s - %s Menu %s", terminalSlashes(), xstr(Mn), "Main", terminalSlashes()   END_MENU_LN;
+		case 1:
+			PRINT_MENU_LN  "\n%sTerminal", cursorString(uiStructPtrIn->cursorIndex == 0)   END_MENU_LN;
+		case 2:
+			PRINT_MENU_LN  "\n%sDevices", cursorString(uiStructPtrIn->cursorIndex == 1)    END_MENU_LN;
+		case 3:
+			PRINT_MENU_LN  "\n%sExecution System", cursorString(uiStructPtrIn->cursorIndex == 2)    END_MENU_LN;
+		default:
+	CLOSESWITCH(uiStructPtrIn)
 }
 void writeSatComACSMenuScreenLCDBig(struct SatComACSStruct* satcomacsStructPtrIn, struct uiStruct* uiStructPtrIn)
 {

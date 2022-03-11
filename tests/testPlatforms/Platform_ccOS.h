@@ -24,35 +24,28 @@ Notes:
 
 */
 
-#if PLATFORM_NAME!=Win32
-error PLATFORM_NAME must be Win32
+#if PLATFORM_NAME!=ccOS
+error PLATFORM_NAME must be ccOS
 #endif
 
 
 #ifdef REDEFINE_NULLPTR
-#error Must not compile with -DREDEFINE_NULLPTR on WIN32
+#error Must not compile with -DREDEFINE_NULLPTR on ccOS
 #endif // !REDEFINE_NULLPTR
 #ifdef __NOEXCEPTIONS
-#error Must not compile with -D__NOEXCEPTIONS on WIN32
+#error Must not compile with -D__NOEXCEPTIONS on ccOS
 #endif // !__NOEXCEPTIONS
 
 
+
+
+
+#include "os_execution_system.hpp"
 #include <ctime>
-#include <thread>
 #include <cstdarg>
 #include <cstdio>
 #include <iostream>
 #include <fstream>
-
-#include "execution_system.h"    
-#include "console_menu.h" 
-
-#define LIGHT_OFF (0u)      // 1-PSoC4, 0-most others
-#define uSEC_PER_CLOCK (1000000/CLOCKS_PER_SEC)
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Win32 is a special platfrom, it's a ccNOos test platform but, can link-in os features at the main file
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 // 0) (Optional) Platform Config and Log Files/Devices
@@ -61,25 +54,7 @@ error PLATFORM_NAME must be Win32
 void platformSetup()
 {
 
-//#ifdef _WIN32
-//    
-//#else
-//    GPSPortParams = buildportParametersStruct("/dev/tty1", 9600);
-//    eCompPortParams = buildportParametersStruct("/dev/tty2", 19200);
-//#endif
 
-    
-
-    //<platformSetup>
-    // 
-    // open config device
-    
-    // read config string?? 
-    // 
-    // open log device
-    // wrtie log string??
-    // 
-    //</platformSetup>
 }
 // 2) Platform Start Function
 void platformStart()
@@ -103,3 +78,4 @@ PlatformAPIFuncsTemplate(size + 1);
 //executionSystemClass PLATFORM_EXESYS_NAME(Plat)(uSEC_PER_CLOCK);
 // 10) ExeSys API Functions (From Template?)
 ExeSysAPIFuncsTemplate
+

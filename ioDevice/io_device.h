@@ -65,6 +65,11 @@ struct devicedatastruct
 	enum devicestateenum devstate;
 	UI_8 newDataReadIn;
 	UI_8 triggerWriteOperation;
+    UI_16 numbytes2Read;
+    UI_16 numbytesReadIn;
+    UI_16 numbytes2Write;
+    UI_16 numbytesWritten;
+    
 };
 struct devicedatastruct createDeviceStruct();
 
@@ -120,7 +125,6 @@ struct SerialDeviceStruct
     enum portParityEnum parity;
     enum portHandshakeEnum handshake;
     struct devicedatastruct devdata;
-    int numBytes2Read;
     int readIndex;
 };
 

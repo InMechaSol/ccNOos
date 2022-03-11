@@ -59,11 +59,7 @@ Notes:
 //   -Declared from Macro Template
 //   -Macro Template is Defined in the Application Solution Header
 ///////////////////////////////////////////////////////////////////////
-#ifdef __cplusplus
-    PLATFORM_APP_CLASS(Mn);
-#else
-    MODdeclareDATA(Mn);
-#endif
+MODdeclareDATA(Mn);
 
 
 
@@ -302,17 +298,8 @@ void writePowerMeter(struct powerMeterStruct* powerMeterStructPtrIn) { ; }
 
 ///////////////////////////////////////////////////////////////////////
 // Application Data Instances are Created here (Platform Specific)
-#ifdef __cplusplus
-theApplicationClass theApplicationExample;
-#else
 PLATFORM_APP_CTEMPLATE(Mn)
-#endif
 
 ////////////////////////////////////////////////////////////////////////////////
 // Platform Main Entry Points call ExeSys Area Functions
-#ifdef MAIN_C_NOos_Wsystick
-C_NOos_MAINnSYSTICK_TEMPLATE
-#endif
-#ifdef MAIN_C_NOos_NOsystick
 C_OS_MAIN_TEMPLATE
-#endif

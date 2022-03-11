@@ -98,6 +98,7 @@ void linkAPIioDevices(struct SatComACSStruct* satcomacsStructPtrIn)
     IC1.pinMode(13, OUTPUT);
     IC1.pinMode(14, OUTPUT);
     IC1.pinMode(15, OUTPUT);
+
     IC12.begin(IC12Addr);
     IC12.pinMode(0, OUTPUT);
     IC12.pinMode(1, OUTPUT);

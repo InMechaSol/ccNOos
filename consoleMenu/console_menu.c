@@ -24,10 +24,12 @@ Notes:
 
 */
 
-#ifdef __USINGCONSOLEMENU
+
     
 #include "console_menu.h"
 #include "execution_system.h"
+
+#ifdef __USINGCONSOLEMENU
 
 const char* cursorString(UI_8 showCursor)
 {
@@ -44,7 +46,8 @@ const char* terminalSlashes()
 {
     return "\\\\\\\\\\";
 }
-
+const char* CSISeqClearDisplay(){ return "\033[2J";}
+const char* CSISeqCursorTo00() { return "\033[0;0H"; }
 // Console UI Data Structure
 struct uiStruct createuiStruct()
 {
@@ -93,7 +96,14 @@ UI_8 isDelimiterchar(char inChar) { return (inChar == ASCII_colon); }
 UI_8 isTerminatorchar(char inChar) { return (inChar == ASCII_semicolon); }
 UI_8 isASCIIString(char* inStringPtr) { int index = 0;  while (inStringPtr[index] != 0x00) if (!isASCIIchar(inStringPtr[index++])) return ui8FALSE; return ui8TRUE; }
 UI_8 isLetterString(char* inStringPtr) { int index = 0;  while (inStringPtr[index] != 0x00) if (!isLetterchar(inStringPtr[index++])) return ui8FALSE; return ui8TRUE; }
-UI_8 isNumberString(char* inStringPtr) { int index = 0;  while (inStringPtr[index] != 0x00) if (!isNumberchar(inStringPtr[index++])) return ui8FALSE; return ui8TRUE; }
+UI_8 isNumberString(char* inStringPtr) 
+{ 
+    int index = 0;  
+    while (inStringPtr[index] != 0x00) 
+        if (!isNumberchar(inStringPtr[index++])) 
+            return ui8FALSE; 
+    return ui8TRUE; 
+}
 UI_8 isIntegerString(char* inStringPtr) { int index = 0;  while (inStringPtr[index] != 0x00) if (!isIntegerchar(inStringPtr[index++])) return ui8FALSE; return ui8TRUE; }
 UI_8 isUnsignedIntegerString(char* inStringPtr) { int index = 0;  while (inStringPtr[index] != 0x00) if (!isUnsignedIntegerchar(inStringPtr[index++])) return ui8FALSE; return ui8TRUE; }
 UI_8 stringMatchCaseSensitive(char* inStringPtr, const char* matchString) 
@@ -105,6 +115,8 @@ UI_8 stringMatchCaseSensitive(char* inStringPtr, const char* matchString)
             return ui8FALSE; 
         i++; 
     } 
+    //if (inStringPtr[i] != matchString[i])
+    //    return ui8FALSE;
     return ui8TRUE; 
 }
 void stringInit(char* stringPtr, const char* initString)
