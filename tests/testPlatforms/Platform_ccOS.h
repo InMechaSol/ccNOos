@@ -41,6 +41,7 @@ error PLATFORM_NAME must be ccOS
 
 
 #include "os_execution_system.hpp"
+#include "console_menu.h"
 #include <ctime>
 #include <cstdarg>
 #include <cstdio>
@@ -78,4 +79,7 @@ PlatformAPIFuncsTemplate(size + 1);
 //executionSystemClass PLATFORM_EXESYS_NAME(Plat)(uSEC_PER_CLOCK);
 // 10) ExeSys API Functions (From Template?)
 ExeSysAPIFuncsTemplate
+
+// 11) OS execution system instance builds on ccNOos level exeSys
+OSexecutionSystemClass theExecutionSystem(uSEC_PER_CLOCK);
 

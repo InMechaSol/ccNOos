@@ -31,15 +31,18 @@ Notes:
 
 void goParsedAction(enum currentMenuAction theCurrentAction, struct SatComACSStruct* satcomacsStructPtrIn, struct uiStruct* uiStructPtrIn);
 
-#ifdef __USINGCONSOLEMENU
 
-
-
-#endif
 
 #ifdef __cplusplus
 
+class satcomacs_menuNode :public menuNode
+{
+protected:
+    SatComACS_class* satcomptr = nullptr;
+public:
+    satcomacs_menuNode(SatComACS_class* satcomptrIn);
 
+};
 
 #endif // !__cplusplus
 #endif // !__SATCOMMENUAPI_H__

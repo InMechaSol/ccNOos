@@ -54,8 +54,9 @@ void writeUIHelpString(struct uiStruct* uiStructPtrIn)
 		case 10:
 			PRINT_MENU_LN  "\n%s1  Main\t2  Down", cursorString(0)    END_MENU_LN;
 		default:
+			uiStructPtrIn->showHelp = ui8FALSE;
 		CLOSESWITCH(uiStructPtrIn)
-		uiStructPtrIn->showHelp = ui8FALSE;
+		
 	}
 }
 const char* terminalPromptString(int userLevelIndex)
@@ -381,7 +382,7 @@ void parseGroupTxRx(struct txRxStruct* txRxStructPtrIn, struct uiStruct* uiStruc
 		CLOSEIF("M4", cM_devTXRX)
 
 		uiStructPtrIn->devptr->inbuff.charbuff[iComma] = ';';
-		uiStructPtrIn->currentMenuIndex = cM_devTXRX;
+		//uiStructPtrIn->currentMenuIndex = cM_devTXRX;
 	}
 }
 void parseTxRxMenuAPI(struct txRxStruct* txRxStructPtrIn, struct uiStruct* uiStructPtrIn)

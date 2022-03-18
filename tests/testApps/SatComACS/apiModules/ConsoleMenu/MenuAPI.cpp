@@ -27,4 +27,7 @@ Notes:
 #include "MenuAPI.c"
 
 
-
+satcomacs_menuNode::satcomacs_menuNode(SatComACS_class* satcomptrIn)
+{
+    satcomptr = satcomptrIn;
+}

@@ -33,8 +33,6 @@ Notes:
 
 #ifdef __USINGCONSOLEMENU
 
-
-
 // Console UI Data Structure
 struct uiStruct
 {
@@ -247,8 +245,29 @@ UI_8 ATO_U64(const char* str, UI_64* val)\
 #define __END_MENU_LN );  break
 #define END_MENU_LN __END_MENU_LN
 
+
+#define __OPENDOWHILE(NAMEEE) do { 
+
+#define OPENDOWHILE(NAMEEE) __OPENDOWHILE(NAMEEE)
+
+#define __CLOSEDOWHILE(NAMEEE) if (NAMEEE->lines2print > 0)\
+{\
+	WriteMenuLine(NAMEEE);\
+	NAMEEE->linesprinted++;\
+}} while (NAMEEE->lines2print > 0);
+
+#define CLOSEDOWHILE(NAMEEE) __CLOSEDOWHILE(NAMEEE)
+
+#define __CLOSEDOWHILE2(NAMEEE, fnAME) if (NAMEEE->lines2print > 0)\
+{\
+	fnAME();\
+	NAMEEE->linesprinted++;\
+}} while (NAMEEE->lines2print > 0); 
+
+#define CLOSEDOWHILE2(NAMEEE, fnAME) __CLOSEDOWHILE2(NAMEEE, fnAME)
+
+
 #define __OPENSWITCH(NAMEEE) INIT_MENU_VARS(charBuffMax, &NAMEEE->devptr->outbuff.charbuff[0]); \
-    do { \
 		switch (NAMEEE->linesprinted){
 
 
@@ -257,13 +276,8 @@ UI_8 ATO_U64(const char* str, UI_64* val)\
 #define __CLOSESWITCH(NAMEEE) \
 	NAMEEE->lines2print = 0;\
 break;\
-		}\
-if (NAMEEE->lines2print > 0)\
-{\
-	WriteMenuLine(NAMEEE);\
-	NAMEEE->linesprinted++;\
-}\
-	} while (NAMEEE->lines2print > 0);
+		}
+	
 	
 
 
@@ -285,6 +299,23 @@ if (uiStructPtrIn->devptr->newDataReadIn) \
             uiStructPtrIn->parseIndex++;
 
 #define OPENIF(tNAME, mNAME) __OPENIF(tNAME, mNAME)
+
+
+#define __OPENIF2(tNAME, mNAME) \
+if (uiStructPtrIn->devptr->newDataReadIn) \
+{ \
+	if (stringMatchCaseSensitive(&uiStructPtrIn->devptr->inbuff.charbuff[uiStructPtrIn->parseIndex], tNAME) == ui8TRUE) \
+	{ \
+		uiStructPtrIn->parseIndex += stringLength( tNAME ); \
+		if (uiStructPtrIn->devptr->inbuff.charbuff[uiStructPtrIn->parseIndex] == ';') \
+		{ \
+			uiMenuPtrIn->setActiveMenuPtr( &mNAME ); \
+		} \
+		else if (uiStructPtrIn->devptr->inbuff.charbuff[uiStructPtrIn->parseIndex] == ':') \
+		{ \
+            uiStructPtrIn->parseIndex++;
+
+#define OPENIF2(tNAME, mNAME) __OPENIF2(tNAME, mNAME)
 
 
 #define __CLOSEIF(tNAME, mNAME) \
@@ -313,11 +344,25 @@ if (uiStructPtrIn->devptr->newDataReadIn) \
 
 #ifdef __cplusplus
 
+class consoleMenuClass; 
 
+class menuNode
+{
+public:
+    virtual void printMenu(consoleMenuClass* uiMenuPtrIn) = 0;
+    virtual void parseInput(consoleMenuClass* uiMenuPtrIn) = 0;
+};
 
 class consoleMenuClass // declaration of console menu class
 {
-
+protected:
+    struct uiStruct* uiDataPtr = nullptr;
+    menuNode* activeMenuPtr = nullptr;
+public:
+    consoleMenuClass(struct uiStruct* uiDataPtrIn, menuNode* activeMenuPtrIn);
+    struct uiStruct* getUIdataPtr();
+    menuNode* getActiveMenuPtr();
+    void setActiveMenuPtr(menuNode* mptrIn);
 };
 
 

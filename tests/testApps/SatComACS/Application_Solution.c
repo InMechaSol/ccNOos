@@ -76,9 +76,9 @@ MODdeclareLOOP(Mn)
 {
     MODDATAPTR_ERROR_RETURN(Mn);
 
-    // read devices  
-    tryReadLCDKeyPad(MODdataPTR(Mn));
-    tryReadConsoleMenu(MODdataPTR(Mn));    
+    // api modules read in by execution system first
+
+    // read devices      
     tryReadAPTData(&MODdataPTR(Mn)->APT);
     tryReadTPMData(&MODdataPTR(Mn)->TPM);
 
@@ -97,8 +97,8 @@ MODdeclareLOOP(Mn)
     tryWriteTPMData(&MODdataPTR(Mn)->TPM);
     writeAttenuatorValues(&MODdataPTR(Mn)->TxRx);
     writeModemSwitchValues(&MODdataPTR(Mn)->TxRx);
-    tryWriteLCDKeyPad(MODdataPTR(Mn));
-    tryWriteConsoleMenu(MODdataPTR(Mn));
+    
+    // api modules written by execution system last
 
     return RETURN_SUCCESS;
 }
@@ -123,31 +123,45 @@ MODdeclarePRINTm(Mn)
             case cM_RootNode:
                 ;//writeRootNodeMenuScreen(&MODdataPTR(Mn), uiStructPtrIn);
                 break;
-            case cM_MainMenu:                
+            case cM_MainMenu: 
+                OPENDOWHILE(uiStructPtrIn)
                 writeSatComACSMenuScreen(MODdataPTR(Mn), uiStructPtrIn);
+                CLOSEDOWHILE(uiStructPtrIn)
                 break;
             case cM_Devices:
+                OPENDOWHILE(uiStructPtrIn)
                 writeSatComACSDevicesMenuScreen(MODdataPTR(Mn), uiStructPtrIn);
+                CLOSEDOWHILE(uiStructPtrIn)
                 break;
             case cM_Terminal:
+                OPENDOWHILE(uiStructPtrIn)
                 writeTerminalMenuScreen(&MODdataPTR(Mn)->Terminal, uiStructPtrIn);
+                CLOSEDOWHILE(uiStructPtrIn)
                 break;
             case cM_ExecutionSystem:
                 //writeExeSysMenuScreen(&MODdataPTR(Mn), uiStructPtrIn);
                 break;
             case cM_devAPT:
+                OPENDOWHILE(uiStructPtrIn)
                 writeAPTMenuScreen(&MODdataPTR(Mn)->APT,uiStructPtrIn);
+                CLOSEDOWHILE(uiStructPtrIn)
                 break;
             case cM_devTXRX:
+                OPENDOWHILE(uiStructPtrIn)
                 writeTxRxMenuScreen(&MODdataPTR(Mn)->TxRx, uiStructPtrIn);
+                CLOSEDOWHILE(uiStructPtrIn)
                 break;
             case cM_devTPM:
+                OPENDOWHILE(uiStructPtrIn)
                 writeTPMMenuScreen(&MODdataPTR(Mn)->TPM, uiStructPtrIn);
+                CLOSEDOWHILE(uiStructPtrIn)
                 break;
             }
             uiStructPtrIn->lines2print = 1;
             uiStructPtrIn->linesprinted = 0;
+            OPENDOWHILE(uiStructPtrIn)
             writeUIHelpString(uiStructPtrIn);
+            CLOSEDOWHILE(uiStructPtrIn)
             //uiStructPtrIn->showHelp = ui8TRUE;
             uiStructPtrIn->showPrompt = ui8TRUE;
             uiStructPtrIn->devptr->outbuff.charbuff[0] = 0x00;
