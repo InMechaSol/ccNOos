@@ -56,6 +56,7 @@ MODdeclareSTRUCT(Mn)
     // satComACS API Device Modules
     struct uiStruct LCDKeyPad;
     struct uiStruct ConsoleMenu;
+    UI_8 execAPIsMainLoop;
 };
 
 #define MODdeclareCREATEINS 

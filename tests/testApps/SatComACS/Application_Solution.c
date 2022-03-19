@@ -40,6 +40,7 @@ MODdeclareCREATE(Mn)(MODdeclareCREATEINS)
     outStruct.WMM = createwmmStruct();
     outStruct.ConsoleMenu = createuiStruct();
     outStruct.LCDKeyPad = createuiStruct();
+    outStruct.execAPIsMainLoop = ui8TRUE;
     return outStruct;
 }
 
@@ -76,7 +77,12 @@ MODdeclareLOOP(Mn)
 {
     MODDATAPTR_ERROR_RETURN(Mn);
 
-    // api modules read in by execution system first
+    if (MODdataPTR(Mn)->execAPIsMainLoop == ui8TRUE)
+    {
+        // read api modules
+        tryReadLCDKeyPad(MODdataPTR(Mn));
+        tryReadConsoleMenu(MODdataPTR(Mn));
+    }
 
     // read devices      
     tryReadAPTData(&MODdataPTR(Mn)->APT);
@@ -98,7 +104,12 @@ MODdeclareLOOP(Mn)
     writeAttenuatorValues(&MODdataPTR(Mn)->TxRx);
     writeModemSwitchValues(&MODdataPTR(Mn)->TxRx);
     
-    // api modules written by execution system last
+    if (MODdataPTR(Mn)->execAPIsMainLoop == ui8TRUE)
+    {
+        // write api modules
+        tryWriteLCDKeyPad(MODdataPTR(Mn));
+        tryWriteConsoleMenu(MODdataPTR(Mn));
+    }
 
     return RETURN_SUCCESS;
 }
@@ -106,101 +117,60 @@ MODdeclareLOOP(Mn)
 MODdeclareSYSTICK(Mn) { ; }  // do nothing in the systick area
 
 
-
+// Print Menu Screen , one line at a time...
 MODdeclarePRINTm(Mn)
 {
     MODDATAPTR_RETURN(Mn);
-    if (uiStructPtrIn != nullptr)
+    switch ((enum currentMenuNode)uiStructPtrIn->currentMenuIndex)
     {
-        if (uiStructPtrIn->devptr->triggerWriteOperation)
-        {
-            uiStructPtrIn->lines2print = 1;
-            uiStructPtrIn->linesprinted = 0;
-            uiStructPtrIn->clearScreen = ui8TRUE;
-
-            switch ((enum currentMenuNode)uiStructPtrIn->currentMenuIndex)
-            {
-            case cM_RootNode:
-                ;//writeRootNodeMenuScreen(&MODdataPTR(Mn), uiStructPtrIn);
-                break;
-            case cM_MainMenu: 
-                OPENDOWHILE(uiStructPtrIn)
-                writeSatComACSMenuScreen(MODdataPTR(Mn), uiStructPtrIn);
-                CLOSEDOWHILE(uiStructPtrIn)
-                break;
-            case cM_Devices:
-                OPENDOWHILE(uiStructPtrIn)
-                writeSatComACSDevicesMenuScreen(MODdataPTR(Mn), uiStructPtrIn);
-                CLOSEDOWHILE(uiStructPtrIn)
-                break;
-            case cM_Terminal:
-                OPENDOWHILE(uiStructPtrIn)
-                writeTerminalMenuScreen(&MODdataPTR(Mn)->Terminal, uiStructPtrIn);
-                CLOSEDOWHILE(uiStructPtrIn)
-                break;
-            case cM_ExecutionSystem:
-                //writeExeSysMenuScreen(&MODdataPTR(Mn), uiStructPtrIn);
-                break;
-            case cM_devAPT:
-                OPENDOWHILE(uiStructPtrIn)
-                writeAPTMenuScreen(&MODdataPTR(Mn)->APT,uiStructPtrIn);
-                CLOSEDOWHILE(uiStructPtrIn)
-                break;
-            case cM_devTXRX:
-                OPENDOWHILE(uiStructPtrIn)
-                writeTxRxMenuScreen(&MODdataPTR(Mn)->TxRx, uiStructPtrIn);
-                CLOSEDOWHILE(uiStructPtrIn)
-                break;
-            case cM_devTPM:
-                OPENDOWHILE(uiStructPtrIn)
-                writeTPMMenuScreen(&MODdataPTR(Mn)->TPM, uiStructPtrIn);
-                CLOSEDOWHILE(uiStructPtrIn)
-                break;
-            }
-            uiStructPtrIn->lines2print = 1;
-            uiStructPtrIn->linesprinted = 0;
-            OPENDOWHILE(uiStructPtrIn)
-            writeUIHelpString(uiStructPtrIn);
-            CLOSEDOWHILE(uiStructPtrIn)
-            //uiStructPtrIn->showHelp = ui8TRUE;
-            uiStructPtrIn->showPrompt = ui8TRUE;
-            uiStructPtrIn->devptr->outbuff.charbuff[0] = 0x00;
-            WriteMenuLine(uiStructPtrIn);
-            
-            uiStructPtrIn->devptr->triggerWriteOperation = ui8FALSE;
-        }
+    case cM_RootNode:
+        ;//writeRootNodeMenuScreen(&MODdataPTR(Mn), uiStructPtrIn);
+        break;
+    case cM_MainMenu:
+        writeSatComACSMenuScreen(MODdataPTR(Mn), uiStructPtrIn);
+        break;
+    case cM_Devices:
+        writeSatComACSDevicesMenuScreen(MODdataPTR(Mn), uiStructPtrIn);
+        break;
+    case cM_Terminal:
+        writeTerminalMenuScreen(&MODdataPTR(Mn)->Terminal, uiStructPtrIn);
+        break;
+    case cM_ExecutionSystem:
+        //writeExeSysMenuScreen(&MODdataPTR(Mn), uiStructPtrIn);
+        break;
+    case cM_devAPT:
+        writeAPTMenuScreen(&MODdataPTR(Mn)->APT, uiStructPtrIn);
+        break;
+    case cM_devTXRX:
+        writeTxRxMenuScreen(&MODdataPTR(Mn)->TxRx, uiStructPtrIn);
+        break;
+    case cM_devTPM:
+        writeTPMMenuScreen(&MODdataPTR(Mn)->TPM, uiStructPtrIn);
+        break;
     }
 }
 
-
+// parse from uistruct input buffer,
 MODdeclarePARSEi(Mn) 
 {
     MODDATAPTR_RETURN(Mn);
-    if (uiStructPtrIn != nullptr)
+
+/*  switch ((enum currentMenuNode)uiStructPtrIn->currentMenuIndex)
     {
-        GetMenuChars(uiStructPtrIn);
-        if (uiStructPtrIn->devptr->newDataReadIn)
-        {
-/*          switch ((enum currentMenuNode)uiStructPtrIn->currentMenuIndex)
-            {
-            case cM_MainMenu:   */
-                parseSatComACSMenuAPI(MODdataPTR(Mn), uiStructPtrIn);
-/*              break;
-            case cM_Devices:
-                parseSatComACSDevicesMenuAPI(MODdataPTR(Mn), uiStructPtrIn);
-                break;
-            case cM_Terminal:
-                parseTerminalMenuAPI(&MODdataPTR(Mn)->Terminal, uiStructPtrIn);
-                break;
-            case cM_devAPT:
-                parseAPTMenuAPI(&MODdataPTR(Mn)->APT, uiStructPtrIn);
-                break;
-            }    */    
-            uiStructPtrIn->devptr->triggerWriteOperation = ui8TRUE;
-            uiStructPtrIn->devptr->newDataReadIn = ui8FALSE;
-        }
-        
-    }
+    case cM_MainMenu:   */
+        parseSatComACSMenuAPI(MODdataPTR(Mn), uiStructPtrIn);
+/*      break;
+    case cM_Devices:
+        parseSatComACSDevicesMenuAPI(MODdataPTR(Mn), uiStructPtrIn);
+        break;
+    case cM_Terminal:
+        parseTerminalMenuAPI(&MODdataPTR(Mn)->Terminal, uiStructPtrIn);
+        break;
+    case cM_devAPT:
+        parseAPTMenuAPI(&MODdataPTR(Mn)->APT, uiStructPtrIn);
+        break;
+    }    */    
+
 }
 
 
@@ -292,17 +262,87 @@ void AcquiredState(MODdeclarePTRIN(Mn))
 
 void tryReadLCDKeyPad(MODdeclarePTRIN(Mn)) 
 { 
-    MODparseINPUT(Mn)(&MODdataPTR(Mn)->compMod, &MODdataPTR(Mn)->LCDKeyPad);
+#define IODEVPTR MODdataPTR(Mn)->LCDKeyPad.devptr
+#define MENU MODdataPTR(Mn)->LCDKeyPad
+    if (IODEVPTR != nullptr)
+    {
+        GetMenuChars(&MENU);
+        if (IODEVPTR->newDataReadIn)
+        {
+            MODparseINPUT(Mn)(&MODdataPTR(Mn)->compMod, &MENU);
+
+            IODEVPTR->triggerWriteOperation = ui8TRUE;
+            IODEVPTR->newDataReadIn = ui8FALSE;
+        }
+    }
+#undef IODEVPTR
+#undef MENU
 }
 void tryWriteLCDKeyPad(MODdeclarePTRIN(Mn)) 
 { 
-    MODprintMENU(Mn)(&MODdataPTR(Mn)->compMod, &MODdataPTR(Mn)->LCDKeyPad);
+#define MENU (MODdataPTR(Mn)->LCDKeyPad)
+
+    if (MENU.devptr->triggerWriteOperation)
+    {
+        MENU.lines2print = 1;
+        MENU.linesprinted = 0;
+        MENU.clearScreen = ui8TRUE;
+        OPENDOWHILE((&(MENU)))
+            MODprintMENU(Mn)(&MODdataPTR(Mn)->compMod, &MENU);
+        CLOSEDOWHILE((&(MENU)))
+            MENU.lines2print = 1;
+        MENU.linesprinted = 0;
+        OPENDOWHILE((&(MENU)))
+            writeUIHelpString(&MENU);
+        CLOSEDOWHILE((&(MENU)))
+            MENU.showPrompt = ui8TRUE;
+        MENU.devptr->outbuff.charbuff[0] = 0x00;
+        WriteMenuLine(&MENU);
+
+        MENU.devptr->triggerWriteOperation = ui8FALSE;
+    }
+#undef MENU
 }
 void tryReadConsoleMenu(MODdeclarePTRIN(Mn))
 {
-    MODparseINPUT(Mn)(&MODdataPTR(Mn)->compMod, &MODdataPTR(Mn)->ConsoleMenu);
+#define IODEVPTR MODdataPTR(Mn)->ConsoleMenu.devptr
+#define MENU MODdataPTR(Mn)->ConsoleMenu
+    if (IODEVPTR != nullptr)
+    {
+        GetMenuChars(&MENU);
+        if (IODEVPTR->newDataReadIn)
+        {
+            MODparseINPUT(Mn)(&MODdataPTR(Mn)->compMod, &MENU);
+
+            IODEVPTR->triggerWriteOperation = ui8TRUE;
+            IODEVPTR->newDataReadIn = ui8FALSE;
+        }
+    }
+#undef IODEVPTR
+#undef MENU
 }
 void tryWriteConsoleMenu(MODdeclarePTRIN(Mn)) 
 { 
-    MODprintMENU(Mn)(&MODdataPTR(Mn)->compMod, &MODdataPTR(Mn)->ConsoleMenu);
+#define MENU (MODdataPTR(Mn)->ConsoleMenu)
+
+    if (MENU.devptr->triggerWriteOperation)
+    {
+        MENU.lines2print = 1;
+        MENU.linesprinted = 0;
+        MENU.clearScreen = ui8TRUE;
+        OPENDOWHILE((&(MENU)))
+            MODprintMENU(Mn)(&MODdataPTR(Mn)->compMod, &MENU);
+        CLOSEDOWHILE((&(MENU)))
+        MENU.lines2print = 1;
+        MENU.linesprinted = 0;
+        OPENDOWHILE((&(MENU)))
+            writeUIHelpString(&MENU);
+        CLOSEDOWHILE((&(MENU)))
+        MENU.showPrompt = ui8TRUE;
+        MENU.devptr->outbuff.charbuff[0] = 0x00;
+        WriteMenuLine(&MENU);
+
+        MENU.devptr->triggerWriteOperation = ui8FALSE;
+    }
+#undef MENU
 }

@@ -28,6 +28,11 @@ Notes:
 
 void writeUIHelpString(struct uiStruct* uiStructPtrIn)
 {
+	if (uiStructPtrIn == nullptr)
+	{
+		uiStructPtrIn->lines2print = 0;
+		return;
+	}
 	if (uiStructPtrIn->showHelp == ui8TRUE)
 	{
 		OPENSWITCH(uiStructPtrIn)
@@ -56,8 +61,10 @@ void writeUIHelpString(struct uiStruct* uiStructPtrIn)
 		default:
 			uiStructPtrIn->showHelp = ui8FALSE;
 		CLOSESWITCH(uiStructPtrIn)
-		
+
 	}
+	else
+		uiStructPtrIn->lines2print = 0;
 }
 const char* terminalPromptString(int userLevelIndex)
 {
@@ -193,6 +200,7 @@ void writeSatComACSMenuScreenLCDSmall(struct SatComACSStruct* satcomacsStructPtr
 }
 void writeSatComACSMenuScreen(struct SatComACSStruct* satcomacsStructPtrIn, struct uiStruct* uiStructPtrIn)
 {
+	if(uiStructPtrIn!=nullptr)
 	switch (uiStructPtrIn->viewFormatIndex)
 	{
 	case cV_Console: writeSatComACSMenuScreenConsole(satcomacsStructPtrIn, uiStructPtrIn); break;
@@ -246,6 +254,7 @@ void writeSatComACSDevicesMenuScreenLCDSmall(struct SatComACSStruct* satcomacsSt
 }
 void writeSatComACSDevicesMenuScreen(struct SatComACSStruct* satcomacsStructPtrIn, struct uiStruct* uiStructPtrIn)
 {
+	if (uiStructPtrIn != nullptr)
 	switch (uiStructPtrIn->viewFormatIndex)
 	{
 	case cV_Console: writeSatComACSDevicesMenuScreenConsole(satcomacsStructPtrIn, uiStructPtrIn); break;
@@ -318,6 +327,7 @@ void writeTerminalMenuScreenLCDBig(struct antennaStruct* terminalStructPtrIn, st
 }
 void writeTerminalMenuScreen(struct antennaStruct* terminalStructPtrIn, struct uiStruct* uiStructPtrIn)
 {
+	if (uiStructPtrIn != nullptr)
 	switch (uiStructPtrIn->viewFormatIndex)
 	{
 	case cV_Console: writeTerminalMenuScreenConsole(terminalStructPtrIn, uiStructPtrIn); break;
@@ -467,6 +477,7 @@ void writeTxRxMenuScreenLCDSmall(struct txRxStruct* txRxStructPtrIn, struct uiSt
 }
 void writeTxRxMenuScreen(struct txRxStruct* txRxStructPtrIn, struct uiStruct* uiStructPtrIn)
 {
+	if (uiStructPtrIn != nullptr)
 	switch (uiStructPtrIn->viewFormatIndex)
 	{
 	case cV_Console: writeTxRxMenuScreenConsole(txRxStructPtrIn, uiStructPtrIn); break;
@@ -535,6 +546,7 @@ void writeAPTMenuScreenLCDSmall(struct aptStruct* aptStructPtrIn, struct uiStruc
 }
 void writeAPTMenuScreen(struct aptStruct* aptStructPtrIn, struct uiStruct* uiStructPtrIn)
 {
+	if (uiStructPtrIn != nullptr)
 	switch (uiStructPtrIn->viewFormatIndex)
 	{
 	case cV_Console: writeAPTMenuScreenConsole(aptStructPtrIn, uiStructPtrIn); break;
@@ -602,7 +614,7 @@ void writeTPMMenuScreenLCDSmall(struct tpmStruct* tpmStructPtrIn, struct uiStruc
 }
 void writeTPMMenuScreen(struct tpmStruct* tpmStructPtrIn, struct uiStruct* uiStructPtrIn)
 {
-	
+	if (uiStructPtrIn != nullptr)
 	switch (uiStructPtrIn->viewFormatIndex)
 	{
 	case cV_Console: writeTPMMenuScreenConsole(tpmStructPtrIn, uiStructPtrIn); break;

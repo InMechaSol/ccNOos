@@ -42,5 +42,6 @@ menuNode* consoleMenuClass::getActiveMenuPtr()
 
 void consoleMenuClass::setActiveMenuPtr(menuNode* mptrIn)
 {
-    activeMenuPtr = mptrIn;
+    if(mptrIn!=nullptr)
+        activeMenuPtr = mptrIn;
 }
