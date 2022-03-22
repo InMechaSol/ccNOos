@@ -123,12 +123,12 @@ void platformStart()
     //<platformStart>
     GPSserialdev.readIndex = 0;
     eCompserialdev.readIndex = 0;
-    GPSserialdev.numBytes2Read = 1;
-    eCompserialdev.numBytes2Read = 1;
+    GPSserialdev.devdata.numbytes2Read = 1;
+    eCompserialdev.devdata.numbytes2Read = 1;
     LCDKeyPadserialdev.readIndex = 0;
     ConsoleMenuserialdev.readIndex = 0;
-    LCDKeyPadserialdev.numBytes2Read = 1;
-    ConsoleMenuserialdev.numBytes2Read = 1;
+    LCDKeyPadserialdev.devdata.numbytes2Read = 1;
+    ConsoleMenuserialdev.devdata.numbytes2Read = 1;
     
     //</platformStart>
 }
