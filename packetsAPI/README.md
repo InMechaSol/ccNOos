@@ -1,4 +1,4 @@
-# consoleMenu - Abstract Access to String, Serialization, and Menu Trees
-- Compile time enable/disable
-- Compile time selectable serialization/deserialization
-- 
+# Packets API - 
+IMS Packets Core
+- Distributed Data and Execution System C++
+- CLEAN architecture for modular portable networks of controller nodes
