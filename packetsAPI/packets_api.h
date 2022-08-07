@@ -38,10 +38,6 @@ Notes:
 struct packAPIStruct
 {
     struct devicedatastruct* devptr;
-    int lines2print, linesprinted;
-    int currentMenuIndex, currentUserLevel, cursorIndex, viewFormatIndex;
-    int parseIndex, readIndex;
-    UI_8 clearScreen, showHelp, showPrompt;
 };
 struct packAPIStruct createpackAPIStruct();
 

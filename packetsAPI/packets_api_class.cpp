@@ -24,24 +24,4 @@ Notes:
 
 */
 
-#include "console_menu.c"
-
-consoleMenuClass::consoleMenuClass(struct uiStruct* uiDataPtrIn, menuNode* activeMenuPtrIn)
-{
-    uiDataPtr = uiDataPtrIn;
-    activeMenuPtr = activeMenuPtrIn;
-}
-struct uiStruct* consoleMenuClass::getUIdataPtr()
-{
-    return uiDataPtr;
-}
-menuNode* consoleMenuClass::getActiveMenuPtr()
-{
-    return activeMenuPtr;
-}
-
-void consoleMenuClass::setActiveMenuPtr(menuNode* mptrIn)
-{
-    if(mptrIn!=nullptr)
-        activeMenuPtr = mptrIn;
-}
+#include "packets_api.c"
