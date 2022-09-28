@@ -23,6 +23,7 @@ Notes:
 	*Always compiled to a single compilation unit, either C or CPP, not both
 
 */
+#include "version_config.h"
 
 #ifndef __PACKETS_API__
 #define __PACKETS_API__

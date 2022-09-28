@@ -24,8 +24,6 @@ Notes:
 
 */
 
-
-    
 #include "console_menu.h"
 #include "execution_system.h"
 

@@ -103,9 +103,17 @@ const char* ccNOosccNOos_VerDateString();
     #define MAIN_C_NOos_NOsystick
     #define INTSIZE32
 #endif
-#ifdef PLATFORM_WIN32
-    #define PLATFORM_NAME Win32
-    #define MAIN_CPP_NOos_NOsystick
+#ifdef _WIN32
+#define PLATFORM_NAME Win32
+#define MAIN_CPP_NOos_NOsystick
+#define INTSIZE_STD
+#endif
+#ifdef TEENSYDUINO
+    #define PLATFORM_NAME Arduino
+    #define MAIN_CPP_NOos_NOsystick_Arduino
+    #define __USINGCONSOLEMENU
+    #define __USINGFLOATPRINTF
+    #define __NOEXCEPTIONS
     #define INTSIZE32
 #endif
 #ifdef PLATFORM_ARDUINO
