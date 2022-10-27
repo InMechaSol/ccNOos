@@ -28,11 +28,11 @@ Notes:
 #define __VERSIONCONFIG__
  
 #define ccNOos_MajorVer 0
-#define ccNOos_MinorVer 0
+#define ccNOos_MinorVer 1
 #define ccNOos_BuildNumber 0
 
 #define ccNOos_DevString dev
-#define ccNOos_VerDate 08JAN2021
+#define ccNOos_VerDate 26OCT2022
 
     
 ////////////////////////////////////////////////////////////////////////////////
@@ -75,7 +75,7 @@ const char* ccNOosccNOos_VerDateString();
 
 // an eco system wide restriction on maximum buffer size...
 #ifndef charBuffMax
-#define charBuffMax 128
+#define charBuffMax 264
 #endif
 
 /////////////////////////////////////////////////////////////////////////////
