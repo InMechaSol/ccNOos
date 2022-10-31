@@ -42,7 +42,8 @@ struct packAPIStruct
 };
 struct packAPIStruct createpackAPIStruct();
 
-
+void WritePacketBytes(struct packAPIStruct* packStructPtrin);
+void ReadPacketBytes(struct packAPIStruct* packStructPtrin);
 
 
 
