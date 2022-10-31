@@ -34,6 +34,10 @@ struct devicedatastruct createDeviceStruct()
     outstruct.devstate = devstate_init;
     outstruct.newDataReadIn = ui8FALSE;
     outstruct.triggerWriteOperation = ui8FALSE;
+    outstruct.numbytes2Read = 0;
+    outstruct.numbytes2Write = 0;
+    outstruct.numbytesReadIn = 0;
+    outstruct.numbytesWritten = 0;
     outstruct.inbuff.charbuff[0] = 0x00;
     outstruct.outbuff.charbuff[0] = 0x00;
     return outstruct;

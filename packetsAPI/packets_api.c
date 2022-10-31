@@ -1,4 +1,4 @@
-/** \file console_menu.c
+/** \file packets_api.c
 *   \brief <a href="https://www.inmechasol.org/" target="_blank">IMS</a>:
 		<a href="https://github.com/InMechaSol/ccNOos" target="_blank">ccNOos</a>,
 		Implementation for straight C 
@@ -24,8 +24,6 @@ Notes:
 
 */
 
-
-    
 #include "packets_api.h"
 #include "execution_system.h"
 
@@ -33,5 +31,6 @@ struct packAPIStruct createpackAPIStruct()
 {
     struct packAPIStruct outStruct;
     outStruct.devptr = nullptr;
+    return outStruct;
 }
 

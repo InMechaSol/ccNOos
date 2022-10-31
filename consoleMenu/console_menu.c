@@ -24,8 +24,6 @@ Notes:
 
 */
 
-
-    
 #include "console_menu.h"
 #include "execution_system.h"
 
@@ -63,6 +61,7 @@ struct uiStruct createuiStruct()
     outStruct.parseIndex = 0;
     outStruct.showHelp = ui8FALSE;
     outStruct.showPrompt = ui8FALSE;
+    outStruct.readIndex = 0;
     return outStruct;
 }
 

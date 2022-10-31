@@ -1,4 +1,4 @@
-/** \file console_menu_class.cpp
+/** \file packets_api_class.cpp
 *   \brief <a href="https://www.inmechasol.org/" target="_blank">IMS</a>:
 		<a href="https://github.com/InMechaSol/ccNOos" target="_blank">ccNOos</a>,
 		Implementation for C++ wrappers 
