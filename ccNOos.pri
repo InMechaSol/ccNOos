@@ -59,6 +59,16 @@ if(ccNOos_CPPBuild()) { # a cpp build uses .c as header
 } else { # a straight c build uses .c as source
 	SOURCES += $${fName}.c
 }
+iPath = $$ccNOosDIR/packetsAPI
+fName = $$iPath/packets_api
+INCLUDEPATH += $$iPath
+HEADERS += $${fName}.h
+if(ccNOos_CPPBuild()) { # a cpp build uses .c as header
+    HEADERS += $${fName}.c
+    SOURCES += $${fName}_class.cpp # only in cpp build
+} else { # a straight c build uses .c as source
+        SOURCES += $${fName}.c
+}
 iPath = $$ccNOosDIR/ioDevice
 fName = $$iPath/io_device
 INCLUDEPATH += $$iPath
