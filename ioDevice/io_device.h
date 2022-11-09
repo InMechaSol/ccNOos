@@ -69,6 +69,7 @@ struct devicedatastruct
     UI_16 numbytesReadIn;
     UI_16 numbytes2Write;
     UI_16 numbytesWritten;
+    UI_16 parseIndex;
     
 };
 struct devicedatastruct createDeviceStruct();

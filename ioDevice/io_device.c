@@ -40,6 +40,7 @@ struct devicedatastruct createDeviceStruct()
     outstruct.numbytesWritten = 0;
     outstruct.inbuff.charbuff[0] = 0x00;
     outstruct.outbuff.charbuff[0] = 0x00;
+    outstruct.parseIndex = 0;
     return outstruct;
 }
 

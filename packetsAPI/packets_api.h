@@ -39,13 +39,25 @@ Notes:
 struct packAPIStruct
 {
     struct devicedatastruct* devptr;
+    UI_8 inPackNum, outPackNum;
+    UI_8 inPackID, outPackID;
+    UI_8 inPackLen, outPackLen;
+    UI_8 inPackType, outPackType;
+    UI_8 Connected;
 };
 struct packAPIStruct createpackAPIStruct();
 
 void WritePacketBytes(struct packAPIStruct* packStructPtrin);
 void ReadPacketBytes(struct packAPIStruct* packStructPtrin);
 
+void parseHeader(struct packAPIStruct* packStructPtrIn);
+void packageHeader(struct packAPIStruct* packStructPtrIn);
 
+void packageToken(struct packAPIStruct* packStructPtrIn, void* TokenPtr, UI_8 TokenLen);
+void packageTokenEndianSwapped(struct packAPIStruct* packStructPtrIn, void* TokenPtr, UI_8 TokenLen);
+
+void parseToken(struct packAPIStruct* packStructPtrIn, void* TokenPtr, UI_8 TokenLen);
+void parseTokenEndianSwapped(struct packAPIStruct* packStructPtrIn, void* TokenPtr, UI_8 TokenLen);
 
 #ifdef __cplusplus
 
