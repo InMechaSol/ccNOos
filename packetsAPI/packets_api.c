@@ -39,6 +39,13 @@ struct packAPIStruct createpackAPIStruct()
     outStruct.outPackNum = 0;
     outStruct.inPackType = 0;
     outStruct.outPackType = 0;
+    outStruct.inPackCounter = 0;
+    outStruct.outPackCounter = 0;
+    outStruct.inPackBytesCounter = 0;
+    outStruct.outPackBytesCounter = 0;
+    outStruct.Connected = ui8FALSE;
+    outStruct.resetStats = ui8FALSE;
+
     return outStruct;
 }
 
@@ -54,8 +61,8 @@ void packageHeader(struct packAPIStruct* packStructPtrIn)
     packStructPtrIn->devptr->numbytes2Write = 0;
     packStructPtrIn->devptr->outbuff.bytebuff[packStructPtrIn->devptr->numbytes2Write++] = packStructPtrIn->outPackNum;
     packStructPtrIn->devptr->outbuff.bytebuff[packStructPtrIn->devptr->numbytes2Write++] = packStructPtrIn->outPackID;
-    packStructPtrIn->devptr->outbuff.bytebuff[packStructPtrIn->devptr->numbytes2Write++] = packStructPtrIn->outPackLen;
     packStructPtrIn->devptr->outbuff.bytebuff[packStructPtrIn->devptr->numbytes2Write++] = packStructPtrIn->outPackType;
+    packStructPtrIn->devptr->outbuff.bytebuff[packStructPtrIn->devptr->numbytes2Write++] = packStructPtrIn->outPackLen;
 }
 
 void packageToken(struct packAPIStruct* packStructPtrIn, void* TokenPtr, UI_8 TokenLen)
