@@ -43,7 +43,9 @@ struct packAPIStruct
     UI_8 inPackID, outPackID;
     UI_8 inPackLen, outPackLen;
     UI_8 inPackType, outPackType;
-    UI_8 Connected;
+    UI_8 Connected, resetStats;
+    UI_32 inPackCounter, outPackCounter;
+    UI_32 inPackBytesCounter, outPackBytesCounter;
 };
 struct packAPIStruct createpackAPIStruct();
 
