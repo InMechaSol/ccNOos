@@ -61,6 +61,14 @@ void parseTokenEndianSwapped(struct packAPIStruct* packStructPtrIn, void* TokenP
 
 #ifdef __cplusplus
 
+class packetsAPIClass // declaration of console menu class
+{
+protected:
+    struct packAPIStruct* packDataPtr = nullptr;
+public:
+    packetsAPIClass(struct packAPIStruct* packDataPtrIn);
+    struct packAPIStruct* getPacketdataPtr();
+};
 
 #endif // !__cplusplus
 
