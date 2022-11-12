@@ -82,12 +82,12 @@ void parseToken(struct packAPIStruct* packStructPtrIn, void* TokenPtr, UI_8 Toke
 {
     int i;
     for (i = 0; i < TokenLen; i++)
-        ((UI_8*)TokenPtr)[i] = packStructPtrIn->devptr->outbuff.bytebuff[packStructPtrIn->devptr->parseIndex++];
+        ((UI_8*)TokenPtr)[i] = packStructPtrIn->devptr->inbuff.bytebuff[packStructPtrIn->devptr->parseIndex++];
 }
 void parseTokenEndianSwapped(struct packAPIStruct* packStructPtrIn, void* TokenPtr, UI_8 TokenLen)
 {
     int i;
     for (i = 0; i < TokenLen; i++)
-        ((UI_8*)TokenPtr)[TokenLen - 1 - i] = packStructPtrIn->devptr->outbuff.bytebuff[packStructPtrIn->devptr->parseIndex++];
+        ((UI_8*)TokenPtr)[TokenLen - 1 - i] = packStructPtrIn->devptr->inbuff.bytebuff[packStructPtrIn->devptr->parseIndex++];
 }
 
