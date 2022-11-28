@@ -25,3 +25,12 @@ Notes:
 */
 
 #include "packets_api.c"
+
+packetsAPIClass::packetsAPIClass(struct packAPIStruct* packDataPtrIn)
+{
+    packDataPtr = packDataPtrIn;
+}
+struct packAPIStruct* packetsAPIClass::getPacketdataPtr()
+{
+    return packDataPtr;
+}
