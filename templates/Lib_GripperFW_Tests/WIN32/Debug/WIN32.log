@@ -1,0 +1,29 @@
+﻿  exe_thread.cpp
+c1xx : fatal  error C1083: Cannot open source file: '..\ccOS\exeThread\exe_thread.cpp': No such file or directory
+  os_execution_system.cpp
+c1xx : fatal  error C1083: Cannot open source file: '..\ccOS\osExecutionSystem\os_execution_system.cpp': No such file or directory
+  ConsoleMenuAPI.cpp
+C:\IMI\CR\ccNOos_Tests\ccNOos\templates\Lib_GripperFW_Tests\Lib_GripperFW\Application_Solution.h(30,10): fatal  error C1083: Cannot open include file: 'execution_system.h': No such file or directory
+  PacketInterfaceAPI.cpp
+C:\IMI\CR\ccNOos_Tests\ccNOos\templates\Lib_GripperFW_Tests\Lib_GripperFW\Application_Solution.h(30,10): fatal  error C1083: Cannot open include file: 'execution_system.h': No such file or directory
+  Application_Serialization.cpp
+C:\IMI\CR\ccNOos_Tests\ccNOos\templates\Lib_GripperFW_Tests\Lib_GripperFW\Application_Solution.h(30,10): fatal  error C1083: Cannot open include file: 'execution_system.h': No such file or directory
+  Application_Solution.cpp
+C:\IMI\CR\ccNOos_Tests\ccNOos\templates\Lib_GripperFW_Tests\Lib_GripperFW\Application_Solution.h(30,10): fatal  error C1083: Cannot open include file: 'execution_system.h': No such file or directory
+  packets_api_class.cpp
+c1xx : fatal  error C1083: Cannot open source file: '..\ccNOos\packetsAPI\packets_api_class.cpp': No such file or directory
+  io_device_class.cpp
+c1xx : fatal  error C1083: Cannot open source file: '..\ccNOos\ioDevice\io_device_class.cpp': No such file or directory
+  console_menu_class.cpp
+c1xx : fatal  error C1083: Cannot open source file: '..\ccNOos\consoleMenu\console_menu_class.cpp': No such file or directory
+  compute_module_class.cpp
+c1xx : fatal  error C1083: Cannot open source file: '..\ccNOos\computeModule\compute_module_class.cpp': No such file or directory
+  execution_system_class.cpp
+c1xx : fatal  error C1083: Cannot open source file: '..\ccNOos\executionSystem\execution_system_class.cpp': No such file or directory
+  SmartMotorsDEV.cpp
+C:\IMI\CR\ccNOos_Tests\ccNOos\templates\Lib_GripperFW_Tests\Lib_GripperFW\deviceModules\SmartMotorsDEV.h(29,10): fatal  error C1083: Cannot open include file: 'console_menu.h': No such file or directory
+  SuctionExtentionDEV.cpp
+C:\IMI\CR\ccNOos_Tests\ccNOos\templates\Lib_GripperFW_Tests\Lib_GripperFW\deviceModules\SuctionExtentionDEV.h(29,10): fatal  error C1083: Cannot open include file: 'console_menu.h': No such file or directory
+  GripperFW_WIN32_Main.cpp
+C:\IMI\CR\ccNOos_Tests\ccNOos\templates\Lib_GripperFW_Tests\Lib_GripperFW\Application_Solution.h(30,10): fatal  error C1083: Cannot open include file: 'execution_system.h': No such file or directory
+  Generating Code...
