@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{a7caa36d-cf8c-45b1-804f-07a7aa56b3fc}</ProjectGuid>
+    <RootNamespace>WIN32</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(ProjectDir)$(Configuration)\</OutDir>
+    <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(ProjectDir)$(Configuration)\</OutDir>
+    <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(ProjectDir)$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(ProjectDir)$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>
+      </PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>..\ccNOos\executionSystem;..\ccNOos\consoleMenu;..\ccNOos\computeModule;..\ccNOos\ioDevice;..\ccNOos\packetsAPI;..\ccOS\ccLibs\iq-module-communication-cpp\inc;..\Lib_GripperFW;..\ccNOos\tests\testPlatforms;..\ccOS\osExecutionSystem;..\ccOS\exeThread;..\Lib_GripperFW\apiModules;..\Lib_GripperFW\deviceModules;..\Lib_GripperFW\controlModules</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>ws2_32.lib; $(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>$(SolutionDir)DeployProject\DeployProject.exe $(SolutionDir)CR\Lib_GripperFW_Tests
+</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>
+      </PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>..\ccNOos\executionSystem;..\ccNOos\consoleMenu;..\ccNOos\computeModule;..\ccNOos\ioDevice;..\ccNOos\packetsAPI;..\ccOS\ccLibs\iq-module-communication-cpp\inc;..\Lib_GripperFW;..\ccNOos\tests\testPlatforms;..\ccOS\osExecutionSystem;..\ccOS\exeThread;..\Lib_GripperFW\apiModules;..\Lib_GripperFW\deviceModules;..\Lib_GripperFW\controlModules</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>ws2_32.lib; $(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>$(SolutionDir)DeployProject\DeployProject.exe $(SolutionDir)CR\Lib_GripperFW_Tests
+</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>
+      </PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>..\ccNOos\executionSystem;..\ccNOos\consoleMenu;..\ccNOos\computeModule;..\ccNOos\ioDevice;..\ccNOos\packetsAPI;..\ccOS\ccLibs\iq-module-communication-cpp\inc;..\Lib_GripperFW;..\ccNOos\tests\testPlatforms;..\ccOS\osExecutionSystem;..\ccOS\exeThread;..\Lib_GripperFW\apiModules;..\Lib_GripperFW\deviceModules;..\Lib_GripperFW\controlModules</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>ws2_32.lib; $(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>$(SolutionDir)DeployProject\DeployProject.exe $(SolutionDir)CR\Lib_GripperFW_Tests
+</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>
+      </PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>..\ccNOos\executionSystem;..\ccNOos\consoleMenu;..\ccNOos\computeModule;..\ccNOos\ioDevice;..\ccNOos\packetsAPI;..\ccOS\ccLibs\iq-module-communication-cpp\inc;..\Lib_GripperFW;..\ccNOos\tests\testPlatforms;..\ccOS\osExecutionSystem;..\ccOS\exeThread;..\Lib_GripperFW\apiModules;..\Lib_GripperFW\deviceModules;..\Lib_GripperFW\controlModules</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>ws2_32.lib; $(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>$(SolutionDir)DeployProject\DeployProject.exe $(SolutionDir)CR\Lib_GripperFW_Tests
+</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\ccNOos\tests\testPlatforms\Platform_ccOS.hpp" />
+    <ClInclude Include="..\ccOS\exeThread\exe_thread.hpp" />
+    <ClInclude Include="..\ccOS\osExecutionSystem\os_execution_system.hpp" />
+    <ClInclude Include="..\ccOS\osExecutionSystem\version_config.hpp" />
+    <ClInclude Include="..\Lib_GripperFW\apiModules\ConsoleMenuAPI.h" />
+    <ClInclude Include="..\Lib_GripperFW\apiModules\PacketInterfaceAPI.h" />
+    <ClInclude Include="..\Lib_GripperFW\Application_Serialization.c">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="..\Lib_GripperFW\apiModules\PacketInterfaceAPI.c">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="..\Lib_GripperFW\apiModules\ConsoleMenuAPI.c">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClCompile Include="..\ccOS\exeThread\exe_thread.cpp" />
+    <ClCompile Include="..\ccOS\osExecutionSystem\os_execution_system.cpp" />
+    <ClCompile Include="..\Lib_GripperFW\apiModules\ConsoleMenuAPI.cpp" />
+    <ClCompile Include="..\Lib_GripperFW\apiModules\PacketInterfaceAPI.cpp" />
+    <ClCompile Include="..\Lib_GripperFW\Application_Serialization.cpp" />
+    <ClInclude Include="..\Lib_GripperFW\Application_Solution.c">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClCompile Include="..\Lib_GripperFW\Application_Solution.cpp" />
+    <ClInclude Include="..\ccNOos\packetsAPI\packets_api.c">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClCompile Include="..\ccNOos\packetsAPI\packets_api_class.cpp" />
+    <ClInclude Include="..\ccNOos\ioDevice\io_device.c">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClCompile Include="..\ccNOos\ioDevice\io_device_class.cpp" />
+    <ClInclude Include="..\ccNOos\consoleMenu\console_menu.c">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClCompile Include="..\ccNOos\consoleMenu\console_menu_class.cpp" />
+    <ClInclude Include="..\ccNOos\computeModule\compute_module.c">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClCompile Include="..\ccNOos\computeModule\compute_module_class.cpp" />
+    <ClInclude Include="..\ccNOos\computeModule\compute_module.h" />
+    <ClInclude Include="..\ccNOos\consoleMenu\console_menu.h" />
+    <ClInclude Include="..\ccNOos\executionSystem\execution_system.c">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClCompile Include="..\ccNOos\executionSystem\execution_system_class.cpp" />
+    <ClInclude Include="..\Lib_GripperFW\deviceModules\SmartMotorsDEV.c">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClCompile Include="..\Lib_GripperFW\deviceModules\SmartMotorsDEV.cpp" />
+    <ClInclude Include="..\Lib_GripperFW\deviceModules\SuctionExtentionDEV.c">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClCompile Include="..\Lib_GripperFW\deviceModules\SuctionExtentionDEV.cpp" />
+    <ClCompile Include="GripperFW_WIN32_Main.cpp" />
+    <ClInclude Include="..\ccNOos\ioDevice\io_device.h" />
+    <ClInclude Include="..\ccNOos\packetsAPI\packets_api.h" />
+    <ClInclude Include="..\Lib_GripperFW\Application_Serialization.h" />
+    <ClInclude Include="..\Lib_GripperFW\Application_Solution.h" />
+    <ClInclude Include="..\Lib_GripperFW\deviceModules\SmartMotorsDEV.h" />
+    <ClInclude Include="..\Lib_GripperFW\deviceModules\SuctionExtentionDEV.h" />
+    <ClInclude Include="GripperFW_WIN32_Main.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\ccNOos\executionSystem\execution_system.h" />
+    <ClInclude Include="..\ccNOos\executionSystem\version_config.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
