@@ -25,3 +25,87 @@ Notes:
 */
 
 #include "motionControl.c"
+
+SmartMotorDevice::SmartMotorDevice()
+{
+    ;
+}
+void SmartMotorDevice::prepare()
+{
+
+}
+void SmartMotorDevice::execute()
+{
+    // planning loop
+    planningLoop(&mystruct);
+
+    // position loop
+    positionLoop(&mystruct);
+
+    // velocity loop
+    velocityLoop(&mystruct);
+
+    // current loop
+    currentLoop(&mystruct);
+
+    // voltage/pwm
+
+    // dc motor model
+    preparedcMotorStruct(&mystruct.MotorModel);
+    int times = mystruct.CurController.dT/mystruct.MotorModel.dT;
+    for(int i = 0; i < times; i++)
+    {
+        executedcMotorStruct(&mystruct.MotorModel);
+    }
+
+}
+struct SPDStruct* SmartMotorDevice::getSPDArray()
+{
+    return &AxisSPDStructArray[mcsNone];
+}
+///////////////////////////////////////////////////////////////////////////
+//  SPDClass
+// - to be moved to the packetsAPI.cpp file
+//
+SPDClass::SPDClass(int VarIndexIn, void* DataPtrIn, struct SPDStruct* SPDArrayPtr)
+{
+    DataPtr = DataPtrIn;
+    VarIndex = VarIndexIn;
+    SPDArray = SPDArrayPtr;
+}
+float SPDClass::getFloatValue(){return getSPDFloatValue(VarIndex, SPDArray);}
+void* SPDClass::getDataPtr(){return DataPtr;}
+int SPDClass::getVarIndex(){return VarIndex;}
+struct SPDStruct* SPDClass::getSPDArray(){return SPDArray;}
+
+///////////////////////////////////////////////////////////////////////////
+//  AxisSPD
+// - to be moved to the serialization layer?
+//
+enum mcsSPDSelector AxisSPD::getSPDSelector()
+{
+    return AxisVarSelection;
+}
+SmartMotorDevice* AxisSPD::getSMDevPtr()
+{
+    return smDevPtr;
+}
+AxisSPD::AxisSPD(enum mcsSPDSelector AxisVarSelectionIn, SmartMotorDevice* smDevPtrIn):
+    SPDClass(AxisVarSelectionIn, smDevPtrIn, smDevPtrIn->getSPDArray())
+{
+    AxisVarSelection = AxisVarSelectionIn;
+    smDevPtr = smDevPtrIn;
+}
+
+float AxisSPD::getFloatVal()
+{
+    return getSPDFloatValue(AxisVarSelection, smDevPtr->getSPDArray());
+}
+const char* AxisSPD::getLabelString()
+{
+    return getSPDLabelString(AxisVarSelection, smDevPtr->getSPDArray());
+}
+const char* AxisSPD::getUnitsString()
+{
+    return getSPDUnitsString(AxisVarSelection, smDevPtr->getSPDArray());
+}
