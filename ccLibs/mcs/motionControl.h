@@ -298,7 +298,7 @@ struct SPDStruct AxisSPDStructArray[mcsEND] ={
                 {mcsCurNLim,                "Current -Limit",       "(A)",              0,FLOAT_TYPE,   sizeof(mystruct.Current.LimitNeg),              &mystruct.Current.LimitNeg},
                 {mcsMotConTorque,           "Motor Cont. Torque",   "(Nm)",             0,FLOAT_TYPE,   sizeof(mystruct.MotorModel.ContinousTorque),    &mystruct.MotorModel.ContinousTorque},
                 {mcsMotVcc,                 "Motor Vcc",            "(V)",              0,FLOAT_TYPE,   sizeof(mystruct.MotorModel.Vcc),                &mystruct.MotorModel.Vcc},
-                {mcsMotdT,                  "Motor dT",             "(sec)",            1,FLOAT_TYPE,   sizeof(mystruct.MotorModel.dT),                 &mystruct.MotorModel.dT},
+                {mcsMotdT,                  "Motor dT",             "(sec)",            0,FLOAT_TYPE,   sizeof(mystruct.MotorModel.dT),                 &mystruct.MotorModel.dT},
                 {mcsMotTime,                "Motor Real Time",      "(sec)",            1,FLOAT_TYPE,   sizeof(mystruct.MotorModel.Time),               &mystruct.MotorModel.Time},
                 {mcsMotReset,               "Motor Reset",          "(yes/no)",         0,UNSIGNED_TYPE,sizeof(mystruct.MotorModel.Reset),              &mystruct.MotorModel.Reset},
                 {mcsMotWMinRes,             "Motor Vel. Res.",      "(rad/sec)",        0,FLOAT_TYPE,   sizeof(mystruct.MotorModel.WminResolution),     &mystruct.MotorModel.WminResolution},
