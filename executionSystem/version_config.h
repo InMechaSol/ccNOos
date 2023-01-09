@@ -195,59 +195,9 @@ STATIC_ASSERT(sizeof(I_32)==4, I_32_must_be_32_bits);
 STATIC_ASSERT(sizeof(float)==4, float_must_be_32_bits);
 STATIC_ASSERT(sizeof(double)==8, doube_must_be_64_bits);
 
-///////////////////////////////////////////////////////////////////////////////
-// Serial Parameter Data Tags Type
-#define NULL_TYPE -1
-#define FLOAT_TYPE 0
-#define SIGNED_TYPE 1
-#define UNSIGNED_TYPE 2
-struct SPDStruct
-{
-    int selcector;
-    const char *labelString;
-    const char *unitsString;
-    unsigned char readonly;
-    char type;
-    unsigned int size;
-    void* addr;
-};
-union SPD8
-{
-    unsigned char bytes[sizeof(UI_8)];
-    char chars[sizeof(UI_8)];
-    UI_8 uintVal;
-    I_8 intVal;
-};
-union SPD16
-{
-    unsigned char bytes[sizeof(UI_16)];
-    char chars[sizeof(UI_16)];
-    UI_16 uintVal;
-    I_16 intVal;
-};
-union SPD32
-{
-    unsigned char bytes[sizeof(UI_32)];
-    char chars[sizeof(UI_32)];
-    UI_32 uintVal;
-    I_32 intVal;
-    float floatVal;
-};
-union SPD64
-{
-    unsigned char bytes[sizeof(UI_32)];
-    char chars[sizeof(UI_32)];
-    UI_32 uintVal;
-    I_32 intVal;
-    float floatVal;
-};
 
-// move these to the packets or?
-const char* getSPDLabelString(int VarSelectionIn, struct SPDStruct* DataStructArray);
-const char* getSPDUnitsString(int VarSelectionIn, struct SPDStruct* DataStructArray);
-float getSPDFloatValue(int VarSelectionIn, struct SPDStruct* DataStructArray);
-void setSPDFloatValue(float inVal, int VarSelectionIn, struct SPDStruct* DataStructArray);
-UI_8 getSPDReadOnly(int VarSelectionIn, struct SPDStruct* DataStructArray);
+
+
 
 ///////////////////////////////////////////////////////////////////////////////
 // True / False macros for UI_8 data type in boolean operatoins

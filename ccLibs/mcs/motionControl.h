@@ -27,7 +27,7 @@ Notes:
 #ifndef __ccNOos_MCS__
 #define __ccNOos_MCS__
 
-#include "version_config.h"
+#include "packets_api.h"
 
 ///
 /// \brief The controlTypeEnum enum

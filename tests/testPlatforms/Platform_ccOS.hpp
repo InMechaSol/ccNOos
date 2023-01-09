@@ -85,3 +85,9 @@ ExeSysAPIFuncsTemplate
 // 11) OS execution system instance builds on ccNOos level exeSys
 OSexecutionSystemClass theExecutionSystem(uSEC_PER_CLOCK);
 
+
+float sqrtFloat(float inFloat)
+{
+    return sqrtf(inFloat);
+}
+

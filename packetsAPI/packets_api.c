@@ -91,3 +91,65 @@ void parseTokenEndianSwapped(struct packAPIStruct* packStructPtrIn, void* TokenP
         ((UI_8*)TokenPtr)[TokenLen - 1 - i] = packStructPtrIn->devptr->inbuff.bytebuff[packStructPtrIn->devptr->parseIndex++];
 }
 
+///////////////////////////////////////////////
+// SPD - Serial Parameter Data (type)
+const char* getSPDLabelString(int VarSelectionIn, struct SPDStruct* DataStructArray) { return DataStructArray[VarSelectionIn].labelString; }
+const char* getSPDUnitsString(int VarSelectionIn, struct SPDStruct* DataStructArray) { return DataStructArray[VarSelectionIn].unitsString; }
+UI_8 getSPDReadOnly(int VarSelectionIn, struct SPDStruct* DataStructArray) { return DataStructArray[VarSelectionIn].readonly; }
+void setSPDFloatValue(float inVal, int VarSelectionIn, struct SPDStruct* DataStructArray)
+{
+    if (DataStructArray[VarSelectionIn].type == FLOAT_TYPE) // floating point
+    {
+        if (DataStructArray[VarSelectionIn].size == 4)
+            *((float*)DataStructArray[VarSelectionIn].addr) = inVal;
+        else if (DataStructArray[VarSelectionIn].size == 8)
+            *((double*)DataStructArray[VarSelectionIn].addr) = inVal;
+    }
+    else if (DataStructArray[VarSelectionIn].type == SIGNED_TYPE) // signed integer
+    {
+        if (DataStructArray[VarSelectionIn].size == 1)
+            *((I_8*)DataStructArray[VarSelectionIn].addr) = inVal;
+        else if (DataStructArray[VarSelectionIn].size == 2)
+            *((I_16*)DataStructArray[VarSelectionIn].addr) = inVal;
+        else if (DataStructArray[VarSelectionIn].size == 4)
+            *((I_32*)DataStructArray[VarSelectionIn].addr) = inVal;
+    }
+    else if (DataStructArray[VarSelectionIn].type == UNSIGNED_TYPE) // unsigned integer
+    {
+        if (DataStructArray[VarSelectionIn].size == 1)
+            *((UI_8*)DataStructArray[VarSelectionIn].addr) = inVal;
+        else if (DataStructArray[VarSelectionIn].size == 2)
+            *((UI_16*)DataStructArray[VarSelectionIn].addr) = inVal;
+        else if (DataStructArray[VarSelectionIn].size == 4)
+            *((UI_32*)DataStructArray[VarSelectionIn].addr) = inVal;
+    }
+}
+float getSPDFloatValue(int VarSelectionIn, struct SPDStruct* DataStructArray)
+{
+    if (DataStructArray[VarSelectionIn].type == FLOAT_TYPE) // floating point
+    {
+        if (DataStructArray[VarSelectionIn].size == 4)
+            return *((float*)DataStructArray[VarSelectionIn].addr);
+        else if (DataStructArray[VarSelectionIn].size == 8)
+            return *((double*)DataStructArray[VarSelectionIn].addr);
+    }
+    else if (DataStructArray[VarSelectionIn].type == SIGNED_TYPE) // signed integer
+    {
+        if (DataStructArray[VarSelectionIn].size == 1)
+            return *((I_8*)DataStructArray[VarSelectionIn].addr);
+        else if (DataStructArray[VarSelectionIn].size == 2)
+            return *((I_16*)DataStructArray[VarSelectionIn].addr);
+        else if (DataStructArray[VarSelectionIn].size == 4)
+            return *((I_32*)DataStructArray[VarSelectionIn].addr);
+    }
+    else if (DataStructArray[VarSelectionIn].type == UNSIGNED_TYPE) // unsigned integer
+    {
+        if (DataStructArray[VarSelectionIn].size == 1)
+            return *((UI_8*)DataStructArray[VarSelectionIn].addr);
+        else if (DataStructArray[VarSelectionIn].size == 2)
+            return *((UI_16*)DataStructArray[VarSelectionIn].addr);
+        else if (DataStructArray[VarSelectionIn].size == 4)
+            return *((UI_32*)DataStructArray[VarSelectionIn].addr);
+    }
+    return 0;
+}
