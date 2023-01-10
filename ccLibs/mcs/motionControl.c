@@ -229,7 +229,7 @@ void executedcMotorStruct(struct dcMotorStruct* dcMotorStructPtrIn)
     // calculate ss next states from ss differentials and time delta
     dcMotorStructPtrIn->I += dcMotorStructPtrIn->Idot*dcMotorStructPtrIn->dT;
     dcMotorStructPtrIn->W += dcMotorStructPtrIn->Wdot*dcMotorStructPtrIn->dT;
-    dcMotorStructPtrIn->Time += dcMotorStructPtrIn->dT;
+    //dcMotorStructPtrIn->Time += dcMotorStructPtrIn->dT;
 
     // calculate observed variables from states and parameters
     dcMotorStructPtrIn->Torque = dcMotorStructPtrIn->I/dcMotorStructPtrIn->Km;

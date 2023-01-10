@@ -34,3 +34,18 @@ struct packAPIStruct* packetsAPIClass::getPacketdataPtr()
 {
     return packDataPtr;
 }
+
+///////////////////////////////////////////////////////////////////////////
+//  SPDClass
+// - to be moved to the packetsAPI.cpp file
+//
+SPDClass::SPDClass(int VarIndexIn, void* DataPtrIn, struct SPDStruct* SPDArrayPtr)
+{
+    DataPtr = DataPtrIn;
+    VarIndex = VarIndexIn;
+    SPDArray = SPDArrayPtr;
+}
+float SPDClass::getFloatValue(){return getSPDFloatValue(VarIndex, SPDArray);}
+void* SPDClass::getDataPtr(){return DataPtr;}
+int SPDClass::getVarIndex(){return VarIndex;}
+struct SPDStruct* SPDClass::getSPDArray(){return SPDArray;}

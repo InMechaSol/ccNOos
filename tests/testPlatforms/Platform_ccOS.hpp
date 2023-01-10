@@ -24,6 +24,9 @@ Notes:
 
 */
 
+#ifndef __PlatformCCOS__
+#define __PlatformCCOS__
+
 #if PLATFORM_NAME!=ccOS
 error PLATFORM_NAME must be ccOS
 #endif
@@ -46,7 +49,7 @@ error PLATFORM_NAME must be ccOS
 
 
 #include "os_execution_system.hpp"
-#include "console_menu.h"
+#include "packets_api.h"
 
 
 
@@ -91,3 +94,12 @@ float sqrtFloat(float inFloat)
     return sqrtf(inFloat);
 }
 
+float ModuloFloat(float floatValue, float* intPartPtr)
+{
+    double intPart, fracPart;
+    fracPart = modf(floatValue, &intPart);
+    *intPartPtr = (float)intPart;
+    return (float)fracPart;
+}
+
+#endif // !__PlatformCCOS__

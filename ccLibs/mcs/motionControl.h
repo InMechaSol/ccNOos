@@ -342,26 +342,7 @@ public:
 };
 
 
-// make it a base class instead
-class SPDClass
-{
-private:
-    void* DataPtr;
-    int VarIndex;
-    struct SPDStruct* SPDArray;
 
-public:
-    SPDClass(int VarIndexIn, void* DataPtrIn, struct SPDStruct* SPDArrayPtr);
-
-    float getFloatValue();
-
-    struct SPDStruct* getSPDArray();
-    void* getDataPtr();
-    int getVarIndex();
-
-    virtual const char* getLabelString() = 0;
-    virtual const char* getUnitsString() = 0;
-};
 
 
 
