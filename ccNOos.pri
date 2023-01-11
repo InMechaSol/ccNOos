@@ -106,6 +106,15 @@ if(ccNOosAllLibs|ccNOosLibs_mcs) {
     } else { # a straight c build uses .c as source
 		SOURCES += $${fName}.c
     }
+    fName = $$iPath/motionControlSerialize
+    INCLUDEPATH += $$iPath
+    HEADERS += $${fName}.h
+    if(ccNOos_CPPBuild()) { # a cpp build uses .c as header
+        HEADERS += $${fName}.c
+        SOURCES += $${fName}.cpp # only in cpp build
+    } else { # a straight c build uses .c as source
+                SOURCES += $${fName}.c
+    }
 }
 
 

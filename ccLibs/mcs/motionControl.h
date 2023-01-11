@@ -151,94 +151,6 @@ void positionLoop(struct axisStruct* axisStructPtr);
 void velocityLoop(struct axisStruct* axisStructPtr);
 void currentLoop(struct axisStruct* axisStructPtr);
 
-enum mcsSPDSelector
-{
-    mcsNone = 0,
-    mcsPlndT,
-    mcsPlnTalpha,
-    mcsPlnTomega,
-    mcsPlnTMotion,
-    mcsPlnDeltaPos,
-    mcsDesiredPos,
-    mcsDesiredVel,
-    mcsDesiredAcc,
-    mcsActMotionState,
-    mcsDesiredMotionState,
-    mcsUseEstimatedVel,
-    mcsEstimatedVelocity,
-    mcsCommandVelocity,
-    mcsLastPosition,
-    mcsPositionResolution,
-    mcsActualControlMode,
-    mcsDesiredControlMode,
-    mcsPosCMD,
-    mcsPosFBK,
-    mcsPosERR,
-    mcsPosPLim,
-    mcsPosNLim,
-    mcsPosCtrldT,
-    mcsPosCtrlKv,
-    mcsPosCtrlcmdLast,
-    mcsPosCtrlcmdVel,
-    mcsVelCMD,
-    mcsVelFBK,
-    mcsVelERR,
-    mcsVelPLim,
-    mcsVelNLim,
-    mcsVelCtrldT,
-    mcsVelCtrlErr,
-    mcsVelCtrlErrLast,
-    mcsVelCtrlOut,
-    mcsVelCtrlOutLast,
-    mcsVelCtrlOutI,
-    mcsVelCtrlOutP,
-    mcsVelCtrlKp,
-    mcsVelCtrlTi,
-    mcsVelCtrlAlpha,
-    mcsVelCtrlReset,
-    mcsVelCtrlSaturated,
-    mcsCurCMD,
-    mcsCurFBK,
-    mcsCurERR,
-    mcsCurPLim,
-    mcsCurNLim,
-    mcsMotConTorque,
-    mcsMotVcc,
-    mcsMotdT,
-    mcsMotTime,
-    mcsMotReset,
-    mcsMotWMinRes,
-    mcsMotIdot,
-    mcsMotI,
-    mcsMotWdot,
-    mcsMotW,
-    mcsMotJ,
-    mcsMotR,
-    mcsMotL,
-    mcsMotKm,
-    mcsMotV,
-    mcsMotVemf,
-    mcsMotTorque,
-    mcsMotFricTor,
-    mcsMotEff,
-    mcsCurCtrldT,
-    mcsCurCtrlErr,
-    mcsCurCtrlErrLast,
-    mcsCurCtrlOut,
-    mcsCurCtrlOutLast,
-    mcsCurCtrlOutI,
-    mcsCurCtrlOutP,
-    mcsCurCtrlKp,
-    mcsCurCtrlTi,
-    mcsCurCtrlAlpha,
-    mcsCurCtrlReset,
-    mcsCurCtrlSaturated,
-    mcsPWMCMD,
-    mcsEND
-};
-void LinkAxisSPDStructArray(struct axisStruct* mystruct, struct SPDStruct* myArray);
-
-
 #ifdef __cplusplus
 
 class SmartMotorDevice
@@ -246,39 +158,18 @@ class SmartMotorDevice
 private:
 
 struct axisStruct* mystruct;
-struct SPDStruct AxisSPDStructArray[mcsEND];
+struct SPDStruct* AxisSPDStructArray;
 
 protected:
     virtual void readSMData(){return;}
     virtual void writeSMData(){return;}
 
 public:
-    SmartMotorDevice(struct axisStruct* mystructIn);
+    SmartMotorDevice(struct axisStruct* mystructIn, struct SPDStruct* AxisSPDStructArrayIn);
     void prepare();
     void execute();
     struct SPDStruct* getSPDArray();
 };
-
-
-
-
-
-
-class AxisSPD: public SPDClass
-{
-private:
-    SmartMotorDevice* smDevPtr = nullptr;
-    enum mcsSPDSelector AxisVarSelection = mcsNone;
-public:
-    AxisSPD(enum mcsSPDSelector AxisVarSelectionIn, SmartMotorDevice* smDevPtrIn);
-    enum mcsSPDSelector getSPDSelector();
-    SmartMotorDevice* getSMDevPtr();
-    float getFloatVal();
-    const char* getLabelString();
-    const char* getUnitsString();
-};
-
-
 
 #endif
 #endif

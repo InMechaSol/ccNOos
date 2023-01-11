@@ -24,46 +24,36 @@ Notes:
 
 */
 
-#include "motionControl.c"
-#include "motionControlSerialize.h"
+#include "motionControlSerialize.c"
 
-SmartMotorDevice::SmartMotorDevice(struct axisStruct* mystructIn,struct SPDStruct* AxisSPDStructArrayIn)
+///////////////////////////////////////////////////////////////////////////
+//  AxisSPD
+// - to be moved to the serialization layer?
+//
+enum mcsSPDSelector AxisSPD::getSPDSelector()
 {
-    AxisSPDStructArray = AxisSPDStructArrayIn;
-    mystruct = mystructIn;
-    LinkAxisSPDStructArray(mystruct, AxisSPDStructArray);
+    return AxisVarSelection;
 }
-void SmartMotorDevice::prepare()
+SmartMotorDevice* AxisSPD::getSMDevPtr()
 {
-
+    return smDevPtr;
 }
-void SmartMotorDevice::execute()
+AxisSPD::AxisSPD(enum mcsSPDSelector AxisVarSelectionIn, SmartMotorDevice* smDevPtrIn):
+    SPDClass(AxisVarSelectionIn, smDevPtrIn, smDevPtrIn->getSPDArray())
 {
-    // planning loop
-    planningLoop(mystruct);
-
-    // position loop
-    positionLoop(mystruct);
-
-    // velocity loop
-    velocityLoop(mystruct);
-
-    // current loop
-    currentLoop(mystruct);
-
-    // voltage/pwm
-
-    // dc motor model
-    preparedcMotorStruct(&mystruct->MotorModel);
-    int times = mystruct->CurController.dT/mystruct->MotorModel.dT;
-    for(int i = 0; i < times; i++)
-    {
-        executedcMotorStruct(&mystruct->MotorModel);
-    }
-    mystruct->MotorModel.Time += mystruct->CurController.dT;
-}
-struct SPDStruct* SmartMotorDevice::getSPDArray()
-{
-    return &AxisSPDStructArray[mcsNone];
+    AxisVarSelection = AxisVarSelectionIn;
+    smDevPtr = smDevPtrIn;
 }
 
+float AxisSPD::getFloatVal()
+{
+    return getSPDFloatValue(AxisVarSelection, smDevPtr->getSPDArray());
+}
+const char* AxisSPD::getLabelString()
+{
+    return getSPDLabelString(AxisVarSelection, smDevPtr->getSPDArray());
+}
+const char* AxisSPD::getUnitsString()
+{
+    return getSPDUnitsString(AxisVarSelection, smDevPtr->getSPDArray());
+}
