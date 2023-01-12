@@ -41,6 +41,7 @@ struct devicedatastruct createDeviceStruct()
     outstruct.inbuff.charbuff[0] = 0x00;
     outstruct.outbuff.charbuff[0] = 0x00;
     outstruct.parseIndex = 0;
+    outstruct.swapByteOrder = ui8FALSE;
     return outstruct;
 }
 

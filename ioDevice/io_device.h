@@ -63,7 +63,7 @@ struct devicedatastruct
 	union devicebufferunion inbuff;
 	union devicebufferunion outbuff;
 	enum devicestateenum devstate;
-	UI_8 newDataReadIn;
+    UI_8 newDataReadIn, swapByteOrder;
 	UI_8 triggerWriteOperation;
     UI_16 numbytes2Read;
     UI_16 numbytesReadIn;

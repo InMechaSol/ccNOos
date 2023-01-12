@@ -91,6 +91,36 @@ void parseTokenEndianSwapped(struct packAPIStruct* packStructPtrIn, void* TokenP
         ((UI_8*)TokenPtr)[TokenLen - 1 - i] = packStructPtrIn->devptr->inbuff.bytebuff[packStructPtrIn->devptr->parseIndex++];
 }
 
+void parseSPD(struct packAPIStruct* packStructPtrin, struct SPDStruct* DataStructPtr)
+{
+
+}
+void packageSPD(struct packAPIStruct* packStructPtrin, struct SPDStruct* DataStructPtr)
+{
+    // header bytes must be set in the packet structure and packaged for transmisstion
+    // BEFORE packaging an SPD in the data segment
+
+    // then
+    if(packStructPtrin->devptr->swapByteOrder)
+    {
+        packageTokenEndianSwapped(packStructPtrin, DataStructPtr->addr, DataStructPtr->size);
+    }
+    else
+    {
+        packageToken(packStructPtrin, DataStructPtr->addr, DataStructPtr->size);
+    }
+
+}
+
+UI_8 parseSPDArray(struct packAPIStruct* packStructPtrin, struct SPDStruct* DataStructArray)
+{
+
+}
+void packageSPDArray(struct packAPIStruct* packStructPtrin, struct SPDStruct* DataStructArray, UI_8 ArrayLen)
+{
+
+}
+
 ///////////////////////////////////////////////
 // SPD - Serial Parameter Data (type)
 const char* getSPDLabelString(int VarSelectionIn, struct SPDStruct* DataStructArray) { return DataStructArray[VarSelectionIn].labelString; }
@@ -152,4 +182,15 @@ float getSPDFloatValue(int VarSelectionIn, struct SPDStruct* DataStructArray)
             return *((UI_32*)DataStructArray[VarSelectionIn].addr);
     }
     return 0;
+}
+
+
+void setSPDFromString(char* inString, int VarSelectionIn, struct SPDStruct* DataStructArray)
+{
+
+}
+
+void packageSPDFromString(struct packAPIStruct* packStructPtrin, char* inString, int VarSelectionIn, struct SPDStruct* DataStructArray)
+{
+
 }

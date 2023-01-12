@@ -33,51 +33,61 @@ fName = $$iPath/execution_system
 INCLUDEPATH += $$iPath
 HEADERS += $${fName}.h
 HEADERS += $$iPath/version_config.h
-if(ccNOos_CPPBuild()) { # a cpp build uses .c as header
-    HEADERS += $${fName}.c
-    SOURCES += $${fName}_class.cpp # only in cpp build
-} else { # a straight c build uses .c as source
-	SOURCES += $${fName}.c
+if(!ccNOos_OnlyHeaders){
+    if(ccNOos_CPPBuild()) { # a cpp build uses .c as header
+        HEADERS += $${fName}.c
+        SOURCES += $${fName}_class.cpp # only in cpp build
+    } else { # a straight c build uses .c as source
+        SOURCES += $${fName}.c
+    }
 }
 iPath = $$ccNOosDIR/computeModule
 fName = $$iPath/compute_module
 INCLUDEPATH += $$iPath
 HEADERS += $${fName}.h
-if(ccNOos_CPPBuild()) { # a cpp build uses .c as header
-    HEADERS += $${fName}.c
-	SOURCES += $${fName}_class.cpp # only in cpp build
-} else { # a straight c build uses .c as source
-    SOURCES += $${fName}.c
+if(!ccNOos_OnlyHeaders){
+    if(ccNOos_CPPBuild()) { # a cpp build uses .c as header
+        HEADERS += $${fName}.c
+        SOURCES += $${fName}_class.cpp # only in cpp build
+    } else { # a straight c build uses .c as source
+        SOURCES += $${fName}.c
+    }
 }
 iPath = $$ccNOosDIR/consoleMenu
 fName = $$iPath/console_menu
 INCLUDEPATH += $$iPath
 HEADERS += $${fName}.h
-if(ccNOos_CPPBuild()) { # a cpp build uses .c as header
-    HEADERS += $${fName}.c
-    SOURCES += $${fName}_class.cpp # only in cpp build
-} else { # a straight c build uses .c as source
-	SOURCES += $${fName}.c
+if(!ccNOos_OnlyHeaders){
+    if(ccNOos_CPPBuild()) { # a cpp build uses .c as header
+        HEADERS += $${fName}.c
+        SOURCES += $${fName}_class.cpp # only in cpp build
+    } else { # a straight c build uses .c as source
+        SOURCES += $${fName}.c
+    }
 }
 iPath = $$ccNOosDIR/packetsAPI
 fName = $$iPath/packets_api
 INCLUDEPATH += $$iPath
 HEADERS += $${fName}.h
-if(ccNOos_CPPBuild()) { # a cpp build uses .c as header
-    HEADERS += $${fName}.c
-    SOURCES += $${fName}_class.cpp # only in cpp build
-} else { # a straight c build uses .c as source
+if(!ccNOos_OnlyHeaders){
+    if(ccNOos_CPPBuild()) { # a cpp build uses .c as header
+        HEADERS += $${fName}.c
+        SOURCES += $${fName}_class.cpp # only in cpp build
+    } else { # a straight c build uses .c as source
         SOURCES += $${fName}.c
+    }
 }
 iPath = $$ccNOosDIR/ioDevice
 fName = $$iPath/io_device
 INCLUDEPATH += $$iPath
 HEADERS += $${fName}.h
-if(ccNOos_CPPBuild()) { # a cpp build uses .c as header
-    HEADERS += $${fName}.c
-    SOURCES += $${fName}_class.cpp # only in cpp build
-} else { # a straight c build uses .c as source
-	SOURCES += $${fName}.c
+if(!ccNOos_OnlyHeaders){
+    if(ccNOos_CPPBuild()) { # a cpp build uses .c as header
+        HEADERS += $${fName}.c
+        SOURCES += $${fName}_class.cpp # only in cpp build
+    } else { # a straight c build uses .c as source
+        SOURCES += $${fName}.c
+    }
 }
 
 
@@ -87,33 +97,40 @@ if(ccNOosAllLibs|ccNOosLibs_acs) {
     fName = $$iPath/satComControl
     INCLUDEPATH += $$iPath
     HEADERS += $${fName}.h
-    if(ccNOos_CPPBuild()) { # a cpp build uses .c as header
-        HEADERS += $${fName}.c
-        SOURCES += $${fName}.cpp # only in cpp build
-    } else { # a straight c build uses .c as source
-		SOURCES += $${fName}.c
+    if(!ccNOos_OnlyHeaders){
+        if(ccNOos_CPPBuild()) { # a cpp build uses .c as header
+            HEADERS += $${fName}.c
+            SOURCES += $${fName}.cpp # only in cpp build
+        } else { # a straight c build uses .c as source
+            SOURCES += $${fName}.c
+        }
     }
 }
+
 if(ccNOosAllLibs|ccNOosLibs_mcs) {
     DEFINES += __USE_MCS
     iPath = $$ccNOosDIR/ccLibs/mcs
     fName = $$iPath/motionControl
     INCLUDEPATH += $$iPath
     HEADERS += $${fName}.h
-    if(ccNOos_CPPBuild()) { # a cpp build uses .c as header
-        HEADERS += $${fName}.c
-        SOURCES += $${fName}.cpp # only in cpp build
-    } else { # a straight c build uses .c as source
-		SOURCES += $${fName}.c
+    if(!ccNOos_OnlyHeaders){
+        if(ccNOos_CPPBuild()) { # a cpp build uses .c as header
+            HEADERS += $${fName}.c
+            SOURCES += $${fName}.cpp # only in cpp build
+        } else { # a straight c build uses .c as source
+            SOURCES += $${fName}.c
+        }
     }
     fName = $$iPath/motionControlSerialize
     INCLUDEPATH += $$iPath
     HEADERS += $${fName}.h
-    if(ccNOos_CPPBuild()) { # a cpp build uses .c as header
-        HEADERS += $${fName}.c
-        SOURCES += $${fName}.cpp # only in cpp build
-    } else { # a straight c build uses .c as source
-                SOURCES += $${fName}.c
+    if(!ccNOos_OnlyHeaders){
+        if(ccNOos_CPPBuild()) { # a cpp build uses .c as header
+            HEADERS += $${fName}.c
+            SOURCES += $${fName}.cpp # only in cpp build
+        } else { # a straight c build uses .c as source
+            SOURCES += $${fName}.c
+        }
     }
 }
 
@@ -124,11 +141,13 @@ if(ccNOosAllDevs|ccNOosDevs_ADRF6650) {
     fName = $$iPath/ADRF6650
     INCLUDEPATH += $$iPath
     HEADERS += $${fName}.h
-    if(ccNOos_CPPBuild()) { # a cpp build uses .c as header
-        HEADERS += $${fName}.c
-        SOURCES += $${fName}.cpp # only in cpp build
-    } else { # a straight c build uses .c as source
-		SOURCES += $${fName}.c
+    if(!ccNOos_OnlyHeaders){
+        if(ccNOos_CPPBuild()) { # a cpp build uses .c as header
+            HEADERS += $${fName}.c
+            SOURCES += $${fName}.cpp # only in cpp build
+        } else { # a straight c build uses .c as source
+            SOURCES += $${fName}.c
+        }
     }
     HEADERS += $$ccNOosDIR/ccLibs/devices/ADRF6650/ADRF6650_Map.h
 }
@@ -137,11 +156,13 @@ if(ccNOosAllDevs|ccNOosDevs_LTC2360) {
     fName = $$iPath/LTC2360
     INCLUDEPATH += $$iPath
     HEADERS += $${fName}.h
-    if(ccNOos_CPPBuild()) { # a cpp build uses .c as header
-        HEADERS += $${fName}.c
-        SOURCES += $${fName}.cpp # only in cpp build
-    } else { # a straight c build uses .c as source
-		SOURCES += $${fName}.c
+    if(!ccNOos_OnlyHeaders){
+        if(ccNOos_CPPBuild()) { # a cpp build uses .c as header
+            HEADERS += $${fName}.c
+            SOURCES += $${fName}.cpp # only in cpp build
+        } else { # a straight c build uses .c as source
+            SOURCES += $${fName}.c
+        }
     }
 }
 if(ccNOosAllDevs|ccNOosDevs_HMR3300) {
@@ -149,11 +170,13 @@ if(ccNOosAllDevs|ccNOosDevs_HMR3300) {
     fName = $$iPath/HMR3300
     INCLUDEPATH += $$iPath
     HEADERS += $${fName}.h
-    if(ccNOos_CPPBuild()) { # a cpp build uses .c as header
-        HEADERS += $${fName}.c
-        SOURCES += $${fName}.cpp # only in cpp build
-    } else { # a straight c build uses .c as source
-		SOURCES += $${fName}.c
+    if(!ccNOos_OnlyHeaders){
+        if(ccNOos_CPPBuild()) { # a cpp build uses .c as header
+            HEADERS += $${fName}.c
+            SOURCES += $${fName}.cpp # only in cpp build
+        } else { # a straight c build uses .c as source
+            SOURCES += $${fName}.c
+        }
     }
 }
 if(ccNOosAllDevs|ccNOosDevs_NEO_LEA_M8T) {
@@ -161,11 +184,13 @@ if(ccNOosAllDevs|ccNOosDevs_NEO_LEA_M8T) {
     fName = $$iPath/NEO_LEA_M8T
     INCLUDEPATH += $$iPath
     HEADERS += $${fName}.h
-    if(ccNOos_CPPBuild()) { # a cpp build uses .c as header
-        HEADERS += $${fName}.c
-        SOURCES += $${fName}.cpp # only in cpp build
-    } else { # a straight c build uses .c as source
-		SOURCES += $${fName}.c
+    if(!ccNOos_OnlyHeaders){
+        if(ccNOos_CPPBuild()) { # a cpp build uses .c as header
+            HEADERS += $${fName}.c
+            SOURCES += $${fName}.cpp # only in cpp build
+        } else { # a straight c build uses .c as source
+            SOURCES += $${fName}.c
+        }
     }
 }
 if(ccNOosAllDevs|ccNOosDevs_MCP23017) {
@@ -173,11 +198,13 @@ if(ccNOosAllDevs|ccNOosDevs_MCP23017) {
     fName = $$iPath/MCP23017
     INCLUDEPATH += $$iPath
     HEADERS += $${fName}.h
-    if(ccNOos_CPPBuild()) { # a cpp build uses .c as header
-        HEADERS += $${fName}.c
-        SOURCES += $${fName}.cpp # only in cpp build
-    } else { # a straight c build uses .c as source
-		SOURCES += $${fName}.c
+    if(!ccNOos_OnlyHeaders){
+        if(ccNOos_CPPBuild()) { # a cpp build uses .c as header
+            HEADERS += $${fName}.c
+            SOURCES += $${fName}.cpp # only in cpp build
+        } else { # a straight c build uses .c as source
+            SOURCES += $${fName}.c
+        }
     }
 }
 if(ccNOosAllDevs|ccNOosDevs_MOP_VFD) {
@@ -188,10 +215,12 @@ if(ccNOosAllDevs|ccNOosDevs_HMC1119) {
     fName = $$iPath/HMC1119
     INCLUDEPATH += $$iPath
     HEADERS += $${fName}.h
-    if(ccNOos_CPPBuild()) { # a cpp build uses .c as header
-        HEADERS += $${fName}.c
-        SOURCES += $${fName}.cpp # only in cpp build
-    } else { # a straight c build uses .c as source
-		SOURCES += $${fName}.c
+    if(!ccNOos_OnlyHeaders){
+        if(ccNOos_CPPBuild()) { # a cpp build uses .c as header
+            HEADERS += $${fName}.c
+            SOURCES += $${fName}.cpp # only in cpp build
+        } else { # a straight c build uses .c as source
+            SOURCES += $${fName}.c
+        }
     }
 }

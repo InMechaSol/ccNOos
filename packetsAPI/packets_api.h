@@ -35,6 +35,18 @@ Notes:
 	#include "io_device.h"
 #endif // !__USINGCONSOLEMENU
 
+
+// SPD packets strategy ???
+// PackID - Selects SPD Array and Access Type
+//          bits 0-1 : Access Type
+//                 0 : Read
+//                 1 : Write
+//                 2 : ??
+//                 3 : ??
+//          bits 2-7 : SPD Array Selector (0-2^6-1)
+// PackType - is the SPD index for the selected SPD Array
+
+
 // PacketsAPI Data Structure
 struct packAPIStruct
 {
@@ -60,6 +72,13 @@ void packageTokenEndianSwapped(struct packAPIStruct* packStructPtrIn, void* Toke
 
 void parseToken(struct packAPIStruct* packStructPtrIn, void* TokenPtr, UI_8 TokenLen);
 void parseTokenEndianSwapped(struct packAPIStruct* packStructPtrIn, void* TokenPtr, UI_8 TokenLen);
+
+void parseSPD(struct packAPIStruct* packStructPtrin, struct SPDStruct* DataStructPtr);
+void packageSPD(struct packAPIStruct* packStructPtrin, struct SPDStruct* DataStructPtr);
+
+UI_8 parseSPDArray(struct packAPIStruct* packStructPtrin, struct SPDStruct* DataStructArray);
+void packageSPDArray(struct packAPIStruct* packStructPtrin, struct SPDStruct* DataStructArray, UI_8 ArrayLen);
+
 
 ///////////////////////////////////////////////////////////////////////////////
 // Serial Parameter Data Tags Type
@@ -120,6 +139,10 @@ void* getSPDAddr(int VarSelectionIn, struct SPDStruct* DataStructArray);
 
 float getSPDFloatValue(int VarSelectionIn, struct SPDStruct* DataStructArray);
 void setSPDFloatValue(float inVal, int VarSelectionIn, struct SPDStruct* DataStructArray);
+void setSPDFromString(char* inString, int VarSelectionIn, struct SPDStruct* DataStructArray);
+
+
+void packageSPDFromString(struct packAPIStruct* packStructPtrin, char* inString, int VarSelectionIn, struct SPDStruct* DataStructArray);
 
 #ifdef __cplusplus
 
