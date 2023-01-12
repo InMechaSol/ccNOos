@@ -93,6 +93,18 @@ void parseTokenEndianSwapped(struct packAPIStruct* packStructPtrIn, void* TokenP
 
 void parseSPD(struct packAPIStruct* packStructPtrin, struct SPDStruct* DataStructPtr)
 {
+    // header bytes must have been parsed and values stored in the header structure
+    // BEFORE parsing an SPD from the data segment
+
+    // then
+    if (packStructPtrin->devptr->swapByteOrder)
+    {
+        parseTokenEndianSwapped(packStructPtrin, DataStructPtr->addr, DataStructPtr->size);
+    }
+    else
+    {
+        parseToken(packStructPtrin, DataStructPtr->addr, DataStructPtr->size);
+    }
 
 }
 void packageSPD(struct packAPIStruct* packStructPtrin, struct SPDStruct* DataStructPtr)
@@ -112,13 +124,41 @@ void packageSPD(struct packAPIStruct* packStructPtrin, struct SPDStruct* DataStr
 
 }
 
-UI_8 parseSPDArray(struct packAPIStruct* packStructPtrin, struct SPDStruct* DataStructArray)
+void parseSPDArray(struct packAPIStruct* packStructPtrin, struct SPDStruct* DataStructArray, UI_8 ArrayLen)
 {
+    // header bytes must have been parsed and values stored in the header structure
+    // BEFORE parsing an SPD from the data segment
 
+    // then
+    for (int i = 0; i < ArrayLen; i++)
+    {
+        if (packStructPtrin->devptr->swapByteOrder)
+        {
+            parseTokenEndianSwapped(packStructPtrin, DataStructArray[i].addr, DataStructArray[i].size);
+        }
+        else
+        {
+            parseToken(packStructPtrin, DataStructArray[i].addr, DataStructArray[i].size);
+        }
+    }
 }
 void packageSPDArray(struct packAPIStruct* packStructPtrin, struct SPDStruct* DataStructArray, UI_8 ArrayLen)
 {
+    // header bytes must be set in the packet structure and packaged for transmisstion
+    // BEFORE packaging an SPD in the data segment
 
+    // then
+    for (int i = 0; i < ArrayLen; i++)
+    {
+        if (packStructPtrin->devptr->swapByteOrder)
+        {
+            packageTokenEndianSwapped(packStructPtrin, DataStructArray[i].addr, DataStructArray[i].size);
+        }
+        else
+        {
+            packageToken(packStructPtrin, DataStructArray[i].addr, DataStructArray[i].size);
+        }
+    }
 }
 
 ///////////////////////////////////////////////
@@ -184,13 +224,85 @@ float getSPDFloatValue(int VarSelectionIn, struct SPDStruct* DataStructArray)
     return 0;
 }
 
-
-void setSPDFromString(char* inString, int VarSelectionIn, struct SPDStruct* DataStructArray)
+// use temp variable on stack to attempt to parse string value
+// into the the SPD.addr
+UI_8 setSPDFromString(char* inString, struct SPDStruct* DataStructPtr)
 {
-
+    // from size and type determine which parse function to call
+        // call the parse function
+    UI_8 goodParse = ui8FALSE;
+    switch (DataStructPtr->type)
+    {
+    case UNSIGNED_TYPE:
+        switch (DataStructPtr->size)
+        {
+        case sizeof(SPD8) : goodParse = ATO_U8(inString,(UI_8*)DataStructPtr->addr);    break;
+        case sizeof(SPD16) : goodParse = ATO_U16(inString, (UI_16*)DataStructPtr->addr);    break;
+        case sizeof(SPD32) : goodParse = ATO_U32(inString, (UI_32*)DataStructPtr->addr);    break;
+        case sizeof(SPD64) : goodParse = ATO_U64(inString, (UI_64*)DataStructPtr->addr);    break;
+        }
+        break;
+    case SIGNED_TYPE: 
+        switch (DataStructPtr->size)
+        {
+        case sizeof(SPD8) : goodParse = ATO_I8(inString,(I_8*)DataStructPtr->addr);    break;
+        case sizeof(SPD16) : goodParse = ATO_I16(inString, (I_16*)DataStructPtr->addr);    break;
+        case sizeof(SPD32) : goodParse = ATO_I32(inString, (I_32*)DataStructPtr->addr);    break;
+        case sizeof(SPD64) : goodParse = ATO_I64(inString, (I_64*)DataStructPtr->addr);    break;
+        }
+        break;
+    case FLOAT_TYPE: 
+        switch (DataStructPtr->size)
+        {
+        case sizeof(SPD32) : goodParse = ATO_F(inString, (float*)DataStructPtr->addr);    break;
+        case sizeof(SPD64) : goodParse = ATO_D(inString, (double*)DataStructPtr->addr);    break;
+        }
+        break;
+    }
+    
+    // return pass/fail
+    return goodParse;
 }
 
-void packageSPDFromString(struct packAPIStruct* packStructPtrin, char* inString, int VarSelectionIn, struct SPDStruct* DataStructArray)
+// use temp variable on stack to hopefully receive parsed string value
+// then package parsed string value into SPD packet buffer
+UI_8 packageSPDFromString(struct packAPIStruct* packStructPtrin, char* inString, int VarSelectionIn, struct SPDStruct* DataStructArray)
 {
+    // create temp containers
+    SPD8  myTempSPD8;
+    SPD16 myTempSPD16;
+    SPD32 myTempSPD32;
+    SPD64 myTempSPD64;
 
+    // package in temp SPDStruct
+    struct SPDStruct myDataStruct;
+    myDataStruct.selcector = VarSelectionIn;
+
+    // determine SPD type to parse into
+    switch (DataStructArray[VarSelectionIn].size)
+    {
+        case sizeof(SPD8)  : myDataStruct.addr = &myTempSPD8;  break;
+        case sizeof(SPD16) : myDataStruct.addr = &myTempSPD16; break;
+        case sizeof(SPD32) : myDataStruct.addr = &myTempSPD32; break;
+        case sizeof(SPD64) : myDataStruct.addr = &myTempSPD64; break;
+    default: myDataStruct.addr = nullptr;
+    }
+
+    // copy size and type from target SPD to tempSPD
+    myDataStruct.size = DataStructArray[VarSelectionIn].size;
+    myDataStruct.type = DataStructArray[VarSelectionIn].type;
+    
+    // attempt to parse into temp SPD
+    if (setSPDFromString(inString, &myDataStruct))
+    {
+        // package parsed value in packet for transmission
+        packageSPD(packStructPtrin, &myDataStruct);
+        return ui8TRUE;
+    }
+    else
+    {
+        // indicate failure
+        return ui8FALSE;
+    }
+    
 }

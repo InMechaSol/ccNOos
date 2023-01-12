@@ -76,7 +76,7 @@ void parseTokenEndianSwapped(struct packAPIStruct* packStructPtrIn, void* TokenP
 void parseSPD(struct packAPIStruct* packStructPtrin, struct SPDStruct* DataStructPtr);
 void packageSPD(struct packAPIStruct* packStructPtrin, struct SPDStruct* DataStructPtr);
 
-UI_8 parseSPDArray(struct packAPIStruct* packStructPtrin, struct SPDStruct* DataStructArray);
+void parseSPDArray(struct packAPIStruct* packStructPtrin, struct SPDStruct* DataStructArray, UI_8 ArrayLen);
 void packageSPDArray(struct packAPIStruct* packStructPtrin, struct SPDStruct* DataStructArray, UI_8 ArrayLen);
 
 
@@ -139,10 +139,11 @@ void* getSPDAddr(int VarSelectionIn, struct SPDStruct* DataStructArray);
 
 float getSPDFloatValue(int VarSelectionIn, struct SPDStruct* DataStructArray);
 void setSPDFloatValue(float inVal, int VarSelectionIn, struct SPDStruct* DataStructArray);
-void setSPDFromString(char* inString, int VarSelectionIn, struct SPDStruct* DataStructArray);
 
 
-void packageSPDFromString(struct packAPIStruct* packStructPtrin, char* inString, int VarSelectionIn, struct SPDStruct* DataStructArray);
+
+UI_8 setSPDFromString(char* inString, struct SPDStruct* DataStructPtr);
+UI_8 packageSPDFromString(struct packAPIStruct* packStructPtrin, char* inString, int VarSelectionIn, struct SPDStruct* DataStructArray);
 
 #ifdef __cplusplus
 
