@@ -98,10 +98,10 @@ UI_8 isLetterString(char* inStringPtr) { int index = 0;  while (inStringPtr[inde
 UI_8 isNumberString(char* inStringPtr) 
 { 
     int index = 0;  
-    while (inStringPtr[index] != 0x00) 
+    while (inStringPtr[index] != 0x00)
         if (!isNumberchar(inStringPtr[index++])) 
             return ui8FALSE; 
-    return ui8TRUE; 
+    return index>0;
 }
 UI_8 isIntegerString(char* inStringPtr) { int index = 0;  while (inStringPtr[index] != 0x00) if (!isIntegerchar(inStringPtr[index++])) return ui8FALSE; return ui8TRUE; }
 UI_8 isUnsignedIntegerString(char* inStringPtr) { int index = 0;  while (inStringPtr[index] != 0x00) if (!isUnsignedIntegerchar(inStringPtr[index++])) return ui8FALSE; return ui8TRUE; }

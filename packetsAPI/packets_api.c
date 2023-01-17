@@ -236,26 +236,26 @@ UI_8 setSPDFromString(char* inString, struct SPDStruct* DataStructPtr)
     case UNSIGNED_TYPE:
         switch (DataStructPtr->size)
         {
-        case sizeof(SPD8) : goodParse = ATO_U8(inString,(UI_8*)DataStructPtr->addr);    break;
-        case sizeof(SPD16) : goodParse = ATO_U16(inString, (UI_16*)DataStructPtr->addr);    break;
-        case sizeof(SPD32) : goodParse = ATO_U32(inString, (UI_32*)DataStructPtr->addr);    break;
-        case sizeof(SPD64) : goodParse = ATO_U64(inString, (UI_64*)DataStructPtr->addr);    break;
+        case sizeof(union SPD8) : goodParse = ATO_U8(inString,(UI_8*)DataStructPtr->addr);    break;
+        case sizeof(union SPD16) : goodParse = ATO_U16(inString, (UI_16*)DataStructPtr->addr);    break;
+        case sizeof(union SPD32) : goodParse = ATO_U32(inString, (UI_32*)DataStructPtr->addr);    break;
+        case sizeof(union SPD64) : goodParse = ATO_U64(inString, (UI_64*)DataStructPtr->addr);    break;
         }
         break;
     case SIGNED_TYPE: 
         switch (DataStructPtr->size)
         {
-        case sizeof(SPD8) : goodParse = ATO_I8(inString,(I_8*)DataStructPtr->addr);    break;
-        case sizeof(SPD16) : goodParse = ATO_I16(inString, (I_16*)DataStructPtr->addr);    break;
-        case sizeof(SPD32) : goodParse = ATO_I32(inString, (I_32*)DataStructPtr->addr);    break;
-        case sizeof(SPD64) : goodParse = ATO_I64(inString, (I_64*)DataStructPtr->addr);    break;
+        case sizeof(union SPD8) : goodParse = ATO_I8(inString,(I_8*)DataStructPtr->addr);    break;
+        case sizeof(union SPD16) : goodParse = ATO_I16(inString, (I_16*)DataStructPtr->addr);    break;
+        case sizeof(union SPD32) : goodParse = ATO_I32(inString, (I_32*)DataStructPtr->addr);    break;
+        case sizeof(union SPD64) : goodParse = ATO_I64(inString, (I_64*)DataStructPtr->addr);    break;
         }
         break;
     case FLOAT_TYPE: 
         switch (DataStructPtr->size)
         {
-        case sizeof(SPD32) : goodParse = ATO_F(inString, (float*)DataStructPtr->addr);    break;
-        case sizeof(SPD64) : goodParse = ATO_D(inString, (double*)DataStructPtr->addr);    break;
+        case sizeof(union SPD32) : goodParse = ATO_F(inString, (float*)DataStructPtr->addr);    break;
+        case sizeof(union SPD64) : goodParse = ATO_D(inString, (double*)DataStructPtr->addr);    break;
         }
         break;
     }
@@ -266,13 +266,13 @@ UI_8 setSPDFromString(char* inString, struct SPDStruct* DataStructPtr)
 
 // use temp variable on stack to hopefully receive parsed string value
 // then package parsed string value into SPD packet buffer
-UI_8 packageSPDFromString(struct packAPIStruct* packStructPtrin, char* inString, int VarSelectionIn, struct SPDStruct* DataStructArray)
+UI_8 packageSPDFromString(struct packAPIStruct* packStructPtrin, const char* inString, int VarSelectionIn, struct SPDStruct* DataStructArray)
 {
     // create temp containers
-    SPD8  myTempSPD8;
-    SPD16 myTempSPD16;
-    SPD32 myTempSPD32;
-    SPD64 myTempSPD64;
+    union SPD8  myTempSPD8;
+    union SPD16 myTempSPD16;
+    union SPD32 myTempSPD32;
+    union SPD64 myTempSPD64;
 
     // package in temp SPDStruct
     struct SPDStruct myDataStruct;
@@ -281,10 +281,10 @@ UI_8 packageSPDFromString(struct packAPIStruct* packStructPtrin, char* inString,
     // determine SPD type to parse into
     switch (DataStructArray[VarSelectionIn].size)
     {
-        case sizeof(SPD8)  : myDataStruct.addr = &myTempSPD8;  break;
-        case sizeof(SPD16) : myDataStruct.addr = &myTempSPD16; break;
-        case sizeof(SPD32) : myDataStruct.addr = &myTempSPD32; break;
-        case sizeof(SPD64) : myDataStruct.addr = &myTempSPD64; break;
+        case sizeof(union SPD8)  : myDataStruct.addr = &myTempSPD8;  break;
+        case sizeof(union SPD16) : myDataStruct.addr = &myTempSPD16; break;
+        case sizeof(union SPD32) : myDataStruct.addr = &myTempSPD32; break;
+        case sizeof(union SPD64) : myDataStruct.addr = &myTempSPD64; break;
     default: myDataStruct.addr = nullptr;
     }
 
