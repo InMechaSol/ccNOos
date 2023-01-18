@@ -293,7 +293,7 @@ UI_8 packageSPDFromString(struct packAPIStruct* packStructPtrin, const char* inS
     myDataStruct.type = DataStructArray[VarSelectionIn].type;
     
     // attempt to parse into temp SPD
-    if (setSPDFromString(inString, &myDataStruct))
+    if (setSPDFromString((char*)inString, &myDataStruct))
     {
         // package parsed value in packet for transmission
         packageSPD(packStructPtrin, &myDataStruct);
