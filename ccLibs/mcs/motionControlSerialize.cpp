@@ -39,7 +39,7 @@ SmartMotorDevice* AxisSPD::getSMDevPtr()
     return smDevPtr;
 }
 AxisSPD::AxisSPD(enum mcsSPDSelector AxisVarSelectionIn, SmartMotorDevice* smDevPtrIn):
-    SPDClass(AxisVarSelectionIn, smDevPtrIn, smDevPtrIn->getSPDArray())
+    SPDClass(AxisVarSelectionIn, smDevPtrIn->getSPDArray())
 {
     AxisVarSelection = AxisVarSelectionIn;
     smDevPtr = smDevPtrIn;

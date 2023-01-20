@@ -160,12 +160,11 @@ public:
 class SPDClass
 {
 private:
-    void* DataPtr;
     int VarIndex;
     struct SPDStruct* SPDArray;
 
 public:
-    SPDClass(int VarIndexIn, void* DataPtrIn, struct SPDStruct* SPDArrayPtr);
+    SPDClass(int VarIndexIn, struct SPDStruct* SPDArrayPtr);
 
     float getFloatValue();
 
