@@ -57,10 +57,10 @@ struct planningStruct
     float dT, delataPos, Talpha, Tomega, Tmotion;
     float desiredPos, motionVelocity, motionAcceleration;
     float estVelocity, cmdVelocity, LastFbkPosition, PositionResolution;
-    enum motionStateEnum actualMotionState;
-    enum motionStateEnum desiredMotionState;
-    enum controlTypeEnum actualControlMode;
-    enum controlTypeEnum desiredControlMode;
+    UI_16 actualMotionState;
+    UI_16 desiredMotionState;
+    UI_16 actualControlMode;
+    UI_16 desiredControlMode;
     UI_8 useEstimatedVelocity;
 };
 struct planningStruct createplanningStruct();
