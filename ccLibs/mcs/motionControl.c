@@ -26,6 +26,22 @@ Notes:
 
 #include "motionControl.h"
 
+
+
+struct generatorStruct creategeneratorStruct()
+{
+    struct generatorStruct outStruct;
+    outStruct.actualGenMode = generateNothing;
+    outStruct.desiredGenMode = generateNothing;
+    outStruct.dutycyle = 0.5;  //0-1
+    outStruct.period = 1.0;//sec
+    outStruct.amplitude = 0.0;
+    outStruct.cmdOutput = 0.0;
+    return outStruct;
+}
+
+
+
 ///
 /// \brief createplanningStruct
 /// \return
@@ -44,12 +60,13 @@ struct planningStruct createplanningStruct()
     outStruct.estVelocity = 0;
     outStruct.cmdVelocity = 0;
     outStruct.LastFbkPosition = 0;
-    outStruct.PositionResolution = 0.000001;
+    outStruct.PositionResolution = 0.01;
     outStruct.actualControlMode = controlPWM;
     outStruct.desiredControlMode = controlPWM;
     outStruct.actualMotionState = motionStopped;
     outStruct.desiredMotionState = motionStopped;
     outStruct.useEstimatedVelocity = ui8FALSE;
+    outStruct.cmdGenerator = creategeneratorStruct();
     return outStruct;
 }
 ///
@@ -269,10 +286,65 @@ struct axisStruct createaxisStruct()
 ///
 /// \brief Cascade Control Loops
 ///
+void commandGenerator(struct axisStruct* axisStructPtr)
+{
+    // detect changes and protect transitions
+    if (axisStructPtr->Planning.desiredControlMode != axisStructPtr->Planning.actualControlMode)
+    {
+        axisStructPtr->Planning.cmdGenerator.desiredGenMode = generateNothing;
+    }
+    if (axisStructPtr->Planning.cmdGenerator.actualGenMode != axisStructPtr->Planning.cmdGenerator.desiredGenMode)
+    {
+        axisStructPtr->Planning.cmdGenerator.actualGenMode = axisStructPtr->Planning.cmdGenerator.desiredGenMode;
+        axisStructPtr->Planning.Tmotion = -axisStructPtr->Planning.dT;
+    }
+
+    // increment time in motion by dT
+    axisStructPtr->Planning.Tmotion += axisStructPtr->Planning.dT;
+
+    // always output zero, unless...
+    switch (axisStructPtr->Planning.cmdGenerator.actualGenMode)
+    {
+    case generatePulse: 
+    {
+        if (axisStructPtr->Planning.Tmotion < axisStructPtr->Planning.cmdGenerator.period)
+        {
+            axisStructPtr->Planning.cmdGenerator.cmdOutput = axisStructPtr->Planning.cmdGenerator.amplitude;
+        }
+        else
+            axisStructPtr->Planning.cmdGenerator.cmdOutput = 0.0;
+    }
+    break;
+    case generatePulseTrain:
+    {
+        float intPart, fracPart;
+        fracPart = ModuloFloat((axisStructPtr->Planning.Tmotion/ axisStructPtr->Planning.cmdGenerator.period), &intPart);
+        if (fracPart < axisStructPtr->Planning.cmdGenerator.dutycyle)
+        {
+            axisStructPtr->Planning.cmdGenerator.cmdOutput = axisStructPtr->Planning.cmdGenerator.amplitude;
+        }
+        else
+            axisStructPtr->Planning.cmdGenerator.cmdOutput = 0.0;
+    }
+    break;
+    case generateSinWave:
+    {
+        axisStructPtr->Planning.cmdGenerator.cmdOutput = 0.0;
+    }
+    break;
+    case generateNothing:
+    default:
+    {
+        axisStructPtr->Planning.cmdGenerator.cmdOutput = 0.0;
+    }
+    }
+    
+    
+}
 void planningLoop(struct axisStruct* axisStructPtr)
 {
     // always monitor feedback to determine actual motion state
-    if((axisStructPtr->Position.Fbk-axisStructPtr->Planning.LastFbkPosition) < axisStructPtr->Planning.PositionResolution)
+    if((axisStructPtr->Position.Fbk-axisStructPtr->Planning.LastFbkPosition) < -axisStructPtr->Planning.PositionResolution)
     {
         axisStructPtr->Planning.actualMotionState = motionNegative;
         axisStructPtr->Planning.estVelocity = (axisStructPtr->Position.Fbk-axisStructPtr->Planning.LastFbkPosition)/axisStructPtr->Planning.dT;
@@ -288,11 +360,16 @@ void planningLoop(struct axisStruct* axisStructPtr)
         axisStructPtr->Planning.estVelocity = 0;
     }
     axisStructPtr->Planning.LastFbkPosition = axisStructPtr->Position.Fbk;
+
+
+
     if(axisStructPtr->ctrlEnabled)
     {
         switch (axisStructPtr->Planning.actualControlMode) {
-        case controlPosition:
+        case controlPosition: 
         {
+            // generate stream of position command setpoints to feed the position loop input
+
             // from desired and actual state of motion stopped, determine if new motion should be commanded
             // and calculate critical time boundaries
             if(axisStructPtr->Planning.desiredMotionState == motionStopped && axisStructPtr->Planning.actualMotionState == motionStopped)
@@ -348,27 +425,27 @@ void planningLoop(struct axisStruct* axisStructPtr)
                     }
                 }
             }
-            // if motion is desired
+            // if motion is desired, generate command profile
             if(axisStructPtr->Planning.desiredMotionState != motionStopped)
             {
                 // increment time in motion by dT
                 axisStructPtr->Planning.Tmotion += axisStructPtr->Planning.dT;
                 // compare time in motion to first time boundary
-                if(axisStructPtr->Planning.Tmotion<axisStructPtr->Planning.Talpha)
+                if (axisStructPtr->Planning.Tmotion < axisStructPtr->Planning.Talpha)
                 {
                     // accel to motion velocity
-                    axisStructPtr->Planning.cmdVelocity += axisStructPtr->Planning.motionAcceleration*axisStructPtr->Planning.dT;
-                    axisStructPtr->Position.Cmd += axisStructPtr->Planning.cmdVelocity*axisStructPtr->Planning.dT;
+                    axisStructPtr->Planning.cmdVelocity += axisStructPtr->Planning.motionAcceleration * axisStructPtr->Planning.dT;
+                    axisStructPtr->Position.Cmd += axisStructPtr->Planning.cmdVelocity * axisStructPtr->Planning.dT;
                 }
                 else // a move could have trapezoidal or triangleular velocity profile depending on position delta
                 {
-                    if(axisStructPtr->Planning.Tomega == 0) // triangle
+                    if (axisStructPtr->Planning.Tomega == 0) // triangle
                     {
-                        if(axisStructPtr->Planning.Tmotion<2*axisStructPtr->Planning.Talpha)
+                        if (axisStructPtr->Planning.Tmotion < 2 * axisStructPtr->Planning.Talpha)
                         {
                             // decel to stop
-                            axisStructPtr->Planning.cmdVelocity -= axisStructPtr->Planning.motionAcceleration*axisStructPtr->Planning.dT;
-                            axisStructPtr->Position.Cmd += axisStructPtr->Planning.cmdVelocity*axisStructPtr->Planning.dT;
+                            axisStructPtr->Planning.cmdVelocity -= axisStructPtr->Planning.motionAcceleration * axisStructPtr->Planning.dT;
+                            axisStructPtr->Position.Cmd += axisStructPtr->Planning.cmdVelocity * axisStructPtr->Planning.dT;
                         }
                         else
                         {
@@ -379,16 +456,16 @@ void planningLoop(struct axisStruct* axisStructPtr)
                     }
                     else // trapezoid
                     {
-                        if(axisStructPtr->Planning.Tmotion<(axisStructPtr->Planning.Talpha+axisStructPtr->Planning.Tomega))
+                        if (axisStructPtr->Planning.Tmotion < (axisStructPtr->Planning.Talpha + axisStructPtr->Planning.Tomega))
                         {
                             // constant velocity
-                            axisStructPtr->Position.Cmd += axisStructPtr->Planning.cmdVelocity*axisStructPtr->Planning.dT;
+                            axisStructPtr->Position.Cmd += axisStructPtr->Planning.cmdVelocity * axisStructPtr->Planning.dT;
                         }
-                        else if(axisStructPtr->Planning.Tmotion<(2*axisStructPtr->Planning.Talpha+axisStructPtr->Planning.Tomega))
+                        else if (axisStructPtr->Planning.Tmotion < (2 * axisStructPtr->Planning.Talpha + axisStructPtr->Planning.Tomega))
                         {
                             // decel to stop
-                            axisStructPtr->Planning.cmdVelocity -= axisStructPtr->Planning.motionAcceleration*axisStructPtr->Planning.dT;
-                            axisStructPtr->Position.Cmd += axisStructPtr->Planning.cmdVelocity*axisStructPtr->Planning.dT;
+                            axisStructPtr->Planning.cmdVelocity -= axisStructPtr->Planning.motionAcceleration * axisStructPtr->Planning.dT;
+                            axisStructPtr->Position.Cmd += axisStructPtr->Planning.cmdVelocity * axisStructPtr->Planning.dT;
                         }
                         else
                         {
@@ -403,26 +480,27 @@ void planningLoop(struct axisStruct* axisStructPtr)
         break;
         case controlVelocity:
         {
-
+            // generate stream of velocity command setpoints to feed the velocity loop input
+            commandGenerator(axisStructPtr);
+            axisStructPtr->Velocity.Cmd = axisStructPtr->Planning.cmdGenerator.cmdOutput;
         }
         break;
         case controlCurrent:
         {
-
+            // generate stream of current command setpoints to feed the current loop input
+            commandGenerator(axisStructPtr);
+            axisStructPtr->Current.Cmd = axisStructPtr->Planning.cmdGenerator.cmdOutput;
         }
         break;
         case controlPWM:
         {
-
+            // generate stream of pwm command setpoints to directly drive motor throttle
+            commandGenerator(axisStructPtr);
+            axisStructPtr->PWMCmd = axisStructPtr->Planning.cmdGenerator.cmdOutput;
         }
         break;
         default:break;
         }
-
-
-
-
-
     }
     else
     {
@@ -434,20 +512,28 @@ void positionLoop(struct axisStruct* axisStructPtr)
 {
     if(axisStructPtr->ctrlEnabled)
     {
-        if(axisStructPtr->Position.Cmd > axisStructPtr->Position.LimitPos)
+        switch (axisStructPtr->Planning.actualControlMode) {
+        case controlPosition:
         {
-            axisStructPtr->Position.Cmd = axisStructPtr->Position.LimitPos;
+            if (axisStructPtr->Position.Cmd > axisStructPtr->Position.LimitPos)
+            {
+                axisStructPtr->Position.Cmd = axisStructPtr->Position.LimitPos;
+            }
+            else if (axisStructPtr->Position.Cmd < axisStructPtr->Position.LimitNeg)
+            {
+                axisStructPtr->Position.Cmd = axisStructPtr->Position.LimitNeg;
+            }
+
+            axisStructPtr->PosController.cmdVel = (axisStructPtr->Position.Cmd - axisStructPtr->PosController.cmdLast) / axisStructPtr->PosController.dT;
+
+            axisStructPtr->Position.Err = axisStructPtr->Position.Cmd - axisStructPtr->Position.Fbk;
+
+            axisStructPtr->Velocity.Cmd = axisStructPtr->PosController.Kv * axisStructPtr->Position.Err + axisStructPtr->PosController.cmdVel;
         }
-        else if(axisStructPtr->Position.Cmd < axisStructPtr->Position.LimitNeg)
-        {
-            axisStructPtr->Position.Cmd = axisStructPtr->Position.LimitNeg;
+        break;
+        default:break;
         }
-
-        axisStructPtr->PosController.cmdVel = (axisStructPtr->Position.Cmd - axisStructPtr->PosController.cmdLast)/axisStructPtr->PosController.dT;
-
-        axisStructPtr->Position.Err = axisStructPtr->Position.Cmd - axisStructPtr->Position.Fbk;
-
-        axisStructPtr->Velocity.Cmd = axisStructPtr->PosController.Kv*axisStructPtr->Position.Err + axisStructPtr->PosController.cmdVel;
+        
     }
     else
     {
@@ -459,26 +545,35 @@ void velocityLoop(struct axisStruct* axisStructPtr)
 {
     if(axisStructPtr->ctrlEnabled)
     {
-        if(axisStructPtr->Velocity.Cmd > axisStructPtr->Velocity.LimitPos)
+        switch (axisStructPtr->Planning.actualControlMode) {
+        case controlPosition:
+        case controlVelocity:
         {
-            axisStructPtr->Velocity.Cmd = axisStructPtr->Velocity.LimitPos;
+            if (axisStructPtr->Velocity.Cmd > axisStructPtr->Velocity.LimitPos)
+            {
+                axisStructPtr->Velocity.Cmd = axisStructPtr->Velocity.LimitPos;
+            }
+            else if (axisStructPtr->Velocity.Cmd < axisStructPtr->Velocity.LimitNeg)
+            {
+                axisStructPtr->Velocity.Cmd = axisStructPtr->Velocity.LimitNeg;
+            }
+
+            if (axisStructPtr->Planning.useEstimatedVelocity)
+                axisStructPtr->Velocity.Err = axisStructPtr->Velocity.Cmd - axisStructPtr->Planning.estVelocity;
+            else
+                axisStructPtr->Velocity.Err = axisStructPtr->Velocity.Cmd - axisStructPtr->Velocity.Fbk;
+
+            axisStructPtr->VelController.saturated = (axisStructPtr->PWMSaturated || axisStructPtr->CurrentSaturated);
+            axisStructPtr->VelController.xn = axisStructPtr->Velocity.Err;
+            preparepiControllerStruct(&axisStructPtr->VelController);
+            executepiControllerStruct(&axisStructPtr->VelController);
+
+            axisStructPtr->torqueCmd = axisStructPtr->VelController.yn;
         }
-        else if(axisStructPtr->Velocity.Cmd < axisStructPtr->Velocity.LimitNeg)
-        {
-            axisStructPtr->Velocity.Cmd = axisStructPtr->Velocity.LimitNeg;
+        break;      
+        default:break;
         }
-
-        if(axisStructPtr->Planning.useEstimatedVelocity)
-            axisStructPtr->Velocity.Err = axisStructPtr->Velocity.Cmd - axisStructPtr->Planning.estVelocity;
-        else
-            axisStructPtr->Velocity.Err = axisStructPtr->Velocity.Cmd - axisStructPtr->Velocity.Fbk;
-
-        axisStructPtr->VelController.saturated = (axisStructPtr->PWMSaturated || axisStructPtr->CurrentSaturated);
-        axisStructPtr->VelController.xn = axisStructPtr->Velocity.Err;
-        preparepiControllerStruct(&axisStructPtr->VelController);
-        executepiControllerStruct(&axisStructPtr->VelController);
-
-        axisStructPtr->torqueCmd = axisStructPtr->VelController.yn;
+        
     }
     else
     {
@@ -489,50 +584,62 @@ void currentLoop(struct axisStruct* axisStructPtr)
 {
     if(axisStructPtr->ctrlEnabled)
     {
-        if(axisStructPtr->currentCtrlEnabled)
+        switch (axisStructPtr->Planning.actualControlMode) {
+        case controlPosition:
+        case controlVelocity:
+        case controlCurrent:
         {
-            axisStructPtr->Current.Cmd = axisStructPtr->torqueCmd / axisStructPtr->MotorModel.Km;
+            if (axisStructPtr->currentCtrlEnabled)
+            {
+                axisStructPtr->Current.Cmd = axisStructPtr->torqueCmd / axisStructPtr->MotorModel.Km;
 
-            if(axisStructPtr->Current.Cmd > axisStructPtr->Current.LimitPos)
-            {
-                axisStructPtr->Current.Cmd = axisStructPtr->Current.LimitPos;
-                axisStructPtr->CurrentSaturated = ui8TRUE;
-            }
-            else if(axisStructPtr->Current.Cmd < axisStructPtr->Current.LimitNeg)
-            {
-                axisStructPtr->Current.Cmd = axisStructPtr->Current.LimitNeg;
-                axisStructPtr->CurrentSaturated = ui8TRUE;
+                if (axisStructPtr->Current.Cmd > axisStructPtr->Current.LimitPos)
+                {
+                    axisStructPtr->Current.Cmd = axisStructPtr->Current.LimitPos;
+                    axisStructPtr->CurrentSaturated = ui8TRUE;
+                }
+                else if (axisStructPtr->Current.Cmd < axisStructPtr->Current.LimitNeg)
+                {
+                    axisStructPtr->Current.Cmd = axisStructPtr->Current.LimitNeg;
+                    axisStructPtr->CurrentSaturated = ui8TRUE;
+                }
+                else
+                    axisStructPtr->CurrentSaturated = ui8FALSE;
+
+                axisStructPtr->Current.Err = axisStructPtr->Current.Cmd - axisStructPtr->Current.Fbk;
+                axisStructPtr->CurController.saturated = (axisStructPtr->PWMSaturated || axisStructPtr->CurrentSaturated);
+                axisStructPtr->CurController.xn = axisStructPtr->Current.Err;
+                preparepiControllerStruct(&axisStructPtr->CurController);
+                executepiControllerStruct(&axisStructPtr->CurController);
+
+                axisStructPtr->voltageCmd = axisStructPtr->CurController.yn;
             }
             else
-                axisStructPtr->CurrentSaturated = ui8FALSE;
+            {
+                axisStructPtr->voltageCmd = axisStructPtr->torqueCmd * axisStructPtr->MotorModel.R * axisStructPtr->MotorModel.Km;
+            }
 
-            axisStructPtr->Current.Err = axisStructPtr->Current.Cmd - axisStructPtr->Current.Fbk;
-            axisStructPtr->CurController.saturated = (axisStructPtr->PWMSaturated || axisStructPtr->CurrentSaturated);
-            axisStructPtr->CurController.xn = axisStructPtr->Current.Err;
-            preparepiControllerStruct(&axisStructPtr->CurController);
-            executepiControllerStruct(&axisStructPtr->CurController);
-
-            axisStructPtr->voltageCmd = axisStructPtr->CurController.yn;
-        }
-        else
+            axisStructPtr->PWMCmd = axisStructPtr->voltageCmd / axisStructPtr->voltageLimit;
+            
+        }// intentional fall-through        
+        case controlPWM:
         {
-            axisStructPtr->voltageCmd = axisStructPtr->torqueCmd * axisStructPtr->MotorModel.R * axisStructPtr->MotorModel.Km;
+            if (axisStructPtr->PWMCmd > axisStructPtr->PWMLimit)
+            {
+                axisStructPtr->PWMCmd = axisStructPtr->PWMLimit;
+                axisStructPtr->PWMSaturated = ui8TRUE;
+            }
+            else if (axisStructPtr->PWMCmd < -axisStructPtr->PWMLimit)
+            {
+                axisStructPtr->PWMCmd = -axisStructPtr->PWMLimit;
+                axisStructPtr->PWMSaturated = ui8TRUE;
+            }
+            else
+                axisStructPtr->PWMSaturated = ui8FALSE;
         }
-
-        axisStructPtr->PWMCmd = axisStructPtr->voltageCmd/axisStructPtr->voltageLimit;
-        if(axisStructPtr->PWMCmd > axisStructPtr->PWMLimit)
-        {
-            axisStructPtr->PWMCmd = axisStructPtr->PWMLimit;
-            axisStructPtr->PWMSaturated = ui8TRUE;
+        break;
+        default:break;
         }
-        else if(axisStructPtr->PWMCmd < -axisStructPtr->PWMLimit)
-        {
-            axisStructPtr->PWMCmd = -axisStructPtr->PWMLimit;
-            axisStructPtr->PWMSaturated = ui8TRUE;
-        }
-        else
-            axisStructPtr->PWMSaturated = ui8FALSE;
-
 
     }
     else

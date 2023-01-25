@@ -50,6 +50,7 @@ error PLATFORM_NAME must be ccOS
 
 #include "os_execution_system.hpp"
 #include "packets_api.h"
+#include "abstractMATH.h"
 
 
 
@@ -89,17 +90,6 @@ ExeSysAPIFuncsTemplate
 OSexecutionSystemClass theExecutionSystem(uSEC_PER_CLOCK);
 
 
-float sqrtFloat(float inFloat)
-{
-    return sqrtf(inFloat);
-}
-
-float ModuloFloat(float floatValue, float* intPartPtr)
-{
-    double intPart, fracPart;
-    fracPart = modf(floatValue, &intPart);
-    *intPartPtr = (float)intPart;
-    return (float)fracPart;
-}
+__standardMATH
 
 #endif // !__PlatformCCOS__

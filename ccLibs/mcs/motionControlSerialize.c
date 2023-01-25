@@ -44,13 +44,24 @@ void LinkAxisSPDStructArray(struct axisStruct* mystruct, struct SPDStruct* myArr
         case mcsDesiredAcc: myArray[i] = {i,        "Desired Acceleration", "(rad/sec/sec)",    0,FLOAT_TYPE,   sizeof(mystruct->Planning.motionAcceleration),  &mystruct->Planning.motionAcceleration};break;
         case mcsActMotionState: myArray[i] = {i,    "Actual Motion State",  "",                 1,SIGNED_TYPE,  sizeof(mystruct->Planning.actualMotionState),   &mystruct->Planning.actualMotionState}; break;
         case mcsDesiredMotionState: myArray[i] = {i,"Desired Motion State", "",                 1,SIGNED_TYPE,  sizeof(mystruct->Planning.desiredMotionState),  &mystruct->Planning.desiredMotionState};break;
-        case mcsUseEstimatedVel: myArray[i] = {i,   "Use Est. Velocity",    "(yes/no)",         0,UNSIGNED_TYPE,sizeof(mystruct->Planning.actualControlMode),   &mystruct->Planning.actualControlMode}; break;
+        
+        case mcsUseEstimatedVel: myArray[i] = {i,   "Use Est. Velocity",    "(yes/no)",         0,UNSIGNED_TYPE,sizeof(mystruct->Planning.useEstimatedVelocity),&mystruct->Planning.useEstimatedVelocity};break;
+        
         case mcsEstimatedVelocity: myArray[i] = {i, "Estimated Velocity",   "(rad/sec)",        1,FLOAT_TYPE,   sizeof(mystruct->Planning.estVelocity),         &mystruct->Planning.estVelocity};       break;
         case mcsCommandVelocity: myArray[i] = { i,  "Command Velocity",     "(rad/sec)",        1,FLOAT_TYPE,   sizeof(mystruct->Planning.cmdVelocity),         &mystruct->Planning.cmdVelocity};       break;
         case mcsLastPosition: myArray[i] = { i,     "Last Position",        "(rad)",            1,FLOAT_TYPE,   sizeof(mystruct->Planning.LastFbkPosition),     &mystruct->Planning.LastFbkPosition};   break;
         case mcsPositionResolution: myArray[i] = {i,"Position Resolution",  "(rad)",            0,FLOAT_TYPE,   sizeof(mystruct->Planning.PositionResolution),  &mystruct->Planning.PositionResolution};break;
+
         case mcsActualControlMode: myArray[i] = {i, "Actual Control Mode",  "",                 1,SIGNED_TYPE,  sizeof(mystruct->Planning.actualControlMode),   &mystruct->Planning.actualControlMode}; break;
         case mcsDesiredControlMode: myArray[i]={i,  "Desired Control Mode", "",                 0,SIGNED_TYPE,  sizeof(mystruct->Planning.desiredControlMode),  &mystruct->Planning.desiredControlMode};break;
+        
+        case mcsCMDgenOutput: myArray[i] = { i,     "Gen. Output",          "",                 1,FLOAT_TYPE,   sizeof(mystruct->Planning.cmdGenerator.cmdOutput),  &mystruct->Planning.cmdGenerator.cmdOutput };       break;
+        case mcsCMDgenActualMode: myArray[i] = { i, "Gen. Mode Actual",     "",                 1,FLOAT_TYPE,   sizeof(mystruct->Planning.cmdGenerator.actualGenMode),&mystruct->Planning.cmdGenerator.actualGenMode };       break;
+        case mcsCMDgenDesiredMode: myArray[i] = { i,"Gen. Mode Desired",    "",                 0,FLOAT_TYPE,   sizeof(mystruct->Planning.cmdGenerator.desiredGenMode), &mystruct->Planning.cmdGenerator.desiredGenMode };      break;
+        case mcsCMDgenAmplitude: myArray[i] = { i,  "Gen. Amplitude",       "",                 0,FLOAT_TYPE,   sizeof(mystruct->Planning.cmdGenerator.amplitude),&mystruct->Planning.cmdGenerator.amplitude };           break;
+        case mcsCMDgenPeriod: myArray[i] = { i,     "Gen. Period",          "(sec)",            0,FLOAT_TYPE,   sizeof(mystruct->Planning.cmdGenerator.period), &mystruct->Planning.cmdGenerator.period };              break;
+        case mcsCMDgenDutyCycle: myArray[i] = { i,  "Gen. DutyCycle",       "(0-1)",            0,FLOAT_TYPE,   sizeof(mystruct->Planning.cmdGenerator.dutycyle),&mystruct->Planning.cmdGenerator.dutycyle };            break;
+            
         case mcsPosCMD: myArray[i] = {i,            "Position CMD",         "(rad)",            0,FLOAT_TYPE,   sizeof(mystruct->Position.Cmd),                 &mystruct->Position.Cmd};               break;
         case mcsPosFBK: myArray[i] = { i,           "Position FBK",         "(rad)",            1,FLOAT_TYPE,   sizeof(mystruct->Position.Fbk),                 &mystruct->Position.Fbk};               break;
         case mcsPosERR: myArray[i] = { i,           "Position ERR",         "(rad)",            1,FLOAT_TYPE,   sizeof(mystruct->Position.Err),                 &mystruct->Position.Err};               break;
@@ -114,7 +125,7 @@ void LinkAxisSPDStructArray(struct axisStruct* mystruct, struct SPDStruct* myArr
         case mcsCurCtrlReset: myArray[i] = { i,     "CurLoop Reset",        "(yes/no)",         0,UNSIGNED_TYPE,sizeof(mystruct->CurController.reset),          &mystruct->CurController.reset};        break;
         case mcsCurCtrlSaturated: myArray[i] = { i, "CurLoop Saturated",    "(yes/no)",         0,UNSIGNED_TYPE,sizeof(mystruct->CurController.saturated),      &mystruct->CurController.saturated};    break;
         case mcsPWMCMD: myArray[i] = { i,           "PWM Command",          "(-1 to 1)",        0,UNSIGNED_TYPE,sizeof(mystruct->CurController.reset),          &mystruct->CurController.reset};        break;
-    
+        case mcsCtrlEnabled: myArray[i] = { i,      "Enable Control",       "(1 / 0)",0,SIGNED_TYPE,sizeof(mystruct->ctrlEnabled),                 &mystruct->ctrlEnabled };               break;
         
         }
         

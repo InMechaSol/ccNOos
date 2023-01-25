@@ -27,14 +27,27 @@ Notes:
 #ifndef __ccNOos_MCS__
 #define __ccNOos_MCS__
 
+#include "abstractMATH.h"
 #include "packets_api.h"
+
+
+///
+/// \brief The command generator enum
+///
+enum commandGenEnum
+{
+    generateNothing = 0,
+    generatePulse,
+    generatePulseTrain,
+    generateSinWave
+};
 
 ///
 /// \brief The controlTypeEnum enum
 ///
 enum controlTypeEnum
 {
-    controlPosition,
+    controlPosition=0,
     controlVelocity,
     controlCurrent,
     controlPWM
@@ -44,10 +57,21 @@ enum controlTypeEnum
 ///
 enum motionStateEnum
 {
-    motionStopped,
+    motionStopped=0,
     motionPositive,
     motionNegative
 };
+
+///
+/// \brief The generatorStruct 
+///
+struct generatorStruct
+{
+    float cmdOutput;
+    UI_16 actualGenMode, desiredGenMode;
+    float amplitude, period, dutycyle;
+};
+struct generatorStruct creategeneratorStruct();
 
 ///
 /// \brief The planningStruct class
@@ -62,9 +86,10 @@ struct planningStruct
     UI_16 actualControlMode;
     UI_16 desiredControlMode;
     UI_8 useEstimatedVelocity;
+    struct generatorStruct cmdGenerator;
 };
 struct planningStruct createplanningStruct();
-float sqrtFloat(float inFloat);
+
 
 ///
 /// \brief The posControlStruct class
@@ -146,6 +171,7 @@ struct axisStruct createaxisStruct();
 /// \brief Cascade Control Loops
 ///
 ///
+void commandGenerator(struct axisStruct* axisStructPtr);
 void planningLoop(struct axisStruct* axisStructPtr);
 void positionLoop(struct axisStruct* axisStructPtr);
 void velocityLoop(struct axisStruct* axisStructPtr);

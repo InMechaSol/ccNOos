@@ -46,9 +46,15 @@ enum mcsSPDSelector
     mcsEstimatedVelocity,
     mcsCommandVelocity,
     mcsLastPosition,
-    mcsPositionResolution,
+    mcsPositionResolution,    
     mcsActualControlMode,
     mcsDesiredControlMode,
+    mcsCMDgenOutput,
+    mcsCMDgenActualMode,
+    mcsCMDgenDesiredMode,
+    mcsCMDgenAmplitude,
+    mcsCMDgenPeriod,
+    mcsCMDgenDutyCycle,
     mcsPosCMD,
     mcsPosFBK,
     mcsPosERR,
@@ -112,6 +118,7 @@ enum mcsSPDSelector
     mcsCurCtrlReset,
     mcsCurCtrlSaturated,
     mcsPWMCMD,
+    mcsCtrlEnabled,
     mcsEND
 };
 

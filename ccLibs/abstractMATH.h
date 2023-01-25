@@ -1,4 +1,4 @@
-/** \file HMC1119.h
+/** \file motionControl.h
 *   \brief <a href="https://www.inmechasol.org/" target="_blank">IMS</a>:
 		<a href="https://github.com/InMechaSol/ccNOos" target="_blank">ccNOos</a>,
 		Declarations for straight C and C++ 
@@ -24,31 +24,44 @@ Notes:
 
 */
 
-#ifndef HMC1119_H
-#define HMC1119_H
+#ifndef __ccNOos_MATH__
+#define __ccNOos_MATH__
 
-#include "abstractMATH.h"
+#include "version_config.h"
 
-#define MIN_ATTEN_VAL (0.0)
-#define MAX_ATTEN_VAL (31.75)
-
-struct DATStruct
-{
-    float DATCMD;
-    UI_8 attenSetting;
-};
-struct DATStruct createDATStruct();
-void limitDATcmd(struct DATStruct* DATptr);
-// output factional part, write integral part to "intPartPtr"
-
-void CalcAttenuationBits(struct DATStruct* DATptr);
-#define datcmdbit16(DATA)   ( (0b10000000 & DATA) >> 7 )
-#define datcmdbit8(DATA)   ( (0b01000000 & DATA) >> 6 )
-#define datcmdbit4(DATA)   ( (0b00100000 & DATA) >> 5 )
-#define datcmdbit2(DATA)   ( (0b00010000 & DATA) >> 4 )
-#define datcmdbit1(DATA)    ( (0b00001000 & DATA) >> 3 )
-#define datcmdbit0_50(DATA) ( (0b00000100 & DATA) >> 2 )
-#define datcmdbit0_25(DATA) ( (0b00000010 & DATA) >> 1 )
+/// <summary>
+/// splits float into fractional and integer parts
+/// </summary>
+/// <param name="floatValue">input float to be processed</param>
+/// <param name="intPartPtr">pointer to float, will hold integer part</param>
+/// <returns>the fractional part</returns>
+float ModuloFloat(float floatValue, float* intPartPtr);
+/// <summary>
+/// calcualate sqaure root of input float value
+/// </summary>
+/// <param name="inFloat"></param>
+/// <returns>sqaure root</returns>
+float sqrtFloat(float inFloat);
 
 
-#endif // HMC1119_H
+
+
+
+
+
+#define __standardMATH \
+float ModuloFloat(float floatValue, float* intPartPtr) \
+{ \
+    double intPart, fracPart; \
+    fracPart = modf(floatValue, &intPart); \
+    *intPartPtr = (float)intPart; \
+    return (float)fracPart; \
+} \
+float sqrtFloat(float inFloat) \
+{ \
+    return sqrtf(inFloat); \
+}
+
+
+
+#endif
