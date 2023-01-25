@@ -44,9 +44,7 @@ void LinkAxisSPDStructArray(struct axisStruct* mystruct, struct SPDStruct* myArr
         case mcsDesiredAcc: myArray[i] = {i,        "Desired Acceleration", "(rad/sec/sec)",    0,FLOAT_TYPE,   sizeof(mystruct->Planning.motionAcceleration),  &mystruct->Planning.motionAcceleration};break;
         case mcsActMotionState: myArray[i] = {i,    "Actual Motion State",  "",                 1,SIGNED_TYPE,  sizeof(mystruct->Planning.actualMotionState),   &mystruct->Planning.actualMotionState}; break;
         case mcsDesiredMotionState: myArray[i] = {i,"Desired Motion State", "",                 1,SIGNED_TYPE,  sizeof(mystruct->Planning.desiredMotionState),  &mystruct->Planning.desiredMotionState};break;
-        
-        case mcsUseEstimatedVel: myArray[i] = {i,   "Use Est. Velocity",    "(yes/no)",         0,UNSIGNED_TYPE,sizeof(mystruct->Planning.useEstimatedVelocity),&mystruct->Planning.useEstimatedVelocity};break;
-        
+        case mcsUseEstimatedVel: myArray[i] = {i,   "Use Est. Velocity",    "(yes/no)",         0,UNSIGNED_TYPE,sizeof(mystruct->Planning.useEstimatedVelocity),   &mystruct->Planning.useEstimatedVelocity}; break;
         case mcsEstimatedVelocity: myArray[i] = {i, "Estimated Velocity",   "(rad/sec)",        1,FLOAT_TYPE,   sizeof(mystruct->Planning.estVelocity),         &mystruct->Planning.estVelocity};       break;
         case mcsCommandVelocity: myArray[i] = { i,  "Command Velocity",     "(rad/sec)",        1,FLOAT_TYPE,   sizeof(mystruct->Planning.cmdVelocity),         &mystruct->Planning.cmdVelocity};       break;
         case mcsLastPosition: myArray[i] = { i,     "Last Position",        "(rad)",            1,FLOAT_TYPE,   sizeof(mystruct->Planning.LastFbkPosition),     &mystruct->Planning.LastFbkPosition};   break;
