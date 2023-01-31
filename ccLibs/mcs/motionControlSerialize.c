@@ -54,8 +54,8 @@ void LinkAxisSPDStructArray(struct axisStruct* mystruct, struct SPDStruct* myArr
         case mcsDesiredControlMode: myArray[i]={i,  "Desired Control Mode", "",                 0,SIGNED_TYPE,  sizeof(mystruct->Planning.desiredControlMode),  &mystruct->Planning.desiredControlMode};break;
         
         case mcsCMDgenOutput: myArray[i] = { i,     "Gen. Output",          "",                 1,FLOAT_TYPE,   sizeof(mystruct->Planning.cmdGenerator.cmdOutput),  &mystruct->Planning.cmdGenerator.cmdOutput };       break;
-        case mcsCMDgenActualMode: myArray[i] = { i, "Gen. Mode Actual",     "",                 1,FLOAT_TYPE,   sizeof(mystruct->Planning.cmdGenerator.actualGenMode),&mystruct->Planning.cmdGenerator.actualGenMode };       break;
-        case mcsCMDgenDesiredMode: myArray[i] = { i,"Gen. Mode Desired",    "",                 0,FLOAT_TYPE,   sizeof(mystruct->Planning.cmdGenerator.desiredGenMode), &mystruct->Planning.cmdGenerator.desiredGenMode };      break;
+        case mcsCMDgenActualMode: myArray[i] = { i, "Gen. Mode Actual",     "",                 1,UNSIGNED_TYPE,   sizeof(mystruct->Planning.cmdGenerator.actualGenMode),&mystruct->Planning.cmdGenerator.actualGenMode };       break;
+        case mcsCMDgenDesiredMode: myArray[i] = { i,"Gen. Mode Desired",    "",                 0,UNSIGNED_TYPE,   sizeof(mystruct->Planning.cmdGenerator.desiredGenMode), &mystruct->Planning.cmdGenerator.desiredGenMode };      break;
         case mcsCMDgenAmplitude: myArray[i] = { i,  "Gen. Amplitude",       "",                 0,FLOAT_TYPE,   sizeof(mystruct->Planning.cmdGenerator.amplitude),&mystruct->Planning.cmdGenerator.amplitude };           break;
         case mcsCMDgenPeriod: myArray[i] = { i,     "Gen. Period",          "(sec)",            0,FLOAT_TYPE,   sizeof(mystruct->Planning.cmdGenerator.period), &mystruct->Planning.cmdGenerator.period };              break;
         case mcsCMDgenDutyCycle: myArray[i] = { i,  "Gen. DutyCycle",       "(0-1)",            0,FLOAT_TYPE,   sizeof(mystruct->Planning.cmdGenerator.dutycyle),&mystruct->Planning.cmdGenerator.dutycyle };            break;
@@ -122,8 +122,16 @@ void LinkAxisSPDStructArray(struct axisStruct* mystruct, struct SPDStruct* myArr
         case mcsCurCtrlAlpha: myArray[i] = { i,     "CurLoop Alpha",        "(V/A)",            1,FLOAT_TYPE,   sizeof(mystruct->CurController.alpha),          &mystruct->CurController.alpha};        break;
         case mcsCurCtrlReset: myArray[i] = { i,     "CurLoop Reset",        "(yes/no)",         0,UNSIGNED_TYPE,sizeof(mystruct->CurController.reset),          &mystruct->CurController.reset};        break;
         case mcsCurCtrlSaturated: myArray[i] = { i, "CurLoop Saturated",    "(yes/no)",         0,UNSIGNED_TYPE,sizeof(mystruct->CurController.saturated),      &mystruct->CurController.saturated};    break;
-        case mcsPWMCMD: myArray[i] = { i,           "PWM Command",          "(-1 to 1)",        0,UNSIGNED_TYPE,sizeof(mystruct->CurController.reset),          &mystruct->CurController.reset};        break;
-        case mcsCtrlEnabled: myArray[i] = { i,      "Enable Control",       "(1 / 0)",0,SIGNED_TYPE,sizeof(mystruct->ctrlEnabled),                 &mystruct->ctrlEnabled };               break;
+        case mcsPWMCMD: myArray[i] = { i,           "PWM Command",          "(-1 to 1)",        0,FLOAT_TYPE,   sizeof(mystruct->PWMCmd),                       &mystruct->PWMCmd };                    break;
+        case mcsPWMLimit: myArray[i] = { i,         "PWM Limit",            "(0 to 1)",         0,FLOAT_TYPE,   sizeof(mystruct->PWMLimit),                     &mystruct->PWMLimit };                  break;
+        case mcsPWMSaturated: myArray[i] = { i,     "PWM Saturated",        "(1 / 0)",          1,FLOAT_TYPE,   sizeof(mystruct->PWMSaturated),                 &mystruct->PWMSaturated };              break;
+
+        case mcsCurrentSaturated: myArray[i] = { i, "Current Saturated",    "(1 / 0)",          1,UNSIGNED_TYPE,sizeof(mystruct->CurrentSaturated),             &mystruct->CurrentSaturated };          break;
+        case mcsCtrlEnabled: myArray[i] = { i,      "Enable Control",       "(1 / 0)",          0,UNSIGNED_TYPE,sizeof(mystruct->ctrlEnabled),                  &mystruct->ctrlEnabled };               break;
+        case mcsCurrentCtrlEnabled: myArray[i] = { i,"Enable Current Control","(1 / 0)",        0,UNSIGNED_TYPE,sizeof(mystruct->currentCtrlEnabled),           &mystruct->currentCtrlEnabled };               break;
+        case mcsTorqueCmd: myArray[i] = { i,        "Torque CMD",           "(Nm)",             0,FLOAT_TYPE,   sizeof(mystruct->torqueCmd),                    &mystruct->torqueCmd };                 break;
+        case mcsVoltageCmd: myArray[i] = { i,       "Voltage CMD",          "(V)",              0,FLOAT_TYPE,   sizeof(mystruct->voltageCmd),                   &mystruct->voltageCmd };                break;
+        case mcsVoltageLimit: myArray[i] = { i,     "Voltage Limit",        "(V)",              0,FLOAT_TYPE,   sizeof(mystruct->voltageLimit),                 &mystruct->voltageLimit };              break;
         
         }
         

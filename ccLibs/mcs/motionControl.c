@@ -174,9 +174,9 @@ struct dcMotorStruct createdcMotorStruct()
     // Motor Physics Parameters
     outStruct.dT = 0.0000000001; // 0.001 sec
     outStruct.J = 0.000000023; // 0.000000023 (Kg*m*m) estimate from mass and solid cyclinder of r=1.5mm
-    outStruct.R = 0.045; // 0.045 (ohms) IQ2306
+    outStruct.R = 1;// 0.045; // 0.045 (ohms) IQ2306
     outStruct.L = 0.003; // 0.003 (henry) NEMA23 similar spec
-    outStruct.Km = 1/0.0043; // 1/0.0043 (A/Nm) IQ2306
+    outStruct.Km = 1;// 1 / 0.0043; // 1/0.0043 (A/Nm) IQ2306
     outStruct.WminResolution = 0.0001; // 0.0001 (rad/sec)
     outStruct.Vcc = 24; // 24 (V) line voltage to motor pwm driver
 
@@ -292,6 +292,7 @@ void commandGenerator(struct axisStruct* axisStructPtr)
     if (axisStructPtr->Planning.desiredControlMode != axisStructPtr->Planning.actualControlMode)
     {
         axisStructPtr->Planning.cmdGenerator.desiredGenMode = generateNothing;
+        axisStructPtr->Planning.Tmotion = -axisStructPtr->Planning.dT;
     }
     if (axisStructPtr->Planning.cmdGenerator.actualGenMode != axisStructPtr->Planning.cmdGenerator.desiredGenMode)
     {
@@ -360,8 +361,6 @@ void planningLoop(struct axisStruct* axisStructPtr)
         axisStructPtr->Planning.estVelocity = 0;
     }
     axisStructPtr->Planning.LastFbkPosition = axisStructPtr->Position.Fbk;
-
-
 
     if(axisStructPtr->ctrlEnabled)
     {
@@ -500,13 +499,14 @@ void planningLoop(struct axisStruct* axisStructPtr)
         }
         break;
         default:break;
-        }
+        }        
     }
     else
     {
         axisStructPtr->Position.Cmd = axisStructPtr->Position.Fbk;
         axisStructPtr->Planning.desiredPos = axisStructPtr->Position.Fbk;
     }
+    axisStructPtr->Planning.actualControlMode = axisStructPtr->Planning.desiredControlMode;
 }
 void positionLoop(struct axisStruct* axisStructPtr)
 {
@@ -587,12 +587,17 @@ void currentLoop(struct axisStruct* axisStructPtr)
         switch (axisStructPtr->Planning.actualControlMode) {
         case controlPosition:
         case controlVelocity:
-        case controlCurrent:
         {
             if (axisStructPtr->currentCtrlEnabled)
             {
                 axisStructPtr->Current.Cmd = axisStructPtr->torqueCmd / axisStructPtr->MotorModel.Km;
+            }            
 
+        }// intentional fall-through
+        case controlCurrent:
+        {
+            if (axisStructPtr->currentCtrlEnabled)
+            {
                 if (axisStructPtr->Current.Cmd > axisStructPtr->Current.LimitPos)
                 {
                     axisStructPtr->Current.Cmd = axisStructPtr->Current.LimitPos;
@@ -624,6 +629,27 @@ void currentLoop(struct axisStruct* axisStructPtr)
         }// intentional fall-through        
         case controlPWM:
         {
+            
+
+            if (axisStructPtr->Current.Fbk > axisStructPtr->Current.LimitPos)
+            {
+                //axisStructPtr->PWMCmd = ;
+                axisStructPtr->PWMSaturated = ui8TRUE;
+            }
+            else if (axisStructPtr->Current.Fbk < axisStructPtr->Current.LimitNeg)
+            {
+                //axisStructPtr->PWMCmd = ;
+                axisStructPtr->PWMSaturated = ui8TRUE;
+            }
+            else
+                axisStructPtr->PWMSaturated = ui8FALSE;
+
+            // protect against NAN
+            if (axisStructPtr->PWMCmd != axisStructPtr->PWMCmd)
+            {
+                axisStructPtr->PWMCmd = 0.0;
+                axisStructPtr->PWMSaturated = ui8TRUE;
+            }
             if (axisStructPtr->PWMCmd > axisStructPtr->PWMLimit)
             {
                 axisStructPtr->PWMCmd = axisStructPtr->PWMLimit;
@@ -634,8 +660,7 @@ void currentLoop(struct axisStruct* axisStructPtr)
                 axisStructPtr->PWMCmd = -axisStructPtr->PWMLimit;
                 axisStructPtr->PWMSaturated = ui8TRUE;
             }
-            else
-                axisStructPtr->PWMSaturated = ui8FALSE;
+            
         }
         break;
         default:break;

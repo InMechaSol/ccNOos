@@ -118,7 +118,14 @@ enum mcsSPDSelector
     mcsCurCtrlReset,
     mcsCurCtrlSaturated,
     mcsPWMCMD,
+    mcsPWMLimit,
+    mcsPWMSaturated,
+    mcsCurrentSaturated,
     mcsCtrlEnabled,
+    mcsCurrentCtrlEnabled,
+    mcsTorqueCmd,
+    mcsVoltageCmd,
+    mcsVoltageLimit,
     mcsEND
 };
 
