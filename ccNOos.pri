@@ -109,6 +109,10 @@ if(ccNOosAllLibs|ccNOosLibs_acs) {
 
 if(ccNOosAllLibs|ccNOosLibs_mcs) {
     DEFINES += __USE_MCS
+    iPath = $$ccNOosDIR/ccLibs
+    fName = $$iPath/abstractMATH
+    INCLUDEPATH += $$iPath
+    HEADERS += $${fName}.h
     iPath = $$ccNOosDIR/ccLibs/mcs
     fName = $$iPath/motionControl
     INCLUDEPATH += $$iPath
