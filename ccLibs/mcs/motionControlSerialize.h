@@ -52,6 +52,7 @@ enum mcsSPDSelector
     mcsCMDgenOutput,
     mcsCMDgenActualMode,
     mcsCMDgenDesiredMode,
+    mcsCMDgenOffset,
     mcsCMDgenAmplitude,
     mcsCMDgenPeriod,
     mcsCMDgenDutyCycle,

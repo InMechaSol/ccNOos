@@ -35,6 +35,7 @@ struct generatorStruct creategeneratorStruct()
     outStruct.desiredGenMode = generateNothing;
     outStruct.dutycyle = 0.5;  //0-1
     outStruct.period = 1.0;//sec
+    outStruct.offset = 0.0;
     outStruct.amplitude = 0.0;
     outStruct.cmdOutput = 0.0;
     return outStruct;
@@ -273,7 +274,7 @@ struct axisStruct createaxisStruct()
     outStruct.CurController = createpiControllerStruct();
     outStruct.torqueCmd = 0;
     outStruct.voltageCmd = 0;
-    outStruct.voltageLimit = 0;
+    outStruct.voltageLimit = 1;
     outStruct.PWMCmd = 0;
     outStruct.PWMLimit = 0;
     outStruct.PWMSaturated = 0;
@@ -314,6 +315,7 @@ void commandGenerator(struct axisStruct* axisStructPtr)
         }
         else
             axisStructPtr->Planning.cmdGenerator.cmdOutput = 0.0;
+        axisStructPtr->Planning.cmdGenerator.cmdOutput += axisStructPtr->Planning.cmdGenerator.offset;
     }
     break;
     case generatePulseTrain:
@@ -326,6 +328,7 @@ void commandGenerator(struct axisStruct* axisStructPtr)
         }
         else
             axisStructPtr->Planning.cmdGenerator.cmdOutput = 0.0;
+        axisStructPtr->Planning.cmdGenerator.cmdOutput += axisStructPtr->Planning.cmdGenerator.offset;
     }
     break;
     case generateSinWave:

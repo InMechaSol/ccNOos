@@ -69,7 +69,7 @@ struct generatorStruct
 {
     float cmdOutput;
     UI_16 actualGenMode, desiredGenMode;
-    float amplitude, period, dutycyle;
+    float offset, amplitude, period, dutycyle;
 };
 struct generatorStruct creategeneratorStruct();
 
