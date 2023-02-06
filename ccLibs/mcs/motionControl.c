@@ -56,14 +56,14 @@ struct planningStruct createplanningStruct()
     outStruct.Tomega = 0;
     outStruct.Tmotion = 0;
     outStruct.desiredPos = 0;
-    outStruct.motionVelocity = 0;
-    outStruct.motionAcceleration = 0;
+    outStruct.motionVelocity = 5;
+    outStruct.motionAcceleration = 1;
     outStruct.estVelocity = 0;
     outStruct.cmdVelocity = 0;
     outStruct.LastFbkPosition = 0;
     outStruct.PositionResolution = 0.01;
-    outStruct.actualControlMode = controlPWM;
-    outStruct.desiredControlMode = controlPWM;
+    outStruct.actualControlMode = controlPosition;
+    outStruct.desiredControlMode = controlPosition;
     outStruct.actualMotionState = motionStopped;
     outStruct.desiredMotionState = motionStopped;
     outStruct.useEstimatedVelocity = ui8FALSE;
@@ -266,8 +266,12 @@ struct axisStruct createaxisStruct()
     struct axisStruct outStruct;
     outStruct.Planning = createplanningStruct();
     outStruct.Position = createcontroledFloat();
+    outStruct.Position.LimitNeg = -100;
+    outStruct.Position.LimitPos = 100;
     outStruct.PosController = createposConrolStruct();
     outStruct.Velocity = createcontroledFloat();
+    outStruct.Velocity.LimitNeg = -10;
+    outStruct.Velocity.LimitPos = 10;
     outStruct.VelController = createpiControllerStruct();
     outStruct.Current = createcontroledFloat();    
     outStruct.MotorModel =  createdcMotorStruct();
@@ -278,6 +282,7 @@ struct axisStruct createaxisStruct()
     outStruct.PWMCmd = 0;
     outStruct.PWMLimit = 0;
     outStruct.PWMSaturated = 0;
+    outStruct.PWMCmdSafe = 0;
     outStruct.currentCtrlEnabled = 0;
     outStruct.CurrentSaturated = 0;
     outStruct.ctrlEnabled = 0;
@@ -387,7 +392,7 @@ void planningLoop(struct axisStruct* axisStructPtr)
                 }
 
                 // determine change in position desired
-                axisStructPtr->Planning.delataPos = axisStructPtr->Planning.desiredPos-axisStructPtr->Position.Cmd;
+                axisStructPtr->Planning.delataPos = axisStructPtr->Planning.desiredPos-axisStructPtr->Position.Fbk;
 
                 // if any motion desired
                 if(axisStructPtr->Planning.delataPos != 0)
@@ -599,21 +604,21 @@ void currentLoop(struct axisStruct* axisStructPtr)
         }// intentional fall-through
         case controlCurrent:
         {
+            if (axisStructPtr->Current.Cmd > axisStructPtr->Current.LimitPos)
+            {
+                axisStructPtr->Current.Cmd = axisStructPtr->Current.LimitPos;
+                axisStructPtr->CurrentSaturated = ui8TRUE;
+            }
+            else if (axisStructPtr->Current.Cmd < axisStructPtr->Current.LimitNeg)
+            {
+                axisStructPtr->Current.Cmd = axisStructPtr->Current.LimitNeg;
+                axisStructPtr->CurrentSaturated = ui8TRUE;
+            }
+            else
+                axisStructPtr->CurrentSaturated = ui8FALSE;
+
             if (axisStructPtr->currentCtrlEnabled)
             {
-                if (axisStructPtr->Current.Cmd > axisStructPtr->Current.LimitPos)
-                {
-                    axisStructPtr->Current.Cmd = axisStructPtr->Current.LimitPos;
-                    axisStructPtr->CurrentSaturated = ui8TRUE;
-                }
-                else if (axisStructPtr->Current.Cmd < axisStructPtr->Current.LimitNeg)
-                {
-                    axisStructPtr->Current.Cmd = axisStructPtr->Current.LimitNeg;
-                    axisStructPtr->CurrentSaturated = ui8TRUE;
-                }
-                else
-                    axisStructPtr->CurrentSaturated = ui8FALSE;
-
                 axisStructPtr->Current.Err = axisStructPtr->Current.Cmd - axisStructPtr->Current.Fbk;
                 axisStructPtr->CurController.saturated = (axisStructPtr->PWMSaturated || axisStructPtr->CurrentSaturated);
                 axisStructPtr->CurController.xn = axisStructPtr->Current.Err;
@@ -632,20 +637,18 @@ void currentLoop(struct axisStruct* axisStructPtr)
         }// intentional fall-through        
         case controlPWM:
         {
-            
-
-            if (axisStructPtr->Current.Fbk > axisStructPtr->Current.LimitPos)
+            if( (axisStructPtr->Current.Fbk > axisStructPtr->Current.LimitPos) ||
+                (axisStructPtr->Current.Fbk < axisStructPtr->Current.LimitNeg))
             {
-                //axisStructPtr->PWMCmd = ;
+                axisStructPtr->PWMCmd = axisStructPtr->PWMCmdSafe;
                 axisStructPtr->PWMSaturated = ui8TRUE;
-            }
-            else if (axisStructPtr->Current.Fbk < axisStructPtr->Current.LimitNeg)
-            {
-                //axisStructPtr->PWMCmd = ;
-                axisStructPtr->PWMSaturated = ui8TRUE;
+                axisStructPtr->PWMCmdSafe = 0.9 * axisStructPtr->PWMCmdSafe;
             }
             else
+            {
                 axisStructPtr->PWMSaturated = ui8FALSE;
+                axisStructPtr->PWMCmdSafe = axisStructPtr->PWMCmd;
+            }
 
             // protect against NAN
             if (axisStructPtr->PWMCmd != axisStructPtr->PWMCmd)

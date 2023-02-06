@@ -161,7 +161,7 @@ struct axisStruct
     float torqueCmd, voltageCmd, voltageLimit;
     struct dcMotorStruct MotorModel;
     struct piControllerStruct CurController;
-    float PWMCmd, PWMLimit;
+    float PWMCmd, PWMLimit, PWMCmdSafe;
     UI_8 ctrlEnabled, currentCtrlEnabled;
     UI_8 PWMSaturated, CurrentSaturated;
 };
