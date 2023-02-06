@@ -57,9 +57,9 @@ enum controlTypeEnum
 ///
 enum motionStateEnum
 {
+    motionNegative=-1,
     motionStopped=0,
-    motionPositive,
-    motionNegative
+    motionPositive=1,
 };
 
 ///
