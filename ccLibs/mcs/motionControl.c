@@ -34,9 +34,9 @@ struct generatorStruct creategeneratorStruct()
     outStruct.actualGenMode = generateNothing;
     outStruct.desiredGenMode = generateNothing;
     outStruct.dutycyle = 0.5;  //0-1
-    outStruct.period = 1.0;//sec
-    outStruct.offset = 0.0;
-    outStruct.amplitude = 0.0;
+    outStruct.period = 10.0;//sec
+    outStruct.offset = -1.0;
+    outStruct.amplitude = 2.0;
     outStruct.cmdOutput = 0.0;
     return outStruct;
 }
@@ -56,8 +56,8 @@ struct planningStruct createplanningStruct()
     outStruct.Tomega = 0;
     outStruct.Tmotion = 0;
     outStruct.desiredPos = 0;
-    outStruct.motionVelocity = 5;
-    outStruct.motionAcceleration = 1;
+    outStruct.desiredVelocity = 5;
+    outStruct.desiredAcceleration = 1;
     outStruct.estVelocity = 0;
     outStruct.cmdVelocity = 0;
     outStruct.LastFbkPosition = 0;
@@ -77,7 +77,7 @@ struct planningStruct createplanningStruct()
 struct posControlStruct createposConrolStruct()
 {
     struct posControlStruct outStruct;
-    outStruct.Kv = 0;
+    outStruct.Kv = 10;
     outStruct.dT = 0.001;
     outStruct.cmdLast = 0;
     outStruct.cmdVel = 0;
@@ -106,8 +106,8 @@ struct piControllerStruct createpiControllerStruct()
 {
     struct piControllerStruct outStruct;
     outStruct.dT = 0.001;
-    outStruct.Kp = 0;
-    outStruct.Ti = 0;
+    outStruct.Kp = 10;
+    outStruct.Ti = 1;
     outStruct.reset = ui8TRUE;
     outStruct.saturated = ui8FALSE;
     outStruct.xn = 0;
@@ -147,6 +147,91 @@ void executepiControllerStruct(struct piControllerStruct* piControllerPtr)
 }
 
 ///
+/// \brief createrotatingInertiaStruct
+/// \return rotatingInertiaStruct
+///
+struct rotatingInertiaStruct createrotatingInertiaStruct()
+{
+    struct rotatingInertiaStruct outStruct;
+    outStruct.dT = 0.001;
+    outStruct.Inertia = 1;
+    outStruct.Efficiency = 0.97;
+    outStruct.Rf = 0.15;
+    outStruct.Kf = 0;
+    outStruct.TorqueRating = 1;
+    outStruct.Omega = 0;
+    outStruct.OmegaDot = 0;
+    outStruct.Theta = 0;
+    outStruct.ThetaDot = 0;
+    outStruct.TorqueApplied = 0;
+    outStruct.TorqueFriction = 0;
+    outStruct.Reset = ui8FALSE;
+    outStruct.WminResolution = 0.001;
+    outStruct.AminResolution = 0.001;
+    return outStruct;
+}
+#define P rotatingInertiaStructPtrIn
+void preparerotatingInertiaStruct(struct rotatingInertiaStruct* P)
+{
+    P->Kf = P->TorqueRating*(1-P->Efficiency);
+}
+void executerotatingInertiaStruct(struct rotatingInertiaStruct* P)
+{
+    // handle reset
+    if(P->Reset)
+    {
+        P->ThetaDot = 0;
+        P->OmegaDot = 0;
+        P->Theta = 0;
+        P->Omega = 0;
+        P->Reset = ui8FALSE;
+    }
+
+    // calculate friction estimate from states and efficiency parameter
+    if(P->EstFriction)
+    {
+        if( (P->Omega <= P->WminResolution && P->Omega>= -P->WminResolution)&&
+            (P->OmegaDot <= P->AminResolution && P->OmegaDot>= -P->AminResolution)
+                )
+        {
+            // Static Friction Always oppose attempted Motion
+            P->TorqueFriction = -P->TorqueApplied;
+
+            // Static Friction Cut-off Torque
+            if(P->TorqueFriction < -P->Kf)
+                P->TorqueFriction = -P->Kf;
+            else if(P->TorqueFriction > P->Kf)
+                P->TorqueFriction = P->Kf;
+        }
+        else
+        {
+            // Kinetic Friction Always oppose actual Motion
+            if(P->Omega > P->WminResolution)
+            {
+                P->TorqueFriction = -P->Rf*P->Kf;
+            }
+            else if(P->Omega < -P->WminResolution)
+            {
+                P->TorqueFriction = P->Rf*P->Kf;
+            }
+        }
+    }
+    else
+    {
+        P->TorqueFriction = 0.0;
+    }
+
+    // calculate the SS model differentials
+    P->OmegaDot = (P->TorqueApplied + P->TorqueFriction) / P->Inertia;
+    P->ThetaDot = P->Omega;
+
+    // integrate the ss model
+    P->Omega += P->OmegaDot*P->dT;
+    P->Theta += P->ThetaDot*P->dT;
+}
+#undef P
+
+///
 /// \brief createdcMotorStruct
 /// \return
 ///
@@ -182,80 +267,77 @@ struct dcMotorStruct createdcMotorStruct()
     outStruct.Vcc = 24; // 24 (V) line voltage to motor pwm driver
 
     outStruct.Reset = ui8TRUE;
-    outStruct.Time = -outStruct.dT;
 
     // Calculate Coefficients
     preparedcMotorStruct(&outStruct);
 
     return outStruct;
 }
-void preparedcMotorStruct(struct dcMotorStruct* dcMotorStructPtrIn)
+#define P dcMotorStructPtrIn
+void preparedcMotorStruct(struct dcMotorStruct* P)
 {
     // calculate ss coefficiencts from motor parameters
-    dcMotorStructPtrIn->a11 = -dcMotorStructPtrIn->R/dcMotorStructPtrIn->L;
-    dcMotorStructPtrIn->a12 = -dcMotorStructPtrIn->Km/dcMotorStructPtrIn->L;
-    dcMotorStructPtrIn->a21 = 1/(dcMotorStructPtrIn->Km*dcMotorStructPtrIn->J);
-    dcMotorStructPtrIn->a22 = 0;
+    P->a11 = -P->R/P->L;
+    P->a12 = -P->Km/P->L;
+    P->a21 = 1/(P->Km*P->J);
+    P->a22 = 0;
 }
-void executedcMotorStruct(struct dcMotorStruct* dcMotorStructPtrIn)
+void executedcMotorStruct(struct dcMotorStruct* P)
 {
-    if(dcMotorStructPtrIn->Reset)
+    if(P->Reset)
     {
-        dcMotorStructPtrIn->Time = -dcMotorStructPtrIn->dT;
-        dcMotorStructPtrIn->Idot = 0;
-        dcMotorStructPtrIn->Wdot = 0;
-        dcMotorStructPtrIn->I = 0;
-        dcMotorStructPtrIn->W = 0;
-        dcMotorStructPtrIn->Reset = ui8FALSE;
+        P->Idot = 0;
+        P->Wdot = 0;
+        P->I = 0;
+        P->W = 0;
+        P->Reset = ui8FALSE;
     }
 
     // calculate friction estimate from states and efficiency parameter
-    if(dcMotorStructPtrIn->W <= dcMotorStructPtrIn->WminResolution && dcMotorStructPtrIn->W >= -dcMotorStructPtrIn->WminResolution)
+    if(P->W <= P->WminResolution && P->W >= -P->WminResolution)
     {
         // Static Friction Always oppose Motion
-        if(dcMotorStructPtrIn->I>0)
-            dcMotorStructPtrIn->FrictionTorque = -(dcMotorStructPtrIn->a21*dcMotorStructPtrIn->I + dcMotorStructPtrIn->a22*dcMotorStructPtrIn->W)*dcMotorStructPtrIn->J;
-        else if(dcMotorStructPtrIn->I<0)
-            dcMotorStructPtrIn->FrictionTorque = (dcMotorStructPtrIn->a21*dcMotorStructPtrIn->I + dcMotorStructPtrIn->a22*dcMotorStructPtrIn->W)*dcMotorStructPtrIn->J;
+        if(P->I>0)
+            P->FrictionTorque = -(P->a21*P->I + P->a22*P->W)*P->J;
+        else if(P->I<0)
+            P->FrictionTorque = (P->a21*P->I + P->a22*P->W)*P->J;
         else
-            dcMotorStructPtrIn->FrictionTorque = 0.0;
+            P->FrictionTorque = 0.0;
 
         // Static Friction Cut-off Torque
-        if(dcMotorStructPtrIn->FrictionTorque < -dcMotorStructPtrIn->ContinousTorque*(1-dcMotorStructPtrIn->Efficiency))
-            dcMotorStructPtrIn->FrictionTorque = -dcMotorStructPtrIn->ContinousTorque*(1-dcMotorStructPtrIn->Efficiency);
-        else if(dcMotorStructPtrIn->FrictionTorque > dcMotorStructPtrIn->ContinousTorque*(1-dcMotorStructPtrIn->Efficiency))
-            dcMotorStructPtrIn->FrictionTorque = dcMotorStructPtrIn->ContinousTorque*(1-dcMotorStructPtrIn->Efficiency);
+        if(P->FrictionTorque < -P->ContinousTorque*(1-P->Efficiency))
+            P->FrictionTorque = -P->ContinousTorque*(1-P->Efficiency);
+        else if(P->FrictionTorque > P->ContinousTorque*(1-P->Efficiency))
+            P->FrictionTorque = P->ContinousTorque*(1-P->Efficiency);
     }
     else
     {
         // Kinetic Friction
-        if(dcMotorStructPtrIn->W > dcMotorStructPtrIn->WminResolution)
+        if(P->W > P->WminResolution)
         {
-            dcMotorStructPtrIn->FrictionTorque = -.25*dcMotorStructPtrIn->ContinousTorque*(1-dcMotorStructPtrIn->Efficiency);
+            P->FrictionTorque = -.25*P->ContinousTorque*(1-P->Efficiency);
         }
-        else if(dcMotorStructPtrIn->W < -dcMotorStructPtrIn->WminResolution)
+        else if(P->W < -P->WminResolution)
         {
-            dcMotorStructPtrIn->FrictionTorque = .25*dcMotorStructPtrIn->ContinousTorque*(1-dcMotorStructPtrIn->Efficiency);
+            P->FrictionTorque = .25*P->ContinousTorque*(1-P->Efficiency);
         }
     }
-    dcMotorStructPtrIn->FrictionTorque = 0.0;
+    P->FrictionTorque = 0.0;
 
     // calculate ss differentials from states, coefficients, and inputs
-    dcMotorStructPtrIn->Idot = dcMotorStructPtrIn->a11*dcMotorStructPtrIn->I + dcMotorStructPtrIn->a12*dcMotorStructPtrIn->W + dcMotorStructPtrIn->V*1/dcMotorStructPtrIn->L;
-    dcMotorStructPtrIn->Wdot = dcMotorStructPtrIn->a21*dcMotorStructPtrIn->I + dcMotorStructPtrIn->a22*dcMotorStructPtrIn->W + dcMotorStructPtrIn->FrictionTorque*1/dcMotorStructPtrIn->J;
+    P->Idot = P->a11*P->I + P->a12*P->W + P->V*1/P->L;
+    P->Wdot = P->a21*P->I + P->a22*P->W + P->FrictionTorque*1/P->J;
 
     // calculate ss next states from ss differentials and time delta
-    dcMotorStructPtrIn->I += dcMotorStructPtrIn->Idot*dcMotorStructPtrIn->dT;
-    dcMotorStructPtrIn->W += dcMotorStructPtrIn->Wdot*dcMotorStructPtrIn->dT;
-    //dcMotorStructPtrIn->Time += dcMotorStructPtrIn->dT;
+    P->I += P->Idot*P->dT;
+    P->W += P->Wdot*P->dT;
+    //P->Time += P->dT;  // see @void SmartMotorDevice::execute()
 
     // calculate observed variables from states and parameters
-    dcMotorStructPtrIn->Torque = dcMotorStructPtrIn->I/dcMotorStructPtrIn->Km;
-    dcMotorStructPtrIn->Vemf = dcMotorStructPtrIn->Km*dcMotorStructPtrIn->W;
-
-
-
+    P->Torque = P->I/P->Km;
+    P->Vemf = P->Km*P->W;
 }
+#undef P
 
 ///
 /// \brief createaxisStruct
@@ -286,6 +368,8 @@ struct axisStruct createaxisStruct()
     outStruct.currentCtrlEnabled = 0;
     outStruct.CurrentSaturated = 0;
     outStruct.ctrlEnabled = 0;
+    outStruct.AxisLoadInertia = createrotatingInertiaStruct();
+    outStruct.ignoreEE = ui8TRUE;
     return outStruct;
 };
 
@@ -298,23 +382,23 @@ void commandGenerator(struct axisStruct* axisStructPtr)
     if (axisStructPtr->Planning.desiredControlMode != axisStructPtr->Planning.actualControlMode)
     {
         axisStructPtr->Planning.cmdGenerator.desiredGenMode = generateNothing;
-        axisStructPtr->Planning.Tmotion = -axisStructPtr->Planning.dT;
+        axisStructPtr->Planning.cmdGenerator.genTime = -axisStructPtr->Planning.dT;
     }
     if (axisStructPtr->Planning.cmdGenerator.actualGenMode != axisStructPtr->Planning.cmdGenerator.desiredGenMode)
     {
         axisStructPtr->Planning.cmdGenerator.actualGenMode = axisStructPtr->Planning.cmdGenerator.desiredGenMode;
-        axisStructPtr->Planning.Tmotion = -axisStructPtr->Planning.dT;
+        axisStructPtr->Planning.cmdGenerator.genTime = -axisStructPtr->Planning.dT;
     }
 
-    // increment time in motion by dT
-    axisStructPtr->Planning.Tmotion += axisStructPtr->Planning.dT;
+    // increment generator time by dT
+    axisStructPtr->Planning.cmdGenerator.genTime += axisStructPtr->Planning.dT;
 
     // always output zero, unless...
     switch (axisStructPtr->Planning.cmdGenerator.actualGenMode)
     {
     case generatePulse: 
     {
-        if (axisStructPtr->Planning.Tmotion < axisStructPtr->Planning.cmdGenerator.period)
+        if (axisStructPtr->Planning.cmdGenerator.genTime < axisStructPtr->Planning.cmdGenerator.period)
         {
             axisStructPtr->Planning.cmdGenerator.cmdOutput = axisStructPtr->Planning.cmdGenerator.amplitude;
         }
@@ -326,7 +410,7 @@ void commandGenerator(struct axisStruct* axisStructPtr)
     case generatePulseTrain:
     {
         float intPart, fracPart;
-        fracPart = ModuloFloat((axisStructPtr->Planning.Tmotion/ axisStructPtr->Planning.cmdGenerator.period), &intPart);
+        fracPart = ModuloFloat((axisStructPtr->Planning.cmdGenerator.genTime/ axisStructPtr->Planning.cmdGenerator.period), &intPart);
         if (fracPart < axisStructPtr->Planning.cmdGenerator.dutycyle)
         {
             axisStructPtr->Planning.cmdGenerator.cmdOutput = axisStructPtr->Planning.cmdGenerator.amplitude;
@@ -373,9 +457,14 @@ void planningLoop(struct axisStruct* axisStructPtr)
     if(axisStructPtr->ctrlEnabled)
     {
         switch (axisStructPtr->Planning.actualControlMode) {
-        case controlPosition: 
+        case controlPosition:// generate stream of position command setpoints to feed the position loop input
         {
-            // generate stream of position command setpoints to feed the position loop input
+            // use command generator to set desired position setpoint, if desired (for tuning mostly)
+            commandGenerator(axisStructPtr);
+            if(axisStructPtr->Planning.cmdGenerator.actualGenMode != generateNothing)
+            {
+                axisStructPtr->Planning.desiredPos = axisStructPtr->Planning.cmdGenerator.cmdOutput;
+            }
 
             // from desired and actual state of motion stopped, determine if new motion should be commanded
             // and calculate critical time boundaries
@@ -392,7 +481,15 @@ void planningLoop(struct axisStruct* axisStructPtr)
                 }
 
                 // determine change in position desired
-                axisStructPtr->Planning.delataPos = axisStructPtr->Planning.desiredPos-axisStructPtr->Position.Fbk;
+                if(axisStructPtr->Planning.desiredPosLast != axisStructPtr->Planning.desiredPos)
+                {
+                    axisStructPtr->Planning.delataPos = axisStructPtr->Planning.desiredPos-axisStructPtr->Position.Fbk;
+                    axisStructPtr->Planning.desiredPosLast = axisStructPtr->Planning.desiredPos;
+                }
+                else
+                {
+                    axisStructPtr->Planning.delataPos = 0;
+                }
 
                 // if any motion desired
                 if(axisStructPtr->Planning.delataPos != 0)
@@ -412,26 +509,37 @@ void planningLoop(struct axisStruct* axisStructPtr)
                         axisStructPtr->Planning.delataPos = -axisStructPtr->Planning.delataPos;
                     }
                     // calculate critical time boundaries
-                    if(axisStructPtr->Planning.delataPos>(axisStructPtr->Planning.motionVelocity*axisStructPtr->Planning.motionVelocity)/axisStructPtr->Planning.motionAcceleration)
+                    if(axisStructPtr->Planning.delataPos>(axisStructPtr->Planning.desiredVelocity*axisStructPtr->Planning.desiredVelocity)/axisStructPtr->Planning.desiredAcceleration)
                     {
                         // time for constant velocity
-                        axisStructPtr->Planning.Tomega = axisStructPtr->Planning.delataPos/axisStructPtr->Planning.motionVelocity-axisStructPtr->Planning.motionVelocity/axisStructPtr->Planning.motionAcceleration;
+                        axisStructPtr->Planning.topMotionVelocity = axisStructPtr->Planning.desiredVelocity;
+                        axisStructPtr->Planning.Tomega = axisStructPtr->Planning.delataPos/axisStructPtr->Planning.topMotionVelocity-axisStructPtr->Planning.topMotionVelocity/axisStructPtr->Planning.desiredAcceleration;
                     }
                     else
                     {
                         axisStructPtr->Planning.Tomega = 0;
                         // motion velocity command limited by range and acceleration
-                        axisStructPtr->Planning.motionVelocity = sqrtFloat(axisStructPtr->Planning.delataPos*axisStructPtr->Planning.motionAcceleration);
+                        axisStructPtr->Planning.topMotionVelocity = sqrtFloat(axisStructPtr->Planning.delataPos*axisStructPtr->Planning.desiredAcceleration);
                     }
+
+
+
+
                     // time for accel / decel
-                    axisStructPtr->Planning.Talpha = axisStructPtr->Planning.motionVelocity/axisStructPtr->Planning.motionAcceleration;
+                    axisStructPtr->Planning.Talpha = axisStructPtr->Planning.topMotionVelocity/axisStructPtr->Planning.desiredAcceleration;
+
+
+
+
+
                     // negate the acceleration for negative motion
-                    if(axisStructPtr->Planning.desiredMotionState == motionNegative)
-                    {
-                        axisStructPtr->Planning.motionAcceleration = -axisStructPtr->Planning.motionAcceleration;
-                    }
+//                    if(axisStructPtr->Planning.desiredMotionState == (UI_16)motionNegative)
+//                    {
+//                        axisStructPtr->Planning.motionAcceleration = -axisStructPtr->Planning.motionAcceleration;
+//                    }
                 }
             }
+
             // if motion is desired, generate command profile
             if(axisStructPtr->Planning.desiredMotionState != motionStopped)
             {
@@ -441,8 +549,12 @@ void planningLoop(struct axisStruct* axisStructPtr)
                 if (axisStructPtr->Planning.Tmotion < axisStructPtr->Planning.Talpha)
                 {
                     // accel to motion velocity
-                    axisStructPtr->Planning.cmdVelocity += axisStructPtr->Planning.motionAcceleration * axisStructPtr->Planning.dT;
+                    if(axisStructPtr->Planning.desiredMotionState == (UI_16)motionNegative)
+                        axisStructPtr->Planning.cmdVelocity -= axisStructPtr->Planning.desiredAcceleration * axisStructPtr->Planning.dT;
+                    else
+                        axisStructPtr->Planning.cmdVelocity += axisStructPtr->Planning.desiredAcceleration * axisStructPtr->Planning.dT;
                     axisStructPtr->Position.Cmd += axisStructPtr->Planning.cmdVelocity * axisStructPtr->Planning.dT;
+
                 }
                 else // a move could have trapezoidal or triangleular velocity profile depending on position delta
                 {
@@ -451,14 +563,19 @@ void planningLoop(struct axisStruct* axisStructPtr)
                         if (axisStructPtr->Planning.Tmotion < 2 * axisStructPtr->Planning.Talpha)
                         {
                             // decel to stop
-                            axisStructPtr->Planning.cmdVelocity -= axisStructPtr->Planning.motionAcceleration * axisStructPtr->Planning.dT;
+                            if(axisStructPtr->Planning.desiredMotionState == (UI_16)motionNegative)
+                                axisStructPtr->Planning.cmdVelocity += axisStructPtr->Planning.desiredAcceleration * axisStructPtr->Planning.dT;
+                            else
+                                axisStructPtr->Planning.cmdVelocity -= axisStructPtr->Planning.desiredAcceleration * axisStructPtr->Planning.dT;
                             axisStructPtr->Position.Cmd += axisStructPtr->Planning.cmdVelocity * axisStructPtr->Planning.dT;
+
                         }
                         else
                         {
                             // end with command equal to desired position
                             axisStructPtr->Position.Cmd = axisStructPtr->Planning.desiredPos;
                             axisStructPtr->Planning.desiredMotionState = motionStopped;
+
                         }
                     }
                     else // trapezoid
@@ -471,7 +588,10 @@ void planningLoop(struct axisStruct* axisStructPtr)
                         else if (axisStructPtr->Planning.Tmotion < (2 * axisStructPtr->Planning.Talpha + axisStructPtr->Planning.Tomega))
                         {
                             // decel to stop
-                            axisStructPtr->Planning.cmdVelocity -= axisStructPtr->Planning.motionAcceleration * axisStructPtr->Planning.dT;
+                            if(axisStructPtr->Planning.desiredMotionState == (UI_16)motionNegative)
+                                axisStructPtr->Planning.cmdVelocity += axisStructPtr->Planning.desiredAcceleration * axisStructPtr->Planning.dT;
+                            else
+                                axisStructPtr->Planning.cmdVelocity -= axisStructPtr->Planning.desiredAcceleration * axisStructPtr->Planning.dT;
                             axisStructPtr->Position.Cmd += axisStructPtr->Planning.cmdVelocity * axisStructPtr->Planning.dT;
                         }
                         else
@@ -485,23 +605,20 @@ void planningLoop(struct axisStruct* axisStructPtr)
             }
         }
         break;
-        case controlVelocity:
-        {
-            // generate stream of velocity command setpoints to feed the velocity loop input
+        case controlVelocity:// generate stream of velocity command setpoints to feed the velocity loop input
+        {            
             commandGenerator(axisStructPtr);
             axisStructPtr->Velocity.Cmd = axisStructPtr->Planning.cmdGenerator.cmdOutput;
         }
         break;
-        case controlCurrent:
-        {
-            // generate stream of current command setpoints to feed the current loop input
+        case controlCurrent:// generate stream of current command setpoints to feed the current loop input
+        {            
             commandGenerator(axisStructPtr);
             axisStructPtr->Current.Cmd = axisStructPtr->Planning.cmdGenerator.cmdOutput;
         }
         break;
-        case controlPWM:
-        {
-            // generate stream of pwm command setpoints to directly drive motor throttle
+        case controlPWM:// generate stream of pwm command setpoints to directly drive motor throttle
+        {            
             commandGenerator(axisStructPtr);
             axisStructPtr->PWMCmd = axisStructPtr->Planning.cmdGenerator.cmdOutput;
         }

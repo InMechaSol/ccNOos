@@ -67,7 +67,7 @@ enum motionStateEnum
 ///
 struct generatorStruct
 {
-    float cmdOutput;
+    float genTime, cmdOutput;
     UI_16 actualGenMode, desiredGenMode;
     float offset, amplitude, period, dutycyle;
 };
@@ -79,7 +79,8 @@ struct generatorStruct creategeneratorStruct();
 struct planningStruct
 {
     float dT, delataPos, Talpha, Tomega, Tmotion;
-    float desiredPos, motionVelocity, motionAcceleration;
+    float desiredPos, desiredPosLast, desiredVelocity, desiredAcceleration;
+    float topMotionVelocity;
     float estVelocity, cmdVelocity, LastFbkPosition, PositionResolution;
     UI_16 actualMotionState;
     UI_16 desiredMotionState;
@@ -131,12 +132,27 @@ void preparepiControllerStruct(struct piControllerStruct* piControllerPtr);
 void executepiControllerStruct(struct piControllerStruct* piControllerPtr);
 
 ///
+/// \brief The rotatingInertiaStruct
+///
+struct rotatingInertiaStruct
+{
+    float dT, WminResolution, AminResolution;
+    float OmegaDot, Omega, ThetaDot, Theta;
+    float TorqueApplied, TorqueFriction, Efficiency, Kf, Rf;
+    float TorqueRating, Inertia;
+    UI_8 Reset, EstFriction;
+};
+struct rotatingInertiaStruct createrotatingInertiaStruct();
+void preparerotatingInertiaStruct(struct rotatingInertiaStruct* rotatingInertiaStructPtrIn);
+void executerotatingInertiaStruct(struct rotatingInertiaStruct* rotatingInertiaStructPtrIn);
+
+///
 /// \brief The dcMotorStruct class
 ///
 struct dcMotorStruct
 {
     float ContinousTorque, Vcc;
-    float Time, dT, WminResolution;
+    float dT, WminResolution, AminResolution;
     float Idot, I, Wdot, J, W, R, L, Km, V, Vemf, Torque, FrictionTorque, Efficiency;
     float a11, a12, a21, a22;
     UI_8 Reset;
@@ -152,18 +168,31 @@ void executedcMotorStruct(struct dcMotorStruct* dcMotorStructPtrIn);
 ///
 struct axisStruct
 {
+    // Controls - Cascade Loops
+
+    // can run slowest ~10Hz
     struct planningStruct Planning;
+    // should run faster ~100Hz
     struct controledFloat Position;
     struct posControlStruct PosController;
+    // should run faster if possible, ~1000Hz
     struct controledFloat Velocity;
     struct piControllerStruct VelController;
+
+    // Models - Under Control of Cascade Loops
+    UI_8 ignoreEE, ctrlEnabled, Reset;
+    float Time;
+
+    // EE very fast dT required for accuracy
     struct controledFloat Current;
     float torqueCmd, voltageCmd, voltageLimit;
     struct dcMotorStruct MotorModel;
     struct piControllerStruct CurController;
-    float PWMCmd, PWMLimit, PWMCmdSafe;
-    UI_8 ctrlEnabled, currentCtrlEnabled;
-    UI_8 PWMSaturated, CurrentSaturated;
+    float PWMCmd, PWMLimit, PWMCmdSafe;    
+    UI_8 PWMSaturated, CurrentSaturated, currentCtrlEnabled;
+
+    // ME accuracy acheivable with slower dT
+    struct rotatingInertiaStruct AxisLoadInertia;
 };
 struct axisStruct createaxisStruct();
 

@@ -39,6 +39,31 @@ void SmartMotorDevice::prepare()
 }
 void SmartMotorDevice::execute()
 {
+    // Latch Feedback and Current Status
+    if(!mystruct->ignoreEE)
+    {
+        mystruct->Current.Fbk = mystruct->MotorModel.I;
+        mystruct->Velocity.Fbk = mystruct->MotorModel.W;
+        // what about position feedback? need add to motor model
+    }
+    else
+    {
+        // no current feedback in the mode
+        mystruct->Velocity.Fbk = mystruct->AxisLoadInertia.Omega;
+        mystruct->Position.Fbk = mystruct->AxisLoadInertia.Theta;
+    }
+
+
+    if(mystruct->Reset)
+    {
+        mystruct->Reset = ui8FALSE;
+        mystruct->MotorModel.Reset = ui8TRUE;
+        mystruct->AxisLoadInertia.Reset = ui8TRUE;
+        mystruct->CurController.reset = ui8TRUE;
+        mystruct->VelController.reset = ui8TRUE;
+        mystruct->Time = 0;
+    }
+
     // planning loop
     planningLoop(mystruct);
 
@@ -48,19 +73,31 @@ void SmartMotorDevice::execute()
     // velocity loop
     velocityLoop(mystruct);
 
-    // current loop
-    currentLoop(mystruct);
-
-    // voltage/pwm
-
-    // dc motor model
-    preparedcMotorStruct(&mystruct->MotorModel);
-    int times = mystruct->CurController.dT/mystruct->MotorModel.dT;
-    for(int i = 0; i < times; i++)
+    if(!mystruct->ignoreEE)
     {
-        executedcMotorStruct(&mystruct->MotorModel);
+        // current loop
+        currentLoop(mystruct);
+
+        // voltage/pwm
+
+        // dc motor model
+        preparedcMotorStruct(&mystruct->MotorModel);
+        int times = mystruct->CurController.dT/mystruct->MotorModel.dT;
+        for(int i = 0; i < times; i++)
+        {
+            executedcMotorStruct(&mystruct->MotorModel);
+        }
+        mystruct->Time += mystruct->CurController.dT;
     }
-    mystruct->MotorModel.Time += mystruct->CurController.dT;
+    else
+    {
+        // Axis Load simulation with torque input
+        mystruct->AxisLoadInertia.TorqueApplied = mystruct->torqueCmd;
+        preparerotatingInertiaStruct(&mystruct->AxisLoadInertia);
+        executerotatingInertiaStruct(&mystruct->AxisLoadInertia);
+        mystruct->Time += mystruct->AxisLoadInertia.dT;
+    }
+
 }
 struct SPDStruct* SmartMotorDevice::getSPDArray()
 {
